@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Shaik Saida Vali — Portfolio</title>
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-sZ6X...=="
+ crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<style>
+:root{
+  --bg:#0f1724; --card:#0b1220; --muted:#9aa7b2; --accent:#0ea5a4; --glass: rgba(255,255,255,0.03);
+  --maxw:1100px; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:
+  linear-gradient(180deg, rgba(12,17,23,1) 0%, rgba(7,10,14,1) 100%);
+  color:#e6eef6; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+}
+.container{max-width:var(--maxw); margin:28px auto; padding:28px;}
+
+/* Header / Nav */
+.header{
+  display:flex; align-items:center; justify-content:space-between; gap:18px;
+  padding:12px 0;
+}
+.brand{display:flex;gap:12px;align-items:center}
+.brand img{height:46px;border-radius:8px;object-fit:cover}
+.brand h1{font-size:18px;margin:0;font-weight:700}
+.nav{display:flex;gap:12px;align-items:center}
+.nav a{color:var(--muted); text-decoration:none; padding:8px 10px;border-radius:8px; font-weight:600}
+.nav a:hover{color:#fff;background:var(--glass)}
+.menu-toggle{display:none}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:8px}
+.hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+ padding:28px;border-radius:14px;backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+.hero-left h2{margin:0;color:#fff;font-size:28px}
+.tag{color:var(--accent);font-weight:700;margin-top:8px}
+.contact-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted);text-decoration:none;font-weight:600}
+.hero-right{display:flex;justify-content:center}
+.profile-img{width:100%;max-width:390px;border-radius:12px;object-fit:cover;border:2px solid rgba(255,255,255,0.04)}
+
+/* Grid sections */
+.grid{display:grid;grid-template-columns:1fr 360px;gap:24px;margin-top:24px}
+.card{background:var(--card);padding:20px;border-radius:12px}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.section-title h3{margin:0;font-size:16px;color:#fff}
+.small{color:var(--muted);font-size:13px}
+
+/* Skills badges */
+.skills{display:flex;flex-wrap:wrap;gap:8px}
+.skill-img{height:34px;display:inline-block}
+
+/* Projects */
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.project{padding:12px;border-radius:10px;background:linear-gradient(0deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02))}
+.project h4{margin:6px 0 0 0}
+
+/* Timeline */
+.timeline{display:flex;flex-direction:column;gap:12px}
+.entry{padding:12px;border-left:3px solid var(--accent);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border-radius:8px}
+.entry .meta{font-size:13px;color:var(--muted)}
+
+/* Footer / contact */
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px;padding:18px 0}
+
+/* Responsive */
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr;padding-bottom:8px}
+  .grid{grid-template-columns:1fr}
+  .nav{display:none}
+  .menu-toggle{display:inline-flex}
+  .profile-img{max-width:320px}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header class="header">
+    <div class="brand">
+      <img src="https://www.lambdatest.com/resources/images/news24.gif" alt="logo">
+      <div>
+        <h1>Shaik Saida Vali</h1>
+        <div class="small">Student · Computer Science & Engineering · Cyber Security</div>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#certs">Certifications</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+      <a href="https://in.linkedin.com/in/shaiksaidavali" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+      <i class="fa fa-bars"></i>
+    </button>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="about">
+    <div class="hero-card hero-left" role="region" aria-labelledby="hero-title">
+      <h2 id="hero-title">Shaik Saida Vali</h2>
+      <div class="tag">B.Tech CSE • Cybersecurity Enthusiast • Cloud & DevOps</div>
+      <p class="small" style="margin-top:14px">
+        Studying at Kakinada Institute of Engineering and Technology. Focus on Cloud Computing, Data Analytics, and Secure Systems. Actively building secure microservices and IoT projects.
+      </p>
+
+      <div class="contact-badges" style="margin-top:16px">
+        <a class="badge" href="mailto:shaiksaidavali.in@gmail.com"><i class="fa fa-envelope"></i> Email</a>
+        <a class="badge" href="https://wa.me/917674012184" target="_blank" rel="noopener"><i class="fa fa-whatsapp"></i> +91 7674012184</a>
+        <a class="badge" href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" rel="noopener"><i class="fa fa-file"></i> Resume</a>
+        <a class="badge" href="https://sites.google.com/view/shaiksaidavali/home" target="_blank" rel="noopener"><i class="fa fa-globe"></i> Website</a>
+      </div>
+
+      <div style="margin-top:18px" class="small">
+        <strong>Location:</strong> Avulavaripalem, Guntur, Andhra Pradesh · 522411
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <img class="profile-img" alt="Shaik Saida Vali" src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true">
+    </div>
+  </section>
+
+  <!-- MAIN GRID -->
+  <main class="grid" aria-live="polite">
+    <!-- Left column -->
+    <section>
+      <!-- Education + Skills -->
+      <div class="card" style="margin-bottom:16px">
+        <div class="section-title">
+          <h3>Education</h3>
+          <span class="small">2022 - 2026</span>
+        </div>
+        <div><strong>B.Tech</strong> — Kakinada Institute of Engineering and Technology</div>
+        <div class="small" style="margin-top:6px">Location: Kakinada, Andhra Pradesh</div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px" id="skills">
+        <div class="section-title">
+          <h3>Skills</h3>
+          <span class="small">Tools & platforms</span>
+        </div>
+
+        <div class="skills" aria-hidden="false">
+          <!-- Using shields images from profile -->
+          <img class="skill-img" title="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+          <img class="skill-img" title="Google Cloud" src="https://img.shields.io/badge/Google%20Cloud-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white">
+          <img class="skill-img" title="Docker" src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+          <img class="skill-img" title="Kubernetes" src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white">
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div class="card" id="projects">
+        <div class="section-title">
+          <h3>Projects</h3>
+          <span class="small">Selected</span>
+        </div>
+
+        <div class="projects">
+          <article class="project">
+            <div class="small">Password Strength Tester</div>
+            <h4>Frontend + Python validation</h4>
+            <p class="small">A tool to evaluate password entropy and suggest improvements.</p>
+          </article>
+
+          <article class="project">
+            <div class="small">Secure Microservices on GKE</div>
+            <h4>GKE • CI/CD • Helm</h4>
+            <p class="small">Design and deploy secure microservice architecture with best practices.</p>
+          </article>
+
+          <article class="project">
+            <div class="small">Aquasense IoT</div>
+            <h4>Water Quality IoT System</h4>
+            <p class="small">Arduino-based sensors with cloud ingestion and dashboarding.</p>
+          </article>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="card" id="certs">
+        <div class="section-title">
+          <h3>Certifications</h3>
+          <span class="small">Highlights</span>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <a class="badge" href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank" rel="noopener">Google Cyber Security</a>
+          <a class="badge" href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=drive_link" target="_blank" rel="noopener">Data Analytics</a>
+          <a class="badge" href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank" rel="noopener">Advanced Data Analytics</a>
+          <a class="badge" href="https://drive.google.com/drive/folders/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP?usp=drive_link" target="_blank" rel="noopener">AWS Cloud Tech</a>
+        </div>
+      </div>
+
+      <!-- Currently working on -->
+      <div class="card" style="margin-top:16px">
+        <div class="section-title">
+          <h3>Currently</h3>
+          <span class="small">Focus areas</span>
+        </div>
+        <p class="small">Cloud Computing · Cloud Architecture · Data Analytics · System Design · CI/CD</p>
+      </div>
+    </section>
+
+    <!-- Right column -->
+    <aside>
+      <div class="card" id="experience">
+  <div class="section-title">
+    <h3>Experience</h3>
+    <span class="small">Recent</span>
+  </div>
+
+  <div class="timeline">
+    <a href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" target="_blank" rel="noopener" class="entry" style="text-decoration: none; color:white;">
+      <div><strong>Cybersecurity & Ethical Hacking</strong></div>
+      <div class="meta">Innovate Intern · 03 May 2025 — 12 Jul 2025 · 10 weeks</div>
+    </a>
+
+    <a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" rel="noopener" class="entry" style="text-decoration: none; color:white;">
+      <div><strong>Cloud Computing on GCP</strong></div>
+      <div class="meta">Innovate Intern · Mar 2025 — May 2025 · 8 weeks</div>
+    </a>
+
+    <a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" rel="noopener" class="entry" style="text-decoration: none; color:white;">
+      <div><strong>Internet of Things (IoT)</strong></div>
+      <div class="meta">Innovate Intern · Oct 2024 — Feb 2025 · 16 weeks</div>
+    </a>
+    <h3>Internship</h3>
+    <a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank" rel="noopener" class="entry" style="text-decoration: none;color:white;">
+      <div><strong>Zscaler Networking Virtual Internship</strong></div>
+      <div class="meta">AICTE Intern · Virtual Internship · Zscaler</div>
+    </a>
+
+    <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank" rel="noopener" class="entry" style="text-decoration: none;color:white;">
+      <div><strong>Fortinet Network Security Associate (NSE 1 & 2)</strong></div>
+      <div class="meta">AICTE Intern · Virtual Internship · Fortinet</div>
+    </a>
+
+    <a href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=drive_link" target="_blank" rel="noopener" class="entry" style="text-decoration: none;color:white;">
+      <div><strong>Google AI & ML Virtual Internship</strong></div>
+      <div class="meta">AICTE Intern · Virtual Internship · Google</div>
+    </a>
+
+
+
+  </div>
+</div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="section-title">
+          <h3>Badges & Activity</h3>
+          <span class="small">Live</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+          <img style="width:100%;border-radius:8px" src="https://github-readme-activity-graph.vercel.app/graph?username=urstrulysaida&theme=react-dark" alt="contrib graph">
+          <img style="width:100%;border-radius:8px" src="https://github-profile-trophy.vercel.app/?username=urstrulysaida&theme=discord&margin-w=15&margin-h=15" alt="trophies">
+        </div>
+      </div>
+
+      
+
+      <div class="card" style="margin-top:16px;text-align:center">
+        <div class="small">Goals</div>
+        <ul class="small" style="text-align:left;padding-left:18px;margin:8px 0 0 0">
+          <li>Complete Google Cloud Professional Architect</li>
+          <li>Build 10+ Cloud & DevOps Projects</li>
+          <li>Contribute to open source cloud tools</li>
+        </ul>
+      </div>
+
+      <div class="card" id="contact" style="margin-top:16px">
+        <div class="section-title">
+          <h3>Contact</h3>
+          <span class="small">Hire · Collaborate · Intern</span>
+        </div>
+
+        <div class="small" style="margin-bottom:12px">
+          <strong>Email</strong> — shaiksaidavali.in@gmail.com<br>
+          <strong>Phone</strong> — +91 7674012184
+        </div>
+
+        <div class="cta">
+          <a class="badge" href="mailto:shaiksaidavali.in@gmail.com"><i class="fa fa-envelope"></i> Email Me</a>
+          <a class="badge" href="https://forms.gle/pjgGVqHYZ8jT1j8U8" target="_blank" rel="noopener"><i class="fa fa-paper-plane"></i> Submit Form</a>
+          <a class="badge" href="https://wa.me/917674012184" target="_blank" rel="noopener"><i class="fa fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <div>Avulavaripalem · Guntur · Andhra Pradesh · India</div>
+    <div style="margin-top:8px">© <strong>Shaik Saida Vali</strong> — Built with HTML, CSS, JS, GSAP</div>
+  </footer>
+</div>
+
+<script>
+/* Mobile menu toggle */
+const menuBtn = document.getElementById('menuToggle');
+menuBtn && menuBtn.addEventListener('click', ()=> {
+  const nav = document.querySelector('.nav');
+  if (!nav) return;
+  nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+});
+
+/* Smooth scroll for nav links */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const target = document.querySelector(a.getAttribute('href'));
+    if(!target) return;
+    e.preventDefault();
+    target.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+/* GSAP entrance animations */
+gsap.registerPlugin(ScrollTrigger);
+gsap.from('.hero-left', {opacity:0, x:-30, duration:0.8, ease:'power3.out'});
+gsap.from('.profile-img', {opacity:0, y:30, duration:0.9, delay:0.1});
+gsap.utils.toArray('.card, .project, .entry').forEach((el, i)=>{
+  gsap.from(el, {
+    scrollTrigger:{trigger:el, start:'top 90%'},
+    opacity:0, y:18, duration:0.6, delay: i*0.05, ease:'power2.out'
+  });
+});
+
+/* Accessibility: reduce motion preference */
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  gsap.globalTimeline.timeScale(3);
+}
+</script>
+
+</body>
+</html>

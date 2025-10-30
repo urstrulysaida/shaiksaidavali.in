@@ -18,8 +18,13 @@
     /* Electric Cyan Palette */
     --bg: #090c10; /* Ultra Dark Blue/Black */
     --card: rgba(18, 25, 30, 0.7); /* Slightly lighter translucent background for general cards */
-    --accent: #00FFFF; /* Electric Cyan */
+    --accent: #00FFFF; /* Electric Cyan (Used for general accents, borders, and main theme glow) */
     --accent-dark: #00A6A6;
+    
+    /* HERO ACCENTS */
+    --hero-blue: #87CEFA; /* Light Sky Blue for Headline */
+    --hero-shadow-blue: rgba(135, 206, 250, 0.4); /* Matching shadow */
+
     --muted: #8899AA; /* Light gray for subtle text */
     --text-light: #E0E8F0; /* Main body text color */
     --glass-border: rgba(0, 255, 255, 0.1);
@@ -28,6 +33,7 @@
     font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
 
     /* Section specific card backgrounds */
+    --card-hero: rgba(25, 40, 55, 0.7); /* NEW: Dark Blue Tint for Hero Card */
     --card-education: rgba(30, 50, 40, 0.7); /* UPDATED: Light green tint */
     --card-skills: rgba(20, 30, 35, 0.7); /* Slightly lighter blue tint */
     --card-projects: rgba(15, 25, 30, 0.7); /* Standard card */
@@ -84,7 +90,7 @@ p{font-size: 0.95rem; color: var(--muted);}
 /* Hero Section */
 .hero{display:grid;grid-template-columns:1fr 480px;gap:40px;align-items:center;margin-top:40px; margin-bottom: 40px;} /* INCREASED FIXED COLUMN TO 480PX */
 .hero-card{
-    background:var(--card);
+    background:var(--card-hero); /* APPLIED NEW BLUE TINT */
     padding:32px;border-radius:16px;
     backdrop-filter:blur(10px);
     border: 1px solid var(--glass-border);
@@ -93,7 +99,12 @@ p{font-size: 0.95rem; color: var(--muted);}
         0 0 15px rgba(0, 255, 255, 0.1), /* Cyan outer glow */
         0 4px 20px rgba(0,0,0,0.5); /* Deep shadow */
 }
-.hero-left h2{margin:0;color:var(--accent);font-size:2.5rem;text-shadow: 0 0 8px var(--glass-shadow);}
+.hero-left h2{
+    margin:0;
+    color:var(--hero-blue); /* Light Sky Blue Headline */
+    font-size:2.5rem;
+    text-shadow: 0 0 10px var(--hero-shadow-blue); 
+}
 .tag{
     color:var(--text-light);
     font-weight:600;

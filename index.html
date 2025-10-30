@@ -6,9 +6,7 @@
     <title>Shaik Saida Vali - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Chosen Palette: Professional Dark Theme (GitHub Inspired) -->
-    <!-- Structure: Fixed sidebar (desktop) and dynamic content area. -->
-    <style>
+    <!-- Chosen Palette: Professional Dark Theme (GitHub Inspired) --><!-- Structure: Fixed sidebar (desktop) and dynamic content area. --><style>
         body {
             font-family: 'Inter', sans-serif;
             /* Professional Dark Background */
@@ -137,14 +135,32 @@
         main::-webkit-scrollbar-track { background: #161B22; }
         main::-webkit-scrollbar-thumb { background-color: #30363D; border-radius: 20px; }
         main::-webkit-scrollbar-thumb:hover { background-color: #58A6FF; }
+
+        /* Profile image specific styling */
+        .profile-img-container {
+            width: 112px; /* w-28 */
+            height: 112px; /* h-28 */
+            border-radius: 50%; /* Makes the container circular */
+            overflow: hidden; /* Hides parts of the image outside the circle */
+            display: flex; /* Centers the image */
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #58A6FF; /* border-accent */
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 0px rgba(88, 166, 255, 0); /* Initial shadow for glow */
+        }
+
+        .profile-img-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px 5px rgba(88, 166, 255, 0.6); /* Glow effect on hover */
+        }
     </style>
 </head>
 <body>
 
     <div class="flex flex-col md:flex-row min-h-screen">
         
-        <!-- Mobile Nav (Top Bar) - uses sidebar colors -->
-        <nav class="md:hidden bg-sidebar text-light p-4 sticky top-0 z-20">
+        <!-- Mobile Nav (Top Bar) - uses sidebar colors --><nav class="md:hidden bg-sidebar text-light p-4 sticky top-0 z-20">
             <div class="flex justify-between items-center">
                 <h1 class="text-xl font-bold text-accent">Shaik Saida Vali</h1>
                 <button id="mobile-menu-button" class="text-2xl">
@@ -159,18 +175,17 @@
             </div>
         </nav>
 
-        <!-- Desktop Nav (Sidebar) -->
-        <nav class="hidden md:flex flex-col w-64 h-screen bg-sidebar text-light p-5 sticky top-0 shadow-xl">
+        <!-- Desktop Nav (Sidebar) --><nav class="hidden md:flex flex-col w-64 h-screen bg-sidebar text-light p-5 sticky top-0 shadow-xl">
             <div class="flex flex-col items-center text-center mb-10">
-                <!-- Cleaner Profile Picture display -->
-                <img src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true" alt="Shaik Saida Vali" class="w-28 h-28 rounded-full mb-4 border-2 border-accent transition-transform hover:scale-105">
+                <!-- Profile Picture - Container for square image in circle --><div class="profile-img-container mb-4">
+                    <img src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true" alt="Shaik Saida Vali" class="w-full h-full object-cover">
+                </div>
                 <h1 class="text-2xl font-bold text-accent">Shaik Saida Vali</h1>
                 <p class="text-sm text-gray-400">Student | Cybersecurity Specialist</p>
             </div>
             
             <ul class="space-y-3 flex-1">
-                <!-- REDESIGNED NAVIGATION BUTTONS START HERE -->
-                <li class="nav-item-animated">
+                <!-- REDESIGNED NAVIGATION BUTTONS START HERE --><li class="nav-item-animated">
                     <a href="#home" class="nav-link nav-link-item flex items-center px-4 py-2.5 rounded-lg text-lg hover:bg-gray-700/50" data-target="home">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 text-accent transition-colors"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                         Home
@@ -194,55 +209,59 @@
                         Projects
                     </a>
                 </li>
-                 <!-- REDESIGNED NAVIGATION BUTTONS END HERE -->
-            </ul>
+                 <!-- REDESIGNED NAVIGATION BUTTONS END HERE --></ul>
 
-            <div class="mt-8 border-t border-gray-700 pt-5">
-                <p class="text-xs text-gray-500 mb-4 text-center">Get in touch</p>
-                <div class="flex justify-around items-center">
-                    <a href="https://in.linkedin.com/in/shaiksaidavali" target="_blank" class="text-gray-400 hover:text-accent transition-colors hover:scale-110" title="LinkedIn">
-                        <img src="https://img.icons8.com/color/48/000000/linkedin.png" alt="LinkedIn" class="w-6 h-6">
+            <!-- REDESIGNED CONTACT SECTION START --><div class="mt-8 border-t border-gray-700 pt-5">
+                <p class="text-xs text-gray-500 mb-4 text-center font-semibold tracking-wider uppercase">Connect</p>
+                <div class="flex justify-around items-center space-x-2">
+                    <!-- 1. LinkedIn --><a href="https://in.linkedin.com/in/shaiksaidavali" target="_blank" class="p-2 rounded-full text-gray-400 hover:text-accent hover:bg-gray-700/50 transition-all duration-300" title="LinkedIn Profile">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                     </a>
-                    <a href="mailto:shaiksaidavali.in@gmail.com" class="text-gray-400 hover:text-accent transition-colors hover:scale-110" title="Email">
-                        <img src="https://img.icons8.com/color/48/000000/gmail-new.png" alt="Email" class="w-6 h-6">
+                    
+                    <!-- 2. Email --><a href="mailto:shaiksaidavali.in@gmail.com" class="p-2 rounded-full text-gray-400 hover:text-accent hover:bg-gray-700/50 transition-all duration-300" title="Email: shaiksaidavali.in@gmail.com">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
                     </a>
-                    <a href="https://wa.me/917674012184" target="_blank" class="text-gray-400 hover:text-accent transition-colors hover:scale-110" title="WhatsApp">
-                           <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" class="w-6 h-6">
+                    
+                    <!-- 3. GitHub (Replaced WhatsApp) --><a href="https://github.com/urstrulysaida" target="_blank" class="p-2 rounded-full text-gray-400 hover:text-accent hover:bg-gray-700/50 transition-all duration-300" title="GitHub Profile">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c1-.4 1.5-1 .5-1.7-.2-.2-.5-.3-.7-.5-.4-.4-.5-1-.5-2.2v-2.3c0-.7 1.2-1.5 2.5-1.8 1.5-.4 2.5-.5 3.5-.2 1.3.4 2.5 1.2 3.5 2.3 0 0 .5.7.5 1.7v2.3c0 1.2-.1 1.8-.5 2.2-.2.2-.5.3-.7.5-1.2 1.2-2.3 1.7-3.5 1.7H9z"/><path d="M9 18a.9.9 0 0 1-.5.2c-.7.3-1.6-.2-1.8-.7-.2-.5-.1-1.1.3-1.5.4-.4 1-.4 1.5-.2.5.2 1.1.6 1.3 1.1.2.5.1 1.1-.3 1.5zM15 18a.9.9 0 0 1-.5.2c-.7.3-1.6-.2-1.8-.7-.2-.5-.1-1.1.3-1.5.4-.4 1-.4 1.5-.2.5.2 1.1.6 1.3 1.1.2.5.1 1.1-.3 1.5z"/></svg>
                     </a>
-                    <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="text-gray-400 hover:text-accent transition-colors hover:scale-110" title="Resume">
-                        <img src="https://img.icons8.com/color/48/000000/google-docs.png" alt="Resume" class="w-6 h-6">
+                    
+                    <!-- 4. Resume/Google Docs --><a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="p-2 rounded-full text-gray-400 hover:text-accent hover:bg-gray-700/50 transition-all duration-300" title="View Resume (Google Docs)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M14.5 2H6a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="21" y2="21"/></svg>
                     </a>
                 </div>
             </div>
-        </nav>
+            <!-- REDESIGNED CONTACT SECTION END --></nav>
 
-        <!-- Main Content Area -->
-        <main class="flex-1 h-screen overflow-y-auto p-6 md:p-10">
+        <!-- Main Content Area --><main class="flex-1 h-screen overflow-y-auto p-6 md:p-10">
             
-            <!-- Home Section (REDESIGNED) -->
-            <section id="home" class="content-section">
+            <!-- Home Section (REDESIGNED) --><section id="home" class="content-section">
                 
-                <!-- 1. Hero Introduction -->
-                <div class="mb-12 p-6 bg-card rounded-lg hover-scale">
-                    <p class="text-xl text-gray-500 mb-2">Hello, I'm</p>
-                    <h1 class="text-6xl md:text-7xl font-extrabold text-white mb-4 transition-colors hover:text-accent">
-                        Shaik Saida Vali
-                    </h1>
-                    <h2 class="text-3xl font-light text-gray-300 mb-6">
-                        Cybersecurity Specialist & Cloud Architect Enthusiast
-                    </h2>
-                    <p class="text-lg text-gray-400 mb-8 max-w-3xl">
+                <!-- 1. Hero Introduction & Metrics (Combined) --><div class="mb-12 p-10 bg-card rounded-xl shadow-2xl border-2 border-transparent transition-all duration-500 hover:border-accent/50">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-8">
+                        <div>
+                            <p class="text-xl text-gray-500 mb-2 font-light">Hello, I'm</p>
+                            <h1 class="text-6xl md:text-7xl font-extrabold text-white">
+                                Shaik Saida Vali
+                            </h1>
+                            <div class="w-24 h-1 bg-accent my-4 rounded-full"></div> <!-- Visual Divider --><h2 class="text-3xl font-light text-gray-300 mb-6">
+                                Cybersecurity Specialist & Cloud Architect Enthusiast
+                            </h2>
+                        </div>
+                        <!-- Button placed right/bottom for contrast --><a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="shrink-0 inline-block md:ml-8 bg-accent hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-xl transition-all transform hover:scale-[1.03] mt-4 md:mt-0 text-center">
+                            View Full Resume (PDF)
+                        </a>
+                    </div>
+                
+                    <p class="text-lg text-gray-400 mb-12 max-w-4xl">
                         A dedicated Computer Science student deeply focused on building <strong class="text-accent">secure, scalable, and resilient cloud infrastructure</strong> using GCP, Kubernetes, and Python. Driven by a commitment to ethical hacking and continuous learning in DevOps practices.
                     </p>
-                    <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="inline-block bg-accent hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all transform hover:scale-[1.01]">
-                        View Full Resume (PDF)
-                    </a>
+                
+                    <!-- Removed Key Metrics Bar -->
                 </div>
 
-                <!-- 2. Currently Working On & Goals Grid -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-                    <!-- Current Work Card -->
-                    <div class="bg-card p-6 rounded-lg shadow-md hover-scale">
+                <!-- 2. Detailed Focus & Goals Grid (Equal Weight) --><div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                    <!-- Card 1: Current Focus & Stack --><div class="bg-card p-6 rounded-xl shadow-md hover-scale">
                         <h3 class="text-2xl font-semibold mb-4 text-accent">Current Focus & Stack</h3>
                         <p class="text-gray-400 mb-4">Actively learning and implementing in these domains:</p>
                         <div class="flex flex-wrap gap-2">
@@ -254,20 +273,18 @@
                         </div>
                     </div>
 
-                    <!-- Goals Card -->
-                    <div class="bg-card p-6 rounded-lg shadow-md hover-scale">
+                    <!-- Card 2: Career Milestones --><div class="bg-card p-6 rounded-xl shadow-md hover-scale">
                         <h3 class="text-2xl font-semibold mb-4 text-accent">Career Milestones</h3>
                         <ul class="list-none space-y-2 text-gray-300">
-                            <li class="flex items-center"><span class="text-xl mr-3 text-accent">&#9679;</span> Complete Google Cloud Professional Architect Certification</li>
-                            <li class="flex items-center"><span class="text-xl mr-3 text-accent">&#9679;</span> Build 10+ Cloud & DevOps Projects</li>
-                            <li class="flex items-center"><span class="text-xl mr-3 text-accent">&#9679;</span> Contribute to Open Source Cloud Tools</li>
-                            <li class="flex items-center"><span class="text-xl mr-3 text-accent">&#9679;</span> Crack Top 1000 in LeetCode Contests</li>
+                            <li class="flex items-start"><span class="text-xl mr-3 text-accent">&#9679;</span> Complete Google Cloud Professional Architect Certification</li>
+                            <li class="flex items-start"><span class="text-xl mr-3 text-accent">&#9679;</span> Build 10+ Cloud & DevOps Projects</li>
+                            <li class="flex items-start"><span class="text-xl mr-3 text-accent">&#9679;</span> Contribute to Open Source Cloud Tools</li>
+                            <li class="flex items-start"><span class="text-xl mr-3 text-accent">&#9679;</span> Crack Top 1000 in LeetCode Contests</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- 3. GitHub Statistics (Consolidated) -->
-                <div class="bg-card p-6 rounded-lg shadow-md">
+                <!-- 3. GitHub Statistics (Consolidated Footer) --><div class="bg-card p-6 rounded-xl shadow-md">
                     <h3 class="text-2xl font-semibold mb-4 text-accent">GitHub Activity and Achievements</h3>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div class="hover-scale p-4 rounded-lg border border-gray-700">
@@ -282,21 +299,18 @@
                 </div>
             </section>
 
-            <!-- Experience & Education Section (REDESIGNED) -->
-            <section id="experience" class="content-section">
+            <!-- Experience & Education Section (UNCHANGED) --><section id="experience" class="content-section">
                 <h2 class="text-3xl font-bold mb-8 border-b-2 border-accent pb-2">Experience & Education</h2>
                 <p class="text-lg text-gray-400 mb-8">
                     This section outlines my professional and academic journey. Below is a timeline of my internships and educational background, showing my hands-on experience and formal training.
                 </p>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <!-- Experience Timeline -->
-                    <div>
+                    <!-- Experience Timeline --><div>
                         <h3 class="text-2xl font-semibold mb-6 text-accent">Professional Experience (Internships)</h3>
                         <div class="relative">
                             
-                            <!-- Internship 1: Cybersecurity & Ethical Hacking -->
-                            <div class="timeline-item">
+                            <!-- Internship 1: Cybersecurity & Ethical Hacking --><div class="timeline-item">
                                 <div class="timeline-dot"></div>
                                 <div class="bg-card rounded-lg p-4 transition-all hover-scale">
                                     <h4 class="text-xl font-semibold text-accent">Innovate Intern - Cybersecurity & Ethical Hacking</h4>
@@ -312,8 +326,7 @@
                                 </div>
                             </div>
 
-                            <!-- Internship 2: Cloud Computing on Google Cloud -->
-                            <div class="timeline-item">
+                            <!-- Internship 2: Cloud Computing on Google Cloud --><div class="timeline-item">
                                 <div class="timeline-dot"></div>
                                 <div class="bg-card rounded-lg p-4 transition-all hover-scale">
                                     <h4 class="text-xl font-semibold text-accent">Innovate Intern - Cloud Computing on Google Cloud</h4>
@@ -329,8 +342,7 @@
                                 </div>
                             </div>
                             
-                            <!-- Internship 3: Internet of Things -->
-                            <div class="timeline-item">
+                            <!-- Internship 3: Internet of Things --><div class="timeline-item">
                                 <div class="timeline-dot"></div>
                                 <div class="bg-card rounded-lg p-4 transition-all hover-scale">
                                     <h4 class="text-xl font-semibold text-accent">Innovate Intern - Internet of Things</h4>
@@ -347,13 +359,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Education Timeline -->
-                    <div>
+                    <!-- Education Timeline --><div>
                         <h3 class="text-2xl font-semibold mb-6 text-accent">Academic Background</h3>
                         <div class="relative">
                             
-                            <!-- Education 1: B-Tech -->
-                            <div class="timeline-item">
+                            <!-- Education 1: B-Tech --><div class="timeline-item">
                                 <div class="timeline-dot"></div>
                                 <div class="bg-card rounded-lg p-4 transition-all hover-scale">
                                     <h4 class="text-xl font-semibold text-accent">B-Tech, Computer Science & Engineering</h4>
@@ -367,8 +377,7 @@
                                 </div>
                             </div>
                             
-                            <!-- Education 2: High School -->
-                            <div class="timeline-item">
+                            <!-- Education 2: High School --><div class="timeline-item">
                                 <div class="timeline-dot"></div>
                                 <div class="bg-card rounded-lg p-4 transition-all hover-scale">
                                     <h4 class="text-xl font-semibold text-accent">High School (10th Class)</h4>
@@ -382,8 +391,7 @@
                 </div>
             </section>
 
-            <!-- Skills & Certifications Section (REDESIGNED) -->
-            <section id="skills" class="content-section">
+            <!-- Skills & Certifications Section (REDESIGNED Professional Development) --><section id="skills" class="content-section">
                 <h2 class="text-3xl font-bold mb-8 border-b-2 border-accent pb-2">Technical Capabilities & Certifications</h2>
                 <p class="text-lg text-gray-400 mb-8">
                     A comprehensive overview of my technical expertise, ranging from core programming skills and DevOps tools to professional cloud and security certifications.
@@ -391,8 +399,7 @@
 
                 <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
                     
-                    <!-- COLUMN 1 & 2: Core & DevOps Skills + Technical Domains -->
-                    <div class="xl:col-span-2 space-y-8">
+                    <!-- COLUMN 1 & 2: Core & DevOps Skills + Technical Domains --><div class="xl:col-span-2 space-y-8">
                         <div class="bg-card p-6 rounded-lg shadow-md hover-scale">
                             <h3 class="text-2xl font-semibold mb-4 text-accent">Languages, Tools & DevOps</h3>
                             <p class="text-gray-400 mb-4">Core programming languages, containerization, and orchestration tools.</p>
@@ -408,8 +415,7 @@
                             </div>
                         </div>
 
-                        <!-- Technical Domains (List format for detail) -->
-                        <div class="bg-card p-6 rounded-lg shadow-md hover-scale">
+                        <!-- Technical Domains (List format for detail) --><div class="bg-card p-6 rounded-lg shadow-md hover-scale">
                             <h3 class="text-2xl font-semibold mb-4 text-accent">Technical Domains</h3>
                             <ul class="list-disc list-inside space-y-3 text-gray-300 ml-4">
                                 <li><strong>Cloud Architecture:</strong> Focusing on scalable deployment, security best practices (IAM, VPC), and serverless technologies (Cloud Functions, Cloud Run) primarily on GCP.</li>
@@ -420,51 +426,43 @@
                         </div>
                     </div>
 
-                    <!-- COLUMN 3: Professional Development (Consolidated - NEW DESIGN) -->
-                    <div class="xl:col-span-1">
-                        <div class="bg-card p-6 rounded-lg shadow-md space-y-6 hover-scale">
-                            
-                            <h3 class="text-2xl font-semibold text-accent border-b border-gray-700 pb-2">Professional Development</h3>
-                            
-                            <!-- 1. Industry Certifications -->
-                            <div>
-                                <h4 class="text-xl font-semibold mb-3">Industry Certifications & Courses</h4>
-                                <p class="text-sm text-gray-500 mb-4">Validations of core skills in Cloud, Security, and Data Analytics.</p>
-                                <div class="flex flex-wrap gap-3">
-                                    <a href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank"><img src="https://img.shields.io/badge/Google-Cyber%20Security-blue?style=for-the-badge&logo=googledrive&logoColor=white" alt="Google Cyber Security"></a>
-                                    <a href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Google-Data%20Analytics-green?style=for-the-badge&logo=googledrive&logoColor=white" alt="Google Data Analytics"></a>
-                                    <a href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Google-Advanced%20Data%20Analytics-orange?style=for-the-badge&logo=googledrive&logoColor=white" alt="Google Advanced Data Analytics"></a>
-                                    <a href="https://drive.google.com/drive/folders/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/AWS-Cloud%20Tech%20Consultant-red?style=for-the-badge&logo=amazons3&logoColor=white" alt="AWS Cloud Tech"></a>
-                                </div>
-                            </div>
+                    <!-- COLUMN 3: Professional Development (REDESIGNED for CLARITY) --><div class="xl:col-span-1 space-y-8">
+                        <h3 class="text-3xl font-bold text-accent">Professional Development</h3>
 
-                            <!-- 2. Virtual Internship Programs -->
-                            <div>
-                                <h4 class="text-xl font-semibold mb-3">Virtual Internship Programs</h4>
-                                <p class="text-sm text-gray-500 mb-4">Practical, scenario-based learning from industry leaders (AICTE).</p>
-                                <div class="flex flex-wrap gap-3">
-                                    <a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Zscaler-Networking%20Virtual-blueviolet?style=for-the-badge&logo=googledrive&logoColor=white" alt="Zscaler Networking"></a>
-                                    <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Fortinet-Network%20Security%20Associate-critical?style=for-the-badge&logo=fortinet&logoColor=white" alt="Fortinet Security"></a>
-                                    <a href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Google-AI%20%26%20ML%20Virtual-success?style=for-the-badge&logo=google&logoColor=white" alt="Google AI-ML"></a>
-                                </div>
+                        <!-- 1. Industry Certifications CARD --><div class="bg-card p-6 rounded-xl shadow-md hover-scale border-l-4 border-accent">
+                            <h4 class="text-xl font-semibold mb-3 text-white">Industry Certifications & Courses</h4>
+                            <p class="text-sm text-gray-400 mb-4">Validations of core skills in Cloud, Security, and Data Analytics.</p>
+                            <div class="flex flex-wrap gap-3">
+                                <a href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank"><img src="https://img.shields.io/badge/Google-Cyber%20Security-blue?style=for-the-badge&logo=googledrive&logoColor=white" alt="Google Cyber Security"></a>
+                                <a href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Google-Data%20Analytics-green?style=for-the-badge&logo=googledrive&logoColor=white" alt="Google Data Analytics"></a>
+                                <a href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Google-Advanced%20Data%20Analytics-orange?style=for-the-badge&logo=googledrive&logoColor=white" alt="Google Advanced Data Analytics"></a>
+                                <a href="https://drive.google.com/drive/folders/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/AWS-Cloud%20Tech%20Consultant-red?style=for-the-badge&logo=amazons3&logoColor=white" alt="AWS Cloud Tech"></a>
                             </div>
+                        </div>
 
-                            <!-- 3. Credential Profiles -->
-                            <div class="pt-4 border-t border-gray-700">
-                                <h4 class="text-xl font-semibold mb-3">Credential Profiles</h4>
-                                <div class="flex flex-wrap gap-4">
-                                    <a href="https://www.credly.com/users/shaik-saida-vali./badges" target="_blank"><img src="https://img.shields.io/badge/Credentials-Credly-orange?style=social&logo=credly" alt="Credly"></a>
-                                    <a href="https://g.dev/urstrulysaida" target="_blank"><img src="https://img.shields.io/badge/Google%20Developers-Profile-blue?style=social&logo=google" alt="Google Developers"></a>
-                                </div>
+                        <!-- 2. Virtual Internship Programs CARD --><div class="bg-card p-6 rounded-xl shadow-md hover-scale border-l-4 border-accent">
+                            <h4 class="text-xl font-semibold mb-3 text-white">Virtual Internship Programs (AICTE)</h4>
+                            <p class="text-sm text-gray-400 mb-4">Practical, scenario-based learning from industry leaders.</p>
+                            <div class="flex flex-wrap gap-3">
+                                <a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Zscaler-Networking%20Virtual-blueviolet?style=for-the-badge&logo=googledrive&logoColor=white" alt="Zscaler Networking"></a>
+                                <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Fortinet-Network%20Security%20Associate-critical?style=for-the-badge&logo=fortinet&logoColor=white" alt="Fortinet Security"></a>
+                                <a href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Google-AI%20%26%20ML%20Virtual-success?style=for-the-badge&logo=google&logoColor=white" alt="Google AI-ML"></a>
+                            </div>
+                        </div>
+
+                        <!-- 3. Credential Profiles CARD --><div class="bg-card p-6 rounded-xl shadow-md hover-scale border-l-4 border-accent">
+                            <h4 class="text-xl font-semibold mb-3 text-white">Credential Profiles</h4>
+                            <p class="text-sm text-gray-400 mb-4">Links to verified external achievement platforms.</p>
+                            <div class="flex flex-wrap gap-4">
+                                <a href="https://www.credly.com/users/shaik-saida-vali./badges" target="_blank"><img src="https://img.shields.io/badge/Credentials-Credly-orange?style=social&logo=credly" alt="Credly"></a>
+                                <a href="https://g.dev/urstrulysaida" target="_blank"><img src="https://img.shields.io/badge/Google%20Developers-Profile-blue?style=social&logo=google" alt="Google Developers"></a>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </section>
 
-            <!-- Projects Section (REDESIGNED) -->
-            <section id="projects" class="content-section">
+            <!-- Projects Section (UNCHANGED) --><section id="projects" class="content-section">
                 <h2 class="text-3xl font-bold mb-8 border-b-2 border-accent pb-2">Key Projects & Implementations</h2>
                 <p class="text-lg text-gray-400 mb-8">
                     These projects showcase my practical skills in applying Cloud, DevOps, and Security principles to real-world scenarios.
@@ -473,8 +471,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
-                    <!-- Project Card 1: Secure Microservices on GKE -->
-                    <div class="bg-card p-6 rounded-lg shadow-md flex flex-col hover-scale">
+                    <!-- Project Card 1: Secure Microservices on GKE --><div class="bg-card p-6 rounded-lg shadow-md flex flex-col hover-scale">
                         <h3 class="text-xl font-semibold mb-3 text-accent">Secure Microservices on GKE</h3>
                         <p class="text-gray-400 flex-1 mb-4">Design and deployment of a fault-tolerant microservices architecture, secured using GKE's native security policies and Cloud IAM best practices.</p>
                         
@@ -493,8 +490,7 @@
                         </div>
                     </div>
 
-                    <!-- Project Card 2: Aquasense: IoT Water Quality Management -->
-                    <div class="bg-card p-6 rounded-lg shadow-md flex flex-col hover-scale">
+                    <!-- Project Card 2: Aquasense: IoT Water Quality Management --><div class="bg-card p-6 rounded-lg shadow-md flex flex-col hover-scale">
                         <h3 class="text-xl font-semibold mb-3 text-accent">Aquasense: IoT Water Quality Management</h3>
                         <p class="text-gray-400 flex-1 mb-4">Developed an end-to-end system for real-time water quality monitoring, integrating sensor data via Arduino and transmitting it to a cloud dashboard for analysis.</p>
                         
@@ -512,8 +508,7 @@
                         </div>
                     </div>
 
-                    <!-- Project Card 3: Password Strength Tester -->
-                    <div class="bg-card p-6 rounded-lg shadow-md flex flex-col hover-scale">
+                    <!-- Project Card 3: Password Strength Tester --><div class="bg-card p-6 rounded-lg shadow-md flex flex-col hover-scale">
                         <h3 class="text-xl font-semibold mb-3 text-accent">Password Strength Tester</h3>
                         <p class="text-gray-400 flex-1 mb-4">A standalone Python tool utilizing regex and algorithmic checks to evaluate password entropy and security levels against common dictionary attacks and patterns.</p>
                         

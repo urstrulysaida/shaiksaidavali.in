@@ -1,354 +1,674 @@
 <!doctype html>
 <html lang="en">
-<head><img width="94" height="94" src="https://img.icons8.com/3d-fluency/94/google-logo.png" alt="google-logo"/></head>
+<head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Shaik Saida Vali — Portfolio</title>
+<title>Shaik Saida Vali — Cyber Portfolio</title>
 
-<!-- Fonts & Icons -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-sZ6X...=="
- crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Fonts & Icons --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<!-- GSAP -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<!-- GSAP --><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <style>
+/* === CYBER GLOW BASE STYLES === */
 :root{
-  --bg:#0f1724; --card:#0b1220; --muted:#9aa7b2; --accent:#0ea5a4; --glass: rgba(255,255,255,0.03);
-  --maxw:1100px; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    /* Electric Cyan Palette */
+    --bg: #090c10; /* Ultra Dark Blue/Black */
+    --card: rgba(18, 25, 30, 0.7); /* Slightly lighter translucent background for general cards */
+    --accent: #00FFFF; /* Electric Cyan */
+    --accent-dark: #00A6A6;
+    --muted: #8899AA; /* Light gray for subtle text */
+    --text-light: #E0E8F0; /* Main body text color */
+    --glass-border: rgba(0, 255, 255, 0.1);
+    --glass-shadow: rgba(0, 255, 255, 0.15); /* Subtle cyan glow */
+    --maxw:1200px; 
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+
+    /* Section specific card backgrounds */
+    --card-education: rgba(25, 35, 40, 0.7); /* Slightly greener tint */
+    --card-skills: rgba(20, 30, 35, 0.7); /* Slightly lighter blue tint */
+    --card-projects: rgba(15, 25, 30, 0.7); /* Standard card */
+    --card-certs: rgba(30, 40, 45, 0.7); /* Slightly darker, more prominent */
+    --card-experience: rgba(22, 32, 37, 0.7); /* More blueish */
+    --card-activity: rgba(12, 20, 25, 0.7); /* Very dark */
+    --card-goals: rgba(28, 38, 43, 0.7); /* Mildly purple tint */
+    --card-contact: rgba(35, 45, 50, 0.7); /* Most prominent for contact */
 }
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
-  margin:0; background:
-  linear-gradient(180deg, rgba(12,17,23,1) 0%, rgba(7,10,14,1) 100%);
-  color:#e6eef6; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-  line-height:1.45;
+    margin:0; 
+    /* Deep dark grid pattern background */
+    background-color: var(--bg);
+    background-image: radial-gradient(circle at 1px 1px, rgba(13, 22, 33, 0.9) 1px, transparent 0);
+    background-size: 20px 20px;
+    color:var(--text-light); 
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    line-height:1.6;
 }
-.container{max-width:var(--maxw); margin:28px auto; padding:28px;}
+.container{max-width:var(--maxw); margin:28px auto; padding:28px 24px;}
+h1,h2,h3,h4{color:#fff; line-height:1.2;}
+p{font-size: 0.95rem; color: var(--muted);}
 
 /* Header / Nav */
 .header{
-  display:flex; align-items:center; justify-content:space-between; gap:18px;
-  padding:12px 0;
+    display:flex; align-items:center; justify-content:space-between; gap:18px;
+    padding:12px 0;
 }
 .brand{display:flex;gap:12px;align-items:center}
-.brand img{height:46px;border-radius:8px;object-fit:cover}
-.brand h1{font-size:18px;margin:0;font-weight:700}
+.brand img{
+    height:46px;
+    width: 46px; /* Added width for square shape */
+    border-radius:8px; /* Changed to square with slight rounded corners */
+    object-fit:cover; 
+    border: 2px solid var(--accent);
+}
+.brand h1{font-size:20px;margin:0;font-weight:700; color: var(--accent);}
 .nav{display:flex;gap:12px;align-items:center}
-.nav a{color:var(--muted); text-decoration:none; padding:8px 10px;border-radius:8px; font-weight:600}
-.nav a:hover{color:#fff;background:var(--glass)}
+.nav a{
+    color:var(--muted); text-decoration:none; padding:8px 12px;border-radius:6px; font-weight:600;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+.nav a:hover{
+    color:var(--accent);
+    background:rgba(0, 255, 255, 0.05);
+    border: 1px solid var(--accent-dark);
+    box-shadow: 0 0 10px var(--glass-shadow);
+}
 .menu-toggle{display:none}
 
-/* Hero */
-.hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:8px}
-.hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
- padding:28px;border-radius:14px;backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(0,0,0,0.6)}
-.hero-left h2{margin:0;color:#fff;font-size:28px}
-.tag{color:var(--accent);font-weight:700;margin-top:8px}
-.contact-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted);text-decoration:none;font-weight:600}
+/* Hero Section */
+.hero{display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:center;margin-top:40px; margin-bottom: 40px;}
+.hero-card{
+    background:var(--card);
+    padding:32px;border-radius:16px;
+    backdrop-filter:blur(10px);
+    border: 1px solid var(--glass-border);
+    /* Layered Box Shadow for Cyber Effect */
+    box-shadow: 
+        0 0 15px rgba(0, 255, 255, 0.1), /* Cyan outer glow */
+        0 4px 20px rgba(0,0,0,0.5); /* Deep shadow */
+}
+.hero-left h2{margin:0;color:var(--accent);font-size:2.5rem;text-shadow: 0 0 8px var(--glass-shadow);}
+.tag{
+    color:var(--text-light);
+    font-weight:600;
+    margin-top:8px;
+    padding: 4px 8px;
+    background: var(--accent-dark);
+    display: inline-block;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+}
+.tag strong{color:var(--accent)}
+.contact-badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.badge{
+    display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;
+    background:var(--card);
+    color:var(--muted);text-decoration:none;font-weight:600;
+    transition: all 0.3s ease;
+    border: 1px solid var(--glass-border);
+}
+.badge:hover{
+    color:var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--glass-shadow);
+    transform: translateY(-2px);
+}
 .hero-right{display:flex;justify-content:center}
-.profile-img{width:100%;max-width:390px;border-radius:12px;object-fit:cover;border:2px solid rgba(255,255,255,0.04)}
+.profile-img{
+    width:100%;max-width:380px;border-radius:16px;object-fit:cover;
+    border:3px solid var(--accent);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+}
 
 /* Grid sections */
-.grid{display:grid;grid-template-columns:1fr 360px;gap:24px;margin-top:24px}
-.card{background:var(--card);padding:20px;border-radius:12px}
-.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.section-title h3{margin:0;font-size:16px;color:#fff}
+.grid{display:grid;grid-template-columns:1fr 380px;gap:30px;margin-top:24px}
+/* Default card styling (used as a fallback for sections without specific colors) */
+.card{
+    background:var(--card); 
+    padding:24px;border-radius:14px; 
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+.card:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
+
+/* Specific section card colors */
+.education-card {background: var(--card-education);}
+.skills-card {background: var(--card-skills);}
+.projects-card {background: var(--card-projects);}
+.certs-card {background: var(--card-certs);}
+.focus-card {background: var(--card-education);} /* Reusing education card color */
+.experience-card {background: var(--card-experience);}
+.activity-card {background: var(--card-activity);}
+.goals-card {background: var(--card-goals);}
+.contact-card {background: var(--card-contact);}
+
+
+.section-title{
+    display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;
+    border-bottom: 1px dashed var(--glass-border);
+    padding-bottom: 8px;
+}
+.section-title h3{
+    margin:0;font-size:1.2rem;
+    color:var(--text-light);
+    font-weight: 700;
+}
 .small{color:var(--muted);font-size:13px}
 
 /* Skills badges */
-.skills{display:flex;flex-wrap:wrap;gap:8px}
-.skill-img{height:34px;display:inline-block}
+.skills{display:flex;flex-wrap:wrap;gap:12px}
+.skill-img{
+    height:38px;
+    display:inline-block;
+    border-radius: 4px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    filter: brightness(0.8) contrast(1.2); /* Enhance color on dark theme */
+}
+.skill-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* Cyan glow on hover */
+    filter: brightness(1.0) contrast(1.2);
+}
+
 
 /* Projects */
-.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.project{padding:12px;border-radius:10px;background:linear-gradient(0deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02))}
-.project h4{margin:6px 0 0 0}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+.project{
+    padding:16px;border-radius:10px;
+    background: rgba(18, 25, 30, 0.5);
+    border-left: 3px solid var(--accent-dark);
+    transition: all 0.3s ease;
+}
+.project:hover{
+    border-left-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.1);
+}
+.project h4{margin:8px 0 0 0; color: var(--accent-dark); font-size: 1rem;}
+.project .small{font-size: 0.8rem; color: var(--muted);}
 
 /* Timeline */
-.timeline{display:flex;flex-direction:column;gap:12px}
-.entry{padding:12px;border-left:3px solid var(--accent);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border-radius:8px}
-.entry .meta{font-size:13px;color:var(--muted)}
+.timeline{display:flex;flex-direction:column;gap:15px; position: relative;}
+/* Vertical Line - Enhanced with a subtle gradient */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent-dark), transparent);
+    opacity: 0.5;
+}
+.timeline h3 {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: var(--accent);
+    text-align: center;
+    border-bottom: none;
+}
+.entry{
+    padding:12px 12px 12px 28px; /* Added left padding for dot effect */
+    border-radius:8px;
+    background:rgba(20, 27, 32, 0.8);
+    position: relative;
+    transition: all 0.3s ease;
+}
+.entry::before {
+    content: '';
+    position: absolute;
+    left: 8px; /* Position the dot on the line */
+    top: 18px;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent);
+    z-index: 10;
+}
+.entry:hover{
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
+.entry div:first-child{color: var(--text-light); font-weight: 600;}
+.entry .meta{font-size:12px;color:var(--muted)}
 
 /* Footer / contact */
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-.footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px;padding:18px 0}
+.footer{
+    margin-top:40px;text-align:center;color:var(--muted);font-size:13px;padding:24px 0;
+    border-top: 1px dashed var(--glass-border);
+}
 
 /* Responsive */
-@media (max-width:980px){
-  .hero{grid-template-columns:1fr;padding-bottom:8px}
-  .grid{grid-template-columns:1fr}
-  .nav{display:none}
-  .menu-toggle{display:inline-flex}
-  .profile-img{max-width:320px}
+@media (max-width:1080px){
+    .grid{grid-template-columns:1fr}
+}
+@media (max-width:860px){
+    .hero{grid-template-columns:1fr;padding-bottom:8px}
+    .hero-left h2{font-size:2rem;}
+    .nav{display:none; flex-direction: column; position: absolute; top: 60px; right: 24px; background: #131a24; padding: 10px; border-radius: 8px; z-index: 10; box-shadow: 0 4px 8px rgba(0,0,0,0.4); border: 1px solid var(--glass-border);}
+    .nav a {width: 100%;}
+    .menu-toggle{display:inline-flex; border: none; background: transparent; color: var(--accent); font-size: 1.5rem; cursor: pointer;} 
+    .profile-img{max-width:300px}
+}
+
+/* Cleanup for original CSS remnants */
+.section-title h3:hover {
+    color: var(--accent);
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <header class="header">
-    <div class="brand">
-      <img src="https://www.lambdatest.com/resources/images/news24.gif" alt="logo">
-      <div>
-        <h1>Shaik Saida Vali</h1>
-        <div class="small">Student · Computer Science & Engineering · Cyber Security</div>
-      </div>
-    </div>
-
-    <nav class="nav" aria-label="Main navigation">
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#certs">Certifications</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
-      <a href="https://in.linkedin.com/in/shaiksaidavali" target="_blank" rel="noopener">LinkedIn</a>
-    </nav>
-
-    <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
-      <i class="fa fa-bars"></i>
-    </button>
-  </header>
-
-  <!-- HERO -->
-  <section class="hero" id="about">
-    <div class="hero-card hero-left" role="region" aria-labelledby="hero-title">
-      <h2 id="hero-title">Shaik Saida Vali</h2>
-      <div class="tag">B.Tech CSE • Cybersecurity Enthusiast • Cloud & DevOps</div>
-      <p class="small" style="margin-top:14px">
-        Studying at Kakinada Institute of Engineering and Technology. Focus on Cloud Computing, Data Analytics, and Secure Systems. Actively building secure microservices and IoT projects.
-      </p>
-
-      <div class="contact-badges" style="margin-top:16px">
-        <a class="badge" href="mailto:shaiksaidavali.in@gmail.com"><i class="fa fa-envelope"></i> Email</a>
-        <a class="badge" href="https://wa.me/917674012184" target="_blank" rel="noopener"><i class="fa fa-whatsapp"></i> +91 7674012184</a>
-        <a class="badge" href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" rel="noopener"><i class="fa fa-file"></i> Resume</a>
-        <a class="badge" href="https://sites.google.com/view/shaiksaidavali/home" target="_blank" rel="noopener"><i class="fa fa-globe"></i> Website</a>
-      </div>
-
-      <div style="margin-top:18px" class="small">
-        <strong>Location:</strong> Avulavaripalem, Guntur, Andhra Pradesh · 522411
-      </div>
-    </div>
-
-    <div class="hero-right">
-      <img class="profile-img" alt="Shaik Saida Vali" src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true">
-    </div>
-  </section>
-
-  <!-- MAIN GRID -->
-  <main class="grid" aria-live="polite">
-    <!-- Left column -->
-    <section>
-      <!-- Education + Skills -->
-      <div class="card" style="margin-bottom:16px">
-        <div class="section-title">
-          <h3>Education</h3>
-          <span class="small">2022 - 2026</span>
-        </div>
-        <div><strong>B.Tech</strong> — Kakinada Institute of Engineering and Technology</div>
-        <div class="small" style="margin-top:6px">Location: Kakinada, Andhra Pradesh</div>
-      </div>
-
-      <div class="card" style="margin-bottom:16px" id="skills">
-        <div class="section-title">
-          <h3>Skills</h3>
-          <span class="small">Tools & platforms</span>
+    <header class="header">
+        <div class="brand">
+            <!-- Restored GIF animation and updated styling for square shape --><img src="https://www.lambdatest.com/resources/images/news24.gif" alt="logo animation">
+            <div>
+                <h1>Shaik Saida Vali</h1>
+                <div class="small" style="color: var(--accent);">
+                    [INITIATING_PROTOCOL] Cyber Security & Cloud Architect
+                </div>
+            </div>
         </div>
 
-        <div class="skills" aria-hidden="false">
-          <!-- Using shields images from profile -->
-          <img class="skill-img" title="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white">
-          <img class="skill-img" title="Google Cloud" src="https://img.shields.io/badge/Google%20Cloud-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white">
-          <img class="skill-img" title="Docker" src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
-          <img class="skill-img" title="Kubernetes" src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white">
-        </div>
-      </div>
+        <nav class="nav" aria-label="Main navigation">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#certs">Certifications</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+            <a href="https://in.linkedin.com/in/shaiksaidavali" target="_blank" rel="noopener">LinkedIn</a>
+        </nav>
 
-      <!-- Projects -->
-      <div class="card" id="projects">
-        <div class="section-title">
-          <h3>Projects</h3>
-          <span class="small">Selected</span>
-        </div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+            <i class="fa fa-bars"></i>
+        </button>
+    </header>
 
-        <div class="projects">
-          <article class="project">
-            <div class="small">Password Strength Tester</div>
-            <h4>Frontend + Python validation</h4>
-            <p class="small">A tool to evaluate password entropy and suggest improvements.</p>
-          </article>
+    <!-- HERO --><section class="hero" id="about">
+        <div class="hero-card hero-left" role="region" aria-labelledby="hero-title">
+            <h2 id="hero-title">Hello, I'm Shaik Saida Vali.</h2>
+            <div class="tag"><strong>[STATUS: ONLINE]</strong> Cloud DevOps & Cyber Enthusiast</div>
+            <p style="margin-top:20px; color: var(--muted);">
+                A B.Tech student focused on building **secure, scalable systems** using Cloud Computing (GCP/AWS) and DevOps practices (Docker, Kubernetes). Passionate about tackling complex problems in Cyber Security and Data Architecture.
+            </p>
 
-          <article class="project">
-            <div class="small">Secure Microservices on GKE</div>
-            <h4>GKE • CI/CD • Helm</h4>
-            <p class="small">Design and deploy secure microservice architecture with best practices.</p>
-          </article>
+            <div class="contact-badges">
+                <a class="badge" href="mailto:shaiksaidavali.in@gmail.com"><i class="fa fa-envelope"></i> Email</a>
+                <a class="badge" href="https://wa.me/917674012184" target="_blank" rel="noopener"><i class="fa fa-whatsapp"></i> WhatsApp</a>
+                <a class="badge" href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" rel="noopener"><i class="fa fa-file"></i> Resume Download</a>
+            </div>
 
-          <article class="project">
-            <div class="small">Aquasense IoT</div>
-            <h4>Water Quality IoT System</h4>
-            <p class="small">Arduino-based sensors with cloud ingestion and dashboarding.</p>
-          </article>
-        </div>
-      </div>
-
-      <!-- Certifications -->
-      <div class="card" id="certs">
-        <div class="section-title">
-          <h3>Certifications</h3>
-          <span class="small">Highlights</span>
+            <div style="margin-top:20px" class="small">
+                <strong>Current Location:</strong> Avulavaripalem, Guntur, Andhra Pradesh
+            </div>
         </div>
 
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <a class="badge" href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank" rel="noopener">Google Cyber Security</a>
-          <a class="badge" href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=drive_link" target="_blank" rel="noopener">Data Analytics</a>
-          <a class="badge" href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank" rel="noopener">Advanced Data Analytics</a>
-          <a class="badge" href="https://drive.google.com/drive/folders/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP?usp=drive_link" target="_blank" rel="noopener">AWS Cloud Tech</a>
+        <div class="hero-right">
+            <img class="profile-img" alt="Shaik Saida Vali" src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true">
         </div>
-      </div>
-
-      <!-- Currently working on -->
-      <div class="card" style="margin-top:16px">
-        <div class="section-title">
-          <h3>Currently</h3>
-          <span class="small">Focus areas</span>
-        </div>
-        <p class="small">Cloud Computing · Cloud Architecture · Data Analytics · System Design · CI/CD</p>
-      </div>
     </section>
 
-    <!-- Right column -->
-    <aside>
-      <div class="card" id="experience">
-  <div class="section-title">
-    <h3>Experience</h3>
-    <span class="small">Recent</span>
-  </div>
+    <!-- MAIN GRID --><main class="grid" aria-live="polite">
+        <!-- Left column --><section>
+            <!-- Education + Focus --><div class="card education-card" style="margin-bottom:20px">
+                <div class="section-title">
+                    <h3>Education & Current Focus</h3>
+                    <span class="small" style="color: var(--accent-dark);">[DATA_STREAM]</span>
+                </div>
+                
+                <!-- Education --><div style="margin-bottom:15px;">
+                    <div><strong>B.Tech, CSE</strong> — Kakinada Institute of Engineering and Technology</div>
+                    <div class="small">2022 - 2026 · Kakinada, Andhra Pradesh</div>
+                </div>
 
-  <div class="timeline">
-    <a href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" target="_blank" rel="noopener" class="entry" style="text-decoration: none; color:white;">
-      <div><strong>Cybersecurity & Ethical Hacking</strong></div>
-      <div class="meta">Innovate Intern · 03 May 2025 — 12 Jul 2025 · 10 weeks</div>
-    </a>
+                <!-- Focus --><div id="currently-focus">
+                    <div style="margin-top:10px; color: var(--text-light); font-weight: 600;">Active Focus Areas:</div>
+                    <p id="focusAreas" class="small" style="margin-top:6px;">
+                        <span style="color: var(--accent);">Cloud Computing (GCP/AWS)</span> · Containerization (Docker/K8s) · **Data Analytics Pipelines** · System Architecture & Secure APIs.
+                    </p>
+                </div>
+            </div>
 
-    <a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" rel="noopener" class="entry" style="text-decoration: none; color:white;">
-      <div><strong>Cloud Computing on GCP</strong></div>
-      <div class="meta">Innovate Intern · Mar 2025 — May 2025 · 8 weeks</div>
-    </a>
+            <!-- Skills --><div class="card skills-card" style="margin-bottom:20px" id="skills">
+                <div class="section-title">
+                    <h3>Core Technical Skills</h3>
+                    <span class="small" style="color: var(--accent-dark);">[TOOLKIT_V2.0]</span>
+                </div>
 
-    <a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" rel="noopener" class="entry" style="text-decoration: none; color:white;">
-      <div><strong>Internet of Things (IoT)</strong></div>
-      <div class="meta">Innovate Intern · Oct 2024 — Feb 2025 · 16 weeks</div>
-    </a>
-    <h3>Internship</h3>
-    <a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank" rel="noopener" class="entry" style="text-decoration: none;color:white;">
-      <div><strong>Zscaler Networking Virtual Internship</strong></div>
-      <div class="meta">AICTE Intern · Virtual Internship · Zscaler</div>
-    </a>
+                <div class="skills" aria-hidden="false">
+                    <!-- Using shields images from profile --><img class="skill-img" title="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+                    <img class="skill-img" title="Google Cloud" src="https://img.shields.io/badge/Google%20Cloud-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white">
+                    <img class="skill-img" title="Docker" src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+                    <img class="skill-img" title="Kubernetes" src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white">
+                    <img class="skill-img" title="Terraform" src="https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white">
+                    <img class="skill-img" title="GitHub Actions" src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white">
+                    <img class="skill-img" title="Networking" src="https://img.shields.io/badge/Networking-FF7800?style=for-the-badge&logo=network-manager&logoColor=white">
+                </div>
+            </div>
 
-    <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank" rel="noopener" class="entry" style="text-decoration: none;color:white;">
-      <div><strong>Fortinet Network Security Associate (NSE 1 & 2)</strong></div>
-      <div class="meta">AICTE Intern · Virtual Internship · Fortinet</div>
-    </a>
+            <!-- Projects --><div class="card projects-card" id="projects">
+                <div class="section-title">
+                    <h3>Project Repository</h3>
+                    <span class="small" style="color: var(--accent-dark);">[DEPLOYED_CODE]</span>
+                </div>
 
-    <a href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=drive_link" target="_blank" rel="noopener" class="entry" style="text-decoration: none;color:white;">
-      <div><strong>Google AI & ML Virtual Internship</strong></div>
-      <div class="meta">AICTE Intern · Virtual Internship · Google</div>
-    </a>
+                <div class="projects">
+                    <article class="project">
+                        <div class="small">Cyber Security Tool</div>
+                        <h4>Password Entropy & Validation</h4>
+                        <p class="small project-desc">A Python-backed tool with a frontend interface to evaluate password strength and entropy, providing real-time security suggestions.</p>
+                    </article>
 
+                    <article class="project">
+                        <div class="small">Cloud Architecture</div>
+                        <h4>Secure Microservices on GKE</h4>
+                        <p class="small project-desc">Deployed a highly-available, secure microservice application on Google Kubernetes Engine (GKE) using Helm charts and CI/CD pipelines.</p>
+                    </article>
 
+                    <article class="project">
+                        <div class="small">IoT System</div>
+                        <h4>Aquasense: Water Quality Monitor</h4>
+                        <p class="small project-desc">Developed an Arduino-based sensor system for water quality, sending telemetry data to the Cloud for analysis and real-time dashboard visualization.</p>
+                    </article>
+                </div>
+            </div>
+            
+            <!-- Certifications --><div class="card certs-card" id="certs" style="margin-top:20px;">
+                <div class="section-title">
+                    <h3>Certifications & Badges</h3>
+                    <span class="small" style="color: var(--accent-dark);">[TRUST_SCORES]</span>
+                </div>
 
-  </div>
-</div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap">
+                    <a class="badge" style="background: rgba(14, 165, 164, 0.1);" href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank" rel="noopener">Google Cyber Security</a>
+                    <a class="badge" style="background: rgba(30, 144, 255, 0.1);" href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=drive_link" target="_blank" rel="noopener">Data Analytics</a>
+                    <a class="badge" style="background: rgba(0, 255, 255, 0.15);" href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank" rel="noopener">Advanced Data Analytics</a>
+                    <a class="badge" style="background: rgba(255, 140, 0, 0.1);" href="https://drive.google.com/drive/folders/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP?usp=drive_link" target="_blank" rel="noopener">AWS Cloud Tech</a>
+                </div>
+            </div>
+        </section>
 
-      <div class="card" style="margin-top:16px">
-        <div class="section-title">
-          <h3>Badges & Activity</h3>
-          <span class="small">Live</span>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
-          <img style="width:100%;border-radius:8px" src="https://github-readme-activity-graph.vercel.app/graph?username=urstrulysaida&theme=react-dark" alt="contrib graph">
-          <img style="width:100%;border-radius:8px" src="https://github-profile-trophy.vercel.app/?username=urstrulysaida&theme=discord&margin-w=15&margin-h=15" alt="trophies">
-        </div>
-      </div>
+        <!-- Right column --><aside>
+            <div class="card experience-card" id="experience">
+                <div class="section-title">
+                    <h3>Experience Timeline</h3>
+                    <span class="small" style="color: var(--accent-dark);">[LOG_HISTORY]</span>
+                </div>
 
-      
+                <div class="timeline">
+                    <!-- Innovate Internships --><a href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" target="_blank" rel="noopener" class="entry"> 
+                        <div>**Cybersecurity & Ethical Hacking**</div>
+                        <div class="meta">Innovate Intern · 10 weeks · May — Jul 2025</div>
+                    </a>
 
-      <div class="card" style="margin-top:16px;text-align:center">
-        <div class="small">Goals</div>
-        <ul class="small" style="text-align:left;padding-left:18px;margin:8px 0 0 0">
-          <li>Complete Google Cloud Professional Architect</li>
-          <li>Build 10+ Cloud & DevOps Projects</li>
-          <li>Contribute to open source cloud tools</li>
-        </ul>
-      </div>
+                    <a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" rel="noopener" class="entry"> 
+                        <div>**Cloud Computing on GCP**</div>
+                        <div class="meta">Innovate Intern · 8 weeks · Mar — May 2025</div>
+                    </a>
 
-      <div class="card" id="contact" style="margin-top:16px">
-        <div class="section-title">
-          <h3>Contact</h3>
-          <span class="small">Hire · Collaborate · Intern</span>
-        </div>
+                    <a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" rel="noopener" class="entry"> 
+                        <div>**Internet of Things (IoT) Development**</div>
+                        <div class="meta">Innovate Intern · 16 weeks · Oct 2024 — Feb 2025</div>
+                    </a>
+                    
+                    <h3>Virtual Internships</h3>
 
-        <div class="small" style="margin-bottom:12px">
-          <strong>Email</strong> — shaiksaidavali.in@gmail.com<br>
-          <strong>Phone</strong> — +91 7674012184
-        </div>
+                    <!-- Virtual Internships --><a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank" rel="noopener" class="entry"> 
+                        <div>Zscaler Networking Virtual Internship</div>
+                        <div class="meta">AICTE Intern · Zscaler</div>
+                    </a>
 
-        <div class="cta">
-          <a class="badge" href="mailto:shaiksaidavali.in@gmail.com"><i class="fa fa-envelope"></i> Email Me</a>
-          <a class="badge" href="https://forms.gle/pjgGVqHYZ8jT1j8U8" target="_blank" rel="noopener"><i class="fa fa-paper-plane"></i> Submit Form</a>
-          <a class="badge" href="https://wa.me/917674012184" target="_blank" rel="noopener"><i class="fa fa-whatsapp"></i> WhatsApp</a>
-        </div>
-      </div>
+                    <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank" rel="noopener" class="entry"> 
+                        <div>Fortinet Network Security Associate (NSE 1 & 2)</div>
+                        <div class="meta">AICTE Intern · Fortinet</div>
+                    </a>
 
-    </aside>
-  </main>
+                    <a href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=drive_link" target="_blank" rel="noopener" class="entry"> 
+                        <div>Google AI & ML Virtual Internship</div>
+                        <div class="meta">AICTE Intern · Google</div>
+                    </a>
+                </div>
+            </div>
 
-  <footer class="footer">
-    <div>Avulavaripalem · Guntur · Andhra Pradesh · India</div>
-    <div style="margin-top:8px">© <strong>Shaik Saida Vali</strong> — Built with HTML, CSS, JS, GSAP</div>
-  </footer>
+            <div class="card activity-card" style="margin-top:20px">
+                <div class="section-title">
+                    <h3>GitHub Activity Feed</h3>
+                    <span class="small" style="color: var(--accent-dark);">[COMMIT_STATS]</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:12px;align-items:center">
+                    <!-- GitHub graphs work well with dark themes --><img style="width:100%;border-radius:8px; border: 1px solid var(--glass-border);" src="https://github-readme-activity-graph.vercel.app/graph?username=urstrulysaida&theme=react-dark" alt="contrib graph">
+                    <img style="width:100%;border-radius:8px" src="https://github-profile-trophy.vercel.app/?username=urstrulysaida&theme=discord&margin-w=15&margin-h=15" alt="trophies">
+                </div>
+            </div>
+
+            <div class="card goals-card" style="margin-top:20px;text-align:center">
+                <div class="small" style="color: var(--accent); font-size: 0.9rem;">[GOALS_MANIFEST]</div>
+                <ul class="small" style="text-align:left;padding-left:22px;margin:8px 0 0 0; list-style: square;">
+                    <li style="margin-bottom: 5px;">Secure Google Cloud Professional Architect Certification.</li>
+                    <li style="margin-bottom: 5px;">Build 10+ Containerized DevOps Projects on live infrastructure.</li>
+                    <li>Actively contribute to 3 open source cloud or security tools.</li>
+                </ul>
+            </div>
+
+            <div class="card contact-card" id="contact" style="margin-top:20px">
+                <div class="section-title">
+                    <h3>Connect & Collaborate</h3>
+                    <span class="small" style="color: var(--accent-dark);">[GET_IN_TOUCH]</span>
+                </div>
+
+                <div class="small" style="margin-bottom:15px; border-left: 3px solid var(--accent); padding-left: 10px;">
+                    <strong>Email</strong> — shaiksaidavali.in@gmail.com<br>
+                    <strong>Phone</strong> — +91 7674012184
+                </div>
+
+                <div class="cta">
+                    <a class="badge" href="mailto:shaiksaidavali.in@gmail.com"><i class="fa fa-envelope"></i> Email Me</a>
+                    <a class="badge" href="https://forms.gle/pjgGVqHYZ8jT1j8U8" target="_blank" rel="noopener"><i class="fa fa-paper-plane"></i> Submit Form</a>
+                </div>
+            </div>
+
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <div>-- END OF DATA STREAM --</div>
+        <div style="margin-top:8px">© <strong>Shaik Saida Vali</strong> — Built with HTML, CSS, JS, GSAP (v2.0 Cyber Theme)</div>
+    </footer>
 </div>
 
 <script>
+/* GSAP registration (Ensure this is run once at the start) */
+gsap.registerPlugin(ScrollTrigger);
+
+/* === Base Functionality === */
+
 /* Mobile menu toggle */
 const menuBtn = document.getElementById('menuToggle');
 menuBtn && menuBtn.addEventListener('click', ()=> {
-  const nav = document.querySelector('.nav');
-  if (!nav) return;
-  nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    const nav = document.querySelector('.nav');
+    if (!nav) return;
+    // Toggles display property and applies a subtle fade-in effect via GSAP
+    if (nav.style.display === 'flex') {
+        gsap.to(nav, {opacity: 0, height: 0, duration: 0.3, onComplete: () => {
+            nav.style.display = 'none';
+            nav.style.height = 'auto'; // Reset height for next open
+        }});
+    } else {
+        nav.style.display = 'flex';
+        gsap.fromTo(nav, 
+            {opacity: 0, y: -10}, 
+            {opacity: 1, y: 0, duration: 0.3, ease: 'power2.out'}
+        );
+    }
 });
 
 /* Smooth scroll for nav links */
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click', e=>{
-    const target = document.querySelector(a.getAttribute('href'));
-    if(!target) return;
-    e.preventDefault();
-    target.scrollIntoView({behavior:'smooth',block:'start'});
-  });
-});
-
-/* GSAP entrance animations */
-gsap.registerPlugin(ScrollTrigger);
-gsap.from('.hero-left', {opacity:0, x:-30, duration:0.8, ease:'power3.out'});
-gsap.from('.profile-img', {opacity:0, y:30, duration:0.9, delay:0.1});
-gsap.utils.toArray('.card, .project, .entry').forEach((el, i)=>{
-  gsap.from(el, {
-    scrollTrigger:{trigger:el, start:'top 90%'},
-    opacity:0, y:18, duration:0.6, delay: i*0.05, ease:'power2.out'
-  });
+    a.addEventListener('click', e=>{
+        const target = document.querySelector(a.getAttribute('href'));
+        if(!target) return;
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth',block:'start'});
+    });
 });
 
 /* Accessibility: reduce motion preference */
 if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-  gsap.globalTimeline.timeScale(3);
+    gsap.globalTimeline.timeScale(3);
 }
+
+/* === Initial GSAP Entrance Animations === */
+
+// 1. Initial Icon Animation (Staggered spin/fade-in for all badge icons)
+document.querySelectorAll('.badge i').forEach((icon, i)=>{
+    gsap.from(icon, {
+        rotation: 180,
+        opacity: 0,
+        duration: 0.8,
+        delay: 0.8 + (0.1 * i),
+        ease: 'power3.out'
+    });
+});
+
+// 2. Hero Section Entrance - Refined for Cyber Look
+gsap.from('.hero-left', {opacity:0, x:-30, duration:1.0, ease:'power3.out'});
+gsap.from('.profile-img', {
+    opacity:0, 
+    scale: 0.9, 
+    duration:1.2, 
+    delay:0.2, 
+    ease:'elastic.out(1, 0.5)', 
+    boxShadow: '0 0 0 rgba(0, 255, 255, 0.0)' // Animate glow on entrance
+});
+
+
+/* === Scroll-Triggered GSAP Animations (New and Enhanced) */
+
+// 3. Scroll-Triggered Entrance for Cards, Projects, and Timeline Entries (Base)
+// Staggered fade and rotation for a "data loading" effect
+gsap.utils.toArray('.card, .project, .entry').forEach((el, i)=>{
+    gsap.from(el, {
+        scrollTrigger:{trigger:el, start:'top 90%'},
+        opacity:0, 
+        y:20, 
+        rotationX: 10, // Slight 3D tilt
+        duration:0.7, 
+        delay: i*0.08, 
+        ease:'power3.out'
+    });
+});
+
+
+// 4. Sequential Section Title Entrance (Glow animation)
+gsap.utils.toArray('.section-title h3').forEach(title => {
+    gsap.from(title, {
+        scrollTrigger: {
+            trigger: title,
+            start: 'top 95%',
+            toggleActions: "play none none none"
+        },
+        opacity: 0,
+        x: -5,
+        duration: 0.5,
+        color: 'var(--muted)', // Start dim
+        ease: 'power1.out',
+    });
+});
+
+
+// 5. Sequential Skill Badge Entrance (Enhanced for glow)
+const skillBadges = gsap.utils.toArray('.skills .skill-img');
+if (skillBadges.length > 0) {
+    gsap.from(skillBadges, {
+        opacity: 0,
+        scale: 0.8,
+        filter: 'brightness(0)',
+        stagger: 0.1,
+        duration: 0.6,
+        ease: 'back.out(1.7)',
+        scrollTrigger: {
+            trigger: '.skills',
+            start: 'top 85%',
+        }
+    });
+}
+
+
+// 6. Footer Entrance Animation (Data stream close)
+gsap.from('.footer', {
+    scrollTrigger: {
+        trigger: '.footer',
+        start: 'top 95%',
+        toggleActions: "play none none none"
+    },
+    opacity: 0,
+    y: 10,
+    duration: 1.0,
+    ease: 'power2.out'
+});
+
+
+/* === Interactive GSAP Animations (Maintain Mouse Follow) === */
+
+// 7. Interactive Mouse Follow Effect for Hero Section
+const heroCard = document.querySelector('.hero-card');
+const profileImg = document.querySelector('.profile-img');
+
+if (heroCard && profileImg) {
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const xPercent = (e.clientX - centerX) / rect.width;
+        const yPercent = (e.clientY - centerY) / rect.height;
+
+        // Subtle parallax on the card and profile image
+        gsap.to(heroCard, {
+            rotationX: yPercent * -2,
+            rotationY: xPercent * 2,
+            scale: 1.002,
+            duration: 1,
+            ease: 'power1.out',
+        });
+        
+        gsap.to(profileImg, {
+            x: xPercent * 8,
+            y: yPercent * 8,
+            duration: 1,
+            ease: 'power1.out',
+        });
+    });
+
+    // Reset on mouse leave
+    document.querySelector('.hero').addEventListener('mouseleave', () => {
+        gsap.to([heroCard, profileImg], {
+            rotationX: 0,
+            rotationY: 0,
+            scale: 1,
+            x: 0,
+            y: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+        });
+    });
+}
+
+
 </script>
 
 </body>

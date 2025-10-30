@@ -24,7 +24,7 @@
     --text-light: #E0E8F0; /* Main body text color */
     --glass-border: rgba(0, 255, 255, 0.1);
     --glass-shadow: rgba(0, 255, 255, 0.15); /* Subtle cyan glow */
-    --maxw:1400px; /* INCREASED MAX WIDTH FOR DESKTOP */
+    --maxw:1600px; /* INCREASED MAX WIDTH FOR ULTRA-DESKTOP */
     font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
 
     /* Section specific card backgrounds */
@@ -82,7 +82,7 @@ p{font-size: 0.95rem; color: var(--muted);}
 .menu-toggle{display:none}
 
 /* Hero Section */
-.hero{display:grid;grid-template-columns:1fr 450px;gap:40px;align-items:center;margin-top:40px; margin-bottom: 40px;} /* INCREASED FIXED COLUMN TO 450PX */
+.hero{display:grid;grid-template-columns:1fr 480px;gap:40px;align-items:center;margin-top:40px; margin-bottom: 40px;} /* INCREASED FIXED COLUMN TO 480PX */
 .hero-card{
     background:var(--card);
     padding:32px;border-radius:16px;
@@ -123,14 +123,14 @@ p{font-size: 0.95rem; color: var(--muted);}
 }
 .hero-right{display:flex;justify-content:center}
 .profile-img{
-    width:100%;max-width:450px; /* INCREASED MAX-WIDTH TO MATCH NEW COLUMN SIZE */
+    width:100%;max-width:480px; /* INCREASED MAX-WIDTH TO MATCH NEW COLUMN SIZE */
     border-radius:16px;object-fit:cover;
     border:3px solid var(--accent);
     box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
 }
 
 /* Grid sections */
-.grid{display:grid;grid-template-columns:1fr 420px;gap:30px;margin-top:24px} /* INCREASED FIXED COLUMN TO 420PX */
+.grid{display:grid;grid-template-columns:1fr 450px;gap:30px;margin-top:24px} /* INCREASED FIXED COLUMN TO 450PX */
 /* Default card styling (used as a fallback for sections without specific colors) */
 .card{
     background:var(--card); 
@@ -253,17 +253,19 @@ p{font-size: 0.95rem; color: var(--muted);}
 }
 
 /* Responsive */
-/* Collapse main grid on smaller desktops/tablets */
-@media (max-width:1250px){ /* ADJUSTED BREAKPOINT */
+/* Collapse main grid and hero sections only on smaller screens */
+@media (max-width:1400px){ /* ADJUSTED BREAKPOINT: Grid collapses to single column at 1400px */
     .grid{grid-template-columns:1fr}
 }
+@media (max-width:1080px){ /* ADDED BREAKPOINT: Hero collapses to single column on large tablets/laptops */
+    .hero{grid-template-columns:1fr}
+}
 @media (max-width:860px){
-    .hero{grid-template-columns:1fr;padding-bottom:8px}
     .hero-left h2{font-size:2rem;}
     .nav{display:none; flex-direction: column; position: absolute; top: 60px; right: 24px; background: #131a24; padding: 10px; border-radius: 8px; z-index: 10; box-shadow: 0 4px 8px rgba(0,0,0,0.4); border: 1px solid var(--glass-border);}
     .nav a {width: 100%;}
     .menu-toggle{display:inline-flex; border: none; background: transparent; color: var(--accent); font-size: 1.5rem; cursor: pointer;} 
-    .profile-img{max-width:300px}
+    .profile-img{max-width:340px} /* Increased mobile max-width slightly */
 }
 
 /* Cleanup for original CSS remnants */

@@ -24,7 +24,7 @@
     --text-light: #E0E8F0; /* Main body text color */
     --glass-border: rgba(0, 255, 255, 0.1);
     --glass-shadow: rgba(0, 255, 255, 0.15); /* Subtle cyan glow */
-    --maxw:1200px; 
+    --maxw:1400px; /* INCREASED MAX WIDTH FOR DESKTOP */
     font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
 
     /* Section specific card backgrounds */
@@ -82,7 +82,7 @@ p{font-size: 0.95rem; color: var(--muted);}
 .menu-toggle{display:none}
 
 /* Hero Section */
-.hero{display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:center;margin-top:40px; margin-bottom: 40px;}
+.hero{display:grid;grid-template-columns:1fr 450px;gap:40px;align-items:center;margin-top:40px; margin-bottom: 40px;} /* INCREASED FIXED COLUMN TO 450PX */
 .hero-card{
     background:var(--card);
     padding:32px;border-radius:16px;
@@ -123,13 +123,14 @@ p{font-size: 0.95rem; color: var(--muted);}
 }
 .hero-right{display:flex;justify-content:center}
 .profile-img{
-    width:100%;max-width:380px;border-radius:16px;object-fit:cover;
+    width:100%;max-width:450px; /* INCREASED MAX-WIDTH TO MATCH NEW COLUMN SIZE */
+    border-radius:16px;object-fit:cover;
     border:3px solid var(--accent);
     box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
 }
 
 /* Grid sections */
-.grid{display:grid;grid-template-columns:1fr 380px;gap:30px;margin-top:24px}
+.grid{display:grid;grid-template-columns:1fr 420px;gap:30px;margin-top:24px} /* INCREASED FIXED COLUMN TO 420PX */
 /* Default card styling (used as a fallback for sections without specific colors) */
 .card{
     background:var(--card); 
@@ -252,7 +253,8 @@ p{font-size: 0.95rem; color: var(--muted);}
 }
 
 /* Responsive */
-@media (max-width:1080px){
+/* Collapse main grid on smaller desktops/tablets */
+@media (max-width:1250px){ /* ADJUSTED BREAKPOINT */
     .grid{grid-template-columns:1fr}
 }
 @media (max-width:860px){

@@ -1,690 +1,616 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Shaik Saida Vali — Cyber Portfolio</title>
-
-<!-- Fonts & Icons --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-<!-- GSAP --><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-<style>
-/* === CYBER GLOW BASE STYLES === */
-:root{
-    /* Electric Cyan Palette */
-    --bg: #090c10; /* Ultra Dark Blue/Black */
-    --card: rgba(18, 25, 30, 0.7); /* Slightly lighter translucent background for general cards */
-    --accent: #00FFFF; /* Electric Cyan (Used for general accents, borders, and main theme glow) */
-    --accent-dark: #00A6A6;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shaik Saida Vali - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    /* HERO ACCENTS */
-    --hero-blue: #87CEFA; /* Light Sky Blue for Headline */
-    --hero-shadow-blue: rgba(135, 206, 250, 0.4); /* Matching shadow */
+    <!-- Chosen Palette: Professional Dark Theme (GitHub Inspired) -->
+    <!-- Structure: Fixed sidebar (desktop) and dynamic content area. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Professional Dark Background */
+            background-color: #0D1117; 
+            color: #E6EDF3;
+        }
 
-    --muted: #8899AA; /* Light gray for subtle text */
-    --text-light: #E0E8F0; /* Main body text color */
-    --glass-border: rgba(0, 255, 255, 0.1);
-    --glass-shadow: rgba(0, 255, 255, 0.15); /* Subtle cyan glow */
-    --maxw:1600px; /* INCREASED MAX WIDTH FOR ULTRA-DESKTOP */
-    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+        /* --- Custom Professional Dark Mode Colors --- */
+        .bg-sidebar { background-color: #161B22; } /* Dark Gray for Sidebar */
+        .bg-card { background-color: #1F242B; } /* Lighter Dark Gray for content cards */
+        .text-accent { color: #58A6FF; } /* Accent Blue */
+        
+        /* --- Custom CSS for Animations and Transitions --- */
 
-    /* Section specific card backgrounds */
-    --card-hero: rgba(25, 40, 55, 0.7); /* NEW: Dark Blue Tint for Hero Card */
-    --card-education: rgba(30, 50, 40, 0.7); /* UPDATED: Light green tint */
-    --card-skills: rgba(20, 30, 35, 0.7); /* Slightly lighter blue tint */
-    --card-projects: rgba(15, 25, 30, 0.7); /* Standard card */
-    --card-certs: rgba(30, 40, 45, 0.7); /* Slightly darker, more prominent */
-    --card-experience: rgba(22, 32, 37, 0.7); /* More blueish */
-    --card-activity: rgba(12, 20, 25, 0.7); /* Very dark */
-    --card-goals: rgba(28, 38, 43, 0.7); /* Mildly purple tint */
-    --card-contact: rgba(35, 45, 50, 0.7); /* Most prominent for contact */
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-    margin:0; 
-    /* Deep dark grid pattern background */
-    background-color: var(--bg);
-    background-image: radial-gradient(circle at 1px 1px, rgba(13, 22, 33, 0.9) 1px, transparent 0);
-    background-size: 20px 20px;
-    color:var(--text-light); 
-    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-    line-height:1.6;
-}
-.container{max-width:var(--maxw); margin:28px auto; padding:28px 24px;}
-h1,h2,h3,h4{color:#fff; line-height:1.2;}
-p{font-size: 0.95rem; color: var(--muted);}
-
-/* Header / Nav */
-.header{
-    display:flex; align-items:center; justify-content:space-between; gap:18px;
-    padding:12px 0;
-}
-.brand{display:flex;gap:12px;align-items:center}
-.brand img{
-    height:46px;
-    width: 46px; /* Added width for square shape */
-    border-radius:8px; /* Changed to square with slight rounded corners */
-    object-fit:cover; 
-    border: 2px solid var(--accent);
-}
-.brand h1{font-size:20px;margin:0;font-weight:700; color: var(--accent);}
-.nav{display:flex;gap:12px;align-items:center}
-.nav a{
-    color:var(--muted); text-decoration:none; padding:8px 12px;border-radius:6px; font-weight:600;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
-}
-.nav a:hover{
-    color:var(--accent);
-    background:rgba(0, 255, 255, 0.05);
-    border: 1px solid var(--accent-dark);
-    box-shadow: 0 0 10px var(--glass-shadow);
-}
-.menu-toggle{display:none}
-
-/* Hero Section */
-.hero{display:grid;grid-template-columns:1fr 480px;gap:40px;align-items:center;margin-top:40px; margin-bottom: 40px;} /* INCREASED FIXED COLUMN TO 480PX */
-.hero-card{
-    background:var(--card-hero); /* APPLIED NEW BLUE TINT */
-    padding:32px;border-radius:16px;
-    backdrop-filter:blur(10px);
-    border: 1px solid var(--glass-border);
-    /* Layered Box Shadow for Cyber Effect */
-    box-shadow: 
-        0 0 15px rgba(0, 255, 255, 0.1), /* Cyan outer glow */
-        0 4px 20px rgba(0,0,0,0.5); /* Deep shadow */
-}
-.hero-left h2{
-    margin:0;
-    color:var(--hero-blue); /* Light Sky Blue Headline */
-    font-size:2.5rem;
-    text-shadow: 0 0 10px var(--hero-shadow-blue); 
-}
-.tag{
-    color:var(--text-light);
-    font-weight:600;
-    margin-top:8px;
-    padding: 4px 8px;
-    background: var(--accent-dark);
-    display: inline-block;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    background: rgba(0, 255, 255, 0.1);
-    border: 1px solid rgba(0, 255, 255, 0.2);
-}
-.tag strong{color:var(--accent)}
-.contact-badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
-.badge{
-    display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;
-    background:var(--card);
-    color:var(--muted);text-decoration:none;font-weight:600;
-    transition: all 0.3s ease;
-    border: 1px solid var(--glass-border);
-}
-.badge:hover{
-    color:var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 15px var(--glass-shadow);
-    transform: translateY(-2px);
-}
-.hero-right{display:flex;justify-content:center}
-.profile-img{
-    width:100%;max-width:480px; /* INCREASED MAX-WIDTH TO MATCH NEW COLUMN SIZE */
-    border-radius:16px;object-fit:cover;
-    border:3px solid var(--accent);
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
-}
-
-/* Grid sections */
-.grid{display:grid;grid-template-columns:1fr 450px;gap:30px;margin-top:24px} /* INCREASED FIXED COLUMN TO 450PX */
-/* Default card styling (used as a fallback for sections without specific colors) */
-.card{
-    background:var(--card); 
-    padding:24px;border-radius:14px; 
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
-    transition: all 0.3s ease;
-}
-.card:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-}
-
-/* Specific section card colors */
-.education-card {background: var(--card-education);}
-.skills-card {background: var(--card-skills);}
-.projects-card {background: var(--card-projects);}
-.certs-card {background: var(--card-certs);}
-.focus-card {background: var(--card-education);} /* Reusing education card color */
-.experience-card {background: var(--card-experience);}
-.activity-card {background: var(--card-activity);}
-.goals-card {background: var(--card-goals);}
-.contact-card {background: var(--card-contact);}
+        /* Animated Underline for Nav Links */
+        .nav-link-item {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem; /* Apply Tailwind rounded-lg */
+        }
+        .nav-link-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: #58A6FF; /* Accent Blue */
+            transition: width 0.3s ease;
+        }
+        /* Active state style enhancement */
+        .nav-link-item.active {
+            background-color: rgba(88, 166, 255, 0.15); /* Subtle blue background for active state */
+            border: 1px solid rgba(88, 166, 255, 0.5); /* Subtle border for definition */
+        }
+        /* Keep underline for hover and active, but only on the inner content area, not the full button area. */
+        .nav-link-item:hover::after, .nav-link-item.active::after {
+            width: 100%;
+        }
 
 
-.section-title{
-    display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;
-    border-bottom: 1px dashed var(--glass-border);
-    padding-bottom: 8px;
-}
-.section-title h3{
-    margin:0;font-size:1.2rem;
-    color:var(--text-light);
-    font-weight: 700;
-}
-.small{color:var(--muted);font-size:13px}
+        /* Section Transition Keyframes (Slower, smoother feel) */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-/* Skills badges */
-.skills{display:flex;flex-wrap:wrap;gap:12px}
-.skill-img{
-    height:38px;
-    display:inline-block;
-    border-radius: 4px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    filter: brightness(0.8) contrast(1.2); /* Enhance color on dark theme */
-}
-.skill-img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* Cyan glow on hover */
-    filter: brightness(1.0) contrast(1.2);
-}
+        /* Sidebar Link Slide-In (Staggered animation for professionalism) */
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .nav-item-animated {
+            animation: slideInLeft 0.5s ease-out forwards;
+            opacity: 0; /* Start hidden */
+        }
+        /* Staggering the load */
+        .nav-item-animated:nth-child(1) { animation-delay: 0.1s; }
+        .nav-item-animated:nth-child(2) { animation-delay: 0.2s; }
+        .nav-item-animated:nth-child(3) { animation-delay: 0.3s; }
+        .nav-item-animated:nth-child(4) { animation-delay: 0.4s; }
 
 
-/* Projects */
-.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
-.project{
-    padding:16px;border-radius:10px;
-    background: rgba(18, 25, 30, 0.5);
-    border-left: 3px solid var(--accent-dark);
-    transition: all 0.3s ease;
-}
-.project:hover{
-    border-left-color: var(--accent);
-    transform: translateY(-3px);
-    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.1);
-}
-.project h4{margin:8px 0 0 0; color: var(--accent-dark); font-size: 1rem;}
-.project .small{font-size: 0.8rem; color: var(--muted);}
+        /* Content Section Management */
+        .content-section {
+            display: none;
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            padding-right: 2.5rem; /* Matches main content padding on desktop */
+        }
+        .content-section.active {
+            display: block;
+            position: relative;
+        }
+        .content-section.animate-in {
+            animation: fadeInUp 0.8s ease-out forwards; /* Slower transition */
+        }
 
-/* Timeline */
-.timeline{display:flex;flex-direction:column;gap:15px; position: relative;}
-/* Vertical Line - Enhanced with a subtle gradient */
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 10px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--accent), var(--accent-dark), transparent);
-    opacity: 0.5;
-}
-.timeline h3 {
-    margin-top: 10px;
-    font-size: 1rem;
-    color: var(--accent);
-    text-align: center;
-    border-bottom: none;
-}
-.entry{
-    padding:12px 12px 12px 28px; /* Added left padding for dot effect */
-    border-radius:8px;
-    background:rgba(20, 27, 32, 0.8);
-    position: relative;
-    transition: all 0.3s ease;
-}
-.entry::before {
-    content: '';
-    position: absolute;
-    left: 8px; /* Position the dot on the line */
-    top: 18px;
-    width: 8px;
-    height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--accent);
-    z-index: 10;
-}
-.entry:hover{
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-}
-.entry div:first-child{color: var(--text-light); font-weight: 600;}
-.entry .meta{font-size:12px;color:var(--muted)}
+        /* Card Hover Effect Refinement */
+        .hover-scale {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 1px solid #2F363D; /* Subtle dark border */
+        }
+        .hover-scale:hover {
+            transform: translateY(-3px);
+            /* Refined dark shadow */
+            box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.7), 0 0 0 1px #58A6FF;
+        }
 
-/* Footer / contact */
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-.footer{
-    margin-top:40px;text-align:center;color:var(--muted);font-size:13px;padding:24px 0;
-    border-top: 1px dashed var(--glass-border);
-}
+        /* Timeline Styles */
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-left: 2.5rem;
+            border-left: 2px solid #30363D; /* Darker line */
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.5625rem;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 9999px;
+            background-color: #58A6FF; /* Accent Blue */
+            border: 3px solid #0D1117; /* Matches body background */
+            box-shadow: 0 0 0 0px rgba(88, 166, 255, 0.5);
+            animation: pulse 2s infinite;
+        }
 
-/* Responsive */
-/* Collapse main grid and hero sections only on smaller screens */
-@media (max-width:1400px){ /* ADJUSTED BREAKPOINT: Grid collapses to single column at 1400px */
-    .grid{grid-template-columns:1fr}
-}
-@media (max-width:1080px){ /* ADDED BREAKPOINT: Hero collapses to single column on large tablets/laptops */
-    .hero{grid-template-columns:1fr}
-}
-@media (max-width:860px){
-    .hero-left h2{font-size:2rem;}
-    .nav{display:none; flex-direction: column; position: absolute; top: 60px; right: 24px; background: #131a24; padding: 10px; border-radius: 8px; z-index: 10; box-shadow: 0 4px 8px rgba(0,0,0,0.4); border: 1px solid var(--glass-border);}
-    .nav a {width: 100%;}
-    .menu-toggle{display:inline-flex; border: none; background: transparent; color: var(--accent); font-size: 1.5rem; cursor: pointer;} 
-    .profile-img{max-width:340px} /* Increased mobile max-width slightly */
-}
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.6); }
+            70% { box-shadow: 0 0 0 10px rgba(88, 166, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0); }
+        }
 
-/* Cleanup for original CSS remnants */
-.section-title h3:hover {
-    color: var(--accent);
-    text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
-}
-</style>
+        /* Scrollbar styling for a cleaner look */
+        main::-webkit-scrollbar { width: 8px; }
+        main::-webkit-scrollbar-track { background: #161B22; }
+        main::-webkit-scrollbar-thumb { background-color: #30363D; border-radius: 20px; }
+        main::-webkit-scrollbar-thumb:hover { background-color: #58A6FF; }
+    </style>
 </head>
 <body>
 
-<div class="container">
-    <header class="header">
-        <div class="brand">
-            <!-- Restored GIF animation and updated styling for square shape --><img src="https://www.lambdatest.com/resources/images/news24.gif" alt="logo animation">
-            <div>
-                <h1>Shaik Saida Vali</h1>
-                <div class="small" style="color: var(--accent);">
-                    [INITIATING_PROTOCOL] Cyber Security & Cloud Architect
-                </div>
+    <div class="flex flex-col md:flex-row min-h-screen">
+        
+        <!-- Mobile Nav (Top Bar) - uses sidebar colors -->
+        <nav class="md:hidden bg-sidebar text-light p-4 sticky top-0 z-20">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl font-bold text-accent">Shaik Saida Vali</h1>
+                <button id="mobile-menu-button" class="text-2xl">
+                    &#9776;
+                </button>
             </div>
-        </div>
-
-        <nav class="nav" aria-label="Main navigation">
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#certs">Certifications</a>
-            <a href="#experience">Experience</a>
-            <a href="#contact">Contact</a>
-            <a href="https://in.linkedin.com/in/shaiksaidavali" target="_blank" rel="noopener">LinkedIn</a>
+            <div id="mobile-menu" class="hidden mt-4 space-y-2">
+                <a href="#home" class="nav-link nav-link-item block px-3 py-2 rounded-md hover:bg-gray-700 transition-colors" data-target="home">Home</a>
+                <a href="#experience" class="nav-link nav-link-item block px-3 py-2 rounded-md hover:bg-gray-700 transition-colors" data-target="experience">Experience & Education</a>
+                <a href="#skills" class="nav-link nav-link-item block px-3 py-2 rounded-md hover:bg-gray-700 transition-colors" data-target="skills">Skills & Certifications</a>
+                <a href="#projects" class="nav-link nav-link-item block px-3 py-2 rounded-md hover:bg-gray-700 transition-colors" data-target="projects">Projects</a>
+            </div>
         </nav>
 
-        <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
-            <i class="fa fa-bars"></i>
-        </button>
-    </header>
-
-    <!-- HERO --><section class="hero" id="about">
-        <div class="hero-card hero-left" role="region" aria-labelledby="hero-title">
-            <h2 id="hero-title">Hello, I'm Shaik Saida Vali.</h2>
-            <div class="tag"><strong>[STATUS: ONLINE]</strong> Cloud DevOps & Cyber Enthusiast</div>
-            <p style="margin-top:20px; color: var(--muted);">
-                A B.Tech student focused on building **secure, scalable systems** using Cloud Computing (GCP/AWS) and DevOps practices (Docker, Kubernetes). Passionate about tackling complex problems in Cyber Security and Data Architecture.
-            </p>
-
-            <div class="contact-badges">
-                <a class="badge" href="mailto:shaiksaidavali.in@gmail.com"><i class="fa fa-envelope"></i> Email</a>
-                <a class="badge" href="https://wa.me/917674012184" target="_blank" rel="noopener"><i class="fa fa-whatsapp"></i> WhatsApp</a>
-                <a class="badge" href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" rel="noopener"><i class="fa fa-file"></i> Resume Download</a>
-            </div>
-
-            <div style="margin-top:20px" class="small">
-                <strong>Current Location:</strong> Avulavaripalem, Guntur, Andhra Pradesh
-            </div>
-        </div>
-
-        <div class="hero-right">
-            <img class="profile-img" alt="Shaik Saida Vali" src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true">
-        </div>
-    </section>
-
-    <!-- MAIN GRID --><main class="grid" aria-live="polite">
-        <!-- Left column --><section>
-            <!-- Education + Focus --><div class="card education-card" style="margin-bottom:20px">
-                <div class="section-title">
-                    <h3>Education & Current Focus</h3>
-                    <span class="small" style="color: var(--accent-dark);">[DATA_STREAM]</span>
-                </div>
-                
-                <!-- Education --><div style="margin-bottom:15px;">
-                    <div><strong>B.Tech, CSE</strong> — Kakinada Institute of Engineering and Technology</div>
-                    <div class="small">2022 - 2026 · Kakinada, Andhra Pradesh</div>
-                </div>
-
-                <!-- Focus --><div id="currently-focus">
-                    <div style="margin-top:10px; color: var(--text-light); font-weight: 600;">Active Focus Areas:</div>
-                    <p id="focusAreas" class="small" style="margin-top:6px;">
-                        <span style="color: var(--accent);">Cloud Computing (GCP/AWS)</span> · Containerization (Docker/K8s) · **Data Analytics Pipelines** · System Architecture & Secure APIs.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Skills --><div class="card skills-card" style="margin-bottom:20px" id="skills">
-                <div class="section-title">
-                    <h3>Core Technical Skills</h3>
-                    <span class="small" style="color: var(--accent-dark);">[TOOLKIT_V2.0]</span>
-                </div>
-
-                <div class="skills" aria-hidden="false">
-                    <!-- Using shields images from profile --><img class="skill-img" title="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white">
-                    <img class="skill-img" title="Google Cloud" src="https://img.shields.io/badge/Google%20Cloud-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white">
-                    <img class="skill-img" title="Docker" src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
-                    <img class="skill-img" title="Kubernetes" src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white">
-                    <img class="skill-img" title="Terraform" src="https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white">
-                    <img class="skill-img" title="GitHub Actions" src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white">
-                    <img class="skill-img" title="Networking" src="https://img.shields.io/badge/Networking-FF7800?style=for-the-badge&logo=network-manager&logoColor=white">
-                </div>
-            </div>
-
-            <!-- Projects --><div class="card projects-card" id="projects">
-                <div class="section-title">
-                    <h3>Project Repository</h3>
-                    <span class="small" style="color: var(--accent-dark);">[DEPLOYED_CODE]</span>
-                </div>
-
-                <div class="projects">
-                    <article class="project">
-                        <div class="small">Cyber Security Tool</div>
-                        <h4>Password Entropy & Validation</h4>
-                        <p class="small project-desc">A Python-backed tool with a frontend interface to evaluate password strength and entropy, providing real-time security suggestions.</p>
-                    </article>
-
-                    <article class="project">
-                        <div class="small">Cloud Architecture</div>
-                        <h4>Secure Microservices on GKE</h4>
-                        <p class="small project-desc">Deployed a highly-available, secure microservice application on Google Kubernetes Engine (GKE) using Helm charts and CI/CD pipelines.</p>
-                    </article>
-
-                    <article class="project">
-                        <div class="small">IoT System</div>
-                        <h4>Aquasense: Water Quality Monitor</h4>
-                        <p class="small project-desc">Developed an Arduino-based sensor system for water quality, sending telemetry data to the Cloud for analysis and real-time dashboard visualization.</p>
-                    </article>
-                </div>
+        <!-- Desktop Nav (Sidebar) -->
+        <nav class="hidden md:flex flex-col w-64 h-screen bg-sidebar text-light p-5 sticky top-0 shadow-xl">
+            <div class="flex flex-col items-center text-center mb-10">
+                <!-- Cleaner Profile Picture display -->
+                <img src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true" alt="Shaik Saida Vali" class="w-28 h-28 rounded-full mb-4 border-2 border-accent transition-transform hover:scale-105">
+                <h1 class="text-2xl font-bold text-accent">Shaik Saida Vali</h1>
+                <p class="text-sm text-gray-400">Student | Cybersecurity Specialist</p>
             </div>
             
-            <!-- Certifications --><div class="card certs-card" id="certs" style="margin-top:20px;">
-                <div class="section-title">
-                    <h3>Certifications & Badges</h3>
-                    <span class="small" style="color: var(--accent-dark);">[TRUST_SCORES]</span>
-                </div>
+            <ul class="space-y-3 flex-1">
+                <!-- REDESIGNED NAVIGATION BUTTONS START HERE -->
+                <li class="nav-item-animated">
+                    <a href="#home" class="nav-link nav-link-item flex items-center px-4 py-2.5 rounded-lg text-lg hover:bg-gray-700/50" data-target="home">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 text-accent transition-colors"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item-animated">
+                    <a href="#experience" class="nav-link nav-link-item flex items-center px-4 py-2.5 rounded-lg text-lg hover:bg-gray-700/50" data-target="experience">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 text-accent transition-colors"><rect width="20" height="14" x="2" y="6" rx="2"/><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                        Experience & Education
+                    </a>
+                </li>
+                <li class="nav-item-animated">
+                    <a href="#skills" class="nav-link nav-link-item flex items-center px-4 py-2.5 rounded-lg text-lg hover:bg-gray-700/50" data-target="skills">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 text-accent transition-colors"><path d="M14.5 10c-.8-1.54-2-2-3.5-2C8.8 8 7 9.5 7 12c0 2 2 3 3.5 3.5C12 16 13 17 13 18"/><path d="M2 17l.5 2.5 1.5.5 1.5-.5.5-2.5-2-2z"/><path d="M22 17l-.5 2.5-1.5.5-1.5-.5-.5-2.5 2-2z"/><path d="M10 2l.5 2.5 1.5.5 1.5-.5.5-2.5-2-2z"/></svg>
+                        Skills & Certifications
+                    </a>
+                </li>
+                <li class="nav-item-animated">
+                    <a href="#projects" class="nav-link nav-link-item flex items-center px-4 py-2.5 rounded-lg text-lg hover:bg-gray-700/50" data-target="projects">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 text-accent transition-colors"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v18z"/><path d="M14 2v6h6"/></svg>
+                        Projects
+                    </a>
+                </li>
+                 <!-- REDESIGNED NAVIGATION BUTTONS END HERE -->
+            </ul>
 
-                <div style="display:flex;gap:10px;flex-wrap:wrap">
-                    <a class="badge" style="background: rgba(14, 165, 164, 0.1);" href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank" rel="noopener">Google Cyber Security</a>
-                    <a class="badge" style="background: rgba(30, 144, 255, 0.1);" href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=drive_link" target="_blank" rel="noopener">Data Analytics</a>
-                    <a class="badge" style="background: rgba(0, 255, 255, 0.15);" href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank" rel="noopener">Advanced Data Analytics</a>
-                    <a class="badge" style="background: rgba(255, 140, 0, 0.1);" href="https://drive.google.com/drive/folders/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP?usp=drive_link" target="_blank" rel="noopener">AWS Cloud Tech</a>
+            <div class="mt-8 border-t border-gray-700 pt-5">
+                <p class="text-xs text-gray-500 mb-4 text-center">Get in touch</p>
+                <div class="flex justify-around items-center">
+                    <a href="https://in.linkedin.com/in/shaiksaidavali" target="_blank" class="text-gray-400 hover:text-accent transition-colors hover:scale-110" title="LinkedIn">
+                        <img src="https://img.icons8.com/color/48/000000/linkedin.png" alt="LinkedIn" class="w-6 h-6">
+                    </a>
+                    <a href="mailto:shaiksaidavali.in@gmail.com" class="text-gray-400 hover:text-accent transition-colors hover:scale-110" title="Email">
+                        <img src="https://img.icons8.com/color/48/000000/gmail-new.png" alt="Email" class="w-6 h-6">
+                    </a>
+                    <a href="https://wa.me/917674012184" target="_blank" class="text-gray-400 hover:text-accent transition-colors hover:scale-110" title="WhatsApp">
+                           <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" class="w-6 h-6">
+                    </a>
+                    <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="text-gray-400 hover:text-accent transition-colors hover:scale-110" title="Resume">
+                        <img src="https://img.icons8.com/color/48/000000/google-docs.png" alt="Resume" class="w-6 h-6">
+                    </a>
                 </div>
             </div>
-        </section>
+        </nav>
 
-        <!-- Right column --><aside>
-            <div class="card experience-card" id="experience">
-                <div class="section-title">
-                    <h3>Experience Timeline</h3>
-                    <span class="small" style="color: var(--accent-dark);">[LOG_HISTORY]</span>
+        <!-- Main Content Area -->
+        <main class="flex-1 h-screen overflow-y-auto p-6 md:p-10">
+            
+            <!-- Home Section (REDESIGNED) -->
+            <section id="home" class="content-section">
+                
+                <!-- 1. Hero Introduction -->
+                <div class="mb-12 p-6 bg-card rounded-lg hover-scale">
+                    <p class="text-xl text-gray-500 mb-2">Hello, I'm</p>
+                    <h1 class="text-6xl md:text-7xl font-extrabold text-white mb-4 transition-colors hover:text-accent">
+                        Shaik Saida Vali
+                    </h1>
+                    <h2 class="text-3xl font-light text-gray-300 mb-6">
+                        Cybersecurity Specialist & Cloud Architect Enthusiast
+                    </h2>
+                    <p class="text-lg text-gray-400 mb-8 max-w-3xl">
+                        A dedicated Computer Science student deeply focused on building <strong class="text-accent">secure, scalable, and resilient cloud infrastructure</strong> using GCP, Kubernetes, and Python. Driven by a commitment to ethical hacking and continuous learning in DevOps practices.
+                    </p>
+                    <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="inline-block bg-accent hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all transform hover:scale-[1.01]">
+                        View Full Resume (PDF)
+                    </a>
                 </div>
 
-                <div class="timeline">
-                    <!-- Innovate Internships --><a href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" target="_blank" rel="noopener" class="entry"> 
-                        <div>**Cybersecurity & Ethical Hacking**</div>
-                        <div class="meta">Innovate Intern · 10 weeks · May — Jul 2025</div>
-                    </a>
+                <!-- 2. Currently Working On & Goals Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                    <!-- Current Work Card -->
+                    <div class="bg-card p-6 rounded-lg shadow-md hover-scale">
+                        <h3 class="text-2xl font-semibold mb-4 text-accent">Current Focus & Stack</h3>
+                        <p class="text-gray-400 mb-4">Actively learning and implementing in these domains:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <img src="https://img.shields.io/badge/Google%20Cloud-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white" alt="Cloud Computing">
+                            <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" alt="Kubernetes">
+                            <img src="https://img.shields.io/badge/CI%2FCD-0A0FFF?style=for-the-badge&logo=githubactions&logoColor=white" alt="CI/CD">
+                            <img src="https://img.shields.io/badge/Cloud%20Architecture-0F9D58?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Cloud Architecture">
+                            <img src="https://img.shields.io/badge/System%20Design-4B8BBE?style=for-the-badge&logo=databricks&logoColor=white" alt="System Design">
+                        </div>
+                    </div>
 
-                    <a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" rel="noopener" class="entry"> 
-                        <div>**Cloud Computing on GCP**</div>
-                        <div class="meta">Innovate Intern · 8 weeks · Mar — May 2025</div>
-                    </a>
+                    <!-- Goals Card -->
+                    <div class="bg-card p-6 rounded-lg shadow-md hover-scale">
+                        <h3 class="text-2xl font-semibold mb-4 text-accent">Career Milestones</h3>
+                        <ul class="list-none space-y-2 text-gray-300">
+                            <li class="flex items-center"><span class="text-xl mr-3 text-accent">&#9679;</span> Complete Google Cloud Professional Architect Certification</li>
+                            <li class="flex items-center"><span class="text-xl mr-3 text-accent">&#9679;</span> Build 10+ Cloud & DevOps Projects</li>
+                            <li class="flex items-center"><span class="text-xl mr-3 text-accent">&#9679;</span> Contribute to Open Source Cloud Tools</li>
+                            <li class="flex items-center"><span class="text-xl mr-3 text-accent">&#9679;</span> Crack Top 1000 in LeetCode Contests</li>
+                        </ul>
+                    </div>
+                </div>
 
-                    <a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" rel="noopener" class="entry"> 
-                        <div>**Internet of Things (IoT) Development**</div>
-                        <div class="meta">Innovate Intern · 16 weeks · Oct 2024 — Feb 2025</div>
-                    </a>
+                <!-- 3. GitHub Statistics (Consolidated) -->
+                <div class="bg-card p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold mb-4 text-accent">GitHub Activity and Achievements</h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="hover-scale p-4 rounded-lg border border-gray-700">
+                            <p class="text-lg font-medium mb-2">Annual Contribution Graph</p>
+                            <img src="https://github-readme-activity-graph.vercel.app/graph?username=urstrulysaida&theme=react-dark" alt="Saida's Contribution Graph" class="w-full h-auto rounded-md">
+                        </div>
+                        <div class="hover-scale p-4 rounded-lg border border-gray-700">
+                            <p class="text-lg font-medium mb-2">Profile Trophies</p>
+                            <img src="https://github-profile-trophy.vercel.app/?username=urstrulysaida&theme=discord&margin-w=15&margin-h=15" alt="Trophies" class="w-full h-auto">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience & Education Section (REDESIGNED) -->
+            <section id="experience" class="content-section">
+                <h2 class="text-3xl font-bold mb-8 border-b-2 border-accent pb-2">Experience & Education</h2>
+                <p class="text-lg text-gray-400 mb-8">
+                    This section outlines my professional and academic journey. Below is a timeline of my internships and educational background, showing my hands-on experience and formal training.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Experience Timeline -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 text-accent">Professional Experience (Internships)</h3>
+                        <div class="relative">
+                            
+                            <!-- Internship 1: Cybersecurity & Ethical Hacking -->
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="bg-card rounded-lg p-4 transition-all hover-scale">
+                                    <h4 class="text-xl font-semibold text-accent">Innovate Intern - Cybersecurity & Ethical Hacking</h4>
+                                    <p class="text-sm text-gray-500 mb-3">03-May-2025 to 12-July-2025 (10 Weeks)</p>
+                                    <ul class="list-disc list-inside space-y-1 text-gray-300 ml-4">
+                                        <li>Focused on **vulnerability assessment** and penetration testing methodologies.</li>
+                                        <li>Gained hands-on experience with tools for network and web application security testing.</li>
+                                        <li>Developed foundational skills in defense strategies against common cyber attacks.</li>
+                                    </ul>
+                                    <a href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" target="_blank" class="block mt-4">
+                                        <img src="https://img.shields.io/badge/Internship-Cybersecurity%20%26%20Ethical%20Hacking-blue?style=for-the-badge&logo=googledrive&logoColor=white" alt="Cybersecurity Internship">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Internship 2: Cloud Computing on Google Cloud -->
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="bg-card rounded-lg p-4 transition-all hover-scale">
+                                    <h4 class="text-xl font-semibold text-accent">Innovate Intern - Cloud Computing on Google Cloud</h4>
+                                    <p class="text-sm text-gray-500 mb-3">Mar-2025 – May-2025 (8 Weeks)</p>
+                                    <ul class="list-disc list-inside space-y-1 text-gray-300 ml-4">
+                                        <li>Studied core **GCP services** including Compute Engine, Cloud Storage, and VPC networks.</li>
+                                        <li>Implemented basic infrastructure-as-code (IaC) concepts using mock tools.</li>
+                                        <li>Focused on cloud security and cost optimization fundamentals.</li>
+                                    </ul>
+                                    <a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" class="block mt-4">
+                                        <img src="https://img.shields.io/badge/Internship-Cloud%20Computing%20on%20GCP-orange?style=for-the-badge&logo=googledrive&logoColor=white" alt="Cloud Internship">
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Internship 3: Internet of Things -->
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="bg-card rounded-lg p-4 transition-all hover-scale">
+                                    <h4 class="text-xl font-semibold text-accent">Innovate Intern - Internet of Things</h4>
+                                    <p class="text-sm text-gray-500 mb-3">Oct-2024 – Feb-2025 (16 Weeks)</p>
+                                    <ul class="list-disc list-inside space-y-1 text-gray-300 ml-4">
+                                        <li>Explored **IoT device prototyping** using Arduino and ESP microcontrollers.</li>
+                                        <li>Learned data transmission protocols (MQTT) to connect devices to cloud endpoints.</li>
+                                        <li>Developed an understanding of full-stack IoT deployment cycles.</li>
+                                    </ul>
+                                    <a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" class="block mt-4">
+                                        <img src="https://img.shields.io/badge/Internship-Internet%20of%20Things-green?style=for-the-badge&logo=googledrive&logoColor=white" alt="IoT Internship">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Education Timeline -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 text-accent">Academic Background</h3>
+                        <div class="relative">
+                            
+                            <!-- Education 1: B-Tech -->
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="bg-card rounded-lg p-4 transition-all hover-scale">
+                                    <h4 class="text-xl font-semibold text-accent">B-Tech, Computer Science & Engineering</h4>
+                                    <p class="text-md font-medium text-gray-300">Kakinada Institute of Engineering and Technology</p>
+                                    <p class="text-sm text-gray-500 mb-2">2022 - 2026</p>
+                                    <ul class="list-disc list-inside space-y-1 text-gray-300 ml-4">
+                                        <li>**Current Focus:** Cloud Computing, Network Security, and Algorithms.</li>
+                                        <li>Engaged in academic projects applying core CSE principles.</li>
+                                    </ul>
+                                    <p class="mt-4 text-gray-500">Kakinada - Korangi - 533461, Andhra Pradesh</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Education 2: High School -->
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="bg-card rounded-lg p-4 transition-all hover-scale">
+                                    <h4 class="text-xl font-semibold text-accent">High School (10th Class)</h4>
+                                    <p class="text-md font-medium text-gray-300">ZPHS School</p>
+                                    <p class="text-sm text-gray-500 mb-2">Completion: [Year not specified]</p>
+                                    <p class="mt-4 text-gray-500">Dodularu - 522410, Guntur, Andhra Pradesh</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills & Certifications Section (REDESIGNED) -->
+            <section id="skills" class="content-section">
+                <h2 class="text-3xl font-bold mb-8 border-b-2 border-accent pb-2">Technical Capabilities & Certifications</h2>
+                <p class="text-lg text-gray-400 mb-8">
+                    A comprehensive overview of my technical expertise, ranging from core programming skills and DevOps tools to professional cloud and security certifications.
+                </p>
+
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
                     
-                    <h3>Virtual Internships</h3>
+                    <!-- COLUMN 1 & 2: Core & DevOps Skills + Technical Domains -->
+                    <div class="xl:col-span-2 space-y-8">
+                        <div class="bg-card p-6 rounded-lg shadow-md hover-scale">
+                            <h3 class="text-2xl font-semibold mb-4 text-accent">Languages, Tools & DevOps</h3>
+                            <p class="text-gray-400 mb-4">Core programming languages, containerization, and orchestration tools.</p>
+                            <div class="flex flex-wrap gap-4">
+                                <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+                                <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
+                                <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+                                <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+                                <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+                                <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" alt="Kubernetes">
+                                <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git">
+                                <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+                            </div>
+                        </div>
 
-                    <!-- Virtual Internships --><a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank" rel="noopener" class="entry"> 
-                        <div>Zscaler Networking Virtual Internship</div>
-                        <div class="meta">AICTE Intern · Zscaler</div>
-                    </a>
+                        <!-- Technical Domains (List format for detail) -->
+                        <div class="bg-card p-6 rounded-lg shadow-md hover-scale">
+                            <h3 class="text-2xl font-semibold mb-4 text-accent">Technical Domains</h3>
+                            <ul class="list-disc list-inside space-y-3 text-gray-300 ml-4">
+                                <li><strong>Cloud Architecture:</strong> Focusing on scalable deployment, security best practices (IAM, VPC), and serverless technologies (Cloud Functions, Cloud Run) primarily on GCP.</li>
+                                <li><strong>Cybersecurity & Hacking:</strong> Practical experience in ethical hacking, vulnerability assessment, and securing network infrastructure.</li>
+                                <li><strong>Data Analytics:</strong> Skilled in utilizing tools for data cleaning, transformation, and visualization to extract actionable insights.</li>
+                                <li><strong>IoT Development:</strong> Experience with sensor integration (Arduino) and connecting devices to cloud platforms (MQTT, Cloud IoT Core knowledge).</li>
+                            </ul>
+                        </div>
+                    </div>
 
-                    <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank" rel="noopener" class="entry"> 
-                        <div>Fortinet Network Security Associate (NSE 1 & 2)</div>
-                        <div class="meta">AICTE Intern · Fortinet</div>
-                    </a>
+                    <!-- COLUMN 3: Professional Development (Consolidated - NEW DESIGN) -->
+                    <div class="xl:col-span-1">
+                        <div class="bg-card p-6 rounded-lg shadow-md space-y-6 hover-scale">
+                            
+                            <h3 class="text-2xl font-semibold text-accent border-b border-gray-700 pb-2">Professional Development</h3>
+                            
+                            <!-- 1. Industry Certifications -->
+                            <div>
+                                <h4 class="text-xl font-semibold mb-3">Industry Certifications & Courses</h4>
+                                <p class="text-sm text-gray-500 mb-4">Validations of core skills in Cloud, Security, and Data Analytics.</p>
+                                <div class="flex flex-wrap gap-3">
+                                    <a href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank"><img src="https://img.shields.io/badge/Google-Cyber%20Security-blue?style=for-the-badge&logo=googledrive&logoColor=white" alt="Google Cyber Security"></a>
+                                    <a href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Google-Data%20Analytics-green?style=for-the-badge&logo=googledrive&logoColor=white" alt="Google Data Analytics"></a>
+                                    <a href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Google-Advanced%20Data%20Analytics-orange?style=for-the-badge&logo=googledrive&logoColor=white" alt="Google Advanced Data Analytics"></a>
+                                    <a href="https://drive.google.com/drive/folders/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/AWS-Cloud%20Tech%20Consultant-red?style=for-the-badge&logo=amazons3&logoColor=white" alt="AWS Cloud Tech"></a>
+                                </div>
+                            </div>
 
-                    <a href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=drive_link" target="_blank" rel="noopener" class="entry"> 
-                        <div>Google AI & ML Virtual Internship</div>
-                        <div class="meta">AICTE Intern · Google</div>
-                    </a>
+                            <!-- 2. Virtual Internship Programs -->
+                            <div>
+                                <h4 class="text-xl font-semibold mb-3">Virtual Internship Programs</h4>
+                                <p class="text-sm text-gray-500 mb-4">Practical, scenario-based learning from industry leaders (AICTE).</p>
+                                <div class="flex flex-wrap gap-3">
+                                    <a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Zscaler-Networking%20Virtual-blueviolet?style=for-the-badge&logo=googledrive&logoColor=white" alt="Zscaler Networking"></a>
+                                    <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Fortinet-Network%20Security%20Associate-critical?style=for-the-badge&logo=fortinet&logoColor=white" alt="Fortinet Security"></a>
+                                    <a href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=drive_link" target="_blank"><img src="https://img.shields.io/badge/Google-AI%20%26%20ML%20Virtual-success?style=for-the-badge&logo=google&logoColor=white" alt="Google AI-ML"></a>
+                                </div>
+                            </div>
+
+                            <!-- 3. Credential Profiles -->
+                            <div class="pt-4 border-t border-gray-700">
+                                <h4 class="text-xl font-semibold mb-3">Credential Profiles</h4>
+                                <div class="flex flex-wrap gap-4">
+                                    <a href="https://www.credly.com/users/shaik-saida-vali./badges" target="_blank"><img src="https://img.shields.io/badge/Credentials-Credly-orange?style=social&logo=credly" alt="Credly"></a>
+                                    <a href="https://g.dev/urstrulysaida" target="_blank"><img src="https://img.shields.io/badge/Google%20Developers-Profile-blue?style=social&logo=google" alt="Google Developers"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
-            </div>
+            </section>
 
-            <div class="card activity-card" style="margin-top:20px">
-                <div class="section-title">
-                    <h3>GitHub Activity Feed</h3>
-                    <span class="small" style="color: var(--accent-dark);">[COMMIT_STATS]</span>
+            <!-- Projects Section (REDESIGNED) -->
+            <section id="projects" class="content-section">
+                <h2 class="text-3xl font-bold mb-8 border-b-2 border-accent pb-2">Key Projects & Implementations</h2>
+                <p class="text-lg text-gray-400 mb-8">
+                    These projects showcase my practical skills in applying Cloud, DevOps, and Security principles to real-world scenarios.
+                    <em class="block mt-2 text-sm text-gray-500">Note: The "View on GitHub" buttons currently link to the general profile. Please update the links with specific repository URLs.</em>
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Project Card 1: Secure Microservices on GKE -->
+                    <div class="bg-card p-6 rounded-lg shadow-md flex flex-col hover-scale">
+                        <h3 class="text-xl font-semibold mb-3 text-accent">Secure Microservices on GKE</h3>
+                        <p class="text-gray-400 flex-1 mb-4">Design and deployment of a fault-tolerant microservices architecture, secured using GKE's native security policies and Cloud IAM best practices.</p>
+                        
+                        <div class="mt-auto pt-4 border-t border-gray-700">
+                            <h4 class="text-sm font-semibold mb-2 text-gray-400">Tech Stack:</h4>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <img src="https://img.shields.io/badge/GKE-4285F4?style=flat-square&logo=googlecloud&logoColor=white" alt="GKE">
+                                <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white" alt="Kubernetes">
+                                <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker">
+                                <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+                                <img src="https://img.shields.io/badge/Helm-0F1689?style=flat-square&logo=helm&logoColor=white" alt="Helm">
+                            </div>
+                            <a href="https://github.com/urstrulysaida?tab=repositories" target="_blank" class="inline-block w-full text-center bg-accent hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition-colors">
+                                View on GitHub
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2: Aquasense: IoT Water Quality Management -->
+                    <div class="bg-card p-6 rounded-lg shadow-md flex flex-col hover-scale">
+                        <h3 class="text-xl font-semibold mb-3 text-accent">Aquasense: IoT Water Quality Management</h3>
+                        <p class="text-gray-400 flex-1 mb-4">Developed an end-to-end system for real-time water quality monitoring, integrating sensor data via Arduino and transmitting it to a cloud dashboard for analysis.</p>
+                        
+                        <div class="mt-auto pt-4 border-t border-gray-700">
+                            <h4 class="text-sm font-semibold mb-2 text-gray-400">Tech Stack:</h4>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <img src="https://img.shields.io/badge/Arduino-00979D?style=flat-square&logo=arduino&logoColor=white" alt="Arduino">
+                                <img src="https://img.shields.io/badge/MQTT-66C635?style=flat-square&logo=mqtt&logoColor=white" alt="MQTT">
+                                <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+                                <img src="https://img.shields.io/badge/Data%20Visualization-FF6F00?style=flat-square&logo=googleanalytics&logoColor=white" alt="Data Visualization">
+                            </div>
+                            <a href="https://github.com/urstrulysaida?tab=repositories" target="_blank" class="inline-block w-full text-center bg-accent hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition-colors">
+                                View on GitHub
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 3: Password Strength Tester -->
+                    <div class="bg-card p-6 rounded-lg shadow-md flex flex-col hover-scale">
+                        <h3 class="text-xl font-semibold mb-3 text-accent">Password Strength Tester</h3>
+                        <p class="text-gray-400 flex-1 mb-4">A standalone Python tool utilizing regex and algorithmic checks to evaluate password entropy and security levels against common dictionary attacks and patterns.</p>
+                        
+                        <div class="mt-auto pt-4 border-t border-gray-700">
+                            <h4 class="text-sm font-semibold mb-2 text-gray-400">Tech Stack:</h4>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+                                <img src="https://img.shields.io/badge/Security-000000?style=flat-square&logo=gnuprivacyguard&logoColor=white" alt="Security Principles">
+                                <img src="https://img.shields.io/badge/Testing-C4B543?style=flat-square&logo=jest&logoColor=white" alt="Unit Testing">
+                            </div>
+                            <a href="https://github.com/urstrulysaida?tab=repositories" target="_blank" class="inline-block w-full text-center bg-accent hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition-colors">
+                                View on GitHub
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
-                <div style="display:flex;flex-direction:column;gap:12px;align-items:center">
-                    <!-- GitHub graphs work well with dark themes --><img style="width:100%;border-radius:8px; border: 1px solid var(--glass-border);" src="https://github-readme-activity-graph.vercel.app/graph?username=urstrulysaida&theme=react-dark" alt="contrib graph">
-                    <img style="width:100%;border-radius:8px" src="https://github-profile-trophy.vercel.app/?username=urstrulysaida&theme=discord&margin-w=15&margin-h=15" alt="trophies">
-                </div>
-            </div>
+            </section>
 
-            <div class="card goals-card" style="margin-top:20px;text-align:center">
-                <div class="small" style="color: var(--accent); font-size: 0.9rem;">[GOALS_MANIFEST]</div>
-                <ul class="small" style="text-align:left;padding-left:22px;margin:8px 0 0 0; list-style: square;">
-                    <li style="margin-bottom: 5px;">Secure Google Cloud Professional Architect Certification.</li>
-                    <li style="margin-bottom: 5px;">Build 10+ Containerized DevOps Projects on live infrastructure.</li>
-                    <li>Actively contribute to 3 open source cloud or security tools.</li>
-                </ul>
-            </div>
+        </main>
+    </div>
 
-            <div class="card contact-card" id="contact" style="margin-top:20px">
-                <div class="section-title">
-                    <h3>Connect & Collaborate</h3>
-                    <span class="small" style="color: var(--accent-dark);">[GET_IN_TOUCH]</span>
-                </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
 
-                <div class="small" style="margin-bottom:15px; border-left: 3px solid var(--accent); padding-left: 10px;">
-                    <strong>Email</strong> — shaiksaidavali.in@gmail.com<br>
-                    <strong>Phone</strong> — +91 7674012184
-                </div>
+            const setActiveLink = (targetId) => {
+                navLinks.forEach(link => {
+                    // Find the parent li for desktop animation/active state
+                    const listItem = link.closest('li');
+                    
+                    if (link.getAttribute('data-target') === targetId) {
+                        link.classList.add('active');
+                        if (listItem) listItem.querySelector('.nav-link-item').classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                        if (listItem) listItem.querySelector('.nav-link-item').classList.remove('active');
+                    }
+                });
+            };
 
-                <div class="cta">
-                    <a class="badge" href="mailto:shaiksaidavali.in@gmail.com"><i class="fa fa-envelope"></i> Email Me</a>
-                    <a class="badge" href="https://forms.gle/pjgGVqHYZ8jT1j8U8" target="_blank" rel="noopener"><i class="fa fa-paper-plane"></i> Submit Form</a>
-                </div>
-            </div>
+            const showSection = (targetId) => {
+                const currentActive = document.querySelector('.content-section.active');
+                
+                // 1. Hide the current section
+                if (currentActive) {
+                    currentActive.classList.remove('animate-in');
+                    currentActive.classList.remove('active');
+                    currentActive.style.display = 'none';
+                }
 
-        </aside>
-    </main>
+                // 2. Show the new section and apply animation class
+                const newSection = document.getElementById(targetId);
+                if (newSection) {
+                    newSection.style.display = 'block';
+                    
+                    // Force a reflow/repaint
+                    newSection.offsetWidth; 
+                    
+                    newSection.classList.add('active');
+                    newSection.classList.add('animate-in'); // This triggers the keyframe animation
+                }
 
-    <footer class="footer">
-        <div>-- END OF DATA STREAM --</div>
-        <div style="margin-top:8px">© <strong>Shaik Saida Vali</strong> — Built with HTML, CSS, JS, GSAP (v2.0 Cyber Theme)</div>
-    </footer>
-</div>
+                setActiveLink(targetId);
+                // Scroll to top of main content area (important for mobile)
+                document.querySelector('main').scrollTo(0, 0);
+            };
 
-<script>
-/* GSAP registration (Ensure this is run once at the start) */
-gsap.registerPlugin(ScrollTrigger);
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('data-target');
+                    showSection(targetId);
+                    window.location.hash = targetId;
+                    
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
 
-/* === Base Functionality === */
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
 
-/* Mobile menu toggle */
-const menuBtn = document.getElementById('menuToggle');
-menuBtn && menuBtn.addEventListener('click', ()=> {
-    const nav = document.querySelector('.nav');
-    if (!nav) return;
-    // Toggles display property and applies a subtle fade-in effect via GSAP
-    if (nav.style.display === 'flex') {
-        gsap.to(nav, {opacity: 0, height: 0, duration: 0.3, onComplete: () => {
-            nav.style.display = 'none';
-            nav.style.height = 'auto'; // Reset height for next open
-        }});
-    } else {
-        nav.style.display = 'flex';
-        gsap.fromTo(nav, 
-            {opacity: 0, y: -10}, 
-            {opacity: 1, y: 0, duration: 0.3, ease: 'power2.out'}
-        );
-    }
-});
-
-/* Smooth scroll for nav links */
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', e=>{
-        const target = document.querySelector(a.getAttribute('href'));
-        if(!target) return;
-        e.preventDefault();
-        target.scrollIntoView({behavior:'smooth',block:'start'});
-    });
-});
-
-/* Accessibility: reduce motion preference */
-if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    gsap.globalTimeline.timeScale(3);
-}
-
-/* === Initial GSAP Entrance Animations === */
-
-// 1. Initial Icon Animation (Staggered spin/fade-in for all badge icons)
-document.querySelectorAll('.badge i').forEach((icon, i)=>{
-    gsap.from(icon, {
-        rotation: 180,
-        opacity: 0,
-        duration: 0.8,
-        delay: 0.8 + (0.1 * i),
-        ease: 'power3.out'
-    });
-});
-
-// 2. Hero Section Entrance - Refined for Cyber Look
-gsap.from('.hero-left', {opacity:0, x:-30, duration:1.0, ease:'power3.out'});
-gsap.from('.profile-img', {
-    opacity:0, 
-    scale: 0.9, 
-    duration:1.2, 
-    delay:0.2, 
-    ease:'elastic.out(1, 0.5)', 
-    boxShadow: '0 0 0 rgba(0, 255, 255, 0.0)' // Animate glow on entrance
-});
-
-
-/* === Scroll-Triggered GSAP Animations (New and Enhanced) */
-
-// 3. Scroll-Triggered Entrance for Cards, Projects, and Timeline Entries (Base)
-// Staggered fade and rotation for a "data loading" effect
-gsap.utils.toArray('.card, .project, .entry').forEach((el, i)=>{
-    gsap.from(el, {
-        scrollTrigger:{trigger:el, start:'top 90%'},
-        opacity:0, 
-        y:20, 
-        rotationX: 10, // Slight 3D tilt
-        duration:0.7, 
-        delay: i*0.08, 
-        ease:'power3.out'
-    });
-});
-
-
-// 4. Sequential Section Title Entrance (Glow animation)
-gsap.utils.toArray('.section-title h3').forEach(title => {
-    gsap.from(title, {
-        scrollTrigger: {
-            trigger: title,
-            start: 'top 95%',
-            toggleActions: "play none none none"
-        },
-        opacity: 0,
-        x: -5,
-        duration: 0.5,
-        color: 'var(--muted)', // Start dim
-        ease: 'power1.out',
-    });
-});
-
-
-// 5. Sequential Skill Badge Entrance (Enhanced for glow)
-const skillBadges = gsap.utils.toArray('.skills .skill-img');
-if (skillBadges.length > 0) {
-    gsap.from(skillBadges, {
-        opacity: 0,
-        scale: 0.8,
-        filter: 'brightness(0)',
-        stagger: 0.1,
-        duration: 0.6,
-        ease: 'back.out(1.7)',
-        scrollTrigger: {
-            trigger: '.skills',
-            start: 'top 85%',
-        }
-    });
-}
-
-
-// 6. Footer Entrance Animation (Data stream close)
-gsap.from('.footer', {
-    scrollTrigger: {
-        trigger: '.footer',
-        start: 'top 95%',
-        toggleActions: "play none none none"
-    },
-    opacity: 0,
-    y: 10,
-    duration: 1.0,
-    ease: 'power2.out'
-});
-
-
-/* === Interactive GSAP Animations (Maintain Mouse Follow) === */
-
-// 7. Interactive Mouse Follow Effect for Hero Section
-const heroCard = document.querySelector('.hero-card');
-const profileImg = document.querySelector('.profile-img');
-
-if (heroCard && profileImg) {
-    document.querySelector('.hero').addEventListener('mousemove', (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const xPercent = (e.clientX - centerX) / rect.width;
-        const yPercent = (e.clientY - centerY) / rect.height;
-
-        // Subtle parallax on the card and profile image
-        gsap.to(heroCard, {
-            rotationX: yPercent * -2,
-            rotationY: xPercent * 2,
-            scale: 1.002,
-            duration: 1,
-            ease: 'power1.out',
+            // Initial load based on hash or default to 'home'
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                showSection(hash);
+            } else {
+                showSection('home');
+            }
         });
-        
-        gsap.to(profileImg, {
-            x: xPercent * 8,
-            y: yPercent * 8,
-            duration: 1,
-            ease: 'power1.out',
-        });
-    });
-
-    // Reset on mouse leave
-    document.querySelector('.hero').addEventListener('mouseleave', () => {
-        gsap.to([heroCard, profileImg], {
-            rotationX: 0,
-            rotationY: 0,
-            scale: 1,
-            x: 0,
-            y: 0,
-            duration: 0.5,
-            ease: 'power2.out',
-        });
-    });
-}
-
-
-</script>
+    </script>
 
 </body>
 </html>

@@ -9,7 +9,6 @@
     <!-- Using Inter Font (Tailwind default is recommended, but explicitly ensuring here) -->
     <style>
         /* --- Custom Professional Dark Mode Colors --- */
-        /* Using CSS variables ensures colors are centrally managed for easy theme switching/flexibility */
         :root {
             --color-background: #0D1117; 
             --color-sidebar: #161B22; 
@@ -19,19 +18,101 @@
             --color-accent: #58A6FF;
         }
 
+        /* --- Light Mode Colors (NEW) --- */
+        body.light-mode {
+            --color-background: #F0F2F5; /* Very light gray/off-white */
+            --color-sidebar: #FFFFFF; /* Pure white sidebar */
+            --color-card: #FFFFFF; /* White cards */
+            --color-text-primary: #24292E; /* Dark gray for main text */
+            --color-text-secondary: #586069; /* Lighter gray for secondary text */
+            --color-accent: #0366D6; /* GitHub-like blue */
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--color-background);
             color: var(--color-text-primary);
+            transition: background-color 0.5s ease; /* Smooth mode transition */
+        }
+
+        /* Update dynamic background colors for light mode */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px;
+            left: -200px;
+            width: 400px;
+            height: 400px;
+            background: rgba(88, 166, 255, 0.1); 
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.5;
+            z-index: -10;
+            animation: moveBlob1 20s infinite alternate cubic-bezier(0.5, 0, 0.5, 1);
+            transition: background 0.5s;
+        }
+        body.light-mode::before {
+            background: rgba(3, 102, 214, 0.1); 
+            filter: blur(100px); 
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -200px;
+            right: -200px;
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 247, 255, 0.08); 
+            border-radius: 50%;
+            filter: blur(160px);
+            opacity: 0.4;
+            z-index: -10;
+            animation: moveBlob2 25s infinite alternate cubic-bezier(0.8, 0.2, 0.2, 0.8);
+            transition: background 0.5s;
+        }
+        body.light-mode::after {
+            background: rgba(255, 204, 0, 0.2); 
+            filter: blur(100px);
+        }
+
+        @keyframes moveBlob1 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50vw, 40vh) scale(1.2); }
+        }
+
+        @keyframes moveBlob2 {
+            0% { transform: translate(0, 0) scale(1.1); }
+            100% { transform: translate(-40vw, -50vh) scale(0.9); }
         }
 
         /* --- Section Separation and Animation --- */
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Base state for scroll-triggered elements */
+        .initial-hidden {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition for Intersection Observer */
         }
         
+        /* Dynamic section entrance animation (slide up and slight scale) */
+        @keyframes slideInPop {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95); 
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1.0);
+            }
+        }
+        
+        /* Used for individual content blocks when they intersect */
+        .initial-hidden.animate-in {
+            animation: slideInPop 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        /* Title animation (slide in from left) */
         @keyframes fadeInRight {
             from { opacity: 0; transform: translateX(-20px); }
             to { opacity: 1; transform: translateX(0); }
@@ -40,12 +121,10 @@
         .animated-title {
             animation: fadeInRight 0.8s ease-out forwards;
             opacity: 0;
-            /* Note: JavaScript now controls animation start when section is active */
         }
 
         .content-section {
             display: none;
-            /* Ensures sections take up most of the viewport height for a clean look */
             min-height: calc(100vh - 64px); 
             padding-top: 1.5rem;
             padding-bottom: 2rem;
@@ -55,11 +134,50 @@
             display: block;
             position: relative;
         }
-        .content-section.animate-in {
-            animation: fadeInUp 0.8s ease-out forwards;
+
+        /* Sidebar Title Glow */
+        .sidebar-title:hover {
+            text-shadow: 0 0 10px rgba(88, 166, 255, 0.7), 0 0 20px rgba(88, 166, 255, 0.4);
+            transition: text-shadow 0.4s ease;
         }
         
-        /* --- Badge & Icon Animations --- */
+        /* --- Gradient Border and Glow Effects --- */
+        .gradient-border-hover {
+            position: relative;
+            z-index: 10;
+        }
+        /* Pseudo-element for the animated gradient border effect */
+        .gradient-border-hover::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 0.75rem; /* Matches rounded-xl */
+            padding: 2px; /* Thickness of the border/glow */
+            /* Subtle blue to light-cyan gradient */
+            background: linear-gradient(45deg, var(--color-accent) 0%, #00f7ff 50%, var(--color-accent) 100%);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            transition: opacity 0.4s ease;
+            opacity: 0; /* Hidden by default */
+            z-index: -1;
+        }
+
+        .gradient-border-hover:hover::before {
+            opacity: 1; /* Show on hover */
+        }
+
+        /* Button Glow Effect */
+        .button-glow:hover {
+            box-shadow: 0 0 20px 5px rgba(88, 166, 255, 0.7);
+        }
+
+        /* Badge & Icon Animations */
         @keyframes badgeFloat {
             0% { transform: translateY(0) scale(1.0); }
             50% { transform: translateY(-3px) scale(1.02); }
@@ -73,7 +191,19 @@
         .badge-hover-effect:hover {
             transform: translateY(-3px) scale(1.02);
             filter: brightness(1.15); /* Slightly brighter on hover */
-            animation: badgeFloat 1.5s ease-in-out infinite; /* Subtle float */
+            animation: none; /* Removed constant float, keeping just translateY */
+        }
+        
+        /* --- Social Icon Wobble (NEW) --- */
+        .social-icon-wobble:hover {
+            animation: iconWobble 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes iconWobble {
+            0% { transform: rotate(0deg) scale(1.1); }
+            25% { transform: rotate(-5deg) scale(1.1); }
+            75% { transform: rotate(5deg) scale(1.1); }
+            100% { transform: rotate(0deg) scale(1.1); }
         }
 
 
@@ -84,6 +214,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            border-left: 4px solid transparent; 
+            padding-left: 1rem;
         }
         .nav-link-item::after {
             content: '';
@@ -95,14 +227,24 @@
             background-color: var(--color-accent);
             transition: width 0.3s ease;
         }
-        /* Active state style enhancement */
+
+        /* --- ENHANCED ACTIVE STATE STYLING --- */
         .nav-link-item.active {
             background-color: rgba(88, 166, 255, 0.15); 
-            border: 1px solid rgba(88, 166, 255, 0.5);
+            border-left: 4px solid var(--color-accent); 
+            font-weight: 600; 
+            border-radius: 0.5rem;
+            color: var(--color-text-primary);
         }
-        .nav-link-item:hover::after, .nav-link-item.active::after {
+        /* Light mode active link styling correction */
+        body.light-mode .nav-link-item.active {
+            background-color: rgba(3, 102, 214, 0.1); 
+        }
+
+        .nav-link-item:hover::after {
             width: 100%;
         }
+
 
         /* Profile image specific styling */
         .profile-img-container {
@@ -124,13 +266,23 @@
 
         /* Card Hover Effect */
         .hover-scale {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
             border: 1px solid #2F363D; 
             background-color: var(--color-card);
         }
         .hover-scale:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--color-accent);
+            transform: translateY(-5px); /* Increased lift */
+            border-color: rgba(88, 166, 255, 0.7); /* Border color change on hover */
+            /* Refined subtle card shadow */
+            box-shadow: 0 5px 25px -5px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(88, 166, 255, 0.3); 
+        }
+        /* Card hover fix for light mode */
+        body.light-mode .hover-scale {
+            border: 1px solid #D1D5DA; 
+        }
+        body.light-mode .hover-scale:hover {
+            box-shadow: 0 5px 25px -5px rgba(0, 0, 0, 0.1), 0 0 0 1px var(--color-accent); 
+            border-color: var(--color-accent);
         }
 
         /* Timeline Styles (using relative padding/margins for flexibility) */
@@ -148,9 +300,11 @@
             height: 1rem;
             border-radius: 9999px;
             background-color: var(--color-accent);
+            /* Important: Dot border matches the current background color */
             border: 3px solid var(--color-background); 
             box-shadow: 0 0 0 0px rgba(88, 166, 255, 0.5);
             animation: pulse 2s infinite;
+            transition: border-color 0.5s ease;
         }
 
         @keyframes pulse {
@@ -164,6 +318,10 @@
         main::-webkit-scrollbar-track { background: var(--color-sidebar); }
         main::-webkit-scrollbar-thumb { background-color: #30363D; border-radius: 20px; }
         main::-webkit-scrollbar-thumb:hover { background-color: var(--color-accent); }
+        /* Mobile adjustment for sticky header */
+        .md\:hidden.sticky {
+             background-color: var(--color-sidebar);
+        }
 
     </style>
 </head>
@@ -173,7 +331,7 @@
     <div class="flex flex-col md:flex-row min-h-screen">
         
         <!-- ============================ MOBILE NAVIGATION (TOP BAR) ============================ -->
-        <nav class="md:hidden sticky top-0 z-20 bg-[var(--color-sidebar)] text-[var(--color-text-primary)] p-4 shadow-xl">
+        <nav class="md:hidden sticky top-0 z-20 bg-[var(--color-sidebar)] text-[var(--color-text-primary)] p-4 shadow-xl transition-colors duration-500">
             <div class="flex justify-between items-center">
                 <h1 class="text-xl font-bold text-[var(--color-accent)]">S. S. Vali</h1>
                 <!-- ENHANCED MOBILE MENU BUTTON (Toggles from hamburger to X) -->
@@ -182,6 +340,13 @@
                 </button>
             </div>
             <div id="mobile-menu" class="hidden mt-4 space-y-2">
+                <!-- Theme Toggle Button (Mobile) -->
+                <button id="theme-toggle-mobile" class="w-full flex items-center justify-start space-x-3 px-3 py-2 rounded-md hover:bg-[var(--color-card)] transition-colors text-[var(--color-text-primary)]">
+                    <svg id="sun-icon-mobile" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></svg>
+                    <svg id="moon-icon-mobile" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <span id="toggle-text-mobile">Switch to Light Mode</span>
+                </button>
+                
                 <a href="#home" class="nav-link nav-link-item block px-3 py-2 rounded-md hover:bg-gray-700 transition-colors" data-target="home">Home</a>
                 <a href="#experience" class="nav-link nav-link-item block px-3 py-2 rounded-md hover:bg-gray-700 transition-colors" data-target="experience">Experience & Education</a>
                 <a href="#skills" class="nav-link nav-link-item block px-3 py-2 rounded-md hover:bg-gray-700 transition-colors" data-target="skills">Skills & Certifications</a>
@@ -191,64 +356,81 @@
 
         <!-- ============================ DESKTOP NAVIGATION (SIDEBAR) ============================ -->
         <!-- Fixed width (w-64) sidebar on desktop only, maximizing screen usage -->
-        <nav class="hidden md:flex flex-col w-64 h-screen bg-[var(--color-sidebar)] text-[var(--color-text-primary)] p-5 sticky top-0 shadow-2xl">
+        <nav class="hidden md:flex flex-col w-64 h-screen bg-[var(--color-sidebar)] text-[var(--color-text-primary)] p-5 sticky top-0 shadow-2xl transition-colors duration-500">
             <div class="flex flex-col items-center text-center mb-10">
                 <!-- Profile Picture -->
                 <div class="profile-img-container mb-4">
-                    <img src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true" alt="Shaik Saida Vali" class="w-full h-full object-cover">
+                    <!-- Placeholder image if the external image fails to load or takes too long -->
+                    <img src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/112x112/1F242B/E6EDF3?text=SV';" 
+                         alt="Shaik Saida Vali" class="w-full h-full object-cover">
                 </div>
-                <h1 class="text-2xl font-bold text-[var(--color-accent)]">Shaik Saida Vali</h1>
+                <!-- Added sidebar-title class for hover glow -->
+                <h1 class="text-2xl font-bold text-[var(--color-accent)] sidebar-title">Shaik Saida Vali</h1>
                 <p class="text-sm text-[var(--color-text-secondary)]">Student | Cybersecurity Specialist</p>
             </div>
             
             <ul class="space-y-3 flex-1">
-                <li class="nav-item-animated" style="animation-delay: 0.1s;">
-                    <a href="#home" class="nav-link nav-link-item flex items-center px-4 py-2.5 rounded-lg text-lg hover:bg-[var(--color-card)]" data-target="home">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 text-[var(--color-accent)]"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <li class="nav-item-animated">
+                    <a href="#home" class="nav-link nav-link-item flex items-center px-3 py-2.5 rounded-lg text-lg hover:bg-[var(--color-card)]" data-target="home">
+                        <!-- ICON: Home (Emoji) -->
+                        <span class="mr-3" style="font-size: 1.5rem; line-height: 1;"><span role="img" aria-label="House Emoji">🏠</span></span>
                         Home
                     </a>
                 </li>
-                <li class="nav-item-animated" style="animation-delay: 0.2s;">
-                    <a href="#experience" class="nav-link nav-link-item flex items-center px-4 py-2.5 rounded-lg text-lg hover:bg-[var(--color-card)]" data-target="experience">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 text-[var(--color-accent)]"><rect width="20" height="14" x="2" y="6" rx="2"/><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                <li class="nav-item-animated">
+                    <a href="#experience" class="nav-link nav-link-item flex items-center px-3 py-2.5 rounded-lg text-lg hover:bg-[var(--color-card)]" data-target="experience">
+                        <!-- ICON: Graduation Cap (Emoji) -->
+                        <span class="mr-3" style="font-size: 1.5rem; line-height: 1;"><span role="img" aria-label="Graduation Cap Emoji">🎓</span></span>
                         Experience & Education
                     </a>
                 </li>
-                <li class="nav-item-animated" style="animation-delay: 0.3s;">
-                    <a href="#skills" class="nav-link nav-link-item flex items-center px-4 py-2.5 rounded-lg text-lg hover:bg-[var(--color-card)]" data-target="skills">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 text-[var(--color-accent)]"><path d="M14.5 10c-.8-1.54-2-2-3.5-2C8.8 8 7 9.5 7 12c0 2 2 3 3.5 3.5C12 16 13 17 13 18"/><path d="M2 17l.5 2.5 1.5.5 1.5-.5.5-2.5-2-2z"/><path d="M22 17l-.5 2.5-1.5.5-1.5-.5-.5-2.5 2-2z"/><path d="M10 2l.5 2.5 1.5.5 1.5-.5.5-2.5-2-2z"/></svg>
+                <li class="nav-item-animated">
+                    <a href="#skills" class="nav-link nav-link-item flex items-center px-3 py-2.5 rounded-lg text-lg hover:bg-[var(--color-card)]" data-target="skills">
+                        <!-- ICON: Zap (Emoji) -->
+                        <span class="mr-3" style="font-size: 1.5rem; line-height: 1;"><span role="img" aria-label="High Voltage Emoji">⚡</span></span>
                         Skills & Certifications
                     </a>
                 </li>
-                <li class="nav-item-animated" style="animation-delay: 0.4s;">
-                    <a href="#projects" class="nav-link nav-link-item flex items-center px-4 py-2.5 rounded-lg text-lg hover:bg-[var(--color-card)]" data-target="projects">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3 text-[var(--color-accent)]"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v18z"/><path d="M14 2v6h6"/></svg>
+                <li class="nav-item-animated">
+                    <a href="#projects" class="nav-link nav-link-item flex items-center px-3 py-2.5 rounded-lg text-lg hover:bg-[var(--color-card)]" data-target="projects">
+                        <!-- ICON: Rocket (Emoji) -->
+                        <span class="mr-3" style="font-size: 1.5rem; line-height: 1;"><span role="img" aria-label="Rocket Emoji">🚀</span></span>
                         Projects
                     </a>
                 </li>
             </ul>
 
+            <!-- Theme Toggle Button (Desktop) -->
+            <div class="mb-4 pt-5 border-t border-gray-700">
+                <button id="theme-toggle-desktop" class="w-full flex items-center justify-center space-x-2 py-2 px-3 rounded-lg bg-[var(--color-card)] hover:bg-[var(--color-accent)] hover:text-white transition-colors duration-300 button-glow text-[var(--color-text-primary)] border border-gray-700">
+                    <svg id="sun-icon-desktop" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></svg>
+                    <svg id="moon-icon-desktop" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <span id="toggle-text-desktop">Switch to Light Mode</span>
+                </button>
+            </div>
+
             <!-- Contact/Social Links -->
-            <div class="mt-8 border-t border-gray-700 pt-5">
+            <div class="mt-0 border-t border-gray-700 pt-5">
                 <p class="text-xs text-gray-500 mb-4 text-center font-semibold tracking-wider uppercase">Connect</p>
                 <div class="flex justify-around items-center space-x-2">
-                    <!-- 1. LinkedIn (BRIEFCASE) -->
-                    <a href="https://in.linkedin.com/in/shaiksaidavali" target="_blank" class="p-2 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:bg-[var(--color-card)] transition-all duration-300" title="LinkedIn Profile">
+                    <!-- 1. LinkedIn (SVG) - Added social-icon-wobble -->
+                    <a href="https://in.linkedin.com/in/shaiksaidavali" target="_blank" class="p-2 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:bg-[var(--color-card)] transition-all duration-300 social-icon-wobble" title="LinkedIn Profile">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><line x1="2" x2="22" y1="12" y2="12"/></svg>
                     </a>
                     
-                    <!-- 2. Email (AT-SIGN) -->
-                    <a href="mailto:shaiksaidavali.in@gmail.com" class="p-2 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:bg-[var(--color-card)] transition-all duration-300" title="Email: shaiksaidavali.in@gmail.com">
+                    <!-- 2. Email (SVG) - Added social-icon-wobble -->
+                    <a href="mailto:shaiksaidavali.in@gmail.com" class="p-2 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:bg-[var(--color-card)] transition-all duration-300 social-icon-wobble" title="Email: shaiksaidavali.in@gmail.com">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg>
                     </a>
                     
-                    <!-- 3. GitHub (CODE) -->
-                    <a href="https://github.com/urstrulysaida" target="_blank" class="p-2 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:bg-[var(--color-card)] transition-all duration-300" title="GitHub Profile">
+                    <!-- 3. GitHub (SVG) - Added social-icon-wobble -->
+                    <a href="https://github.com/urstrulysaida" target="_blank" class="p-2 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:bg-[var(--color-card)] transition-all duration-300 social-icon-wobble" title="GitHub Profile">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                     </a>
                     
-                    <!-- 4. Resume/Google Docs (DOWNLOAD) -->
-                    <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="p-2 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:bg-[var(--color-card)] transition-all duration-300" title="View Resume (Google Docs)">
+                    <!-- 4. Resume/Google Docs (SVG) - Added social-icon-wobble -->
+                    <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="p-2 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:bg-[var(--color-card)] transition-all duration-300 social-icon-wobble" title="View Resume (Google Docs)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                     </a>
                 </div>
@@ -259,27 +441,30 @@
         <!-- Flex-1 ensures this area takes up all remaining width (100% minus sidebar width) -->
         <main class="flex-1 h-screen overflow-y-auto p-6 md:p-10">
             
-            <!-- Standardized inner container for large screens (ensures max-width for readability) -->
+            <!-- Standardized inner container for large screens (ensures max-w for readability) -->
             <div class="max-w-6xl mx-auto">
 
                 <!-- -------------------------------- HOME SECTION -------------------------------- -->
                 <section id="home" class="content-section">
                     <h2 class="sr-only">Home and Introduction</h2>
                     
-                    <!-- Hero Introduction: Uses flex layout for responsive alignment -->
-                    <div class="mb-12 p-8 md:p-10 bg-[var(--color-card)] rounded-xl shadow-2xl border-2 border-transparent transition-all duration-500 hover:border-[var(--color-accent)]/50">
+                    <!-- Hero Introduction: Animated as the first item on page load -->
+                    <div class="initial-hidden mb-12 p-8 md:p-10 bg-[var(--color-card)] rounded-xl shadow-2xl gradient-border-hover">
                         <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-8">
                             <div>
                                 <p class="text-xl text-[var(--color-text-secondary)] mb-2 font-light">Hello, I'm</p>
-                                <h1 class="text-6xl md:text-7xl font-extrabold text-white">
+                                <!-- FIX: Changed text-white to dynamic text color -->
+                                <h1 class="text-6xl md:text-7xl font-extrabold text-[var(--color-text-primary)]">
                                     Shaik Saida Vali
                                 </h1>
                                 <div class="w-24 h-1 bg-[var(--color-accent)] my-4 rounded-full"></div>
-                                <h2 class="text-3xl font-light text-gray-300 mb-6">
+                                <!-- FIX: Changed text-gray-300 to dynamic text color -->
+                                <h2 class="text-3xl font-light text-[var(--color-text-primary)] mb-6">
                                     Cybersecurity Specialist & Cloud Architect Enthusiast
                                 </h2>
                             </div>
-                            <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="shrink-0 inline-block md:ml-8 bg-[var(--color-accent)] hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-xl transition-all transform hover:scale-[1.03] mt-4 md:mt-0 text-center">
+                            <!-- Button: Added button-glow class for hover effect -->
+                            <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="shrink-0 inline-block md:ml-8 bg-[var(--color-accent)] hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-xl transition-all transform hover:scale-[1.03] mt-4 md:mt-0 text-center button-glow">
                                 View Full Resume
                             </a>
                         </div>
@@ -292,7 +477,7 @@
                     <!-- Focus & Goals Grid: Uses responsive grid (1 col default, 2 cols on large screens) -->
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
                         <!-- Card 1: Current Focus & Stack -->
-                        <div class="p-6 rounded-xl shadow-md hover-scale">
+                        <div class="initial-hidden p-6 rounded-xl shadow-md hover-scale">
                             <h3 class="text-2xl font-semibold mb-4 text-[var(--color-accent)]">Current Focus & Stack</h3>
                             <p class="text-[var(--color-text-secondary)] mb-4">Actively learning and implementing in these domains:</p>
                             <div class="flex flex-wrap gap-2">
@@ -305,9 +490,10 @@
                         </div>
 
                         <!-- Card 2: Career Milestones -->
-                        <div class="p-6 rounded-xl shadow-md hover-scale">
+                        <div class="initial-hidden p-6 rounded-xl shadow-md hover-scale">
                             <h3 class="text-2xl font-semibold mb-4 text-[var(--color-accent)]">Career Milestones</h3>
-                            <ul class="list-none space-y-2 text-gray-300">
+                            <!-- FIX: Changed text-gray-300 to dynamic text color -->
+                            <ul class="list-none space-y-2 text-[var(--color-text-primary)]">
                                 <li class="flex items-start"><span class="text-xl mr-3 text-[var(--color-accent)]">&#9679;</span> Complete Google Cloud Professional Architect Certification</li>
                                 <li class="flex items-start"><span class="text-xl mr-3 text-[var(--color-accent)]">&#9679;</span> Build 10+ Cloud & DevOps Projects</li>
                                 <li class="flex items-start"><span class="text-xl mr-3 text-[var(--color-accent)]">&#9679;</span> Contribute to Open Source Cloud Tools</li>
@@ -317,13 +503,15 @@
                     </div>
 
                     <!-- GitHub Statistics -->
-                    <div class="p-6 rounded-xl shadow-md hover-scale">
+                    <div class="initial-hidden p-6 rounded-xl shadow-md hover-scale">
                         <h3 class="text-2xl font-semibold mb-4 text-[var(--color-accent)]">GitHub Activity and Achievements</h3>
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <!-- Graph Card -->
                             <div class="hover-scale p-4 rounded-lg border border-gray-700">
                                 <p class="text-lg font-medium mb-2 text-gray-300">Annual Contribution Graph</p>
                                 <img src="https://github-readme-activity-graph.vercel.app/graph?username=urstrulysaida&theme=react-dark" alt="Saida's Contribution Graph" class="w-full h-auto rounded-md">
                             </div>
+                            <!-- Trophies Card -->
                             <div class="hover-scale p-4 rounded-lg border border-gray-700">
                                 <p class="text-lg font-medium mb-2 text-gray-300">Profile Trophies</p>
                                 <img src="https://github-profile-trophy.vercel.app/?username=urstrulysaida&theme=discord&margin-w=15&margin-h=15" alt="Trophies" class="w-full h-auto">
@@ -335,7 +523,7 @@
                 <!-- -------------------------------- EXPERIENCE & EDUCATION SECTION -------------------------------- -->
                 <section id="experience" class="content-section">
                     <h2 class="text-3xl font-bold mb-8 border-b-2 border-[var(--color-accent)] pb-2 animated-title">Experience & Education</h2>
-                    <p class="text-lg text-[var(--color-text-secondary)] mb-8">
+                    <p class="initial-hidden text-lg text-[var(--color-text-secondary)] mb-8">
                         This section outlines my professional and academic journey, highlighting hands-on experience and formal training.
                     </p>
 
@@ -343,16 +531,17 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                         <!-- Experience Timeline -->
                         <div>
-                            <h3 class="text-2xl font-semibold mb-6 text-[var(--color-accent)]">Professional Experience (Internships)</h3>
+                            <h3 class="initial-hidden text-2xl font-semibold mb-6 text-[var(--color-accent)]">Professional Experience (Internships)</h3>
                             <div class="relative">
                                 
                                 <!-- Internship 1: Cybersecurity & Ethical Hacking -->
                                 <div class="timeline-item">
                                     <div class="timeline-dot"></div>
-                                    <div class="p-4 rounded-lg transition-all hover-scale">
+                                    <div class="initial-hidden p-4 rounded-lg transition-all hover-scale">
                                         <h4 class="text-xl font-semibold text-[var(--color-accent)]">Innovate Intern - Cybersecurity & Ethical Hacking</h4>
                                         <p class="text-sm text-[var(--color-text-secondary)] mb-3">03-May-2025 to 12-July-2025 (10 Weeks)</p>
-                                        <ul class="list-disc list-inside space-y-1 text-gray-300 ml-4">
+                                        <!-- FIX: Changed text-gray-300 to dynamic text color -->
+                                        <ul class="list-disc list-inside space-y-1 text-[var(--color-text-primary)] ml-4">
                                             <li>Focused on **vulnerability assessment** and penetration testing methodologies.</li>
                                             <li>Gained hands-on experience with tools for network and web application security testing.</li>
                                             <li>Developed foundational skills in defense strategies against common cyber attacks.</li>
@@ -366,10 +555,11 @@
                                 <!-- Internship 2: Cloud Computing on Google Cloud -->
                                 <div class="timeline-item">
                                     <div class="timeline-dot"></div>
-                                    <div class="p-4 rounded-lg transition-all hover-scale">
+                                    <div class="initial-hidden p-4 rounded-lg transition-all hover-scale">
                                         <h4 class="text-xl font-semibold text-[var(--color-accent)]">Innovate Intern - Cloud Computing on Google Cloud</h4>
                                         <p class="text-sm text-[var(--color-text-secondary)] mb-3">Mar-2025 – May-2025 (8 Weeks)</p>
-                                        <ul class="list-disc list-inside space-y-1 text-gray-300 ml-4">
+                                        <!-- FIX: Changed text-gray-300 to dynamic text color -->
+                                        <ul class="list-disc list-inside space-y-1 text-[var(--color-text-primary)] ml-4">
                                             <li>Studied core **GCP services** including Compute Engine, Cloud Storage, and VPC networks.</li>
                                             <li>Implemented basic infrastructure-as-code (IaC) concepts using mock tools.</li>
                                             <li>Focused on cloud security and cost optimization fundamentals.</li>
@@ -383,10 +573,11 @@
                                 <!-- Internship 3: Internet of Things -->
                                 <div class="timeline-item">
                                     <div class="timeline-dot"></div>
-                                    <div class="p-4 rounded-lg transition-all hover-scale">
+                                    <div class="initial-hidden p-4 rounded-lg transition-all hover-scale">
                                         <h4 class="text-xl font-semibold text-[var(--color-accent)]">Innovate Intern - Internet of Things</h4>
                                         <p class="text-sm text-[var(--color-text-secondary)] mb-3">Oct-2024 – Feb-2025 (16 Weeks)</p>
-                                        <ul class="list-disc list-inside space-y-1 text-gray-300 ml-4">
+                                        <!-- FIX: Changed text-gray-300 to dynamic text color -->
+                                        <ul class="list-disc list-inside space-y-1 text-[var(--color-text-primary)] ml-4">
                                             <li>Explored **IoT device prototyping** using Arduino and ESP microcontrollers.</li>
                                             <li>Learned data transmission protocols (MQTT) to connect devices to cloud endpoints.</li>
                                             <li>Developed an understanding of full-stack IoT deployment cycles.</li>
@@ -401,17 +592,19 @@
 
                         <!-- Education Timeline -->
                         <div>
-                            <h3 class="text-2xl font-semibold mb-6 text-[var(--color-accent)]">Academic Background</h3>
+                            <h3 class="initial-hidden text-2xl font-semibold mb-6 text-[var(--color-accent)]">Academic Background</h3>
                             <div class="relative">
                                 
                                 <!-- Education 1: B-Tech -->
                                 <div class="timeline-item">
                                     <div class="timeline-dot"></div>
-                                    <div class="p-4 rounded-lg transition-all hover-scale">
+                                    <div class="initial-hidden p-4 rounded-lg transition-all hover-scale">
                                         <h4 class="text-xl font-semibold text-[var(--color-accent)]">B-Tech, Computer Science & Engineering</h4>
-                                        <p class="text-md font-medium text-gray-300">Kakinada Institute of Engineering and Technology</p>
+                                        <!-- FIX: Changed text-gray-300 to dynamic text color -->
+                                        <p class="text-md font-medium text-[var(--color-text-primary)]">Kakinada Institute of Engineering and Technology</p>
                                         <p class="text-sm text-[var(--color-text-secondary)] mb-2">2022 - 2026</p>
-                                        <ul class="list-disc list-inside space-y-1 text-gray-300 ml-4">
+                                        <!-- FIX: Changed text-gray-300 to dynamic text color -->
+                                        <ul class="list-disc list-inside space-y-1 text-[var(--color-text-primary)] ml-4">
                                             <li>**Current Focus:** Cloud Computing, Network Security, and Algorithms.</li>
                                             <li>Engaged in academic projects applying core CSE principles.</li>
                                         </ul>
@@ -422,9 +615,10 @@
                                 <!-- Education 2: High School -->
                                 <div class="timeline-item">
                                     <div class="timeline-dot"></div>
-                                    <div class="p-4 rounded-lg transition-all hover-scale">
+                                    <div class="initial-hidden p-4 rounded-lg transition-all hover-scale">
                                         <h4 class="text-xl font-semibold text-[var(--color-accent)]">High School (10th Class)</h4>
-                                        <p class="text-md font-medium text-gray-300">ZPHS School</p>
+                                        <!-- FIX: Changed text-gray-300 to dynamic text color -->
+                                        <p class="text-md font-medium text-[var(--color-text-primary)]">ZPHS School</p>
                                         <p class="text-sm text-[var(--color-text-secondary)] mb-2">Completion: [Year not specified]</p>
                                         <p class="mt-4 text-[var(--color-text-secondary)]">Dodularu - 522410, Guntur, Andhra Pradesh</p>
                                     </div>
@@ -437,7 +631,7 @@
                 <!-- -------------------------------- SKILLS & CERTIFICATIONS SECTION -------------------------------- -->
                 <section id="skills" class="content-section">
                     <h2 class="text-3xl font-bold mb-8 border-b-2 border-[var(--color-accent)] pb-2 animated-title">Technical Capabilities & Certifications</h2>
-                    <p class="text-lg text-[var(--color-text-secondary)] mb-8">
+                    <p class="initial-hidden text-lg text-[var(--color-text-secondary)] mb-8">
                         A comprehensive overview of my technical expertise, ranging from core programming skills and DevOps tools to professional cloud and security certifications.
                     </p>
 
@@ -447,7 +641,7 @@
                         <!-- COLUMN 1 & 2: Core & DevOps Skills + Technical Domains (Spans 2/3 of space on desktop) -->
                         <div class="xl:col-span-2 space-y-8">
                             <!-- Languages, Tools & DevOps -->
-                            <div class="p-6 rounded-lg shadow-md hover-scale">
+                            <div class="initial-hidden p-6 rounded-lg shadow-md hover-scale">
                                 <h3 class="text-2xl font-semibold mb-4 text-[var(--color-accent)]">Languages, Tools & DevOps</h3>
                                 <p class="text-[var(--color-text-secondary)] mb-4">Core programming languages, containerization, and orchestration tools.</p>
                                 <div class="flex flex-wrap gap-4">
@@ -463,9 +657,10 @@
                             </div>
 
                             <!-- Technical Domains -->
-                            <div class="p-6 rounded-lg shadow-md hover-scale">
+                            <div class="initial-hidden p-6 rounded-lg shadow-md hover-scale">
                                 <h3 class="text-2xl font-semibold mb-4 text-[var(--color-accent)]">Technical Domains</h3>
-                                <ul class="list-disc list-inside space-y-3 text-gray-300 ml-4">
+                                <!-- FIX: Changed text-gray-300 to dynamic text color -->
+                                <ul class="list-disc list-inside space-y-3 text-[var(--color-text-primary)] ml-4">
                                     <li><strong>Cloud Architecture:</strong> Focusing on scalable deployment, security best practices (IAM, VPC), and serverless technologies (Cloud Functions, Cloud Run) primarily on GCP.</li>
                                     <li><strong>Cybersecurity & Hacking:</strong> Practical experience in ethical hacking, vulnerability assessment, and securing network infrastructure.</li>
                                     <li><strong>Data Analytics:</strong> Skilled in utilizing tools for data cleaning, transformation, and visualization to extract actionable insights.</li>
@@ -476,11 +671,12 @@
 
                         <!-- COLUMN 3: Professional Development (Takes up 1/3 of space on desktop) -->
                         <div class="xl:col-span-1 space-y-8">
-                            <h3 class="text-2xl font-bold text-[var(--color-accent)]">Certifications & Credentials</h3>
+                            <h3 class="initial-hidden text-2xl font-bold text-[var(--color-accent)]">Certifications & Credentials</h3>
 
                             <!-- 1. Industry Certifications CARD -->
-                            <div class="p-6 rounded-xl shadow-md hover-scale border-l-4 border-[var(--color-accent)]">
-                                <h4 class="text-xl font-semibold mb-3 text-white">Industry Certifications & Courses</h4>
+                            <div class="initial-hidden p-6 rounded-xl shadow-md hover-scale border-l-4 border-[var(--color-accent)]">
+                                <!-- FIX: Changed text-white to dynamic text color -->
+                                <h4 class="text-xl font-semibold mb-3 text-[var(--color-text-primary)]">Industry Certifications & Courses</h4>
                                 <p class="text-sm text-[var(--color-text-secondary)] mb-4">Validations of core skills in Cloud, Security, and Data Analytics.</p>
                                 <div class="flex flex-wrap gap-3">
                                     <a href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank">
@@ -499,8 +695,9 @@
                             </div>
 
                             <!-- 2. Virtual Internship Programs CARD -->
-                            <div class="p-6 rounded-xl shadow-md hover-scale border-l-4 border-[var(--color-accent)]">
-                                <h4 class="text-xl font-semibold mb-3 text-white">Virtual Internship Programs (AICTE)</h4>
+                            <div class="initial-hidden p-6 rounded-xl shadow-md hover-scale border-l-4 border-[var(--color-accent)]">
+                                <!-- FIX: Changed text-white to dynamic text color -->
+                                <h4 class="text-xl font-semibold mb-3 text-[var(--color-text-primary)]">Virtual Internship Programs (AICTE)</h4>
                                 <p class="text-sm text-[var(--color-text-secondary)] mb-4">Practical, scenario-based learning from industry leaders.</p>
                                 <div class="flex flex-wrap gap-3">
                                     <a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank">
@@ -516,8 +713,9 @@
                             </div>
 
                             <!-- 3. Credential Profiles CARD -->
-                            <div class="p-6 rounded-xl shadow-md hover-scale border-l-4 border-[var(--color-accent)]">
-                                <h4 class="text-xl font-semibold mb-3 text-white">Credential Profiles</h4>
+                            <div class="initial-hidden p-6 rounded-xl shadow-md hover-scale border-l-4 border-[var(--color-accent)]">
+                                <!-- FIX: Changed text-white to dynamic text color -->
+                                <h4 class="text-xl font-semibold mb-3 text-[var(--color-text-primary)]">Credential Profiles</h4>
                                 <p class="text-sm text-[var(--color-text-secondary)] mb-4">Links to verified external achievement platforms.</p>
                                 <div class="flex flex-wrap gap-4">
                                     <a href="https://www.credly.com/users/shaik-saida-vali./badges" target="_blank">
@@ -535,7 +733,7 @@
                 <!-- -------------------------------- PROJECTS SECTION -------------------------------- -->
                 <section id="projects" class="content-section">
                     <h2 class="text-3xl font-bold mb-8 border-b-2 border-[var(--color-accent)] pb-2 animated-title">Key Projects & Implementations</h2>
-                    <p class="text-lg text-[var(--color-text-secondary)] mb-8">
+                    <p class="initial-hidden text-lg text-[var(--color-text-secondary)] mb-8">
                         These projects showcase my practical skills in applying Cloud, DevOps, and Security principles to real-world scenarios.
                     </p>
 
@@ -543,12 +741,13 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         
                         <!-- Project Card 1: Secure Microservices on GKE -->
-                        <div class="p-6 rounded-lg shadow-md flex flex-col hover-scale">
+                        <div class="initial-hidden p-6 rounded-lg shadow-md flex flex-col hover-scale">
                             <h3 class="text-xl font-semibold mb-3 text-[var(--color-accent)]">Secure Microservices on GKE</h3>
                             <p class="text-[var(--color-text-secondary)] flex-1 mb-4">Design and deployment of a fault-tolerant microservices architecture, secured using GKE's native security policies and Cloud IAM best practices.</p>
                             
                             <div class="mt-auto pt-4 border-t border-gray-700">
-                                <h4 class="text-sm font-semibold mb-2 text-gray-400">Tech Stack:</h4>
+                                <!-- FIX: Changed text-gray-400 to secondary text color -->
+                                <h4 class="text-sm font-semibold mb-2 text-[var(--color-text-secondary)]">Tech Stack:</h4>
                                 <div class="flex flex-wrap gap-2 mb-4">
                                     <img src="https://img.shields.io/badge/GKE-4285F4?style=flat-square&logo=googlecloud&logoColor=white" alt="GKE" class="badge-hover-effect">
                                     <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white" alt="Kubernetes" class="badge-hover-effect">
@@ -563,12 +762,13 @@
                         </div>
 
                         <!-- Project Card 2: Aquasense: IoT Water Quality Management -->
-                        <div class="p-6 rounded-lg shadow-md flex flex-col hover-scale">
+                        <div class="initial-hidden p-6 rounded-lg shadow-md flex flex-col hover-scale">
                             <h3 class="text-xl font-semibold mb-3 text-[var(--color-accent)]">Aquasense: IoT Water Quality Management</h3>
                             <p class="text-[var(--color-text-secondary)] flex-1 mb-4">Developed an end-to-end system for real-time water quality monitoring, integrating sensor data via Arduino and transmitting it to a cloud dashboard for analysis.</p>
                             
                             <div class="mt-auto pt-4 border-t border-gray-700">
-                                <h4 class="text-sm font-semibold mb-2 text-gray-400">Tech Stack:</h4>
+                                <!-- FIX: Changed text-gray-400 to secondary text color -->
+                                <h4 class="text-sm font-semibold mb-2 text-[var(--color-text-secondary)]">Tech Stack:</h4>
                                 <div class="flex flex-wrap gap-2 mb-4">
                                     <img src="https://img.shields.io/badge/Arduino-00979D?style=flat-square&logo=arduino&logoColor=white" alt="Arduino" class="badge-hover-effect">
                                     <img src="https://img.shields.io/badge/MQTT-66C635?style=flat-square&logo=mqtt&logoColor=white" alt="MQTT" class="badge-hover-effect">
@@ -582,12 +782,13 @@
                         </div>
 
                         <!-- Project Card 3: Password Strength Tester -->
-                        <div class="p-6 rounded-lg shadow-md flex flex-col hover-scale">
+                        <div class="initial-hidden p-6 rounded-lg shadow-md flex flex-col hover-scale">
                             <h3 class="text-xl font-semibold mb-3 text-[var(--color-accent)]">Password Strength Tester</h3>
                             <p class="text-[var(--color-text-secondary)] flex-1 mb-4">A standalone Python tool utilizing regex and algorithmic checks to evaluate password entropy and security levels against common dictionary attacks and patterns.</p>
                             
                             <div class="mt-auto pt-4 border-t border-gray-700">
-                                <h4 class="text-sm font-semibold mb-2 text-gray-400">Tech Stack:</h4>
+                                <!-- FIX: Changed text-gray-400 to secondary text color -->
+                                <h4 class="text-sm font-semibold mb-2 text-[var(--color-text-secondary)]">Tech Stack:</h4>
                                 <div class="flex flex-wrap gap-2 mb-4">
                                     <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" class="badge-hover-effect">
                                     <img src="https://img.shields.io/badge/Security-000000?style=flat-square&logo=gnuprivacyguard&logoColor=white" alt="Security Principles" class="badge-hover-effect">
@@ -613,6 +814,91 @@
             const contentSections = document.querySelectorAll('.content-section');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            const body = document.body;
+
+            // --- Theme Toggle Logic (NEW) ---
+            const toggleButtons = [
+                { btn: document.getElementById('theme-toggle-desktop'), text: document.getElementById('toggle-text-desktop'), sun: document.getElementById('sun-icon-desktop'), moon: document.getElementById('moon-icon-desktop') },
+                { btn: document.getElementById('theme-toggle-mobile'), text: document.getElementById('toggle-text-mobile'), sun: document.getElementById('sun-icon-mobile'), moon: document.getElementById('moon-icon-mobile') }
+            ].filter(obj => obj.btn); // Filter out nulls for responsive design
+
+            /**
+             * Applies the chosen theme and updates the UI elements.
+             * @param {boolean} isLight - True for light mode, false for dark mode.
+             */
+            const applyTheme = (isLight) => {
+                if (isLight) {
+                    body.classList.add('light-mode');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.classList.remove('light-mode');
+                    localStorage.setItem('theme', 'dark');
+                }
+
+                // Update text and icons for all toggles
+                toggleButtons.forEach(obj => {
+                    if (obj.text) {
+                        obj.text.textContent = isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+                    }
+                    if (obj.sun && obj.moon) {
+                        obj.sun.classList.toggle('hidden', !isLight);
+                        obj.moon.classList.toggle('hidden', isLight);
+                    }
+                });
+            };
+
+            // Initialize theme from localStorage or default to system/dark
+            const savedTheme = localStorage.getItem('theme');
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+            if (savedTheme === 'light' || (savedTheme === null && prefersLight)) {
+                applyTheme(true);
+            } else {
+                applyTheme(false);
+            }
+
+            // Add listeners to toggle buttons
+            toggleButtons.forEach(obj => {
+                obj.btn.addEventListener('click', () => {
+                    const isLight = body.classList.contains('light-mode');
+                    applyTheme(!isLight);
+                });
+            });
+            // -------------------------------------------------------------------
+
+
+            // --- Intersection Observer Setup for Scroll Animations ---
+            const observerOptions = {
+                root: null, // viewport
+                rootMargin: '0px',
+                threshold: 0.1 // trigger when 10% of item is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Use a short timeout to help stagger animations slightly,
+                        // especially for items loaded at the same time.
+                        const delay = entry.target.dataset.index * 100 || 0; 
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-in');
+                            // Ensure the initial-hidden styling is quickly transitioned
+                            entry.target.style.transform = 'translateY(0) scale(1.0)';
+                            entry.target.style.opacity = '1';
+                        }, delay);
+                        
+                        observer.unobserve(entry.target); // Stop observing once it's animated
+                    }
+                });
+            }, observerOptions);
+
+            // Give elements a data-index property for minor animation delay staggering
+            let indexCounter = 0;
+            document.querySelectorAll('.initial-hidden').forEach(el => {
+                el.dataset.index = indexCounter++;
+                observer.observe(el);
+            });
+            // ------------------------------------------------------------------------
 
             /**
              * Sets the 'active' class on the correct navigation link for the current section.
@@ -639,9 +925,9 @@
                 const title = sectionElement.querySelector('.animated-title');
                 if (title) {
                     // Remove and re-add animation class to force restart (CSS trick)
-                    title.classList.remove('animate-in');
+                    title.classList.remove('animated-title');
                     void title.offsetWidth; // Force reflow/repaint
-                    title.classList.add('animate-in');
+                    title.classList.add('animated-title');
                 }
             };
 
@@ -654,20 +940,30 @@
                 
                 // 1. Deactivate old section
                 if (currentActive) {
-                    currentActive.classList.remove('animate-in');
                     currentActive.classList.remove('active');
                     currentActive.style.display = 'none'; 
+                    
+                    // Unobserve all elements in the old section to reset their state
+                    currentActive.querySelectorAll('.initial-hidden.animate-in').forEach(el => {
+                        observer.unobserve(el);
+                    });
                 }
 
                 // 2. Activate new section
                 const newSection = document.getElementById(targetId);
                 if (newSection) {
                     newSection.style.display = 'block';
-                    newSection.offsetWidth; // Force a reflow/repaint for CSS animation restart
+                    newSection.offsetWidth; // Force a reflow/repaint
                     newSection.classList.add('active');
-                    newSection.classList.add('animate-in');
                     
-                    // Trigger the title animation on the new section
+                    // Re-observe elements in the new section, resetting them to initial-hidden state
+                    newSection.querySelectorAll('.initial-hidden').forEach(el => {
+                        el.classList.remove('animate-in'); // Remove previous animation class
+                        el.style.transform = ''; // Reset inline styles for opacity/transform
+                        el.style.opacity = '';
+                        observer.observe(el);
+                    });
+
                     animateTitles(newSection);
                 }
 
@@ -682,7 +978,7 @@
                     e.preventDefault();
                     const targetId = link.getAttribute('data-target');
                     showSection(targetId);
-                    window.location.hash = targetId;
+                    window.history.pushState(null, '', `#${targetId}`); // Use pushState for cleaner URL history
                     
                     // Hide mobile menu after clicking a link, and update the button icon
                     if (!mobileMenu.classList.contains('hidden')) {

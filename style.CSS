@@ -1,0 +1,331 @@
+<style>
+    /* --- Custom Professional Dark Mode Colors --- */
+    :root {
+        --color-background: #0D1117;
+        --color-sidebar: #161B22;
+        --color-card: #1F242B;
+        --color-text-primary: #E6EDF3;
+        --color-text-secondary: #8B949E;
+        --color-border-dark: #2F363D; /* NEW: Dynamic border color */
+        --color-accent: #58A6FF;
+    }
+
+    /* --- Light Mode Colors (NEW) --- */
+    body.light-mode {
+        --color-background: #F0F2F5; /* Very light gray/off-white */
+        --color-sidebar: #FFFFFF; /* Pure white sidebar */
+        --color-card: #FFFFFF; /* White cards */
+        --color-text-primary: #24292E; /* Dark gray for main text */
+        --color-text-secondary: #586069; /* Lighter gray for secondary text */
+        --color-border-dark: #D1D5DA; /* NEW: Light mode border color */
+        --color-accent: #0366D6; /* GitHub-like blue */
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--color-background);
+        color: var(--color-text-primary);
+        transition: background-color 0.5s ease; /* Smooth mode transition */
+    }
+
+    /* Update dynamic background colors for light mode */
+    body::before {
+        content: '';
+        position: fixed;
+        top: -200px;
+        left: -200px;
+        width: 400px;
+        height: 400px;
+        background: rgba(88, 166, 255, 0.1);
+        border-radius: 50%;
+        filter: blur(150px);
+        opacity: 0.5;
+        z-index: -10;
+        animation: moveBlob1 20s infinite alternate cubic-bezier(0.5, 0, 0.5, 1);
+        transition: background 0.5s;
+    }
+    body.light-mode::before {
+        background: rgba(3, 102, 214, 0.1);
+        filter: blur(100px);
+    }
+
+    body::after {
+        content: '';
+        position: fixed;
+        bottom: -200px;
+        right: -200px;
+        width: 500px;
+        height: 500px;
+        background: rgba(0, 247, 255, 0.08);
+        border-radius: 50%;
+        filter: blur(160px);
+        opacity: 0.4;
+        z-index: -10;
+        animation: moveBlob2 25s infinite alternate cubic-bezier(0.8, 0.2, 0.2, 0.8);
+        transition: background 0.5s;
+    }
+    body.light-mode::after {
+        background: rgba(255, 204, 0, 0.2);
+        filter: blur(100px);
+    }
+
+    @keyframes moveBlob1 {
+        0% { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(50vw, 40vh) scale(1.2); }
+    }
+
+    @keyframes moveBlob2 {
+        0% { transform: translate(0, 0) scale(1.1); }
+        100% { transform: translate(-40vw, -50vh) scale(0.9); }
+    }
+
+    /* --- Section Separation and Animation --- */
+
+    /* Base state for scroll-triggered elements */
+    .initial-hidden {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+        transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition for Intersection Observer */
+    }
+    
+    /* Dynamic section entrance animation (slide up and slight scale) */
+    @keyframes slideInPop {
+        from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1.0);
+        }
+    }
+    
+    /* Used for individual content blocks when they intersect */
+    .initial-hidden.animate-in {
+        animation: slideInPop 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+
+    /* Title animation (slide in from left) */
+    @keyframes fadeInRight {
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    .animated-title {
+        animation: fadeInRight 0.8s ease-out forwards;
+        opacity: 0;
+    }
+
+    .content-section {
+        display: none;
+        min-height: calc(100vh - 64px);
+        padding-top: 1.5rem;
+        padding-bottom: 2rem;
+        width: 100%;
+    }
+    .content-section.active {
+        display: block;
+        position: relative;
+    }
+
+    /* Sidebar Title Glow */
+    .sidebar-title:hover {
+        text-shadow: 0 0 10px rgba(88, 166, 255, 0.7), 0 0 20px rgba(88, 166, 255, 0.4);
+        transition: text-shadow 0.4s ease;
+    }
+    
+    /* --- Gradient Border and Glow Effects --- */
+    .gradient-border-hover {
+        position: relative;
+        z-index: 10;
+    }
+    /* Pseudo-element for the animated gradient border effect */
+    .gradient-border-hover::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 0.75rem; /* Matches rounded-xl */
+        padding: 2px; /* Thickness of the border/glow */
+        /* Subtle blue to light-cyan gradient */
+        background: linear-gradient(45deg, var(--color-accent) 0%, #00f7ff 50%, var(--color-accent) 100%);
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        transition: opacity 0.4s ease;
+        opacity: 0; /* Hidden by default */
+        z-index: -1;
+    }
+
+    .gradient-border-hover:hover::before {
+        opacity: 1; /* Show on hover */
+    }
+
+    /* Button Glow Effect */
+    .button-glow:hover {
+        box-shadow: 0 0 20px 5px rgba(88, 166, 255, 0.7);
+    }
+
+    /* Badge & Icon Animations */
+    @keyframes badgeFloat {
+        0% { transform: translateY(0) scale(1.0); }
+        50% { transform: translateY(-3px) scale(1.02); }
+        100% { transform: translateY(0) scale(1.0); }
+    }
+
+    .badge-hover-effect {
+        transition: all 0.2s ease-in-out;
+    }
+    
+    .badge-hover-effect:hover {
+        transform: translateY(-3px) scale(1.02);
+        filter: brightness(1.15); /* Slightly brighter on hover */
+        animation: none; /* Removed constant float, keeping just translateY */
+    }
+    
+    /* --- Social Icon Wobble (NEW) --- */
+    .social-icon-wobble:hover {
+        animation: iconWobble 0.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes iconWobble {
+        0% { transform: rotate(0deg) scale(1.1); }
+        25% { transform: rotate(-5deg) scale(1.1); }
+        75% { transform: rotate(5deg) scale(1.1); }
+        100% { transform: rotate(0deg) scale(1.1); }
+    }
+
+
+    /* --- Sidebar & Navigation Styling --- */
+
+    /* Animated Underline for Nav Links */
+    .nav-link-item {
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        border-left: 4px solid transparent;
+        padding-left: 1rem;
+    }
+    .nav-link-item::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background-color: var(--color-accent);
+        transition: width 0.3s ease;
+    }
+
+    /* --- ENHANCED ACTIVE STATE STYLING --- */
+    .nav-link-item.active {
+        background-color: rgba(88, 166, 255, 0.15);
+        border-left: 4px solid var(--color-accent);
+        font-weight: 600;
+        border-radius: 0.5rem;
+        color: var(--color-text-primary);
+    }
+    /* Light mode active link styling correction */
+    body.light-mode .nav-link-item.active {
+        background-color: rgba(3, 102, 214, 0.1);
+    }
+
+    .nav-link-item:hover::after {
+        width: 100%;
+    }
+
+
+    /* Profile image specific styling */
+    .profile-img-container {
+        width: 112px; height: 112px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid var(--color-accent);
+        transition: all 0.3s ease;
+        box-shadow: 0 0 0 0px rgba(88, 166, 255, 0);
+    }
+
+    .profile-img-container:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px 5px rgba(88, 166, 255, 0.6);
+    }
+
+    /* Card Hover Effect */
+    .hover-scale {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+        border: 1px solid var(--color-border-dark); /* Use dynamic border color */
+        background-color: var(--color-card);
+    }
+    .hover-scale:hover {
+        transform: translateY(-5px); /* Increased lift */
+        border-color: rgba(88, 166, 255, 0.7); /* Border color change on hover */
+        /* Refined subtle card shadow */
+        box-shadow: 0 5px 25px -5px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(88, 166, 255, 0.3);
+    }
+    /* Card hover fix for light mode */
+    body.light-mode .hover-scale {
+        border: 1px solid var(--color-border-dark);
+    }
+    body.light-mode .hover-scale:hover {
+        box-shadow: 0 5px 25px -5px rgba(0, 0, 0, 0.1), 0 0 0 1px var(--color-accent);
+        border-color: var(--color-accent);
+    }
+
+    /* Timeline Styles (using relative padding/margins for flexibility) */
+    .timeline-item {
+        position: relative;
+        padding-bottom: 2rem;
+        padding-left: 2.5rem;
+        border-left: 2px solid var(--color-border-dark); /* Use dynamic border color */
+    }
+    .timeline-dot {
+        position: absolute;
+        left: -0.5625rem;
+        top: 0;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 9999px;
+        background-color: var(--color-accent);
+        /* Important: Dot border matches the current background color */
+        border: 3px solid var(--color-background);
+        box-shadow: 0 0 0 0px rgba(88, 166, 255, 0.5);
+        animation: pulse 2s infinite;
+        transition: border-color 0.5s ease;
+    }
+
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.6); }
+        70% { box-shadow: 0 0 0 10px rgba(88, 166, 255, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0); }
+    }
+
+    /* Scrollbar styling for a cleaner look */
+    main::-webkit-scrollbar { width: 8px; }
+    main::-webkit-scrollbar-track { background: var(--color-sidebar); }
+    main::-webkit-scrollbar-thumb { background-color: var(--color-border-dark); border-radius: 20px; } /* Use dynamic color */
+    main::-webkit-scrollbar-thumb:hover { background-color: var(--color-accent); }
+    
+    /* Mobile adjustment for sticky header */
+    .md\:hidden.sticky {
+         background-color: var(--color-sidebar);
+    }
+
+    /* Generic element transition to smooth out all color/bg changes (NEW) */
+    .smooth-transition > * {
+        transition: background-color 0.5s, color 0.5s, border-color 0.5s, fill 0.5s;
+    }
+    
+    /* Specific Fix for GitHub Image Borders (They use static Tailwind classes) */
+    .github-image-border {
+        border-color: var(--color-border-dark) !important;
+        transition: border-color 0.5s ease;
+    }
+
+</style>

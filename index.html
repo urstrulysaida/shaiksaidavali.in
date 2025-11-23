@@ -181,6 +181,14 @@
             position: relative;
             min-height: 400px; /* Set a minimum height to prevent layout jump on initial load */
         }
+        
+        /* Search Highlight Style */
+        .highlight {
+            background-color: #ffc107; /* Yellow highlight */
+            color: black;
+            padding: 0 2px;
+            border-radius: 3px;
+        }
 
     </style>
 </head>
@@ -210,6 +218,12 @@
                 </button>
             </div>
         </header>
+
+        <!-- Search Bar (New Feature) --><div class="mb-6 flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[var(--color-text-secondary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="global-search" oninput="handleSearch(this.value)" placeholder="Search keywords across all sections (e.g., 'GCP', 'SIEM', '2026')"
+                   class="w-full p-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-card-bg)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-colors duration-300">
+        </div>
 
         <!-- Tab Navigation --><nav class="mb-8">
             <div class="flex space-x-6 border-b border-gray-200">
@@ -523,11 +537,15 @@
     </div>
 
     <!-- ============================ JAVASCRIPT LOGIC ============================ --><script>
+        // Store original text content for the whole main section
+        let originalContent = {};
+        
         document.addEventListener('DOMContentLoaded', () => {
             const tabs = document.querySelectorAll('.tab-link');
             const tabPanes = document.querySelectorAll('.tab-pane');
-            const transitionDuration = 400; // Match CSS transition duration for smoothness
-            
+            const transitionDuration = 400; 
+            const mainContent = document.getElementById('tab-content');
+
             // --- Theme Toggle Elements ---
             const themeToggle = document.getElementById('theme-toggle');
             const sunIcon = document.getElementById('sun-icon');
@@ -550,9 +568,9 @@
                         moonIcon.classList.remove('hidden');
                     }
                 }
-            }; // Added closing brace for applyTheme function
+            };
 
-            // 1. Initialize theme from localStorage or system preference (Default to dark if system prefers or saved)
+            // Initialize theme 
             const savedTheme = localStorage.getItem('theme');
             const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -562,7 +580,7 @@
                 applyTheme(false);
             }
 
-            // 2. Add listener to toggle button
+            // Add listener to toggle button
             if (themeToggle) {
                 themeToggle.addEventListener('click', () => {
                     const isDark = document.body.classList.contains('dark-mode');
@@ -570,6 +588,99 @@
                 });
             }
 
+            // --- Content Storage & Search Initialization ---
+            tabPanes.forEach(pane => {
+                // Store the original content when the page loads
+                originalContent[pane.id] = pane.innerHTML;
+            });
+            
+            // --- Search Handlers ---
+            window.handleSearch = (query) => {
+                const term = query.trim().toLowerCase();
+                let firstMatchFound = false;
+
+                // 1. Restore content for ALL panes first
+                tabPanes.forEach(pane => {
+                    if (originalContent[pane.id]) {
+                        pane.innerHTML = originalContent[pane.id];
+                    }
+                });
+
+                if (term === '') {
+                    // If search is cleared, ensure we navigate back to the currently active tab or default
+                    const currentActiveId = document.querySelector('.tab-pane.active')?.id || 'personal-info';
+                    activateTab(currentActiveId);
+                    return;
+                }
+                
+                // 2. Perform search and highlighting
+                tabPanes.forEach(pane => {
+                    // IMPORTANT: We use a wrapper function to isolate the highlighting operation
+                    const newHtml = highlightText(pane.innerHTML, term);
+                    pane.innerHTML = newHtml;
+
+                    // 3. Check for the first match
+                    if (newHtml.includes('<span class="highlight">') && !firstMatchFound) {
+                        activateTab(pane.id);
+                        firstMatchFound = true;
+                    }
+                });
+
+                // If a term is entered but no match is found, simply remain on the current tab
+                // or ensure the default tab is shown if somehow no tab was active.
+                if (!document.querySelector('.tab-pane.active')) {
+                    activateTab('personal-info');
+                }
+            };
+            
+            const highlightText = (html, term) => {
+                // 1. Create a temporary element to hold the HTML
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+                
+                // 2. XPath expression to select all text nodes that are not inside a link or a style-protected element
+                // Using XPathResult.ORDERED_NODE_SNAPSHOT_TYPE to avoid InvalidStateError during DOM mutation.
+                const textNodeSnapshot = document.evaluate(
+                    ".//text()[normalize-space()!='']", 
+                    tempDiv, 
+                    null, 
+                    XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+                    null
+                );
+
+                const regex = new RegExp(`(${term})`, 'gi');
+                const highlightSpan = '<span class="highlight">$&</span>'; // Use $& to correctly replace case
+
+                // 3. Iterate over the static snapshot
+                for (let i = 0; i < textNodeSnapshot.snapshotLength; i++) {
+                    const node = textNodeSnapshot.snapshotItem(i);
+                    
+                    // Check if the node's parent is an element node (type 1) and if it's not an anchor tag or descendant of one
+                    if (node.parentNode.nodeType === 1 && node.parentNode.closest('a') === null) {
+                        const originalText = node.nodeValue;
+                        if (originalText.toLowerCase().includes(term)) {
+                            // Replace text with highlighted spans
+                            const newText = originalText.replace(regex, highlightSpan);
+                            
+                            // Create a temporary span to parse the new HTML string
+                            const tempSpan = document.createElement('span');
+                            tempSpan.innerHTML = newText;
+                            
+                            // Replace the original text node with the new HTML content (the children of tempSpan)
+                            node.parentNode.replaceChild(tempSpan, node);
+                            
+                            // Move children of tempSpan up and remove tempSpan wrapper
+                            while (tempSpan.firstChild) {
+                                tempSpan.parentNode.insertBefore(tempSpan.firstChild, tempSpan);
+                            }
+                            tempSpan.remove();
+                        }
+                    }
+                }
+
+                // Return the modified HTML content
+                return tempDiv.innerHTML;
+            };
 
             // --- Navigation Logic (Animated Tab Switching) ---
             const activateTab = (targetId) => {
@@ -626,6 +737,17 @@
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
                     const targetId = tab.getAttribute('data-tab');
+                    
+                    // Clear search input and highlights when clicking a tab
+                    document.getElementById('global-search').value = '';
+                    
+                    // Restore original content BEFORE activating new tab
+                    tabPanes.forEach(pane => {
+                        if (originalContent[pane.id]) {
+                            pane.innerHTML = originalContent[pane.id];
+                        }
+                    });
+
                     activateTab(targetId);
                     
                     // Update URL hash for persistent state
@@ -642,11 +764,21 @@
 
             // Handle browser back/forward navigation
             window.addEventListener('popstate', () => {
+                // Clear search on history change
+                document.getElementById('global-search').value = '';
+                
+                // Restore original content BEFORE activating new tab
+                tabPanes.forEach(pane => {
+                    if (originalContent[pane.id]) {
+                        pane.innerHTML = originalContent[pane.id];
+                    }
+                });
+                
                 const hash = window.location.hash.substring(1) || defaultTab;
                 activateTab(hash);
             });
-        }); // Added closing brace for DOMContentLoaded
-    </script> <!-- Added closing tag for script -->
+        });
+    </script>
 
 </body>
 </html>

@@ -221,7 +221,7 @@
 
         <!-- Search Bar (New Feature) --><div class="mb-6 flex items-center space-x-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[var(--color-text-secondary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="text" id="global-search" oninput="handleSearch(this.value)" placeholder="Search keywords across all sections (e.g., 'GCP', 'SIEM', '2026')"
+            <input type="text" id="global-search" oninput="debouncedHandleSearch(this.value)" placeholder="Search keywords across all sections (e.g., 'GCP', 'SIEM', '2026')"
                    class="w-full p-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-card-bg)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-colors duration-300">
         </div>
 
@@ -540,6 +540,17 @@
         // Store original text content for the whole main section
         let originalContent = {};
         
+        // --- DEBOUNCE FUNCTION ---
+        // Limits how often a function can run.
+        const debounce = (func, delay) => {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), delay);
+            };
+        };
+
+
         document.addEventListener('DOMContentLoaded', () => {
             const tabs = document.querySelectorAll('.tab-link');
             const tabPanes = document.querySelectorAll('.tab-pane');
@@ -632,6 +643,10 @@
                     activateTab('personal-info');
                 }
             };
+            
+            // Apply debounce to the handleSearch function, creating a new function called debouncedHandleSearch
+            window.debouncedHandleSearch = debounce(window.handleSearch, 300); // 300ms delay
+
             
             const highlightText = (html, term) => {
                 // 1. Create a temporary element to hold the HTML

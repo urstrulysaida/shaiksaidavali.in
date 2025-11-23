@@ -15,14 +15,14 @@
             --color-text-primary: #1f2937;
             --color-text-secondary: #6b7280;
             --color-background: #f4f7f9;
-            --color-card-bg: rgba(255, 255, 255, 0.85); /* Glassmorphism Base */
+            --color-card-bg: rgba(255, 255, 255, 0.15); /* Highly Transparent - Increased to 0.15 */
             --color-border: #e5e7eb;
 
-            /* Dark Mode Variables */
+            /* Dark Mode Variables (Increased Contrast) */
             --dark-background: #1e293b;
-            --dark-card-bg: rgba(51, 65, 85, 0.75); /* Glassmorphism Dark */
-            --dark-text-primary: #f8fafc;
-            --dark-text-secondary: #94a3b8;
+            --dark-card-bg: rgba(51, 65, 85, 0.15); /* Highly Transparent Dark - Increased to 0.15 */
+            --dark-text-primary: #ffffff; /* Increased Contrast: Pure White */
+            --dark-text-secondary: #c7d2fe; /* Increased Contrast: Brighter Gray/Indigo */
             --dark-border: #475569;
         }
 
@@ -45,7 +45,7 @@
             padding: 2rem 1rem;
             transition: background-color 0.5s, color 0.5s;
 
-            /* Background Image & Overlay */
+            /* Background Image */
             background-image: url('https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?cs=srgb&dl=pexels-padrinan-255379.jpg&fm=jpg');
             background-size: cover;
             background-position: center;
@@ -53,14 +53,6 @@
             background-repeat: no-repeat;
             position: relative;
             z-index: 0;
-        }
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0, 0, 0, 0.6); 
-            backdrop-filter: blur(3px);
-            z-index: -1;
         }
         
         /* --- ANIMATIONS --- */
@@ -227,9 +219,33 @@
         }
 
         /* Button Hover Animation */
-        button {
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s;
+        .btn-resume {
+            border: 2px solid var(--color-accent);
+            color: var(--color-accent);
+            background-color: var(--color-card-bg);
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
         }
+        .btn-resume:hover {
+            background-color: var(--color-accent);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+            transform: scale(1.05);
+        }
+        /* Style for the SVG icon inside the button */
+        .btn-resume svg {
+            stroke: var(--color-accent);
+            transition: stroke 0.3s ease;
+        }
+        .btn-resume:hover svg {
+            stroke: white;
+        }
+
+        /* General Button Active State */
         button:active {
             transform: scale(0.95) !important;
         }
@@ -256,9 +272,10 @@
                     <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></svg>
                     <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 </button>
-                <button class="bg-[var(--color-accent)] text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-600 transition duration-200 shadow-md hover:scale-[1.05]">
-                    <span class="inline-block mr-1">&#x270E;</span> Update Profile
-                </button>
+                <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="btn-resume">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    View Resume
+                </a>
             </div>
         </header>
 
@@ -286,6 +303,16 @@
 
             <!-- -------------------------------- 1. PERSONAL INFO TAB -------------------------------- --><section id="personal-info" class="tab-pane active space-y-8">
                 
+                <!-- NEW: Professional Summary Card -->
+                <div class="content-card">
+                    <h3 class="text-xl font-semibold mb-3 text-[var(--color-text-primary)] flex items-center">
+                        <span class="mr-2 text-[var(--color-accent)]">⭐</span> Professional Summary
+                    </h3>
+                    <p class="text-base text-[var(--color-text-primary)]">
+                        A dedicated Computer Science student specializing in **Cybersecurity, Cloud Architecture (GCP/AWS), and DevOps practices**. Driven by a passion for building secure, scalable infrastructure, I leverage skills in Python, network security, and SIEM analysis to contribute to robust defense strategies and efficient cloud deployments.
+                    </p>
+                </div>
+                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     
                     <div class="content-card">
@@ -303,7 +330,7 @@
                             </div>
                             <div class="data-row">
                                 <span class="data-label">WhatsApp:</span>
-                                <span class="data-value">6301466654</span>
+                                <span class="data-value">630146654</span>
                             </div>
                         </div>
                     </div>
@@ -510,7 +537,7 @@
                     <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-green-500">Google Cybersecurity Cert.</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Professional Certification</p>
-                        <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
                             <li><strong>Key Focus:</strong> SIEM Analysis, Threat Detection, Risk Management (NIST/MITRE).</li>
                             <li><strong>Skills Gained:</strong> Enterprise Defense Strategies, Vulnerability Assessment, Security Operations Center (SOC) Fundamentals.</li>
                             <li><a href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Proof</a></li>
@@ -520,7 +547,7 @@
                     <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-yellow-500">AWS Cloud Technology</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Industry Training Program</p>
-                        <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
                             <li><strong>Key Focus:</strong> Cloud Migration, Solution Design, Core AWS Services (EC2, S3, VPC).</li>
                             <li><strong>Skills Gained:</strong> Architecture Principles, Scalability, Cost Optimization, Infrastructure Fundamentals.</li>
                             <li><a href="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Proof</a></li>
@@ -530,7 +557,7 @@
                     <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-purple-500">Advanced Data Analytics</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Professional Certification</p>
-                        <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
                             <li><strong>Key Focus:</strong> Predictive Modeling, Statistical Analysis (R), Complex SQL Queries.</li>
                             <li><strong>Skills Gained:</strong> Data Visualization, Business Intelligence, Advanced Data Manipulation.</li>
                             <li><a href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Proof</a></li>
@@ -547,7 +574,7 @@
                     <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-indigo-500">Zscaler Cloud Networking</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Virtual Internship</p>
-                        <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
                             <li><strong>Key Focus:</strong> Zero Trust Architecture (ZTA), Secure Access Service Edge (SASE).</li>
                             <li><strong>Skills Gained:</strong> Modern Network Security, Cloud-First Environment Protection, Access Policy Management.</li>
                             <li><a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Proof</a></li>
@@ -557,7 +584,7 @@
                     <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-red-500">Fortinet Network Security</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Associate (NSE)</p>
-                        <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
                             <li><strong>Key Focus:</strong> Next-Generation Firewalls, Cybersecurity Threat Landscape.</li>
                             <li><strong>Skills Gained:</strong> Network Segmentation, Security Fabric Concepts, Wired/Wireless Network Security.</li>
                             <li><a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Proof</a></li>
@@ -567,7 +594,7 @@
                     <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-blue-500">Cloud Computing Internship</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">8 Weeks Experience</p>
-                        <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
                             <li><strong>Key Focus:</strong> GCP Services (Compute, Storage, VPC), Infrastructure-as-Code (IaC) concepts.</li>
                             <li><strong>Skills Gained:</strong> Practical Deployment, Cloud Security & Cost Management, Networking setup in a cloud environment.</li>
                             <li><a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Certificate</a></li>
@@ -577,7 +604,7 @@
                     <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-pink-500">IoT Internship</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">16 Weeks Experience</p>
-                        <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
                             <li><strong>Key Focus:</strong> Device Prototyping (Arduino/ESP), Sensor Integration, Data Transmission (MQTT).</li>
                             <li><strong>Skills Gained:</strong> Full-Stack IoT Deployment, Hardware-Software Interfacing, Cloud Connectivity Protocols.</li>
                             <li><a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Certificate</a></li>
@@ -587,7 +614,7 @@
                     <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-indigo-500">Ethical Hacking Internship</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">10 Weeks Experience</p>
-                        <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
                             <li><strong>Key Focus:</strong> Vulnerability Assessment, Penetration Testing Methodologies.</li>
                             <li><strong>Skills Gained:</strong> Network and Web App Security Testing, Foundational Defense Strategies.</li>
                             <li><a href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Certificate</a></li>

@@ -4,67 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shaik Saida Vali - Profile Dashboard</title>
-    <!-- Josefin Sans Google Font --><link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-        /* Define a consistent primary blue accent */
         :root {
             --color-accent: #007bff; /* Primary Blue */
             
-            /* Light Mode Variables (Default) */
+            /* Light Mode (Default) */
             --color-text-primary: #1f2937;
             --color-text-secondary: #6b7280;
             --color-background: #f4f7f9;
-            --color-card-bg: #ffffff;
+            --color-card-bg: rgba(255, 255, 255, 0.85); /* Glassmorphism Base */
             --color-border: #e5e7eb;
 
             /* Dark Mode Variables */
             --dark-background: #1e293b;
-            --dark-card-bg: #334155;
+            --dark-card-bg: rgba(51, 65, 85, 0.75); /* Glassmorphism Dark */
             --dark-text-primary: #f8fafc;
             --dark-text-secondary: #94a3b8;
             --dark-border: #475569;
         }
 
-        body {
-            /* FONT CHANGE: Updated to Josefin Sans */
-            font-family: 'Josefin Sans', sans-serif;
-            /* Default background color - will be covered by image */
-            background-color: var(--color-background); 
-            color: var(--color-text-primary);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem 1rem;
-            /* Add transitions for smooth color change */
-            transition: background-color 0.5s, color 0.5s;
-
-            /* --- UPDATED BACKGROUND IMAGE STYLES --- */
-            background-image: url('https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?cs=srgb&dl=pexels-padrinan-255379.jpg&fm=jpg'); /* <<< NEW IMAGE URL */
-            background-size: cover; /* Covers the entire viewport */
-            background-position: center; /* Centers the image */
-            background-attachment: fixed; /* Keeps the background fixed when scrolling */
-            background-repeat: no-repeat; /* Prevents image from repeating */
-            /* Add a semi-transparent overlay to ensure text readability */
-            position: relative; /* Needed for the pseudo-element overlay */
-            z-index: 0; /* Ensure overlay is above the image but below content */
-        }
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            /* Slightly darker overlay for better contrast */
-            background-color: rgba(0, 0, 0, 0.6); 
-            backdrop-filter: blur(3px); /* Optional: Adds a blur effect */
-            z-index: -1; /* Place behind content, but above background image */
-        }
-        
-        /* Dark Mode Specific Styles */
         body.dark-mode {
             --color-background: var(--dark-background);
             --color-card-bg: var(--dark-card-bg);
@@ -73,21 +34,72 @@
             --color-border: var(--dark-border);
         }
 
-        /* Main Container Card Styling */
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+            background-color: var(--color-background); 
+            color: var(--color-text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            transition: background-color 0.5s, color 0.5s;
+
+            /* Background Image & Overlay */
+            background-image: url('https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?cs=srgb&dl=pexels-padrinan-255379.jpg&fm=jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+            z-index: 0;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6); 
+            backdrop-filter: blur(3px);
+            z-index: -1;
+        }
+        
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+        }
+
+        /* Main Profile Container */
         .profile-container {
             max-width: 1024px;
             width: 100%;
             background-color: var(--color-card-bg);
-            border-radius: 1.5rem; /* Large rounded corners */
+            border-radius: 1.5rem; 
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--color-border);
             padding: 2rem;
-            transition: box-shadow 0.5s, background-color 0.5s, border-color 0.5s;
-            z-index: 1; /* Ensure content is above the overlay */
-            position: relative; /* Needed for z-index to work */
+            transition: all 0.5s;
+            z-index: 1; 
+            position: relative; 
+            
+            /* GLASS MORPHISM EFFECT */
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px); 
+
+            /* Page Load Animation */
+            animation: fadeInUp 0.8s ease-out;
         }
 
-        /* Profile Image Styling */
+        /* Profile Image */
         .profile-img-container {
             width: 112px;
             height: 112px;
@@ -96,48 +108,75 @@
             border: 4px solid var(--color-accent);
             box-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
             flex-shrink: 0;
+            transition: all 0.3s ease;
+            animation: pulse-glow 2s infinite;
+        }
+        .profile-img-container:hover {
+            transform: scale(1.05) rotate(3deg);
+            animation: none;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.6);
         }
 
-        /* Header transition */
-        header {
-            transition: border-color 0.5s;
+        /* Header Text Animation */
+        .header-content {
+            animation: slideInLeft 0.8s ease-out 0.2s backwards;
         }
 
-        /* Tab Navigation Styles */
+        /* Tab Navigation */
         .tab-link {
             padding: 0.75rem 0;
             cursor: pointer;
             border-bottom: 2px solid transparent;
             color: var(--color-text-secondary);
             font-weight: 500;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
-
+        .tab-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-accent);
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        .tab-link:hover {
+            color: var(--color-accent);
+        }
         .tab-link.active {
             color: var(--color-accent);
-            border-bottom-color: var(--color-accent);
             font-weight: 600;
         }
-        
-        /* Tab border styling for dark mode */
-        body.dark-mode .border-gray-200 {
-            border-color: var(--color-border) !important;
+        .tab-link.active::after {
+            width: 100%;
+            left: 0;
         }
-
-        /* Content Card Styling */
+        
+        /* Content Card */
         .content-card {
             background-color: var(--color-card-bg); 
             border-radius: 0.75rem;
             border: 1px solid var(--color-border);
             padding: 1.5rem;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            transition: box-shadow 0.3s, background-color 0.5s, border-color 0.5s;
+            
+            /* GLASS MORPHISM EFFECT */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            /* Hover Effect */
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background-color 0.5s, border-color 0.5s;
+            opacity: 1; /* Ensure visible after tab switch */
         }
         .content-card:hover {
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-color: var(--color-accent);
         }
         
-        /* Utility styles for data alignment */
+        /* Data Alignment */
         .data-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -153,55 +192,57 @@
             color: var(--color-text-primary);
         }
 
-        /* --- Tab Transition Animation Styles --- */
+        /* Tab Transition Animation */
         .tab-pane {
-            /* Initial state for fade-in */
             opacity: 0;
             transform: translateY(10px);
             transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-            position: absolute; /* Allows for overlap during transition */
+            position: absolute; 
             width: 100%; 
-            pointer-events: none; /* Prevent interaction when hidden */
+            pointer-events: none; 
         }
-        
         .tab-pane.active {
             opacity: 1;
             transform: translateY(0);
             position: relative;
             pointer-events: auto;
         }
-
         .tab-pane.hiding {
             opacity: 0;
             transform: translateY(-10px);
-            position: absolute; /* Keep it positioned during fade-out */
+            position: absolute; 
             pointer-events: none;
         }
-        
-        /* Container to manage the height during absolute positioning */
         #tab-content {
             position: relative;
-            min-height: 400px; /* Set a minimum height to prevent layout jump on initial load */
+            min-height: 400px;
         }
         
         /* Search Highlight Style */
         .highlight {
-            background-color: #ffc107; /* Yellow highlight */
+            background-color: #ffc107; 
             color: black;
             padding: 0 2px;
             border-radius: 3px;
         }
 
+        /* Button Hover Animation */
+        button {
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s;
+        }
+        button:active {
+            transform: scale(0.95) !important;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Main Profile Container --><div class="profile-container">
+    <div class="profile-container">
 
-        <!-- Header Section (Profile Image, Name, Button) --><header class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-6 mb-6 border-b border-[var(--color-border)]">
-            <div class="flex items-center mb-4 sm:mb-0">
-                <div class="profile-img-container mr-4">
-                    <!-- Placeholder image URL is safer and provides better style control --><img src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true"
+        <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-6 mb-6 border-b border-[var(--color-border)]">
+            <div class="flex items-center mb-4 sm:mb-0 header-content">
+                <div class="profile-img-container mr-4 cursor-pointer">
+                    <img src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true"
                         onerror="this.onerror=null; this.src='https://placehold.co/112x112/007bff/ffffff?text=SV';"
                         alt="Shaik Saida Vali" class="w-full h-full object-cover">
                 </div>
@@ -210,24 +251,24 @@
                     <p class="text-lg text-[var(--color-text-secondary)]">urstrulysaida@gmail.com</p>
                 </div>
             </div>
-            <!-- Action Buttons Container --><div class="flex space-x-3">
-                <!-- DARK MODE TOGGLE BUTTON --><button id="theme-toggle" class="p-3 rounded-lg text-[var(--color-text-primary)] border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:shadow-lg transition duration-300 hover:scale-[1.03]">
-                    <!-- Sun Icon (Hidden by default, shown in Light Mode) --><svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></svg>
-                    <!-- Moon Icon (Visible by default, shown in Dark Mode) --><svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <div class="flex space-x-3 header-content" style="animation-delay: 0.3s;">
+                <button id="theme-toggle" class="p-3 rounded-lg text-[var(--color-text-primary)] border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:shadow-lg transition duration-300 hover:scale-[1.05]">
+                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></svg>
+                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 </button>
-                <!-- Update Profile Button --><button class="bg-[var(--color-accent)] text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-600 transition duration-200 shadow-md hover:scale-[1.03]">
+                <button class="bg-[var(--color-accent)] text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-600 transition duration-200 shadow-md hover:scale-[1.05]">
                     <span class="inline-block mr-1">&#x270E;</span> Update Profile
                 </button>
             </div>
         </header>
 
-        <!-- Search Bar (New Feature) --><div class="mb-6 flex items-center space-x-2">
+        <div class="mb-6 flex items-center space-x-2 header-content" style="animation-delay: 0.4s;">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[var(--color-text-secondary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <input type="text" id="global-search" oninput="debouncedHandleSearch(this.value)" placeholder="Search keywords across all sections (e.g., 'GCP', 'SIEM', '2026')"
                    class="w-full p-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-card-bg)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-colors duration-300">
         </div>
 
-        <!-- Tab Navigation --><nav class="mb-8">
+        <nav class="mb-8 header-content" style="animation-delay: 0.5s;">
             <div class="flex space-x-6 border-b border-gray-200">
                 <div class="tab-link active" data-tab="personal-info">
                     <span class="mr-2" role="img" aria-label="Person">👤</span> Personal Info
@@ -241,11 +282,11 @@
             </div>
         </nav>
 
-        <!-- Tab Content Areas --><main id="tab-content">
+        <main id="tab-content">
 
-            <!-- -------------------------------- 1. PERSONAL INFO TAB (Matches Image 1) -------------------------------- --><section id="personal-info" class="tab-pane active space-y-8">
+            <!-- -------------------------------- 1. PERSONAL INFO TAB -------------------------------- --><section id="personal-info" class="tab-pane active space-y-8">
                 
-                <!-- Contact Information Card (Matching Image 1) --><div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     
                     <div class="content-card">
                         <h3 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
@@ -267,7 +308,7 @@
                         </div>
                     </div>
 
-                    <!-- Personal Details Card (Matching Image 1) --><div class="content-card">
+                    <div class="content-card">
                         <h3 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
                             <span class="mr-2 text-[var(--color-accent)]">👤</span> Personal Details
                         </h3>
@@ -292,7 +333,7 @@
                     </div>
                 </div>
 
-                <!-- Address Information Card (Matching Image 1) --><div class="content-card max-w-xl">
+                <div class="content-card max-w-xl">
                     <h3 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
                         <span class="mr-2 text-[var(--color-accent)]">🏠</span> Address Information
                     </h3>
@@ -314,12 +355,12 @@
 
             </section>
 
-            <!-- -------------------------------- 2. EDUCATION TAB (Matches Image 2) -------------------------------- --><section id="education" class="tab-pane hidden space-y-8">
+            <!-- -------------------------------- 2. EDUCATION TAB -------------------------------- --><section id="education" class="tab-pane hidden space-y-8">
                 <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">Academic History</h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     
-                    <!-- 10th Details Card --><div class="content-card">
+                    <div class="content-card">
                         <h4 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
                             <span class="mr-2 text-[var(--color-accent)]">📘</span> 10th Details
                         </h4>
@@ -336,10 +377,14 @@
                                 <span class="data-label">Passout:</span>
                                 <span class="data-value">N/A</span>
                             </div>
+                            <div class="data-row">
+                                <span class="data-label">Certificate:</span>
+                                <a href="https://drive.google.com/file/d/15OPbt8X_FkjVENA-_ByxJ-6acZrH4yVG/view?usp=sharing" target="_blank" class="data-value text-[var(--color-accent)] hover:underline">View Certificate</a>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Intermediate (12th) Details Card --><div class="content-card">
+                    <div class="content-card">
                         <h4 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
                             <span class="mr-2 text-[var(--color-accent)]">📖</span> Intermediate (12th) Details
                         </h4>
@@ -356,11 +401,15 @@
                                 <span class="data-label">Passout:</span>
                                 <span class="data-value">N/A</span>
                             </div>
+                            <div class="data-row">
+                                <span class="data-label">Certificate:</span>
+                                <a href="https://drive.google.com/file/d/15LNA5es18GqDRMX1Fg7wYfzcYBWXo5Vk/view?usp=sharing" target="_blank" class="data-value text-[var(--color-accent)] hover:underline">View Certificate</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- UG Details Card --><div class="content-card">
+                <div class="content-card">
                     <h4 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
                         <span class="mr-2 text-[var(--color-accent)]">🎓</span> UG Details
                     </h4>
@@ -393,12 +442,12 @@
                 </div>
             </section>
 
-            <!-- -------------------------------- 3. CAREER & LINKS TAB (Matches Image 3) -------------------------------- --><section id="career-links" class="tab-pane hidden space-y-8">
+            <!-- -------------------------------- 3. CAREER & LINKS TAB -------------------------------- --><section id="career-links" class="tab-pane hidden space-y-8">
                 <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">Career & Links</h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     
-                    <!-- Current Position Card --><div class="content-card">
+                    <div class="content-card">
                         <h4 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
                             <span class="mr-2 text-red-500">💼</span> Current Position
                         </h4>
@@ -418,31 +467,31 @@
                         </div>
                     </div>
 
-                    <!-- Social & Portfolio Links Card (Refactored to show icons and updated LinkedIn link) --><div class="content-card">
+                    <div class="content-card">
                         <h4 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
                             <span class="mr-2 text-purple-500">🔗</span> Social & Portfolio Links
                         </h4>
                         <div class="space-y-3 text-sm">
                             
-                            <!-- LinkedIn Link --><div class="data-row items-center">
+                            <div class="data-row items-center">
                                 <span class="data-label flex items-center">
-                                    <!-- LinkedIn Icon (Lucide SVG) --><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-blue-700"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-blue-700"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                                     LinkedIn:
                                 </span>
                                 <a href="https://www.linkedin.com/in/shaiksaidavali/" target="_blank" class="data-value text-[var(--color-accent)] hover:underline">View Profile</a>
                             </div>
 
-                            <!-- GitHub Link --><div class="data-row items-center">
+                            <div class="data-row items-center">
                                 <span class="data-label flex items-center">
-                                    <!-- GitHub Icon (Lucide SVG) --><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-gray-700 dark:text-gray-300"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.6c3.2 0 4.8-1.5 4.8-4.2a4 4 0 0 0-1-3.6c.3-1 .3-2.5-.1-3.6 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/><path d="M12 2v3"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-gray-700 dark:text-gray-300"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.6c3.2 0 4.8-1.5 4.8-4.2a4 4 0 0 0-1-3.6c.3-1 .3-2.5-.1-3.6 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/><path d="M12 2v3"/></svg>
                                     GitHub:
                                 </span>
                                 <a href="https://github.com/urstrulysaida" target="_blank" class="data-value text-[var(--color-accent)] hover:underline">View Profile</a>
                             </div>
 
-                            <!-- Codepen Link --><div class="data-row items-center">
+                            <div class="data-row items-center">
                                 <span class="data-label flex items-center">
-                                    <!-- Codepen Icon (Lucide SVG) --><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-yellow-600"><polygon points="12 2 22 13 15.46 22 12 18 8.54 22 2 13 12 2"/><line x1="2" x2="15.46" y1="13" y2="13"/><line x1="8.54" x2="12" y1="22" y2="18"/><line x1="12" x2="15.46" y1="18" y2="22"/><line x1="12" x2="12" y1="2" y2="18"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-yellow-600"><polygon points="12 2 22 13 15.46 22 12 18 8.54 22 2 13 12 2"/><line x1="2" x2="15.46" y1="13" y2="13"/><line x1="8.54" x2="12" y1="22" y2="18"/><line x1="12" x2="15.46" y1="18" y2="22"/><line x1="12" x2="12" y1="2" y2="18"/></svg>
                                     Codepen:
                                 </span>
                                 <a href="#" target="_blank" class="data-value text-[var(--color-accent)] hover:underline">View Codepen</a>
@@ -451,14 +500,14 @@
                     </div>
                 </div>
                 
-                <!-- Career Highlights - UPDATED SECTION with clearer separation --><h3 class="text-2xl font-bold text-[var(--color-accent)] pt-4 mb-4 border-t border-[var(--color-border)]">Career Highlights</h3>
+                <h3 class="text-2xl font-bold text-[var(--color-accent)] pt-4 mb-4 border-t border-[var(--color-border)]">Career Highlights</h3>
 
                 <h4 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
                     <span class="mr-2 text-green-500">🏅</span> Professional Certifications
                 </h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
                     
-                    <!-- Highlight 1: Google Cybersecurity Prof. Cert. --><div class="content-card">
+                    <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-green-500">Google Cybersecurity Cert.</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Professional Certification</p>
                         <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
@@ -468,7 +517,7 @@
                         </ul>
                     </div>
 
-                    <!-- Highlight 2: AWS Cloud Tech Consultant --><div class="content-card">
+                    <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-yellow-500">AWS Cloud Technology</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Industry Training Program</p>
                         <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
@@ -478,7 +527,7 @@
                         </ul>
                     </div>
                     
-                    <!-- Highlight 3: Advanced Data Analytics Cert. --><div class="content-card">
+                    <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-purple-500">Advanced Data Analytics</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Professional Certification</p>
                         <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
@@ -495,7 +544,7 @@
                 </h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     
-                    <!-- Highlight 4: Zscaler Virtual Internship (MOVED) --><div class="content-card">
+                    <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-indigo-500">Zscaler Cloud Networking</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Virtual Internship</p>
                         <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
@@ -505,7 +554,7 @@
                         </ul>
                     </div>
 
-                    <!-- Highlight 5: Fortinet Network Security (MOVED) --><div class="content-card">
+                    <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-red-500">Fortinet Network Security</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Associate (NSE)</p>
                         <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
@@ -515,7 +564,7 @@
                         </ul>
                     </div>
 
-                    <!-- Highlight 6: Cloud Computing Internship --><div class="content-card">
+                    <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-blue-500">Cloud Computing Internship</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">8 Weeks Experience</p>
                         <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
@@ -525,7 +574,7 @@
                         </ul>
                     </div>
 
-                    <!-- Highlight 7: IoT Internship --><div class="content-card">
+                    <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-pink-500">IoT Internship</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">16 Weeks Experience</p>
                         <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
@@ -535,7 +584,7 @@
                         </ul>
                     </div>
 
-                    <!-- Highlight 8: Cybersecurity Internship --><div class="content-card">
+                    <div class="content-card">
                         <h5 class="text-lg font-bold mb-2 text-indigo-500">Ethical Hacking Internship</h5>
                         <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">10 Weeks Experience</p>
                         <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
@@ -551,11 +600,9 @@
     </div>
 
     <!-- ============================ JAVASCRIPT LOGIC ============================ --><script>
-        // Store original text content for the whole main section
         let originalContent = {};
         
         // --- DEBOUNCE FUNCTION ---
-        // Limits how often a function can run.
         const debounce = (func, delay) => {
             let timeout;
             return function(...args) {
@@ -569,24 +616,23 @@
             const tabs = document.querySelectorAll('.tab-link');
             const tabPanes = document.querySelectorAll('.tab-pane');
             const transitionDuration = 400; 
-            const mainContent = document.getElementById('tab-content');
 
-            // --- Theme Toggle Elements ---
             const themeToggle = document.getElementById('theme-toggle');
             const sunIcon = document.getElementById('sun-icon');
             const moonIcon = document.getElementById('moon-icon');
 
             // --- Theme Toggle Logic ---
             const applyTheme = (isDark) => {
+                const body = document.body;
                 if (isDark) {
-                    document.body.classList.add('dark-mode');
+                    body.classList.add('dark-mode');
                     localStorage.setItem('theme', 'dark');
                     if (sunIcon && moonIcon) {
                         sunIcon.classList.remove('hidden');
                         moonIcon.classList.add('hidden');
                     }
                 } else {
-                    document.body.classList.remove('dark-mode');
+                    body.classList.remove('dark-mode');
                     localStorage.setItem('theme', 'light');
                     if (sunIcon && moonIcon) {
                         sunIcon.classList.add('hidden');
@@ -615,7 +661,6 @@
 
             // --- Content Storage & Search Initialization ---
             tabPanes.forEach(pane => {
-                // Store the original content when the page loads
                 originalContent[pane.id] = pane.innerHTML;
             });
             
@@ -632,7 +677,6 @@
                 });
 
                 if (term === '') {
-                    // If search is cleared, ensure we navigate back to the currently active tab or default
                     const currentActiveId = document.querySelector('.tab-pane.active')?.id || 'personal-info';
                     activateTab(currentActiveId);
                     return;
@@ -640,7 +684,6 @@
                 
                 // 2. Perform search and highlighting
                 tabPanes.forEach(pane => {
-                    // IMPORTANT: We use a wrapper function to isolate the highlighting operation
                     const newHtml = highlightText(pane.innerHTML, term);
                     pane.innerHTML = newHtml;
 
@@ -651,24 +694,20 @@
                     }
                 });
 
-                // If a term is entered but no match is found, simply remain on the current tab
-                // or ensure the default tab is shown if somehow no tab was active.
                 if (!document.querySelector('.tab-pane.active')) {
                     activateTab('personal-info');
                 }
             };
             
-            // Apply debounce to the handleSearch function, creating a new function called debouncedHandleSearch
-            window.debouncedHandleSearch = debounce(window.handleSearch, 300); // 300ms delay
+            // Apply debounce to the handleSearch function
+            window.debouncedHandleSearch = debounce(window.handleSearch, 300);
 
             
             const highlightText = (html, term) => {
-                // 1. Create a temporary element to hold the HTML
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = html;
                 
-                // 2. XPath expression to select all text nodes that are not inside a link or a style-protected element
-                // Using XPathResult.ORDERED_NODE_SNAPSHOT_TYPE to avoid InvalidStateError during DOM mutation.
+                // XPath to select all text nodes that are not inside a link (<a>)
                 const textNodeSnapshot = document.evaluate(
                     ".//text()[normalize-space()!='']", 
                     tempDiv, 
@@ -678,27 +717,21 @@
                 );
 
                 const regex = new RegExp(`(${term})`, 'gi');
-                const highlightSpan = '<span class="highlight">$&</span>'; // Use $& to correctly replace case
+                const highlightSpan = '<span class="highlight">$&</span>';
 
-                // 3. Iterate over the static snapshot
                 for (let i = 0; i < textNodeSnapshot.snapshotLength; i++) {
                     const node = textNodeSnapshot.snapshotItem(i);
                     
-                    // Check if the node's parent is an element node (type 1) and if it's not an anchor tag or descendant of one
                     if (node.parentNode.nodeType === 1 && node.parentNode.closest('a') === null) {
                         const originalText = node.nodeValue;
                         if (originalText.toLowerCase().includes(term)) {
-                            // Replace text with highlighted spans
                             const newText = originalText.replace(regex, highlightSpan);
                             
-                            // Create a temporary span to parse the new HTML string
                             const tempSpan = document.createElement('span');
                             tempSpan.innerHTML = newText;
                             
-                            // Replace the original text node with the new HTML content (the children of tempSpan)
                             node.parentNode.replaceChild(tempSpan, node);
                             
-                            // Move children of tempSpan up and remove tempSpan wrapper
                             while (tempSpan.firstChild) {
                                 tempSpan.parentNode.insertBefore(tempSpan.firstChild, tempSpan);
                             }
@@ -706,8 +739,6 @@
                         }
                     }
                 }
-
-                // Return the modified HTML content
                 return tempDiv.innerHTML;
             };
 
@@ -715,35 +746,25 @@
             const activateTab = (targetId) => {
                 const currentActivePane = document.querySelector('.tab-pane.active');
                 
-                // 1. Deactivate all links
                 tabs.forEach(tab => tab.classList.remove('active'));
 
-                // 2. Activate the selected link
                 const activeTabLink = document.querySelector(`.tab-link[data-tab="${targetId}"]`);
                 if (activeTabLink) {
                     activeTabLink.classList.add('active');
                 }
 
-                // Get the new target pane
                 const newPane = document.getElementById(targetId);
 
-                // If there is a currently active pane, fade it out first
                 if (currentActivePane && currentActivePane !== newPane) {
-                    // Start fade-out animation for the old pane
                     currentActivePane.classList.remove('active');
                     currentActivePane.classList.add('hiding');
                     
-                    // Wait for fade-out transition to complete
                     setTimeout(() => {
-                        // Hide the old pane completely and clean up classes
                         currentActivePane.classList.add('hidden');
                         currentActivePane.classList.remove('hiding');
-
-                        // Show and animate in the new pane
                         showNewPane(newPane);
                     }, transitionDuration);
                 } else if (newPane) {
-                    // No existing active pane or switching to the same pane (initial load)
                     showNewPane(newPane);
                 }
             };
@@ -751,13 +772,11 @@
             const showNewPane = (newPane) => {
                 if (!newPane) return;
                 
-                // 1. Immediately remove 'hidden' state to allow flow
                 newPane.classList.remove('hidden');
                 
-                // 2. Force reflow (important for the CSS transition to work)
+                // Force reflow for CSS transition
                 void newPane.offsetWidth; 
 
-                // 3. Trigger the animation in 
                 newPane.classList.add('active');
             };
 
@@ -767,10 +786,8 @@
                 tab.addEventListener('click', () => {
                     const targetId = tab.getAttribute('data-tab');
                     
-                    // Clear search input and highlights when clicking a tab
                     document.getElementById('global-search').value = '';
                     
-                    // Restore original content BEFORE activating new tab
                     tabPanes.forEach(pane => {
                         if (originalContent[pane.id]) {
                             pane.innerHTML = originalContent[pane.id];
@@ -779,7 +796,6 @@
 
                     activateTab(targetId);
                     
-                    // Update URL hash for persistent state
                     window.history.pushState(null, '', `#${targetId}`);
                 });
             });
@@ -793,10 +809,8 @@
 
             // Handle browser back/forward navigation
             window.addEventListener('popstate', () => {
-                // Clear search on history change
                 document.getElementById('global-search').value = '';
                 
-                // Restore original content BEFORE activating new tab
                 tabPanes.forEach(pane => {
                     if (originalContent[pane.id]) {
                         pane.innerHTML = originalContent[pane.id];

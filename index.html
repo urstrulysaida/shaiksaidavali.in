@@ -33,11 +33,11 @@
             /* Default background color - will be covered by image */
             background-color: var(--color-background); 
             color: var(--color-text-primary);
-            
-            /* --- SCROLLING FEATURE FIX --- */
-            /* Removed min-height: 100vh, display: flex, align-items, and justify-content */
-            padding: 2rem 1rem; 
-            
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
             /* Add transitions for smooth color change */
             transition: background-color 0.5s, color 0.5s;
 
@@ -77,8 +77,6 @@
         .profile-container {
             max-width: 1024px;
             width: 100%;
-            /* Added margin-left/right auto for horizontal centering */
-            margin: 0 auto; 
             background-color: var(--color-card-bg);
             border-radius: 1.5rem; /* Large rounded corners */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);

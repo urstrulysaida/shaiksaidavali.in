@@ -1,907 +1,1312 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shaik Saida Vali - Profile Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-        :root {
-            --color-accent: #007bff; /* Primary Blue */
-            
-            /* Light Mode (Default) */
-            --color-text-primary: #1f2937;
-            --color-text-secondary: #6b7280;
-            --color-background: #f4f7f9;
-            --color-card-bg: rgba(255, 255, 255, 0.15); /* Highly Transparent - Increased to 0.15 */
-            --color-border: #e5e7eb;
+      :root {
+        --color-accent: #006c43; /* Primary Blue */
 
-            /* Dark Mode Variables (Increased Contrast) */
-            --dark-background: #1e293b;
-            --dark-card-bg: rgba(51, 65, 85, 0.15); /* Highly Transparent Dark - Increased to 0.15 */
-            --dark-text-primary: #ffffff; /* Increased Contrast: Pure White */
-            --dark-text-secondary: #c7d2fe; /* Increased Contrast: Brighter Gray/Indigo */
-            --dark-border: #475569;
-        }
+        /* Light Mode (Default) */
+        --color-text-primary: #000000;
+        --color-text-secondary: #ffffff;
+        --color-background: #6a6e7154;
+        --color-card-bg: rgba(
+          150,
+          134,
+          134,
+          0.247
+        ); /* Highly Transparent - Increased to 0.15 */
+        --color-border: #e5e7eb;
 
-        body.dark-mode {
-            --color-background: var(--dark-background);
-            --color-card-bg: var(--dark-card-bg);
-            --color-text-primary: var(--dark-text-primary);
-            --color-text-secondary: var(--dark-text-secondary);
-            --color-border: var(--dark-border);
-        }
+        /* Dark Mode Variables (Increased Contrast) */
+        --dark-background: #1e293b;
+        --dark-card-bg: rgba(
+          51,
+          65,
+          85,
+          0.15
+        ); /* Highly Transparent Dark - Increased to 0.15 */
+        --dark-text-primary: #ffffff; /* Increased Contrast: Pure White */
+        --dark-text-secondary: #c7d2fe; /* Increased Contrast: Brighter Gray/Indigo */
+        --dark-border: #475569;
+      }
 
-        body {
-            font-family: 'Josefin Sans', sans-serif;
-            background-color: var(--color-background); 
-            color: var(--color-text-primary);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem 1rem;
-            transition: background-color 0.5s, color 0.5s;
+      body.dark-mode {
+        --color-background: var(--dark-background);
+        --color-card-bg: var(--dark-card-bg);
+        --color-text-primary: var(--dark-text-primary);
+        --color-text-secondary: var(--dark-text-secondary);
+        --color-border: var(--dark-border);
+      }
 
-            /* Background Image */
-            background-image: url('https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?cs=srgb&dl=pexels-padrinan-255379.jpg&fm=jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            position: relative;
-            z-index: 0;
-        }
-        
-        /* --- ANIMATIONS --- */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
-        }
+      body {
+        font-family: "Josefin Sans", sans-serif;
+        background-color: var(--color-background);
+        color: var(--color-text-primary);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+        transition: background-color 0.5s, color 0.5s;
 
-        /* Main Profile Container */
-        .profile-container {
-            max-width: 1024px;
-            width: 100%;
-            background-color: var(--color-card-bg);
-            border-radius: 1.5rem; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--color-border);
-            padding: 2rem;
-            transition: all 0.5s;
-            z-index: 1; 
-            position: relative; 
-            
-            /* GLASS MORPHISM EFFECT */
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px); 
+        /* Background Image */
+        background-image: url("https://media.licdn.com/dms/image/v2/D5603AQF7osM6NVUF8w/profile-displayphoto-scale_200_200/B56Zg3PPJ4HkAY-/0/1753273398836?e=2147483647&v=beta&t=wu4V1yadeBvNWjs1JGT7dj_sanmT24YGyuvoF_6gYYk");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        position: relative;
+        z-index: 0;
+      }
 
-            /* Page Load Animation */
-            animation: fadeInUp 0.8s ease-out;
+      /* --- ANIMATIONS --- */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
         }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes pulse-glow {
+        0% {
+          box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+        }
+      }
 
-        /* Profile Image */
-        .profile-img-container {
-            width: 112px;
-            height: 112px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 4px solid var(--color-accent);
-            box-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-            animation: pulse-glow 2s infinite;
-        }
-        .profile-img-container:hover {
-            transform: scale(1.05) rotate(3deg);
-            animation: none;
-            box-shadow: 0 0 25px rgba(0, 123, 255, 0.6);
-        }
+      /* Main Profile Container */
+      .profile-container {
+        max-width: 1024px;
+        width: 100%;
+        background-color: var(--color-card-bg);
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid var(--color-border);
+        padding: 2rem;
+        transition: all 0.5s;
+        z-index: 1;
+        position: relative;
 
-        /* Header Text Animation */
-        .header-content {
-            animation: slideInLeft 0.8s ease-out 0.2s backwards;
-        }
+        /* GLASS MORPHISM EFFECT */
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
 
-        /* Tab Navigation */
-        .tab-link {
-            padding: 0.75rem 0;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            color: var(--color-text-secondary);
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-        .tab-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background-color: var(--color-accent);
-            transition: width 0.3s ease, left 0.3s ease;
-        }
-        .tab-link:hover {
-            color: var(--color-accent);
-        }
-        .tab-link.active {
-            color: var(--color-accent);
-            font-weight: 600;
-        }
-        .tab-link.active::after {
-            width: 100%;
-            left: 0;
-        }
-        
-        /* Content Card */
-        .content-card {
-            background-color: var(--color-card-bg); 
-            border-radius: 0.75rem;
-            border: 1px solid var(--color-border);
-            padding: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            
-            /* GLASS MORPHISM EFFECT */
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+        /* Page Load Animation */
+        animation: fadeInUp 0.8s ease-out;
+      }
 
-            /* Hover Effect */
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background-color 0.5s, border-color 0.5s;
-            opacity: 1; /* Ensure visible after tab switch */
-        }
-        .content-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-            border-color: var(--color-accent);
-        }
-        
-        /* Data Alignment */
-        .data-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-        }
-        .data-label {
-            color: var(--color-text-secondary);
-            font-weight: 500;
-        }
-        .data-value {
-            text-align: right;
-            font-weight: 600;
-            color: var(--color-text-primary);
-        }
+      /* Profile Image */
+      .profile-img-container {
+        width: 112px;
+        height: 112px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 4px solid var(--color-accent);
+        box-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+        animation: pulse-glow 2s infinite;
+      }
+      .profile-img-container:hover {
+        transform: scale(1.05) rotate(3deg);
+        animation: none;
+        box-shadow: 0 0 25px rgba(0, 123, 255, 0.6);
+      }
 
-        /* Tab Transition Animation */
-        .tab-pane {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-            position: absolute; 
-            width: 100%; 
-            pointer-events: none; 
-        }
-        .tab-pane.active {
-            opacity: 1;
-            transform: translateY(0);
-            position: relative;
-            pointer-events: auto;
-        }
-        .tab-pane.hiding {
-            opacity: 0;
-            transform: translateY(-10px);
-            position: absolute; 
-            pointer-events: none;
-        }
-        #tab-content {
-            position: relative;
-            min-height: 400px;
-        }
-        
-        /* Search Highlight Style */
-        .highlight {
-            background-color: #ffc107; 
-            color: black;
-            padding: 0 2px;
-            border-radius: 3px;
-        }
+      /* Header Text Animation */
+      .header-content {
+        animation: slideInLeft 0.8s ease-out 0.2s backwards;
+      }
 
-        /* Button Hover Animation */
-        .btn-resume {
-            border: 2px solid var(--color-accent);
-            color: var(--color-accent);
-            background-color: var(--color-card-bg);
-            padding: 0.5rem 1.5rem;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-        }
-        .btn-resume:hover {
-            background-color: var(--color-accent);
-            color: white;
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
-            transform: scale(1.05);
-        }
-        /* Style for the SVG icon inside the button */
-        .btn-resume svg {
-            stroke: var(--color-accent);
-            transition: stroke 0.3s ease;
-        }
-        .btn-resume:hover svg {
-            stroke: white;
-        }
+      /* Tab Navigation */
+      .tab-link {
+        padding: 0.75rem 0;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        color: var(--color-text-secondary);
+        font-weight: 500;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+      }
+      .tab-link::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background-color: var(--color-accent);
+        transition: width 0.3s ease, left 0.3s ease;
+      }
+      .tab-link:hover {
+        color: var(--color-accent);
+      }
+      .tab-link.active {
+        color: var(--color-accent);
+        font-weight: 600;
+      }
+      .tab-link.active::after {
+        width: 100%;
+        left: 0;
+      }
 
-        /* General Button Active State */
-        button:active {
-            transform: scale(0.95) !important;
-        }
+      /* Content Card */
+      .content-card {
+        background-color: var(--color-card-bg);
+        border-radius: 0.75rem;
+        border: 1px solid var(--color-border);
+        padding: 1.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 
-        /* --- Reusable Background Texture Card Styles --- */
-        .bg-textured-card {
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            position: relative;
-            z-index: 0;
-            /* Ensure the content-card hover animation still works */
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background-color 0.5s, border-color 0.5s;
-        }
-        .bg-textured-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            /* Dark gradient overlay for text contrast */
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%);
-            border-radius: 0.75rem;
-            z-index: 1;
-        }
-        .bg-card-content {
-            position: relative;
-            z-index: 2;
-            color: white; /* Ensure text is white over dark background */
-        }
-        /* Override content-card padding for image cards */
-        .bg-textured-card.content-card {
-            padding: 0; 
-        }
+        /* GLASS MORPHISM EFFECT */
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
 
-        /* Specific Texture Styles */
-        .bg-10th {
-             background-image: url('https://i.ytimg.com/vi/sU7KHbJxr0s/maxresdefault.jpg');
-        }
-        .bg-intermediate {
-             background-image: url('https://i.ytimg.com/vi/sU7KHbJxr0s/maxresdefault.jpg');
-        }
-        .bg-ug {
-             background-image: url('https://image-static.collegedunia.com/public/reviewPhotos/951801/inbound2892504353987376923.jpg');
-        }
-        
+        /* Hover Effect */
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          box-shadow 0.3s ease, background-color 0.5s, border-color 0.5s;
+        opacity: 1; /* Ensure visible after tab switch */
+      }
+      .content-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        border-color: var(--color-accent);
+      }
+
+      /* Data Alignment */
+      .data-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+      }
+      .data-label {
+        color: var(--color-text-secondary);
+        font-weight: 500;
+      }
+      .data-value {
+        text-align: right;
+        font-weight: 600;
+        color: var(--color-text-primary);
+      }
+
+      /* Tab Transition Animation */
+      .tab-pane {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        position: absolute;
+        width: 100%;
+        pointer-events: none;
+      }
+      .tab-pane.active {
+        opacity: 1;
+        transform: translateY(0);
+        position: relative;
+        pointer-events: auto;
+      }
+      .tab-pane.hiding {
+        opacity: 0;
+        transform: translateY(-10px);
+        position: absolute;
+        pointer-events: none;
+      }
+      #tab-content {
+        position: relative;
+        min-height: 400px;
+      }
+
+      /* Search Highlight Style */
+      .highlight {
+        background-color: #ffc107;
+        color: black;
+        padding: 0 2px;
+        border-radius: 3px;
+      }
+
+      /* Button Hover Animation */
+      .btn-resume {
+        border: 2px solid var(--color-accent);
+        color: var(--color-accent);
+        background-color: var(--color-card-bg);
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+      }
+      .btn-resume:hover {
+        background-color: var(--color-accent);
+        color: white;
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+        transform: scale(1.05);
+      }
+      /* Style for the SVG icon inside the button */
+      .btn-resume svg {
+        stroke: var(--color-accent);
+        transition: stroke 0.3s ease;
+      }
+      .btn-resume:hover svg {
+        stroke: white;
+      }
+
+      /* General Button Active State */
+      button:active {
+        transform: scale(0.95) !important;
+      }
+
+      /* --- Reusable Background Texture Card Styles --- */
+      .bg-textured-card {
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        position: relative;
+        z-index: 0;
+        /* Ensure the content-card hover animation still works */
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          box-shadow 0.3s ease, background-color 0.5s, border-color 0.5s;
+      }
+      .bg-textured-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /* Dark gradient overlay for text contrast */
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.4) 0%,
+          rgba(0, 0, 0, 0.7) 100%
+        );
+        border-radius: 0.75rem;
+        z-index: 1;
+      }
+      .bg-card-content {
+        position: relative;
+        z-index: 2;
+        color: white; /* Ensure text is white over dark background */
+      }
+      /* Override content-card padding for image cards */
+      .bg-textured-card.content-card {
+        padding: 0;
+      }
+
+      /* Specific Texture Styles */
+      .bg-10th {
+        background-image: url("https://i.ytimg.com/vi/sU7KHbJxr0s/maxresdefault.jpg");
+      }
+      .bg-intermediate {
+        background-image: url("https://i.ytimg.com/vi/sU7KHbJxr0s/maxresdefault.jpg");
+      }
+      .bg-ug {
+        background-image: url("https://image-static.collegedunia.com/public/reviewPhotos/951801/inbound2892504353987376923.jpg");
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="profile-container">
-
-        <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-6 mb-6 border-b border-[var(--color-border)]">
-            <div class="flex items-center mb-4 sm:mb-0 header-content">
-                <div class="profile-img-container mr-4 cursor-pointer">
-                    <img src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true"
-                        onerror="this.onerror=null; this.src='https://placehold.co/112x112/007bff/ffffff?text=SV';"
-                        alt="Shaik Saida Vali" class="w-full h-full object-cover">
-                </div>
-                <div>
-                    <h1 class="text-3xl font-bold text-[var(--color-text-primary)]">Shaik Saida Vali</h1>
-                    <p class="text-lg text-[var(--color-text-secondary)]">urstrulysaida@gmail.com</p>
-                </div>
-            </div>
-            <div class="flex space-x-3 header-content" style="animation-delay: 0.3s;">
-                <button id="theme-toggle" class="p-3 rounded-lg text-[var(--color-text-primary)] border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:shadow-lg transition duration-300 hover:scale-[1.05]">
-                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></svg>
-                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                </button>
-                <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="btn-resume">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                    View Resume
-                </a>
-            </div>
-        </header>
-
-        <div class="mb-6 flex items-center space-x-2 header-content" style="animation-delay: 0.4s;">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[var(--color-text-secondary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="text" id="global-search" oninput="debouncedHandleSearch(this.value)" placeholder="Search keywords across all sections (e.g., 'GCP', 'SIEM', '2026')"
-                   class="w-full p-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-card-bg)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-colors duration-300">
+      <header
+        class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-6 mb-6 border-b border-[var(--color-border)]"
+      >
+        <div class="flex items-center mb-4 sm:mb-0 header-content">
+          <div class="profile-img-container mr-4 cursor-pointer">
+            <img
+              src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true"
+              onerror="this.onerror=null; this.src='https://placehold.co/112x112/007bff/ffffff?text=SV';"
+              alt="Shaik Saida Vali"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div>
+            <h1 class="text-3xl font-bold text-[var(--color-text-primary)]">
+              Shaik Saida Vali
+            </h1>
+            <p class="text-lg text-[var(--color-text-secondary)]">
+              urstrulysaida@gmail.com
+            </p>
+          </div>
         </div>
+        <div
+          class="flex space-x-3 header-content"
+          style="animation-delay: 0.3s"
+        >
+          <button
+            id="theme-toggle"
+            class="p-3 rounded-lg text-[var(--color-text-primary)] border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:shadow-lg transition duration-300 hover:scale-[1.05]"
+          >
+            <svg
+              id="sun-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 hidden"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2" />
+              <path d="M12 20v2" />
+              <path d="M4.93 4.93l1.41 1.41" />
+              <path d="M17.66 17.66l1.41 1.41" />
+              <path d="M2 12h2" />
+              <path d="M20 12h2" />
+              <path d="M6.34 17.66l-1.41 1.41" />
+              <path d="M19.07 4.93l-1.41 1.41" />
+            </svg>
+            <svg
+              id="moon-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+          <a
+            href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing"
+            target="_blank"
+            class="btn-resume"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="mr-2"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" x2="12" y1="15" y2="3" />
+            </svg>
+            View Resume
+          </a>
+        </div>
+      </header>
 
-        <nav class="mb-8 header-content" style="animation-delay: 0.5s;">
-            <div class="flex space-x-6 border-b border-gray-200">
-                <div class="tab-link active" data-tab="personal-info">
-                    <span class="mr-2" role="img" aria-label="Person">👤</span> Personal Info
+      <div
+        class="mb-6 flex items-center space-x-2 header-content"
+        style="animation-delay: 0.4s"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 text-[var(--color-text-secondary)]"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.3-4.3" />
+        </svg>
+        <input
+          type="text"
+          id="global-search"
+          oninput="debouncedHandleSearch(this.value)"
+          placeholder="Search keywords across all sections (e.g., 'GCP', 'SIEM', '2026')"
+          class="w-full p-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-card-bg)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-colors duration-300"
+        />
+      </div>
+
+      <nav class="mb-8 header-content" style="animation-delay: 0.5s">
+        <div class="flex space-x-6 border-b border-gray-200">
+          <div class="tab-link active" data-tab="personal-info">
+            <span class="mr-2" role="img" aria-label="Person">👤</span> Personal
+            Info
+          </div>
+          <div class="tab-link" data-tab="education">
+            <span class="mr-2" role="img" aria-label="Education">🎓</span>
+            Education
+          </div>
+          <div class="tab-link" data-tab="career-links">
+            <span class="mr-2" role="img" aria-label="Links">🔗</span> Career &
+            Links
+          </div>
+        </div>
+      </nav>
+
+      <main id="tab-content">
+        <!-- -------------------------------- 1. PERSONAL INFO TAB -------------------------------- -->
+        <section id="personal-info" class="tab-pane active space-y-8">
+          <!-- NEW: Professional Summary Card -->
+          <div class="content-card">
+            <h3
+              class="text-xl font-semibold mb-3 text-[var(--color-text-primary)] flex items-center"
+            >
+              <span class="mr-2 text-[var(--color-accent)]">⭐</span>
+              Professional Summary
+            </h3>
+            <p class="text-base text-[var(--color-text-primary)]">
+              A dedicated Computer Science student specializing in
+              **Cybersecurity, Cloud Architecture (GCP/AWS), and DevOps
+              practices**. Driven by a passion for building secure, scalable
+              infrastructure, I leverage skills in Python, network security, and
+              SIEM analysis to contribute to robust defense strategies and
+              efficient cloud deployments.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="content-card">
+              <h3
+                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center"
+              >
+                <span class="mr-2 text-[var(--color-accent)]">📞</span> Contact
+                Information
+              </h3>
+              <div class="space-y-3">
+                <div class="data-row">
+                  <span class="data-label">Email:</span>
+                  <span class="data-value">urstrulysaida@gmail.com</span>
                 </div>
-                <div class="tab-link" data-tab="education">
-                    <span class="mr-2" role="img" aria-label="Education">🎓</span> Education
+                <div class="data-row">
+                  <span class="data-label">Contact:</span>
+                  <span class="data-value">7674012184</span>
                 </div>
-                <div class="tab-link" data-tab="career-links">
-                    <span class="mr-2" role="img" aria-label="Links">🔗</span> Career & Links
+                <div class="data-row">
+                  <span class="data-label">WhatsApp:</span>
+                  <span class="data-value">630146654</span>
                 </div>
+              </div>
             </div>
-        </nav>
 
-        <main id="tab-content">
-
-            <!-- -------------------------------- 1. PERSONAL INFO TAB -------------------------------- --><section id="personal-info" class="tab-pane active space-y-8">
-                
-                <!-- NEW: Professional Summary Card -->
-                <div class="content-card">
-                    <h3 class="text-xl font-semibold mb-3 text-[var(--color-text-primary)] flex items-center">
-                        <span class="mr-2 text-[var(--color-accent)]">⭐</span> Professional Summary
-                    </h3>
-                    <p class="text-base text-[var(--color-text-primary)]">
-                        A dedicated Computer Science student specializing in **Cybersecurity, Cloud Architecture (GCP/AWS), and DevOps practices**. Driven by a passion for building secure, scalable infrastructure, I leverage skills in Python, network security, and SIEM analysis to contribute to robust defense strategies and efficient cloud deployments.
-                    </p>
+            <div class="content-card">
+              <h3
+                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center"
+              >
+                <span class="mr-2 text-[var(--color-accent)]">👤</span> Personal
+                Details
+              </h3>
+              <div class="space-y-3">
+                <div class="data-row">
+                  <span class="data-label">DOB:</span>
+                  <span class="data-value">2001-01-11</span>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    
-                    <div class="content-card">
-                        <h3 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
-                            <span class="mr-2 text-[var(--color-accent)]">📞</span> Contact Information
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="data-row">
-                                <span class="data-label">Email:</span>
-                                <span class="data-value">urstrulysaida@gmail.com</span>
-                            </div>
-                            <div class="data-row">
-                                <span class="data-label">Contact:</span>
-                                <span class="data-value">7674012184</span>
-                            </div>
-                            <div class="data-row">
-                                <span class="data-label">WhatsApp:</span>
-                                <span class="data-value">630146654</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-card">
-                        <h3 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
-                            <span class="mr-2 text-[var(--color-accent)]">👤</span> Personal Details
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="data-row">
-                                <span class="data-label">DOB:</span>
-                                <span class="data-value">2001-01-11</span>
-                            </div>
-                            <div class="data-row">
-                                <span class="data-label">Gender:</span>
-                                <span class="data-value">Male</span>
-                            </div>
-                            <div class="data-row">
-                                <span class="data-label">Category:</span>
-                                <span class="data-value">GEN</span>
-                            </div>
-                            <div class="data-row">
-                                <span class="data-label">Disability:</span>
-                                <span class="data-value">No</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="data-row">
+                  <span class="data-label">Gender:</span>
+                  <span class="data-value">Male</span>
                 </div>
-
-                <div class="content-card max-w-xl">
-                    <h3 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
-                        <span class="mr-2 text-[var(--color-accent)]">🏠</span> Address Information
-                    </h3>
-                    <div class="space-y-3">
-                        <div class="data-row">
-                            <span class="data-label">Address:</span>
-                            <span class="data-value text-right">10-11, avulavaripalem, Guntur Andhra Pradesh India, 522411</span>
-                        </div>
-                        <div class="data-row">
-                            <span class="data-label">City/Town:</span>
-                            <span class="data-value">Andhra Pradesh</span>
-                        </div>
-                        <div class="data-row">
-                            <span class="data-label">State:</span>
-                            <span class="data-value">Andhra Pradesh</span>
-                        </div>
-                    </div>
+                <div class="data-row">
+                  <span class="data-label">Category:</span>
+                  <span class="data-value">GEN</span>
                 </div>
-
-            </section>
-
-            <!-- -------------------------------- 2. EDUCATION TAB -------------------------------- --><section id="education" class="tab-pane hidden space-y-8">
-                <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">Academic History</h3>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    
-                    <div class="content-card bg-textured-card bg-10th">
-                        <!-- Content with Text Over Image -->
-                        <div class="bg-card-content p-6">
-                            <h4 class="text-xl font-semibold mb-4 flex items-center">
-                                <span class="mr-2 text-white">📘</span> 10th Details
-                            </h4>
-                            <div class="space-y-3 text-sm">
-                                <div class="data-row">
-                                    <span class="data-label">School:</span>
-                                    <span class="data-value text-white">ZPHS SCHOOL</span>
-                                </div>
-                                <div class="data-row">
-                                    <span class="data-label">Marks:</span>
-                                    <span class="data-value text-white">7%</span>
-                                </div>
-                                <div class="data-row">
-                                    <span class="data-label">Passout:</span>
-                                    <span class="data-value text-white">N/A</span>
-                                </div>
-                                <div class="data-row">
-                                    <span class="data-label">Certificate:</span>
-                                    <a href="https://drive.google.com/file/d/15OPbt8X_FkjVENA-_ByxJ-6acZrH4yVG/view?usp=sharing" target="_blank" class="data-value text-yellow-300 hover:underline">View Certificate</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-card bg-textured-card bg-intermediate">
-                        <!-- Content with Text Over Image -->
-                        <div class="bg-card-content p-6">
-                            <h4 class="text-xl font-semibold mb-4 flex items-center">
-                                <span class="mr-2 text-white">📖</span> Intermediate (12th) Details
-                            </h4>
-                            <div class="space-y-3 text-sm">
-                                <div class="data-row">
-                                    <span class="data-label">Institute:</span>
-                                    <span class="data-value text-white">N/A</span>
-                                </div>
-                                <div class="data-row">
-                                    <span class="data-label">Percentage:</span>
-                                    <span class="data-value text-white">6%</span>
-                                </div>
-                                <div class="data-row">
-                                    <span class="data-label">Passout:</span>
-                                    <span class="data-value text-white">N/A</span>
-                                </div>
-                                <div class="data-row">
-                                    <span class="data-label">Certificate:</span>
-                                    <a href="https://drive.google.com/file/d/15LNA5es18GqDRMX1Fg7wYfzcYBWXo5Vk/view?usp=sharing" target="_blank" class="data-value text-yellow-300 hover:underline">View Certificate</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="data-row">
+                  <span class="data-label">Disability:</span>
+                  <span class="data-value">No</span>
                 </div>
+              </div>
+            </div>
+          </div>
 
-                <div class="content-card bg-textured-card bg-ug h-64 flex items-end">
-                    <!-- Content must be wrapped to control z-index and spacing -->
-                    <div class="bg-card-content p-6 w-full"> 
-                        <h4 class="text-xl font-semibold mb-4 flex items-center">
-                            <span class="mr-2 text-white">🎓</span> UG Details
-                        </h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3 text-sm">
-                            <div class="data-row">
-                                <span class="data-label">Institute:</span>
-                                <span class="data-value text-white text-right">Kakinada Institute of Engineering and Technology</span>
-                            </div>
-                            <div class="data-row">
-                                <span class="data-label">Course:</span>
-                                <span class="data-value text-white">B.Tech</span>
-                            </div>
-                            <div class="data-row">
-                                <span class="data-label">Branch:</span>
-                                <span class="data-value text-white">Cyber Security</span>
-                            </div>
-                            <div class="data-row">
-                                <span class="data-label">State:</span>
-                                <span class="data-value text-white">Andhra Pradesh</span>
-                            </div>
-                            <div class="data-row">
-                                <span class="data-label">Univ. Reg No:</span>
-                                <span class="data-value text-white">22B21A4627</span>
-                            </div>
-                            <div class="data-row">
-                                <span class="data-label">Passout:</span>
-                                <span class="data-value text-white">2026</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+          <div class="content-card max-w-xl">
+            <h3
+              class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center"
+            >
+              <span class="mr-2 text-[var(--color-accent)]">🏠</span> Address
+              Information
+            </h3>
+            <div class="space-y-3">
+              <div class="data-row">
+                <span class="data-label">Address:</span>
+                <span class="data-value text-right"
+                  >10-11, avulavaripalem, Guntur Andhra Pradesh India,
+                  522411</span
+                >
+              </div>
+              <div class="data-row">
+                <span class="data-label">City/Town:</span>
+                <span class="data-value">Andhra Pradesh</span>
+              </div>
+              <div class="data-row">
+                <span class="data-label">State:</span>
+                <span class="data-value">Andhra Pradesh</span>
+              </div>
+            </div>
+          </div>
+        </section>
 
-            <!-- -------------------------------- 3. CAREER & LINKS TAB -------------------------------- --><section id="career-links" class="tab-pane hidden space-y-8">
-                <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">Career & Links</h3>
+        <!-- -------------------------------- 2. EDUCATION TAB -------------------------------- -->
+        <section id="education" class="tab-pane hidden space-y-8">
+          <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">
+            Academic History
+          </h3>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    
-                    <div class="content-card">
-                        <h4 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
-                            <span class="mr-2 text-red-500">💼</span> Current Position
-                        </h4>
-                        <div class="space-y-3 text-sm">
-                            <div class="data-row">
-                                <span class="data-label">Role:</span>
-                                <span class="data-value">N/A</span>
-                            </div>
-                            <div class="data-row">
-                                <span class="data-label">Company:</span>
-                                <span class="data-value">N/A</span>
-                            </div>
-                            <div class="data-row">
-                                <span class="data-label">Location:</span>
-                                <span class="data-value">Andhra Pradesh</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="content-card">
-                        <h4 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
-                            <span class="mr-2 text-purple-500">🔗</span> Social & Portfolio Links
-                        </h4>
-                        <div class="space-y-3 text-sm">
-                            
-                            <div class="data-row items-center">
-                                <span class="data-label flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-blue-700"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                                    LinkedIn:
-                                </span>
-                                <a href="https://www.linkedin.com/in/shaiksaidavali/" target="_blank" class="data-value text-[var(--color-accent)] hover:underline">View Profile</a>
-                            </div>
-
-                            <div class="data-row items-center">
-                                <span class="data-label flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-gray-700 dark:text-gray-300"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.6c3.2 0 4.8-1.5 4.8-4.2a4 4 0 0 0-1-3.6c.3-1 .3-2.5-.1-3.6 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/><path d="M12 2v3"/></svg>
-                                    GitHub:
-                                </span>
-                                <a href="https://github.com/urstrulysaida" target="_blank" class="data-value text-[var(--color-accent)] hover:underline">View Profile</a>
-                            </div>
-
-                            <div class="data-row items-center">
-                                <span class="data-label flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-yellow-600"><polygon points="12 2 22 13 15.46 22 12 18 8.54 22 2 13 12 2"/><line x1="2" x2="15.46" y1="13" y2="13"/><line x1="8.54" x2="12" y1="22" y2="18"/><line x1="12" x2="15.46" y1="18" y2="22"/><line x1="12" x2="12" y1="2" y2="18"/></svg>
-                                    Codepen:
-                                </span>
-                                <a href="https://codepen.io/Mr_-Prince_Ssv" target="_blank" class="data-value text-[var(--color-accent)] hover:underline">View Codepen</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <h3 class="text-2xl font-bold text-[var(--color-accent)] pt-4 mb-4 border-t border-[var(--color-border)]">Career Highlights</h3>
-
-                <h4 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center">
-                    <span class="mr-2 text-green-500">🏅</span> Professional Certifications
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="content-card bg-textured-card bg-10th">
+              <!-- Content with Text Over Image -->
+              <div class="bg-card-content p-6">
+                <h4 class="text-xl font-semibold mb-4 flex items-center">
+                  <span class="mr-2 text-white">📘</span> 10th Details
                 </h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-                    
-                    <div class="content-card">
-                        <h5 class="text-lg font-bold mb-2 text-green-500">Google Cybersecurity Cert.</h5>
-                        <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Professional Certification</p>
-                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
-                            <li><strong>Key Focus:</strong> SIEM Analysis, Threat Detection, Risk Management (NIST/MITRE).</li>
-                            <li><strong>Skills Gained:</strong> Enterprise Defense Strategies, Vulnerability Assessment, Security Operations Center (SOC) Fundamentals.</li>
-                            <li><a href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Proof</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="content-card">
-                        <h5 class="text-lg font-bold mb-2 text-yellow-500">AWS Cloud Technology</h5>
-                        <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Industry Training Program</p>
-                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
-                            <li><strong>Key Focus:</strong> Cloud Migration, Solution Design, Core AWS Services (EC2, S3, VPC).</li>
-                            <li><strong>Skills Gained:</strong> Architecture Principles, Scalability, Cost Optimization, Infrastructure Fundamentals.</li>
-                            <li><a href="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Proof</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="content-card">
-                        <h5 class="text-lg font-bold mb-2 text-purple-500">Advanced Data Analytics</h5>
-                        <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Professional Certification</p>
-                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
-                            <li><strong>Key Focus:</strong> Predictive Modeling, Statistical Analysis (R), Complex SQL Queries.</li>
-                            <li><strong>Skills Gained:</strong> Data Visualization, Business Intelligence, Advanced Data Manipulation.</li>
-                            <li><a href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Proof</a></li>
-                        </ul>
-                    </div>
-
+                <div class="space-y-3 text-sm">
+                  <div class="data-row">
+                    <span class="data-label">School:</span>
+                    <span class="data-value text-white">ZPHS SCHOOL</span>
+                  </div>
+                  <div class="data-row">
+                    <span class="data-label">Marks:</span>
+                    <span class="data-value text-white">7%</span>
+                  </div>
+                  <div class="data-row">
+                    <span class="data-label">Passout:</span>
+                    <span class="data-value text-white">N/A</span>
+                  </div>
+                  <div class="data-row">
+                    <span class="data-label">Certificate:</span>
+                    <a
+                      href="https://drive.google.com/file/d/15OPbt8X_FkjVENA-_ByxJ-6acZrH4yVG/view?usp=sharing"
+                      target="_blank"
+                      class="data-value text-yellow-300 hover:underline"
+                      >View Certificate</a
+                    >
+                  </div>
                 </div>
+              </div>
+            </div>
 
-                <h4 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center pt-4 border-t border-[var(--color-border)]">
-                    <span class="mr-2 text-red-500">💼</span> Internships & Practical Experience
+            <div class="content-card bg-textured-card bg-intermediate">
+              <!-- Content with Text Over Image -->
+              <div class="bg-card-content p-6">
+                <h4 class="text-xl font-semibold mb-4 flex items-center">
+                  <span class="mr-2 text-white">📖</span> Intermediate (12th)
+                  Details
                 </h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    
-                    <div class="content-card">
-                        <h5 class="text-lg font-bold mb-2 text-indigo-500">Zscaler Cloud Networking</h5>
-                        <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Virtual Internship</p>
-                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
-                            <li><strong>Key Focus:</strong> Zero Trust Architecture (ZTA), Secure Access Service Edge (SASE).</li>
-                            <li><strong>Skills Gained:</strong> Modern Network Security, Cloud-First Environment Protection, Access Policy Management.</li>
-                            <li><a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Proof</a></li>
-                        </ul>
-                    </div>
+                <div class="space-y-3 text-sm">
+                  <div class="data-row">
+                    <span class="data-label">Institute:</span>
+                    <span class="data-value text-white">N/A</span>
+                  </div>
+                  <div class="data-row">
+                    <span class="data-label">Percentage:</span>
+                    <span class="data-value text-white">6%</span>
+                  </div>
+                  <div class="data-row">
+                    <span class="data-label">Passout:</span>
+                    <span class="data-value text-white">N/A</span>
+                  </div>
+                  <div class="data-row">
+                    <span class="data-label">Certificate:</span>
+                    <a
+                      href="https://drive.google.com/file/d/15LNA5es18GqDRMX1Fg7wYfzcYBWXo5Vk/view?usp=sharing"
+                      target="_blank"
+                      class="data-value text-yellow-300 hover:underline"
+                      >View Certificate</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                    <div class="content-card">
-                        <h5 class="text-lg font-bold mb-2 text-red-500">Fortinet Network Security</h5>
-                        <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">Associate (NSE)</p>
-                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
-                            <li><strong>Key Focus:</strong> Next-Generation Firewalls, Cybersecurity Threat Landscape.</li>
-                            <li><strong>Skills Gained:</strong> Network Segmentation, Security Fabric Concepts, Wired/Wireless Network Security.</li>
-                            <li><a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Proof</a></li>
-                        </ul>
-                    </div>
+          <div class="content-card bg-textured-card bg-ug h-64 flex items-end">
+            <!-- Content must be wrapped to control z-index and spacing -->
+            <div class="bg-card-content p-6 w-full">
+              <h4 class="text-xl font-semibold mb-4 flex items-center">
+                <span class="mr-2 text-white">🎓</span> UG Details
+              </h4>
+              <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3 text-sm"
+              >
+                <div class="data-row">
+                  <span class="data-label">Institute:</span>
+                  <span class="data-value text-white text-right"
+                    >Kakinada Institute of Engineering and Technology</span
+                  >
+                </div>
+                <div class="data-row">
+                  <span class="data-label">Course:</span>
+                  <span class="data-value text-white">B.Tech</span>
+                </div>
+                <div class="data-row">
+                  <span class="data-label">Branch:</span>
+                  <span class="data-value text-white">Cyber Security</span>
+                </div>
+                <div class="data-row">
+                  <span class="data-label">State:</span>
+                  <span class="data-value text-white">Andhra Pradesh</span>
+                </div>
+                <div class="data-row">
+                  <span class="data-label">Univ. Reg No:</span>
+                  <span class="data-value text-white">22B21A4627</span>
+                </div>
+                <div class="data-row">
+                  <span class="data-label">Passout:</span>
+                  <span class="data-value text-white">2026</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                    <div class="content-card">
-                        <h5 class="text-lg font-bold mb-2 text-blue-500">Cloud Computing Internship</h5>
-                        <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">8 Weeks Experience</p>
-                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
-                            <li><strong>Key Focus:</strong> GCP Services (Compute, Storage, VPC), Infrastructure-as-Code (IaC) concepts.</li>
-                            <li><strong>Skills Gained:</strong> Practical Deployment, Cloud Security & Cost Management, Networking setup in a cloud environment.</li>
-                            <li><a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Certificate</a></li>
-                        </ul>
-                    </div>
+        <!-- -------------------------------- 3. CAREER & LINKS TAB -------------------------------- -->
+        <section id="career-links" class="tab-pane hidden space-y-8">
+          <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">
+            Career & Links
+          </h3>
 
-                    <div class="content-card">
-                        <h5 class="text-lg font-bold mb-2 text-pink-500">IoT Internship</h5>
-                        <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">16 Weeks Experience</p>
-                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
-                            <li><strong>Key Focus:</strong> Device Prototyping (Arduino/ESP), Sensor Integration, Data Transmission (MQTT).</li>
-                            <li><strong>Skills Gained:</strong> Full-Stack IoT Deployment, Hardware-Software Interfacing, Cloud Connectivity Protocols.</li>
-                            <li><a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Certificate</a></li>
-                        </ul>
-                    </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="content-card">
+              <h4
+                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center"
+              >
+                <span class="mr-2 text-red-500">💼</span> Current Position
+              </h4>
+              <div class="space-y-3 text-sm">
+                <div class="data-row">
+                  <span class="data-label">Role:</span>
+                  <span class="data-value">N/A</span>
+                </div>
+                <div class="data-row">
+                  <span class="data-label">Company:</span>
+                  <span class="data-value">N/A</span>
+                </div>
+                <div class="data-row">
+                  <span class="data-label">Location:</span>
+                  <span class="data-value">Andhra Pradesh</span>
+                </div>
+              </div>
+            </div>
 
-                    <div class="content-card">
-                        <h5 class="text-lg font-bold mb-2 text-indigo-500">Ethical Hacking Internship</h5>
-                        <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">10 Weeks Experience</p>
-                        <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
-                            <li><strong>Key Focus:</strong> Vulnerability Assessment, Penetration Testing Methodologies.</li>
-                            <li><strong>Skills Gained:</strong> Network and Web App Security Testing, Foundational Defense Strategies.</li>
-                            <li><a href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" target="_blank" class="text-[var(--color-accent)] hover:underline font-medium">View Proof</a></li>
-                        </ul>
-                    </div>
+            <div class="content-card">
+              <h4
+                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center"
+              >
+                <span class="mr-2 text-purple-500">🔗</span> Social & Portfolio
+                Links
+              </h4>
+              <div class="space-y-3 text-sm">
+                <div class="data-row items-center">
+                  <span class="data-label flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="mr-2 text-blue-700"
+                    >
+                      <path
+                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                      />
+                      <rect width="4" height="12" x="2" y="9" />
+                      <circle cx="4" cy="4" r="2" />
+                    </svg>
+                    LinkedIn:
+                  </span>
+                  <a
+                    href="https://www.linkedin.com/in/shaiksaidavali/"
+                    target="_blank"
+                    class="data-value text-[var(--color-accent)] hover:underline"
+                    >View Profile</a
+                  >
                 </div>
 
-            </section>
-        </main>
+                <div class="data-row items-center">
+                  <span class="data-label flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="mr-2 text-gray-700 dark:text-gray-300"
+                    >
+                      <path
+                        d="M15 22v-4a4.8 4.8 0 0 0-1-3.6c3.2 0 4.8-1.5 4.8-4.2a4 4 0 0 0-1-3.6c.3-1 .3-2.5-.1-3.6 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"
+                      />
+                      <path d="M12 2v3" />
+                    </svg>
+                    GitHub:
+                  </span>
+                  <a
+                    href="https://github.com/urstrulysaida"
+                    target="_blank"
+                    class="data-value text-[var(--color-accent)] hover:underline"
+                    >View Profile</a
+                  >
+                </div>
+
+                <div class="data-row items-center">
+                  <span class="data-label flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="mr-2 text-yellow-600"
+                    >
+                      <polygon
+                        points="12 2 22 13 15.46 22 12 18 8.54 22 2 13 12 2"
+                      />
+                      <line x1="2" x2="15.46" y1="13" y2="13" />
+                      <line x1="8.54" x2="12" y1="22" y2="18" />
+                      <line x1="12" x2="15.46" y1="18" y2="22" />
+                      <line x1="12" x2="12" y1="2" y2="18" />
+                    </svg>
+                    Codepen:
+                  </span>
+                  <a
+                    href="https://codepen.io/Mr_-Prince_Ssv"
+                    target="_blank"
+                    class="data-value text-[var(--color-accent)] hover:underline"
+                    >View Codepen</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3
+            class="text-2xl font-bold text-[var(--color-accent)] pt-4 mb-4 border-t border-[var(--color-border)]"
+          >
+            Career Highlights
+          </h3>
+
+          <h4
+            class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center"
+          >
+            <span class="mr-2 text-green-500">🏅</span> Professional
+            Certifications
+          </h4>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8"
+          >
+            <div class="content-card">
+              <h5 class="text-lg font-bold mb-2 text-green-500">
+                Google Cybersecurity Cert.
+              </h5>
+              <p
+                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
+              >
+                Professional Certification
+              </p>
+              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+                <li>
+                  <strong>Key Focus:</strong> SIEM Analysis, Threat Detection,
+                  Risk Management (NIST/MITRE).
+                </li>
+                <li>
+                  <strong>Skills Gained:</strong> Enterprise Defense Strategies,
+                  Vulnerability Assessment, Security Operations Center (SOC)
+                  Fundamentals.
+                </li>
+                <li>
+                  <a
+                    href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing"
+                    target="_blank"
+                    class="text-[var(--color-accent)] hover:underline font-medium"
+                    >View Proof</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="content-card">
+              <h5 class="text-lg font-bold mb-2 text-yellow-500">
+                AWS Cloud Technology
+              </h5>
+              <p
+                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
+              >
+                Industry Training Program
+              </p>
+              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+                <li>
+                  <strong>Key Focus:</strong> Cloud Migration, Solution Design,
+                  Core AWS Services (EC2, S3, VPC).
+                </li>
+                <li>
+                  <strong>Skills Gained:</strong> Architecture Principles,
+                  Scalability, Cost Optimization, Infrastructure Fundamentals.
+                </li>
+                <li>
+                  <a
+                    href="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link"
+                    target="_blank"
+                    class="text-[var(--color-accent)] hover:underline font-medium"
+                    >View Proof</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="content-card">
+              <h5 class="text-lg font-bold mb-2 text-purple-500">
+                Advanced Data Analytics
+              </h5>
+              <p
+                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
+              >
+                Professional Certification
+              </p>
+              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+                <li>
+                  <strong>Key Focus:</strong> Predictive Modeling, Statistical
+                  Analysis (R), Complex SQL Queries.
+                </li>
+                <li>
+                  <strong>Skills Gained:</strong> Data Visualization, Business
+                  Intelligence, Advanced Data Manipulation.
+                </li>
+                <li>
+                  <a
+                    href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link"
+                    target="_blank"
+                    class="text-[var(--color-accent)] hover:underline font-medium"
+                    >View Proof</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <h4
+            class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center pt-4 border-t border-[var(--color-border)]"
+          >
+            <span class="mr-2 text-red-500">💼</span> Internships & Practical
+            Experience
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="content-card">
+              <h5 class="text-lg font-bold mb-2 text-indigo-500">
+                Zscaler Cloud Networking
+              </h5>
+              <p
+                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
+              >
+                Virtual Internship
+              </p>
+              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+                <li>
+                  <strong>Key Focus:</strong> Zero Trust Architecture (ZTA),
+                  Secure Access Service Edge (SASE).
+                </li>
+                <li>
+                  <strong>Skills Gained:</strong> Modern Network Security,
+                  Cloud-First Environment Protection, Access Policy Management.
+                </li>
+                <li>
+                  <a
+                    href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link"
+                    target="_blank"
+                    class="text-[var(--color-accent)] hover:underline font-medium"
+                    >View Proof</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="content-card">
+              <h5 class="text-lg font-bold mb-2 text-red-500">
+                Fortinet Network Security
+              </h5>
+              <p
+                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
+              >
+                Associate (NSE)
+              </p>
+              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+                <li>
+                  <strong>Key Focus:</strong> Next-Generation Firewalls,
+                  Cybersecurity Threat Landscape.
+                </li>
+                <li>
+                  <strong>Skills Gained:</strong> Network Segmentation, Security
+                  Fabric Concepts, Wired/Wireless Network Security.
+                </li>
+                <li>
+                  <a
+                    href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link"
+                    target="_blank"
+                    class="text-[var(--color-accent)] hover:underline font-medium"
+                    >View Proof</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="content-card">
+              <h5 class="text-lg font-bold mb-2 text-blue-500">
+                Cloud Computing Internship
+              </h5>
+              <p
+                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
+              >
+                8 Weeks Experience
+              </p>
+              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+                <li>
+                  <strong>Key Focus:</strong> GCP Services (Compute, Storage,
+                  VPC), Infrastructure-as-Code (IaC) concepts.
+                </li>
+                <li>
+                  <strong>Skills Gained:</strong> Practical Deployment, Cloud
+                  Security & Cost Management, Networking setup in a cloud
+                  environment.
+                </li>
+                <li>
+                  <a
+                    href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link"
+                    target="_blank"
+                    class="text-[var(--color-accent)] hover:underline font-medium"
+                    >View Certificate</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="content-card">
+              <h5 class="text-lg font-bold mb-2 text-pink-500">
+                IoT Internship
+              </h5>
+              <p
+                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
+              >
+                16 Weeks Experience
+              </p>
+              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+                <li>
+                  <strong>Key Focus:</strong> Device Prototyping (Arduino/ESP),
+                  Sensor Integration, Data Transmission (MQTT).
+                </li>
+                <li>
+                  <strong>Skills Gained:</strong> Full-Stack IoT Deployment,
+                  Hardware-Software Interfacing, Cloud Connectivity Protocols.
+                </li>
+                <li>
+                  <a
+                    href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link"
+                    target="_blank"
+                    class="text-[var(--color-accent)] hover:underline font-medium"
+                    >View Certificate</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="content-card">
+              <h5 class="text-lg font-bold mb-2 text-indigo-500">
+                Ethical Hacking Internship
+              </h5>
+              <p
+                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
+              >
+                10 Weeks Experience
+              </p>
+              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+                <li>
+                  <strong>Key Focus:</strong> Vulnerability Assessment,
+                  Penetration Testing Methodologies.
+                </li>
+                <li>
+                  <strong>Skills Gained:</strong> Network and Web App Security
+                  Testing, Foundational Defense Strategies.
+                </li>
+                <li>
+                  <a
+                    href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link"
+                    target="_blank"
+                    class="text-[var(--color-accent)] hover:underline font-medium"
+                    >View Proof</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
 
-    <!-- ============================ JAVASCRIPT LOGIC ============================ --><script>
-        let originalContent = {};
-        
-        // --- DEBOUNCE FUNCTION ---
-        const debounce = (func, delay) => {
-            let timeout;
-            return function(...args) {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => func.apply(this, args), delay);
-            };
+    <!-- ============================ JAVASCRIPT LOGIC ============================ -->
+    <script>
+      let originalContent = {};
+
+      // --- DEBOUNCE FUNCTION ---
+      const debounce = (func, delay) => {
+        let timeout;
+        return function (...args) {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(this, args), delay);
+        };
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const tabs = document.querySelectorAll(".tab-link");
+        const tabPanes = document.querySelectorAll(".tab-pane");
+        const transitionDuration = 400;
+
+        const themeToggle = document.getElementById("theme-toggle");
+        const sunIcon = document.getElementById("sun-icon");
+        const moonIcon = document.getElementById("moon-icon");
+
+        // --- Theme Toggle Logic ---
+        const applyTheme = (isDark) => {
+          const body = document.body;
+          if (isDark) {
+            body.classList.add("dark-mode");
+            localStorage.setItem("theme", "dark");
+            if (sunIcon && moonIcon) {
+              sunIcon.classList.remove("hidden");
+              moonIcon.classList.add("hidden");
+            }
+          } else {
+            body.classList.remove("dark-mode");
+            localStorage.setItem("theme", "light");
+            if (sunIcon && moonIcon) {
+              sunIcon.classList.add("hidden");
+              moonIcon.classList.remove("hidden");
+            }
+          }
         };
 
+        // Initialize theme
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const tabs = document.querySelectorAll('.tab-link');
-            const tabPanes = document.querySelectorAll('.tab-pane');
-            const transitionDuration = 400; 
+        if (savedTheme === "dark" || (savedTheme === null && prefersDark)) {
+          applyTheme(true);
+        } else {
+          applyTheme(false);
+        }
 
-            const themeToggle = document.getElementById('theme-toggle');
-            const sunIcon = document.getElementById('sun-icon');
-            const moonIcon = document.getElementById('moon-icon');
+        // Add listener to toggle button
+        if (themeToggle) {
+          themeToggle.addEventListener("click", () => {
+            const isDark = document.body.classList.contains("dark-mode");
+            applyTheme(!isDark);
+          });
+        }
 
-            // --- Theme Toggle Logic ---
-            const applyTheme = (isDark) => {
-                const body = document.body;
-                if (isDark) {
-                    body.classList.add('dark-mode');
-                    localStorage.setItem('theme', 'dark');
-                    if (sunIcon && moonIcon) {
-                        sunIcon.classList.remove('hidden');
-                        moonIcon.classList.add('hidden');
-                    }
-                } else {
-                    body.classList.remove('dark-mode');
-                    localStorage.setItem('theme', 'light');
-                    if (sunIcon && moonIcon) {
-                        sunIcon.classList.add('hidden');
-                        moonIcon.classList.remove('hidden');
-                    }
-                }
-            };
-
-            // Initialize theme 
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-            if (savedTheme === 'dark' || (savedTheme === null && prefersDark)) {
-                applyTheme(true);
-            } else {
-                applyTheme(false);
-            }
-
-            // Add listener to toggle button
-            if (themeToggle) {
-                themeToggle.addEventListener('click', () => {
-                    const isDark = document.body.classList.contains('dark-mode');
-                    applyTheme(!isDark);
-                });
-            }
-
-            // --- Content Storage & Search Initialization ---
-            tabPanes.forEach(pane => {
-                originalContent[pane.id] = pane.innerHTML;
-            });
-            
-            // --- Search Handlers ---
-            window.handleSearch = (query) => {
-                const term = query.trim().toLowerCase();
-                let firstMatchFound = false;
-
-                // 1. Restore content for ALL panes first
-                tabPanes.forEach(pane => {
-                    if (originalContent[pane.id]) {
-                        pane.innerHTML = originalContent[pane.id];
-                    }
-                });
-
-                if (term === '') {
-                    const currentActiveId = document.querySelector('.tab-pane.active')?.id || 'personal-info';
-                    activateTab(currentActiveId);
-                    return;
-                }
-                
-                // 2. Perform search and highlighting
-                tabPanes.forEach(pane => {
-                    const newHtml = highlightText(pane.innerHTML, term);
-                    pane.innerHTML = newHtml;
-
-                    // 3. Check for the first match
-                    if (newHtml.includes('<span class="highlight">') && !firstMatchFound) {
-                        activateTab(pane.id);
-                        firstMatchFound = true;
-                    }
-                });
-
-                if (!document.querySelector('.tab-pane.active')) {
-                    activateTab('personal-info');
-                }
-            };
-            
-            // Apply debounce to the handleSearch function
-            window.debouncedHandleSearch = debounce(window.handleSearch, 300);
-
-            
-            const highlightText = (html, term) => {
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = html;
-                
-                // XPath to select all text nodes that are not inside a link (<a>)
-                const textNodeSnapshot = document.evaluate(
-                    ".//text()[normalize-space()!='']", 
-                    tempDiv, 
-                    null, 
-                    XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
-                    null
-                );
-
-                const regex = new RegExp(`(${term})`, 'gi');
-                const highlightSpan = '<span class="highlight">$&</span>';
-
-                for (let i = 0; i < textNodeSnapshot.snapshotLength; i++) {
-                    const node = textNodeSnapshot.snapshotItem(i);
-                    
-                    if (node.parentNode.nodeType === 1 && node.parentNode.closest('a') === null) {
-                        const originalText = node.nodeValue;
-                        if (originalText.toLowerCase().includes(term)) {
-                            const newText = originalText.replace(regex, highlightSpan);
-                            
-                            const tempSpan = document.createElement('span');
-                            tempSpan.innerHTML = newText;
-                            
-                            node.parentNode.replaceChild(tempSpan, node);
-                            
-                            while (tempSpan.firstChild) {
-                                tempSpan.parentNode.insertBefore(tempSpan.firstChild, tempSpan);
-                            }
-                            tempSpan.remove();
-                        }
-                    }
-                }
-                return tempDiv.innerHTML;
-            };
-
-            // --- Navigation Logic (Animated Tab Switching) ---
-            const activateTab = (targetId) => {
-                const currentActivePane = document.querySelector('.tab-pane.active');
-                
-                tabs.forEach(tab => tab.classList.remove('active'));
-
-                const activeTabLink = document.querySelector(`.tab-link[data-tab="${targetId}"]`);
-                if (activeTabLink) {
-                    activeTabLink.classList.add('active');
-                }
-
-                const newPane = document.getElementById(targetId);
-
-                if (currentActivePane && currentActivePane !== newPane) {
-                    currentActivePane.classList.remove('active');
-                    currentActivePane.classList.add('hiding');
-                    
-                    setTimeout(() => {
-                        currentActivePane.classList.add('hidden');
-                        currentActivePane.classList.remove('hiding');
-                        showNewPane(newPane);
-                    }, transitionDuration);
-                } else if (newPane) {
-                    showNewPane(newPane);
-                }
-            };
-
-            const showNewPane = (newPane) => {
-                if (!newPane) return;
-                
-                newPane.classList.remove('hidden');
-                
-                // Force reflow for CSS transition
-                void newPane.offsetWidth; 
-
-                newPane.classList.add('active');
-            };
-
-
-            // Add click listeners to tabs
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const targetId = tab.getAttribute('data-tab');
-                    
-                    document.getElementById('global-search').value = '';
-                    
-                    tabPanes.forEach(pane => {
-                        if (originalContent[pane.id]) {
-                            pane.innerHTML = originalContent[pane.id];
-                        }
-                    });
-
-                    activateTab(targetId);
-                    
-                    window.history.pushState(null, '', `#${targetId}`);
-                });
-            });
-
-            // Handle initial load (based on hash or default to 'personal-info')
-            const initialHash = window.location.hash.substring(1);
-            const defaultTab = 'personal-info';
-            
-            const initialTab = document.getElementById(initialHash) ? initialHash : defaultTab;
-            activateTab(initialTab);
-
-            // Handle browser back/forward navigation
-            window.addEventListener('popstate', () => {
-                document.getElementById('global-search').value = '';
-                
-                tabPanes.forEach(pane => {
-                    if (originalContent[pane.id]) {
-                        pane.innerHTML = originalContent[pane.id];
-                    }
-                });
-                
-                const hash = window.location.hash.substring(1) || defaultTab;
-                activateTab(hash);
-            });
+        // --- Content Storage & Search Initialization ---
+        tabPanes.forEach((pane) => {
+          originalContent[pane.id] = pane.innerHTML;
         });
-    </script>
 
-</body>
+        // --- Search Handlers ---
+        window.handleSearch = (query) => {
+          const term = query.trim().toLowerCase();
+          let firstMatchFound = false;
+
+          // 1. Restore content for ALL panes first
+          tabPanes.forEach((pane) => {
+            if (originalContent[pane.id]) {
+              pane.innerHTML = originalContent[pane.id];
+            }
+          });
+
+          if (term === "") {
+            const currentActiveId =
+              document.querySelector(".tab-pane.active")?.id || "personal-info";
+            activateTab(currentActiveId);
+            return;
+          }
+
+          // 2. Perform search and highlighting
+          tabPanes.forEach((pane) => {
+            const newHtml = highlightText(pane.innerHTML, term);
+            pane.innerHTML = newHtml;
+
+            // 3. Check for the first match
+            if (
+              newHtml.includes('<span class="highlight">') &&
+              !firstMatchFound
+            ) {
+              activateTab(pane.id);
+              firstMatchFound = true;
+            }
+          });
+
+          if (!document.querySelector(".tab-pane.active")) {
+            activateTab("personal-info");
+          }
+        };
+
+        // Apply debounce to the handleSearch function
+        window.debouncedHandleSearch = debounce(window.handleSearch, 300);
+
+        const highlightText = (html, term) => {
+          const tempDiv = document.createElement("div");
+          tempDiv.innerHTML = html;
+
+          // XPath to select all text nodes that are not inside a link (<a>)
+          const textNodeSnapshot = document.evaluate(
+            ".//text()[normalize-space()!='']",
+            tempDiv,
+            null,
+            XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+            null
+          );
+
+          const regex = new RegExp(`(${term})`, "gi");
+          const highlightSpan = '<span class="highlight">$&</span>';
+
+          for (let i = 0; i < textNodeSnapshot.snapshotLength; i++) {
+            const node = textNodeSnapshot.snapshotItem(i);
+
+            if (
+              node.parentNode.nodeType === 1 &&
+              node.parentNode.closest("a") === null
+            ) {
+              const originalText = node.nodeValue;
+              if (originalText.toLowerCase().includes(term)) {
+                const newText = originalText.replace(regex, highlightSpan);
+
+                const tempSpan = document.createElement("span");
+                tempSpan.innerHTML = newText;
+
+                node.parentNode.replaceChild(tempSpan, node);
+
+                while (tempSpan.firstChild) {
+                  tempSpan.parentNode.insertBefore(
+                    tempSpan.firstChild,
+                    tempSpan
+                  );
+                }
+                tempSpan.remove();
+              }
+            }
+          }
+          return tempDiv.innerHTML;
+        };
+
+        // --- Navigation Logic (Animated Tab Switching) ---
+        const activateTab = (targetId) => {
+          const currentActivePane = document.querySelector(".tab-pane.active");
+
+          tabs.forEach((tab) => tab.classList.remove("active"));
+
+          const activeTabLink = document.querySelector(
+            `.tab-link[data-tab="${targetId}"]`
+          );
+          if (activeTabLink) {
+            activeTabLink.classList.add("active");
+          }
+
+          const newPane = document.getElementById(targetId);
+
+          if (currentActivePane && currentActivePane !== newPane) {
+            currentActivePane.classList.remove("active");
+            currentActivePane.classList.add("hiding");
+
+            setTimeout(() => {
+              currentActivePane.classList.add("hidden");
+              currentActivePane.classList.remove("hiding");
+              showNewPane(newPane);
+            }, transitionDuration);
+          } else if (newPane) {
+            showNewPane(newPane);
+          }
+        };
+
+        const showNewPane = (newPane) => {
+          if (!newPane) return;
+
+          newPane.classList.remove("hidden");
+
+          // Force reflow for CSS transition
+          void newPane.offsetWidth;
+
+          newPane.classList.add("active");
+        };
+
+        // Add click listeners to tabs
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            const targetId = tab.getAttribute("data-tab");
+
+            document.getElementById("global-search").value = "";
+
+            tabPanes.forEach((pane) => {
+              if (originalContent[pane.id]) {
+                pane.innerHTML = originalContent[pane.id];
+              }
+            });
+
+            activateTab(targetId);
+
+            window.history.pushState(null, "", `#${targetId}`);
+          });
+        });
+
+        // Handle initial load (based on hash or default to 'personal-info')
+        const initialHash = window.location.hash.substring(1);
+        const defaultTab = "personal-info";
+
+        const initialTab = document.getElementById(initialHash)
+          ? initialHash
+          : defaultTab;
+        activateTab(initialTab);
+
+        // Handle browser back/forward navigation
+        window.addEventListener("popstate", () => {
+          document.getElementById("global-search").value = "";
+
+          tabPanes.forEach((pane) => {
+            if (originalContent[pane.id]) {
+              pane.innerHTML = originalContent[pane.id];
+            }
+          });
+
+          const hash = window.location.hash.substring(1) || defaultTab;
+          activateTab(hash);
+        });
+      });
+    </script>
+  </body>
 </html>

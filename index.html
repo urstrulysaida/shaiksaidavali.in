@@ -12,7 +12,7 @@
 
     <style>
       :root {
-        --color-accent: #ff0000; /* Primary Blue */
+        --color-accent: #006c43; /* Primary Blue */
 
         /* Light Mode (Default) */
         --color-text-primary: #000000;
@@ -221,9 +221,9 @@
         position: relative;
         min-height: 400px;
         /* --- CRITICAL FIX: Add height transition to parent container --- */
-        transition: height 0.4s ease-in-out;
+        transition: height 0.4s ease-in-out; 
       }
-
+      
       .tab-pane {
         opacity: 0;
         transform: translateY(10px);
@@ -1037,7 +1037,7 @@
                     href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link"
                     target="_blank"
                     class="text-[var(--color-accent)] hover:underline font-medium"
-                    >View Certificate</a
+                    >View Proof</a
                   >
                 </li>
               </ul>
@@ -1093,7 +1093,7 @@
         const tabs = document.querySelectorAll(".tab-link");
         const tabPanes = document.querySelectorAll(".tab-pane");
         const tabContent = document.getElementById("tab-content");
-        const transitionDuration = 400;
+        const transitionDuration = 400; // Match CSS transition duration
 
         const themeToggle = document.getElementById("theme-toggle");
         const sunIcon = document.getElementById("sun-icon");
@@ -1231,6 +1231,44 @@
           return tempDiv.innerHTML;
         };
 
+        const showNewPane = (newPane) => {
+          if (!newPane) return;
+
+          // 1. Temporarily remove the `hidden` class to calculate the new height
+          newPane.classList.remove("hidden");
+
+          // 2. Force reflow to ensure the pane dimensions are calculated correctly
+          void newPane.offsetWidth;
+
+          // 3. Update the parent container's height to the new pane's height.
+          // CSS transition on #tab-content handles the smooth expansion/contraction.
+          tabContent.style.height = newPane.offsetHeight + "px";
+
+          // 4. Start the incoming visual transition (fade in/slide down)
+          newPane.classList.add("active");
+
+          // 5. Clean up the fixed height constraint after the height transition is done
+          // Use transitionend on the *container* for the height property
+          const handleHeightTransitionEnd = (event) => {
+            if (event.propertyName === 'height') {
+              tabContent.removeEventListener('transitionend', handleHeightTransitionEnd);
+              // Only set to auto if the new pane is still the active one
+              if (newPane.classList.contains('active')) {
+                tabContent.style.height = "auto";
+              }
+            }
+          };
+
+          tabContent.addEventListener('transitionend', handleHeightTransitionEnd);
+
+          // Fallback: Clear height after a safe duration in case transitionend doesn't fire for height
+          setTimeout(() => {
+             if (tabContent.style.height !== "auto" && newPane.classList.contains('active')) {
+                 tabContent.style.height = "auto";
+             }
+          }, transitionDuration + 100); 
+        };
+
         // --- Navigation Logic (Animated Tab Switching) ---
         const activateTab = (targetId) => {
           const currentActivePane = document.querySelector(".tab-pane.active");
@@ -1250,48 +1288,43 @@
 
           if (currentActivePane) {
             // 1. Set the height of the parent container to the current pane's height
-            // This prevents the container from collapsing when the old pane becomes `position: absolute`.
             tabContent.style.height = currentActivePane.offsetHeight + "px";
 
-            // 2. Start hiding the current pane (opacity transition starts)
+            // 2. Define the transition end handler for the outgoing tab
+            const handleTransitionEnd = (event) => {
+                // Ensure we only trigger once for the opacity property that signals the end of the visual transition
+                if (event.propertyName === 'opacity') {
+                    currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
+                    
+                    // 3. Finish hiding the old pane
+                    currentActivePane.classList.add("hidden");
+                    currentActivePane.classList.remove("hiding");
+                    
+                    // 4. Show the new pane immediately after old one is hidden
+                    showNewPane(newPane);
+                }
+            };
+
+            // Attach listener and immediately start hiding the current pane
+            currentActivePane.addEventListener('transitionend', handleTransitionEnd);
             currentActivePane.classList.remove("active");
             currentActivePane.classList.add("hiding"); // opacity 0, transform up, position absolute
 
-            // Wait for the transition duration (400ms) before making the new pane visible
+            // Fallback: If transitionend doesn't fire (e.g., element removed from DOM or visibility change), 
+            // use a timeout. We check if it's still 'hiding'.
             setTimeout(() => {
-              // 3. Finish hiding the old pane (display: none/hidden state)
-              currentActivePane.classList.add("hidden");
-              currentActivePane.classList.remove("hiding");
-
-              // 4. Show the new pane
-              showNewPane(newPane);
-            }, transitionDuration - 50); // Reduced delay slightly for snappier feel
+                 if (currentActivePane.classList.contains("hiding")) {
+                     currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
+                     currentActivePane.classList.add("hidden");
+                     currentActivePane.classList.remove("hiding");
+                     showNewPane(newPane);
+                 }
+            }, transitionDuration + 50); 
+            
           } else if (newPane) {
             // First load case
             showNewPane(newPane);
           }
-        };
-
-        const showNewPane = (newPane) => {
-          if (!newPane) return;
-
-          // 1. Temporarily remove the `hidden` class to calculate the new height
-          newPane.classList.remove("hidden");
-
-          // 2. Force reflow to ensure the pane dimensions are calculated correctly
-          void newPane.offsetWidth;
-
-          // 3. Update the parent container's height to the new pane's height.
-          // CSS transition on #tab-content handles the smooth expansion/contraction.
-          tabContent.style.height = newPane.offsetHeight + "px";
-
-          // 4. Start the incoming visual transition (fade in/slide down)
-          newPane.classList.add("active");
-
-          // 5. Clean up the fixed height constraint after the height transition is done
-          setTimeout(() => {
-            tabContent.style.height = "auto";
-          }, transitionDuration + 100); // Wait slightly longer than transitionDuration
         };
 
         // Add click listeners to tabs
@@ -1302,6 +1335,7 @@
             document.getElementById("global-search").value = "";
 
             tabPanes.forEach((pane) => {
+              // Restore innerHTML for search functionality
               if (originalContent[pane.id]) {
                 pane.innerHTML = originalContent[pane.id];
               }

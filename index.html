@@ -217,6 +217,13 @@
       }
 
       /* Tab Transition Animation */
+      #tab-content {
+        position: relative;
+        min-height: 400px;
+        /* --- CRITICAL FIX: Add height transition to parent container --- */
+        transition: height 0.4s ease-in-out; 
+      }
+      
       .tab-pane {
         opacity: 0;
         transform: translateY(10px);
@@ -224,6 +231,7 @@
         position: absolute;
         width: 100%;
         pointer-events: none;
+        top: 0; /* Ensures panes stack neatly */
       }
       .tab-pane.active {
         opacity: 1;
@@ -237,10 +245,7 @@
         position: absolute;
         pointer-events: none;
       }
-      #tab-content {
-        position: relative;
-        min-height: 400px;
-      }
+      /* .tab-pane.hidden is correctly used in JS now */
 
       /* Search Highlight Style */
       .highlight {
@@ -1087,6 +1092,7 @@
       document.addEventListener("DOMContentLoaded", () => {
         const tabs = document.querySelectorAll(".tab-link");
         const tabPanes = document.querySelectorAll(".tab-pane");
+        const tabContent = document.getElementById("tab-content");
         const transitionDuration = 400;
 
         const themeToggle = document.getElementById("theme-toggle");
@@ -1228,9 +1234,10 @@
         // --- Navigation Logic (Animated Tab Switching) ---
         const activateTab = (targetId) => {
           const currentActivePane = document.querySelector(".tab-pane.active");
+          const newPane = document.getElementById(targetId);
 
+          // Update tab links styles immediately
           tabs.forEach((tab) => tab.classList.remove("active"));
-
           const activeTabLink = document.querySelector(
             `.tab-link[data-tab="${targetId}"]`
           );
@@ -1238,18 +1245,29 @@
             activeTabLink.classList.add("active");
           }
 
-          const newPane = document.getElementById(targetId);
+          // Guard clause
+          if (newPane && newPane === currentActivePane) return;
 
-          if (currentActivePane && currentActivePane !== newPane) {
+          if (currentActivePane) {
+            // 1. Set the height of the parent container to the current pane's height
+            // This prevents the container from collapsing when the old pane becomes `position: absolute`.
+            tabContent.style.height = currentActivePane.offsetHeight + "px";
+
+            // 2. Start hiding the current pane (opacity transition starts)
             currentActivePane.classList.remove("active");
-            currentActivePane.classList.add("hiding");
+            currentActivePane.classList.add("hiding"); // opacity 0, transform up, position absolute
 
+            // Wait for the transition duration (400ms) before making the new pane visible
             setTimeout(() => {
+              // 3. Finish hiding the old pane (display: none/hidden state)
               currentActivePane.classList.add("hidden");
               currentActivePane.classList.remove("hiding");
+
+              // 4. Show the new pane
               showNewPane(newPane);
-            }, transitionDuration);
+            }, transitionDuration - 50); // Reduced delay slightly for snappier feel
           } else if (newPane) {
+            // First load case
             showNewPane(newPane);
           }
         };
@@ -1257,12 +1275,23 @@
         const showNewPane = (newPane) => {
           if (!newPane) return;
 
+          // 1. Temporarily remove the `hidden` class to calculate the new height
           newPane.classList.remove("hidden");
 
-          // Force reflow for CSS transition
+          // 2. Force reflow to ensure the pane dimensions are calculated correctly
           void newPane.offsetWidth;
 
+          // 3. Update the parent container's height to the new pane's height.
+          // CSS transition on #tab-content handles the smooth expansion/contraction.
+          tabContent.style.height = newPane.offsetHeight + "px";
+
+          // 4. Start the incoming visual transition (fade in/slide down)
           newPane.classList.add("active");
+
+          // 5. Clean up the fixed height constraint after the height transition is done
+          setTimeout(() => {
+            tabContent.style.height = "auto";
+          }, transitionDuration + 100); // Wait slightly longer than transitionDuration
         };
 
         // Add click listeners to tabs

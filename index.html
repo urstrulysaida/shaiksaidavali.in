@@ -69,44 +69,7 @@
             70% { box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
             100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
         }
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translate(-50%, -45%) scale(0.9); }
-            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        }
 
-        /* Modal Styles */
-        #welcome-modal-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Solid, dark backdrop */
-            backdrop-filter: blur(5px);
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        #welcome-modal-backdrop.open {
-            opacity: 1;
-        }
-
-        #welcome-modal-content {
-            background-color: var(--color-card-bg);
-            border-radius: 1rem;
-            padding: 2rem;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--color-border);
-            text-align: center;
-            transform: translate(-50%, -50%); /* Start position before animation */
-            animation: modalFadeIn 0.5s ease-out forwards;
-        }
-        
         /* Main Profile Container */
         .profile-container {
             max-width: 1024px;
@@ -333,19 +296,7 @@
     </style>
 </head>
 <body>
-    <!-- Welcome Modal Structure -->
-    <div id="welcome-modal-backdrop" class="hidden">
-        <div id="welcome-modal-content" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <h2 class="text-3xl font-bold text-[var(--color-accent)] mb-4">Welcome!</h2>
-            <p class="text-lg text-[var(--color-text-primary)] mb-6">
-                Thank you for visiting Shaik Saida Vali's Professional Portfolio. Explore the tabs for his academic, career, and technical highlights!
-            </p>
-            <button id="close-modal-button" class="bg-[var(--color-accent)] text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-600 transition duration-200 shadow-md hover:scale-[1.03]">
-                Start Exploring
-            </button>
-        </div>
-    </div>
-    
+
     <div class="profile-container">
 
         <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-6 mb-6 border-b border-[var(--color-border)]">
@@ -749,42 +700,7 @@
             const themeToggle = document.getElementById('theme-toggle');
             const sunIcon = document.getElementById('sun-icon');
             const moonIcon = document.getElementById('moon-icon');
-            
-            const modalBackdrop = document.getElementById('welcome-modal-backdrop');
-            const closeModalButton = document.getElementById('close-modal-button');
 
-            // --- Modal Logic ---
-            const showModal = () => {
-                if (sessionStorage.getItem('welcome_seen') !== 'true') {
-                    modalBackdrop.classList.remove('hidden');
-                    // Use a slight delay to trigger CSS transition for opacity
-                    setTimeout(() => {
-                        modalBackdrop.classList.add('open');
-                    }, 10);
-                }
-            };
-
-            const closeModal = () => {
-                modalBackdrop.classList.remove('open');
-                sessionStorage.setItem('welcome_seen', 'true');
-                // Use a slight delay to hide the element completely after opacity transition finishes
-                setTimeout(() => {
-                    modalBackdrop.classList.add('hidden');
-                }, 300); 
-            };
-
-            if (closeModalButton) {
-                closeModalButton.addEventListener('click', closeModal);
-            }
-            if (modalBackdrop) {
-                 // Close modal if backdrop is clicked
-                modalBackdrop.addEventListener('click', (e) => {
-                    if (e.target.id === 'welcome-modal-backdrop') {
-                        closeModal();
-                    }
-                });
-            }
-            
             // --- Theme Toggle Logic ---
             const applyTheme = (isDark) => {
                 const body = document.body;
@@ -970,9 +886,6 @@
             
             const initialTab = document.getElementById(initialHash) ? initialHash : defaultTab;
             activateTab(initialTab);
-            
-            // Show modal after everything else is initialized
-            showModal();
 
             // Handle browser back/forward navigation
             window.addEventListener('popstate', () => {

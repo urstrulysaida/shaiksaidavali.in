@@ -287,6 +287,38 @@
         stroke: var(--color-accent); 
       }
 
+      /* New style for the smaller link buttons inside content cards */
+      .btn-card-link {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.3rem 0.8rem;
+          font-weight: 600;
+          font-size: 0.875rem; /* text-sm */
+          border-radius: 0.375rem; /* rounded-md */
+          border: 1px solid var(--color-accent);
+          color: white;
+          background-color: var(--color-accent); /* Solid green background */
+          box-shadow: 0 2px 5px rgba(0, 168, 89, 0.2);
+          transition: all 0.2s ease-in-out;
+          margin-top: 0.75rem; 
+          margin-bottom: 0.5rem; /* space from list above and bottom */
+      }
+
+      .btn-card-link:hover {
+          background-color: var(--color-card-hover-bg); /* Glassy background on hover */
+          color: var(--color-accent); /* Green text on transparent background */
+          box-shadow: 0 4px 8px rgba(0, 168, 89, 0.4);
+          transform: scale(1.03);
+      }
+      .btn-card-link svg {
+          stroke: white;
+          transition: stroke 0.2s;
+      }
+      .btn-card-link:hover svg {
+          stroke: var(--color-accent);
+      }
+
       /* General Button Active State */
       button:active {
         transform: scale(0.95) !important;
@@ -859,15 +891,31 @@
                   Vulnerability Assessment, Security Operations Center (SOC)
                   Fundamentals.
                 </li>
-                <li>
-                  <a
-                    href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing"
-                    target="_blank"
-                    class="text-[var(--color-accent)] hover:underline font-medium"
-                    >View Proof</a
-                  >
-                </li>
               </ul>
+              <a
+                href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing"
+                target="_blank"
+                class="btn-card-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <line x1="16" x2="8" y1="13" y2="13" />
+                  <line x1="16" x2="8" y1="17" y2="17" />
+                </svg>
+                View Proof
+              </a>
             </div>
 
             <div class="content-card">
@@ -888,15 +936,31 @@
                   <strong>Skills Gained:</strong> Architecture Principles,
                   Scalability, Cost Optimization, Infrastructure Fundamentals.
                 </li>
-                <li>
-                  <a
-                    href="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link"
-                    target="_blank"
-                    class="text-[var(--color-accent)] hover:underline font-medium"
-                    >View Proof</a
-                  >
-                </li>
               </ul>
+              <a
+                href="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link"
+                target="_blank"
+                class="btn-card-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <line x1="16" x2="8" y1="13" y2="13" />
+                  <line x1="16" x2="8" y1="17" y2="17" />
+                </svg>
+                View Certificate
+              </a>
             </div>
 
             <div class="content-card">
@@ -917,15 +981,31 @@
                   <strong>Skills Gained:</strong> Data Visualization, Business
                   Intelligence, Advanced Data Manipulation.
                 </li>
-                <li>
-                  <a
-                    href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link"
-                    target="_blank"
-                    class="text-[var(--color-accent)] hover:underline font-medium"
-                    >View Proof</a
-                  >
-                </li>
               </ul>
+              <a
+                href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link"
+                target="_blank"
+                class="btn-card-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <line x1="16" x2="8" y1="13" y2="13" />
+                  <line x1="16" x2="8" y1="17" y2="17" />
+                </svg>
+                View Proof
+              </a>
             </div>
           </div>
 
@@ -954,15 +1034,31 @@
                   <strong>Skills Gained:</strong> Modern Network Security,
                   Cloud-First Environment Protection, Access Policy Management.
                 </li>
-                <li>
-                  <a
-                    href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link"
-                    target="_blank"
-                    class="text-[var(--color-accent)] hover:underline font-medium"
-                    >View Proof</a
-                  >
-                </li>
               </ul>
+              <a
+                href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link"
+                target="_blank"
+                class="btn-card-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <line x1="16" x2="8" y1="13" y2="13" />
+                  <line x1="16" x2="8" y1="17" y2="17" />
+                </svg>
+                View Proof
+              </a>
             </div>
 
             <div class="content-card">
@@ -983,15 +1079,31 @@
                   <strong>Skills Gained:</strong> Network Segmentation, Security
                   Fabric Concepts, Wired/Wireless Network Security.
                 </li>
-                <li>
-                  <a
-                    href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link"
-                    target="_blank"
-                    class="text-[var(--color-accent)] hover:underline font-medium"
-                    >View Proof</a
-                  >
-                </li>
               </ul>
+              <a
+                href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link"
+                target="_blank"
+                class="btn-card-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <line x1="16" x2="8" y1="13" y2="13" />
+                  <line x1="16" x2="8" y1="17" y2="17" />
+                </svg>
+                View Proof
+              </a>
             </div>
 
             <div class="content-card">
@@ -1013,15 +1125,31 @@
                   Security & Cost Management, Networking setup in a cloud
                   environment.
                 </li>
-                <li>
-                  <a
-                    href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link"
-                    target="_blank"
-                    class="text-[var(--color-accent)] hover:underline font-medium"
-                    >View Certificate</a
-                  >
-                </li>
               </ul>
+              <a
+                href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link"
+                target="_blank"
+                class="btn-card-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <line x1="16" x2="8" y1="13" y2="13" />
+                  <line x1="16" x2="8" y1="17" y2="17" />
+                </svg>
+                View Certificate
+              </a>
             </div>
 
             <div class="content-card">
@@ -1042,15 +1170,31 @@
                   <strong>Skills Gained:</strong> Full-Stack IoT Deployment,
                   Hardware-Software Interfacing, Cloud Connectivity Protocols.
                 </li>
-                <li>
-                  <a
-                    href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link"
-                    target="_blank"
-                    class="text-[var(--color-accent)] hover:underline font-medium"
-                    >View Proof</a
-                  >
-                </li>
               </ul>
+              <a
+                href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link"
+                target="_blank"
+                class="btn-card-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <line x1="16" x2="8" y1="13" y2="13" />
+                  <line x1="16" x2="8" y1="17" y2="17" />
+                </svg>
+                View Proof
+              </a>
             </div>
 
             <div class="content-card">
@@ -1071,15 +1215,31 @@
                   <strong>Skills Gained:</strong> Network and Web App Security
                   Testing, Foundational Defense Strategies.
                 </li>
-                <li>
-                  <a
-                    href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link"
-                    target="_blank"
-                    class="text-[var(--color-accent)] hover:underline font-medium"
-                    >View Proof</a
-                  >
-                </li>
               </ul>
+              <a
+                href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link"
+                target="_blank"
+                class="btn-card-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <line x1="16" x2="8" y1="13" y2="13" />
+                  <line x1="16" x2="8" y1="17" y2="17" />
+                </svg>
+                View Proof
+              </a>
             </div>
           </div>
         </section>

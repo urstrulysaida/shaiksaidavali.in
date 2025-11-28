@@ -12,44 +12,56 @@
 
     <style>
       :root {
-        --color-accent: #006c43; /* Primary Blue */
+        --color-accent: #0062ff; /* Primary Vibrant Green */
 
-        /* Light Mode (Default) */
-        --color-text-primary: #000000;
-        --color-text-secondary: #ffffff;
-        --color-background: #6a6e7154;
+        /* Light Mode (ABSOLUTE MAX Transparency) */
+        --color-text-primary: #000000; /* Pure Black for contrast */
+        --color-text-secondary: #333333; /* Darker gray for labels */
+        --color-background: transparent;
         --color-card-bg: rgba(
-          150,
-          134,
-          134,
-          0.247
-        ); /* Highly Transparent - Increased to 0.15 */
-        --color-border: #e5e7eb;
-
-        /* Dark Mode Variables (Increased Contrast) */
-        --dark-background: #1e293b;
-        --dark-card-bg: rgba(
-          51,
-          65,
-          85,
-          0.15
-        ); /* Highly Transparent Dark - Increased to 0.15 */
-        --dark-text-primary: #ffffff; /* Increased Contrast: Pure White */
-        --dark-text-secondary: #01ff95; /* Increased Contrast: Brighter Gray/Indigo */
-        --dark-border: #475569;
+          255,
+          255,
+          255,
+          0.05
+        ); /* EXTREMELY Transparent White backdrop (5%) */
+        --color-card-hover-bg: rgba(
+          255,
+          255,
+          255,
+          0.1
+        ); /* Slightly less transparent on hover (10%) */
+        --color-border: rgba(
+          255,
+          255,
+          255,
+          0.3
+        ); /* Soft White Border for highlight (30%) */
       }
 
       body.dark-mode {
-        --color-background: var(--dark-background);
-        --color-card-bg: var(--dark-card-bg);
-        --color-text-primary: var(--dark-text-primary);
-        --color-text-secondary: var(--dark-text-secondary);
-        --color-border: var(--dark-border);
+        /* Dark Mode (ABSOLUTE MAX Transparency) */
+        --color-background: transparent;
+        --color-card-bg: rgba(
+          0,
+          0,
+          0,
+          0.08
+        ); /* EXTREMELY Transparent Dark backdrop (8%) */
+        --color-card-hover-bg: rgba(
+          0,
+          0,
+          0,
+          0.15
+        ); /* Slightly less transparent on hover (15%) */
+        --color-text-primary: #ffffff; /* Pure White for contrast */
+        --color-text-secondary: #cccccc; /* Light gray for labels */
+        --color-border: rgba(255, 255, 255, 0.1); /* Faint Border (10%) */
       }
 
       body {
         font-family: "Josefin Sans", sans-serif;
-        background-color: var(--color-background);
+        /* Using transparent background color to let the image show through fully */
+        background-color: transparent;
         color: var(--color-text-primary);
         min-height: 100vh;
         display: flex;
@@ -58,7 +70,7 @@
         padding: 2rem 1rem;
         transition: background-color 0.5s, color 0.5s;
 
-        /* Background Image */
+        /* Background Image Setup */
         background-image: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/Image.jpg?raw=true");
         background-size: cover;
         background-position: center;
@@ -91,17 +103,17 @@
       }
       @keyframes pulse-glow {
         0% {
-          box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
+          box-shadow: 0 0 0 0 rgba(0, 168, 89, 0.4); /* Use new accent color for glow */
         }
         70% {
-          box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+          box-shadow: 0 0 0 10px rgba(0, 168, 89, 0);
         }
         100% {
-          box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+          box-shadow: 0 0 0 0 rgba(0, 168, 89, 0);
         }
       }
 
-      /* Main Profile Container */
+      /* Main Profile Container - Now using highly transparent backdrop */
       .profile-container {
         max-width: 1024px;
         width: 100%;
@@ -114,9 +126,9 @@
         z-index: 1;
         position: relative;
 
-        /* GLASS MORPHISM EFFECT */
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        /* GLASS MORPHISM EFFECT - MAX Blur */
+        backdrop-filter: blur(45px);
+        -webkit-backdrop-filter: blur(45px);
 
         /* Page Load Animation */
         animation: fadeInUp 0.8s ease-out;
@@ -129,7 +141,7 @@
         border-radius: 50%;
         overflow: hidden;
         border: 4px solid var(--color-accent);
-        box-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
+        box-shadow: 0 0 15px rgba(0, 168, 89, 0.6); /* Use new accent color for glow */
         flex-shrink: 0;
         transition: all 0.3s ease;
         animation: pulse-glow 2s infinite;
@@ -137,7 +149,7 @@
       .profile-img-container:hover {
         transform: scale(1.05) rotate(3deg);
         animation: none;
-        box-shadow: 0 0 25px rgba(0, 123, 255, 0.6);
+        box-shadow: 0 0 25px rgba(0, 168, 89, 0.8);
       }
 
       /* Header Text Animation */
@@ -150,7 +162,7 @@
         padding: 0.75rem 0;
         cursor: pointer;
         border-bottom: 2px solid transparent;
-        color: var(--color-text-secondary);
+        color: var(--color-text-primary);
         font-weight: 500;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
@@ -177,7 +189,7 @@
         left: 0;
       }
 
-      /* Content Card */
+      /* Content Card - Now using highly transparent backdrop and enhanced hover */
       .content-card {
         background-color: var(--color-card-bg);
         border-radius: 0.75rem;
@@ -185,19 +197,24 @@
         padding: 1.5rem;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 
-        /* GLASS MORPHISM EFFECT */
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        /* GLASS MORPHISM EFFECT - MAX Blur */
+        backdrop-filter: blur(45px);
+        -webkit-backdrop-filter: blur(45px);
 
         /* Hover Effect */
         transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
           box-shadow 0.3s ease, background-color 0.5s, border-color 0.5s;
-        opacity: 1; /* Ensure visible after tab switch */
+        opacity: 1;
       }
       .content-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        /* Enhanced Shadow & Glow for Glass Effect */
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2),
+          0 0 20px rgba(0, 168, 89, 0.6);
         border-color: var(--color-accent);
+        background-color: var(
+          --color-card-hover-bg
+        ); /* Slight opacity increase on hover */
       }
 
       /* Data Alignment */
@@ -210,9 +227,22 @@
         color: var(--color-text-secondary);
         font-weight: 500;
       }
+
+      /* --- FIX: Ensure data labels in image-backed cards (Education) are white for contrast --- */
+      .bg-textured-card .data-label {
+        color: white !important;
+      }
+      /* --- END FIX --- */
+
       .data-value {
         text-align: right;
         font-weight: 600;
+        color: var(--color-text-primary);
+      }
+
+      /* Updated data-value color for Career/Link tab to use primary text color for better visibility in light mode */
+      #career-links .data-value,
+      #career-links strong {
         color: var(--color-text-primary);
       }
 
@@ -220,10 +250,9 @@
       #tab-content {
         position: relative;
         min-height: 400px;
-        /* --- CRITICAL FIX: Add height transition to parent container --- */
-        transition: height 0.4s ease-in-out; 
+        transition: height 0.4s ease-in-out;
       }
-      
+
       .tab-pane {
         opacity: 0;
         transform: translateY(10px);
@@ -231,7 +260,7 @@
         position: absolute;
         width: 100%;
         pointer-events: none;
-        top: 0; /* Ensures panes stack neatly */
+        top: 0;
       }
       .tab-pane.active {
         opacity: 1;
@@ -245,7 +274,6 @@
         position: absolute;
         pointer-events: none;
       }
-      /* .tab-pane.hidden is correctly used in JS now */
 
       /* Search Highlight Style */
       .highlight {
@@ -270,7 +298,7 @@
       .btn-resume:hover {
         background-color: var(--color-accent);
         color: white;
-        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+        box-shadow: 0 4px 15px rgba(0, 168, 89, 0.4);
         transform: scale(1.05);
       }
       /* Style for the SVG icon inside the button */
@@ -294,7 +322,6 @@
         background-repeat: no-repeat;
         position: relative;
         z-index: 0;
-        /* Ensure the content-card hover animation still works */
         transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
           box-shadow 0.3s ease, background-color 0.5s, border-color 0.5s;
       }
@@ -305,11 +332,11 @@
         left: 0;
         right: 0;
         bottom: 0;
-        /* Dark gradient overlay for text contrast */
+        /* Dark gradient overlay for text contrast is kept for image cards */
         background: linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0.4) 0%,
-          rgba(0, 0, 0, 0.7) 100%
+          rgba(0, 0, 0, 0.5) 0%,
+          rgba(0, 0, 0, 0.8) 100%
         );
         border-radius: 0.75rem;
         z-index: 1;
@@ -325,6 +352,7 @@
       }
 
       /* Specific Texture Styles */
+      /* Note: Using the same image for 10th and Intermediate. */
       .bg-10th {
         background-image: url("https://i.ytimg.com/vi/sU7KHbJxr0s/maxresdefault.jpg");
       }
@@ -333,6 +361,11 @@
       }
       .bg-ug {
         background-image: url("https://image-static.collegedunia.com/public/reviewPhotos/951801/inbound2892504353987376923.jpg");
+      }
+
+      /* Fix for strong tag color in Career section when in Dark Mode */
+      body.dark-mode #career-links strong {
+        color: var(--color-text-primary) !important;
       }
     </style>
   </head>
@@ -345,7 +378,7 @@
           <div class="profile-img-container mr-4 cursor-pointer">
             <img
               src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true"
-              onerror="this.onerror=null; this.src='https://placehold.co/112x112/007bff/ffffff?text=SV';"
+              onerror="this.onerror=null; this.src='https://placehold.co/112x112/00a859/ffffff?text=SV';"
               alt="Shaik Saida Vali"
               class="w-full h-full object-cover"
             />
@@ -839,7 +872,7 @@
               >
                 Professional Certification
               </p>
-              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
                 <li>
                   <strong>Key Focus:</strong> SIEM Analysis, Threat Detection,
                   Risk Management (NIST/MITRE).
@@ -869,7 +902,7 @@
               >
                 Industry Training Program
               </p>
-              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
                 <li>
                   <strong>Key Focus:</strong> Cloud Migration, Solution Design,
                   Core AWS Services (EC2, S3, VPC).
@@ -898,7 +931,7 @@
               >
                 Professional Certification
               </p>
-              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
                 <li>
                   <strong>Key Focus:</strong> Predictive Modeling, Statistical
                   Analysis (R), Complex SQL Queries.
@@ -935,7 +968,7 @@
               >
                 Virtual Internship
               </p>
-              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
                 <li>
                   <strong>Key Focus:</strong> Zero Trust Architecture (ZTA),
                   Secure Access Service Edge (SASE).
@@ -964,7 +997,7 @@
               >
                 Associate (NSE)
               </p>
-              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
                 <li>
                   <strong>Key Focus:</strong> Next-Generation Firewalls,
                   Cybersecurity Threat Landscape.
@@ -993,7 +1026,7 @@
               >
                 8 Weeks Experience
               </p>
-              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
                 <li>
                   <strong>Key Focus:</strong> GCP Services (Compute, Storage,
                   VPC), Infrastructure-as-Code (IaC) concepts.
@@ -1023,7 +1056,7 @@
               >
                 16 Weeks Experience
               </p>
-              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
                 <li>
                   <strong>Key Focus:</strong> Device Prototyping (Arduino/ESP),
                   Sensor Integration, Data Transmission (MQTT).
@@ -1052,7 +1085,7 @@
               >
                 10 Weeks Experience
               </p>
-              <ul class="space-y-2 text-sm text-[var(--dark-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
                 <li>
                   <strong>Key Focus:</strong> Vulnerability Assessment,
                   Penetration Testing Methodologies.
@@ -1250,23 +1283,32 @@
           // 5. Clean up the fixed height constraint after the height transition is done
           // Use transitionend on the *container* for the height property
           const handleHeightTransitionEnd = (event) => {
-            if (event.propertyName === 'height') {
-              tabContent.removeEventListener('transitionend', handleHeightTransitionEnd);
+            if (event.propertyName === "height") {
+              tabContent.removeEventListener(
+                "transitionend",
+                handleHeightTransitionEnd
+              );
               // Only set to auto if the new pane is still the active one
-              if (newPane.classList.contains('active')) {
+              if (newPane.classList.contains("active")) {
                 tabContent.style.height = "auto";
               }
             }
           };
 
-          tabContent.addEventListener('transitionend', handleHeightTransitionEnd);
+          tabContent.addEventListener(
+            "transitionend",
+            handleHeightTransitionEnd
+          );
 
           // Fallback: Clear height after a safe duration in case transitionend doesn't fire for height
           setTimeout(() => {
-             if (tabContent.style.height !== "auto" && newPane.classList.contains('active')) {
-                 tabContent.style.height = "auto";
-             }
-          }, transitionDuration + 100); 
+            if (
+              tabContent.style.height !== "auto" &&
+              newPane.classList.contains("active")
+            ) {
+              tabContent.style.height = "auto";
+            }
+          }, transitionDuration + 100);
         };
 
         // --- Navigation Logic (Animated Tab Switching) ---
@@ -1292,35 +1334,43 @@
 
             // 2. Define the transition end handler for the outgoing tab
             const handleTransitionEnd = (event) => {
-                // Ensure we only trigger once for the opacity property that signals the end of the visual transition
-                if (event.propertyName === 'opacity') {
-                    currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
-                    
-                    // 3. Finish hiding the old pane
-                    currentActivePane.classList.add("hidden");
-                    currentActivePane.classList.remove("hiding");
-                    
-                    // 4. Show the new pane immediately after old one is hidden
-                    showNewPane(newPane);
-                }
+              // Ensure we only trigger once for the opacity property that signals the end of the visual transition
+              if (event.propertyName === "opacity") {
+                currentActivePane.removeEventListener(
+                  "transitionend",
+                  handleTransitionEnd
+                );
+
+                // 3. Finish hiding the old pane
+                currentActivePane.classList.add("hidden");
+                currentActivePane.classList.remove("hiding");
+
+                // 4. Show the new pane immediately after old one is hidden
+                showNewPane(newPane);
+              }
             };
 
             // Attach listener and immediately start hiding the current pane
-            currentActivePane.addEventListener('transitionend', handleTransitionEnd);
+            currentActivePane.addEventListener(
+              "transitionend",
+              handleTransitionEnd
+            );
             currentActivePane.classList.remove("active");
             currentActivePane.classList.add("hiding"); // opacity 0, transform up, position absolute
 
-            // Fallback: If transitionend doesn't fire (e.g., element removed from DOM or visibility change), 
+            // Fallback: If transitionend doesn't fire (e.g., element removed from DOM or visibility change),
             // use a timeout. We check if it's still 'hiding'.
             setTimeout(() => {
-                 if (currentActivePane.classList.contains("hiding")) {
-                     currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
-                     currentActivePane.classList.add("hidden");
-                     currentActivePane.classList.remove("hiding");
-                     showNewPane(newPane);
-                 }
-            }, transitionDuration + 50); 
-            
+              if (currentActivePane.classList.contains("hiding")) {
+                currentActivePane.removeEventListener(
+                  "transitionend",
+                  handleTransitionEnd
+                );
+                currentActivePane.classList.add("hidden");
+                currentActivePane.classList.remove("hiding");
+                showNewPane(newPane);
+              }
+            }, transitionDuration + 50);
           } else if (newPane) {
             // First load case
             showNewPane(newPane);

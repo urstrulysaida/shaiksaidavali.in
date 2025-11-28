@@ -12,7 +12,7 @@
 
     <style>
       :root {
-        --color-accent: #0062ff; /* Primary Vibrant Green */
+        --color-accent: #006aff; /* Primary Vibrant Green */
 
         /* Light Mode (ABSOLUTE MAX Transparency) */
         --color-text-primary: #000000; /* Pure Black for contrast */
@@ -283,11 +283,12 @@
         border-radius: 3px;
       }
 
-      /* Button Hover Animation */
+      /* Button Styles for solid green default state */
       .btn-resume {
+        /* Default State: Solid Green */
+        background-color: var(--color-accent);
+        color: white; /* White text on green background */
         border: 2px solid var(--color-accent);
-        color: var(--color-accent);
-        background-color: var(--color-card-bg);
         padding: 0.5rem 1.5rem;
         font-weight: 600;
         border-radius: 0.5rem;
@@ -296,18 +297,24 @@
         align-items: center;
       }
       .btn-resume:hover {
-        background-color: var(--color-accent);
-        color: white;
+        /* Hover State: Transparent/Glass Look */
+        background-color: var(
+          --color-card-hover-bg
+        ); /* Use transparent card hover color */
+        color: var(--color-accent); /* Green text on transparent background */
+        border-color: var(--color-accent);
         box-shadow: 0 4px 15px rgba(0, 168, 89, 0.4);
         transform: scale(1.05);
       }
       /* Style for the SVG icon inside the button */
       .btn-resume svg {
-        stroke: var(--color-accent);
+        /* Default: White stroke on green background */
+        stroke: white;
         transition: stroke 0.3s ease;
       }
       .btn-resume:hover svg {
-        stroke: white;
+        /* Hover: Green stroke on transparent background */
+        stroke: var(--color-accent);
       }
 
       /* General Button Active State */

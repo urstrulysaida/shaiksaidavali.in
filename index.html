@@ -12,56 +12,31 @@
 
     <style>
       :root {
-        --color-accent: #006aff; /* Primary Vibrant Green */
+        --color-accent: #00a859; /* Primary Vibrant Green */
 
         /* Light Mode (ABSOLUTE MAX Transparency) */
         --color-text-primary: #000000; /* Pure Black for contrast */
         --color-text-secondary: #333333; /* Darker gray for labels */
         --color-background: transparent;
-        --color-card-bg: rgba(
-          255,
-          255,
-          255,
-          0.05
-        ); /* EXTREMELY Transparent White backdrop (5%) */
-        --color-card-hover-bg: rgba(
-          255,
-          255,
-          255,
-          0.1
-        ); /* Slightly less transparent on hover (10%) */
-        --color-border: rgba(
-          255,
-          255,
-          255,
-          0.3
-        ); /* Soft White Border for highlight (30%) */
+        --color-card-bg: rgba(255, 255, 255, 0.05); /* EXTREMELY Transparent White backdrop (5%) */
+        --color-card-hover-bg: rgba(255, 255, 255, 0.10); /* Slightly less transparent on hover (10%) */
+        --color-border: rgba(255, 255, 255, 0.3); /* Soft White Border for highlight (30%) */
       }
 
       body.dark-mode {
-        /* Dark Mode (ABSOLUTE MAX Transparency) */
+        /* Dark Mode (ULTRA MAX Transparency) */
         --color-background: transparent;
-        --color-card-bg: rgba(
-          0,
-          0,
-          0,
-          0.08
-        ); /* EXTREMELY Transparent Dark backdrop (8%) */
-        --color-card-hover-bg: rgba(
-          0,
-          0,
-          0,
-          0.15
-        ); /* Slightly less transparent on hover (15%) */
+        --color-card-bg: rgba(0, 0, 0, 0.05); /* EXTREMELY Transparent Dark backdrop (5%) */
+        --color-card-hover-bg: rgba(0, 0, 0, 0.08); /* Slightly less transparent on hover (8%) */
         --color-text-primary: #ffffff; /* Pure White for contrast */
         --color-text-secondary: #cccccc; /* Light gray for labels */
-        --color-border: rgba(255, 255, 255, 0.1); /* Faint Border (10%) */
+        --color-border: rgba(255, 255, 255, 0.10); /* Faint Border (10%) */
       }
 
       body {
         font-family: "Josefin Sans", sans-serif;
         /* Using transparent background color to let the image show through fully */
-        background-color: transparent;
+        background-color: transparent; 
         color: var(--color-text-primary);
         min-height: 100vh;
         display: flex;
@@ -79,7 +54,7 @@
         position: relative;
         z-index: 0;
       }
-
+      
       /* --- ANIMATIONS --- */
       @keyframes fadeInUp {
         from {
@@ -117,9 +92,9 @@
       .profile-container {
         max-width: 1024px;
         width: 100%;
-        background-color: var(--color-card-bg);
+        background-color: var(--color-card-bg); 
         border-radius: 1.5rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
         border: 1px solid var(--color-border);
         padding: 2rem;
         transition: all 0.5s;
@@ -162,7 +137,7 @@
         padding: 0.75rem 0;
         cursor: pointer;
         border-bottom: 2px solid transparent;
-        color: var(--color-text-primary);
+        color: var(--color-text-primary); 
         font-weight: 500;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
@@ -209,12 +184,9 @@
       .content-card:hover {
         transform: translateY(-5px);
         /* Enhanced Shadow & Glow for Glass Effect */
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2),
-          0 0 20px rgba(0, 168, 89, 0.6);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 168, 89, 0.6);
         border-color: var(--color-accent);
-        background-color: var(
-          --color-card-hover-bg
-        ); /* Slight opacity increase on hover */
+        background-color: var(--color-card-hover-bg); /* Slight opacity increase on hover */
       }
 
       /* Data Alignment */
@@ -227,24 +199,24 @@
         color: var(--color-text-secondary);
         font-weight: 500;
       }
-
+      
       /* --- FIX: Ensure data labels in image-backed cards (Education) are white for contrast --- */
       .bg-textured-card .data-label {
-        color: white !important;
+          color: white !important;
       }
       /* --- END FIX --- */
-
+      
       .data-value {
         text-align: right;
         font-weight: 600;
         color: var(--color-text-primary);
       }
-
+      
       /* Updated data-value color for Career/Link tab to use primary text color for better visibility in light mode */
-      #career-links .data-value,
-      #career-links strong {
-        color: var(--color-text-primary);
+      #career-links .data-value, #career-links strong {
+         color: var(--color-text-primary);
       }
+
 
       /* Tab Transition Animation */
       #tab-content {
@@ -298,9 +270,7 @@
       }
       .btn-resume:hover {
         /* Hover State: Transparent/Glass Look */
-        background-color: var(
-          --color-card-hover-bg
-        ); /* Use transparent card hover color */
+        background-color: var(--color-card-hover-bg); /* Use transparent card hover color */
         color: var(--color-accent); /* Green text on transparent background */
         border-color: var(--color-accent);
         box-shadow: 0 4px 15px rgba(0, 168, 89, 0.4);
@@ -309,12 +279,12 @@
       /* Style for the SVG icon inside the button */
       .btn-resume svg {
         /* Default: White stroke on green background */
-        stroke: white;
+        stroke: white; 
         transition: stroke 0.3s ease;
       }
       .btn-resume:hover svg {
         /* Hover: Green stroke on transparent background */
-        stroke: var(--color-accent);
+        stroke: var(--color-accent); 
       }
 
       /* General Button Active State */
@@ -342,8 +312,8 @@
         /* Dark gradient overlay for text contrast is kept for image cards */
         background: linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0.5) 0%,
-          rgba(0, 0, 0, 0.8) 100%
+          rgba(0, 0, 0, 0.5) 0%, 
+          rgba(0, 0, 0, 0.8) 100% 
         );
         border-radius: 0.75rem;
         z-index: 1;
@@ -369,10 +339,10 @@
       .bg-ug {
         background-image: url("https://image-static.collegedunia.com/public/reviewPhotos/951801/inbound2892504353987376923.jpg");
       }
-
+      
       /* Fix for strong tag color in Career section when in Dark Mode */
       body.dark-mode #career-links strong {
-        color: var(--color-text-primary) !important;
+          color: var(--color-text-primary) !important;
       }
     </style>
   </head>
@@ -1290,31 +1260,22 @@
           // 5. Clean up the fixed height constraint after the height transition is done
           // Use transitionend on the *container* for the height property
           const handleHeightTransitionEnd = (event) => {
-            if (event.propertyName === "height") {
-              tabContent.removeEventListener(
-                "transitionend",
-                handleHeightTransitionEnd
-              );
+            if (event.propertyName === 'height') {
+              tabContent.removeEventListener('transitionend', handleHeightTransitionEnd);
               // Only set to auto if the new pane is still the active one
-              if (newPane.classList.contains("active")) {
+              if (newPane.classList.contains('active')) {
                 tabContent.style.height = "auto";
               }
             }
           };
 
-          tabContent.addEventListener(
-            "transitionend",
-            handleHeightTransitionEnd
-          );
+          tabContent.addEventListener('transitionend', handleHeightTransitionEnd);
 
           // Fallback: Clear height after a safe duration in case transitionend doesn't fire for height
           setTimeout(() => {
-            if (
-              tabContent.style.height !== "auto" &&
-              newPane.classList.contains("active")
-            ) {
-              tabContent.style.height = "auto";
-            }
+              if (tabContent.style.height !== "auto" && newPane.classList.contains('active')) {
+                  tabContent.style.height = "auto";
+              }
           }, transitionDuration + 100);
         };
 
@@ -1341,43 +1302,35 @@
 
             // 2. Define the transition end handler for the outgoing tab
             const handleTransitionEnd = (event) => {
-              // Ensure we only trigger once for the opacity property that signals the end of the visual transition
-              if (event.propertyName === "opacity") {
-                currentActivePane.removeEventListener(
-                  "transitionend",
-                  handleTransitionEnd
-                );
+                // Ensure we only trigger once for the opacity property that signals the end of the visual transition
+                if (event.propertyName === 'opacity') {
+                    currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
 
-                // 3. Finish hiding the old pane
-                currentActivePane.classList.add("hidden");
-                currentActivePane.classList.remove("hiding");
+                    // 3. Finish hiding the old pane
+                    currentActivePane.classList.add("hidden");
+                    currentActivePane.classList.remove("hiding");
 
-                // 4. Show the new pane immediately after old one is hidden
-                showNewPane(newPane);
-              }
+                    // 4. Show the new pane immediately after old one is hidden
+                    showNewPane(newPane);
+                }
             };
 
             // Attach listener and immediately start hiding the current pane
-            currentActivePane.addEventListener(
-              "transitionend",
-              handleTransitionEnd
-            );
+            currentActivePane.addEventListener('transitionend', handleTransitionEnd);
             currentActivePane.classList.remove("active");
             currentActivePane.classList.add("hiding"); // opacity 0, transform up, position absolute
 
             // Fallback: If transitionend doesn't fire (e.g., element removed from DOM or visibility change),
             // use a timeout. We check if it's still 'hiding'.
             setTimeout(() => {
-              if (currentActivePane.classList.contains("hiding")) {
-                currentActivePane.removeEventListener(
-                  "transitionend",
-                  handleTransitionEnd
-                );
-                currentActivePane.classList.add("hidden");
-                currentActivePane.classList.remove("hiding");
-                showNewPane(newPane);
-              }
+                if (currentActivePane.classList.contains("hiding")) {
+                    currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
+                    currentActivePane.classList.add("hidden");
+                    currentActivePane.classList.remove("hiding");
+                    showNewPane(newPane);
+                }
             }, transitionDuration + 50);
+
           } else if (newPane) {
             // First load case
             showNewPane(newPane);

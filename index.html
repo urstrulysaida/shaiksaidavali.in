@@ -14,6 +14,10 @@
       :root {
         --color-accent: #00a859; /* Primary Vibrant Green */
 
+        /* --- THEME IMAGES --- */
+        --bg-image-light: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/light%20Mode%20BG.jpeg?raw=true"); /* Soft, bright tech/abstract image */
+        --bg-image-dark: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/Dark%20mode%20BG.jpg?raw=true"); /* Original dark image */
+
         /* Light Mode (ABSOLUTE MAX Transparency) */
         --color-text-primary: #000000; /* Pure Black for contrast */
         --color-text-secondary: #333333; /* Darker gray for labels */
@@ -45,15 +49,22 @@
         padding: 2rem 1rem;
         transition: background-color 0.5s, color 0.5s;
 
-        /* Background Image Setup */
-        background-image: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/Image.jpg?raw=true");
+        /* Background Image Setup: Default to Light Image */
+        background-image: var(--bg-image-light);
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
         background-repeat: no-repeat;
         position: relative;
         z-index: 0;
+        transition: background-image 1s ease-in-out; /* Smooth transition for BG image change */
       }
+      
+      /* Dark mode specific background image */
+      body.dark-mode {
+        background-image: var(--bg-image-dark);
+      }
+
       
       /* --- ANIMATIONS --- */
       @keyframes fadeInUp {
@@ -214,7 +225,11 @@
       
       /* Updated data-value color for Career/Link tab to use primary text color for better visibility in light mode */
       #career-links .data-value, #career-links strong {
-         color: var(--color-text-primary);
+          color: var(--color-text-primary);
+      }
+      /* Ensure strong tags inside data-value inherit the primary color */
+      #career-links .content-card strong {
+        color: var(--color-text-primary);
       }
 
 
@@ -385,6 +400,7 @@
       >
         <div class="flex items-center mb-4 sm:mb-0 header-content">
           <div class="profile-img-container mr-4 cursor-pointer">
+            <!-- Profile Image -->
             <img
               src="https://github.com/urstrulysaida/urstrulysaida/blob/main/Github%20Profile.jpeg?raw=true"
               onerror="this.onerror=null; this.src='https://placehold.co/112x112/00a859/ffffff?text=SV';"
@@ -396,15 +412,17 @@
             <h1 class="text-3xl font-bold text-[var(--color-text-primary)]">
               Shaik Saida Vali
             </h1>
-            <p class="text-lg text-[var(--color-text-secondary)]">
+            <!-- UPDATED: Made email clickable and added hover effect -->
+            <a href="mailto:urstrulysaida@gmail.com" class="text-lg text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-200">
               urstrulysaida@gmail.com
-            </p>
+            </a>
           </div>
         </div>
         <div
           class="flex space-x-3 header-content"
           style="animation-delay: 0.3s"
         >
+          <!-- Theme Toggle Button -->
           <button
             id="theme-toggle"
             class="p-3 rounded-lg text-[var(--color-text-primary)] border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:shadow-lg transition duration-300 hover:scale-[1.05]"
@@ -444,6 +462,7 @@
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           </button>
+          <!-- Resume Link Button -->
           <a
             href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing"
             target="_blank"
@@ -470,6 +489,7 @@
         </div>
       </header>
 
+      <!-- Search Bar -->
       <div
         class="mb-6 flex items-center space-x-2 header-content"
         style="animation-delay: 0.4s"
@@ -496,6 +516,7 @@
         />
       </div>
 
+      <!-- Tab Navigation -->
       <nav class="mb-8 header-content" style="animation-delay: 0.5s">
         <div class="flex space-x-6 border-b border-gray-200">
           <div class="tab-link active" data-tab="personal-info">
@@ -513,42 +534,44 @@
         </div>
       </nav>
 
+      <!-- Main Content Area -->
       <main id="tab-content">
         <!-- -------------------------------- 1. PERSONAL INFO TAB -------------------------------- -->
         <section id="personal-info" class="tab-pane active space-y-8">
-          <!-- NEW: Professional Summary Card -->
+          <!-- Professional Summary Card -->
           <div class="content-card">
             <h3
-              class="text-xl font-semibold mb-3 text-[var(--color-text-primary)] flex items-center"
+              class="text-xl font-semibold mb-3 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
             >
               <span class="mr-2 text-[var(--color-accent)]">⭐</span>
               Professional Summary
             </h3>
-            <p class="text-base text-[var(--color-text-primary)]">
+            <p class="text-base text-[var(--color-text-primary)] leading-relaxed">
               A dedicated Computer Science student specializing in
-              **Cybersecurity, Cloud Architecture (GCP/AWS), and DevOps
-              practices**. Driven by a passion for building secure, scalable
+              <strong class="text-[var(--color-accent)] font-semibold"
+                >Cybersecurity, Cloud Architecture (GCP/AWS), and DevOps
+                practices</strong
+              >. Driven by a passion for building secure, scalable
               infrastructure, I leverage skills in Python, network security, and
               SIEM analysis to contribute to robust defense strategies and
               efficient cloud deployments.
             </p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="content-card">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="content-card md:col-span-1">
               <h3
-                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center"
+                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
               >
-                <span class="mr-2 text-[var(--color-accent)]">📞</span> Contact
-                Information
+                <span class="mr-2 text-blue-500">📞</span> Primary Contact
               </h3>
               <div class="space-y-3">
                 <div class="data-row">
                   <span class="data-label">Email:</span>
-                  <span class="data-value">urstrulysaida@gmail.com</span>
+                  <span class="data-value text-sm">urstrulysaida@gmail.com</span>
                 </div>
                 <div class="data-row">
-                  <span class="data-label">Contact:</span>
+                  <span class="data-label">Mobile:</span>
                   <span class="data-value">7674012184</span>
                 </div>
                 <div class="data-row">
@@ -558,12 +581,11 @@
               </div>
             </div>
 
-            <div class="content-card">
+            <div class="content-card md:col-span-1">
               <h3
-                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center"
+                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
               >
-                <span class="mr-2 text-[var(--color-accent)]">👤</span> Personal
-                Details
+                <span class="mr-2 text-purple-500">👤</span> Demographics
               </h3>
               <div class="space-y-3">
                 <div class="data-row">
@@ -584,30 +606,32 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="content-card max-w-xl">
-            <h3
-              class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center"
-            >
-              <span class="mr-2 text-[var(--color-accent)]">🏠</span> Address
-              Information
-            </h3>
-            <div class="space-y-3">
-              <div class="data-row">
-                <span class="data-label">Address:</span>
-                <span class="data-value text-right"
-                  >10-11, avulavaripalem, Guntur Andhra Pradesh India,
-                  522411</span
-                >
-              </div>
-              <div class="data-row">
-                <span class="data-label">City/Town:</span>
-                <span class="data-value">Andhra Pradesh</span>
-              </div>
-              <div class="data-row">
-                <span class="data-label">State:</span>
-                <span class="data-value">Andhra Pradesh</span>
+            <div class="content-card md:col-span-1">
+              <h3
+                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
+              >
+                <span class="mr-2 text-red-500">📍</span> Current Location
+              </h3>
+              <div class="space-y-3">
+                <div class="data-row">
+                  <span class="data-label">Address (Line 1):</span>
+                  <span class="data-value text-right"
+                    >10-11, avulavaripalem</span
+                  >
+                </div>
+                <div class="data-row">
+                  <span class="data-label">City:</span>
+                  <span class="data-value">Guntur</span>
+                </div>
+                <div class="data-row">
+                  <span class="data-label">State/Region:</span>
+                  <span class="data-value">Andhra Pradesh</span>
+                </div>
+                <div class="data-row">
+                  <span class="data-label">Pin Code:</span>
+                  <span class="data-value">522411</span>
+                </div>
               </div>
             </div>
           </div>
@@ -620,106 +644,145 @@
           </h3>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- 10th Card -->
             <div class="content-card bg-textured-card bg-10th">
-              <!-- Content with Text Over Image -->
-              <div class="bg-card-content p-6">
-                <h4 class="text-xl font-semibold mb-4 flex items-center">
-                  <span class="mr-2 text-white">📘</span> 10th Details
-                </h4>
-                <div class="space-y-3 text-sm">
-                  <div class="data-row">
-                    <span class="data-label">School:</span>
-                    <span class="data-value text-white">ZPHS SCHOOL</span>
-                  </div>
-                  <div class="data-row">
-                    <span class="data-label">Marks:</span>
-                    <span class="data-value text-white">7%</span>
-                  </div>
-                  <div class="data-row">
-                    <span class="data-label">Passout:</span>
-                    <span class="data-value text-white">N/A</span>
-                  </div>
-                  <div class="data-row">
-                    <span class="data-label">Certificate:</span>
-                    <a
-                      href="https://drive.google.com/file/d/15OPbt8X_FkjVENA-_ByxJ-6acZrH4yVG/view?usp=sharing"
-                      target="_blank"
-                      class="data-value text-yellow-300 hover:underline"
-                      >View Certificate</a
-                    >
+              <div class="bg-card-content p-6 flex flex-col justify-between h-full">
+                <div>
+                  <h4 class="text-xl font-bold mb-4 flex items-center border-b border-white/20 pb-3">
+                    <span class="mr-2 text-white text-2xl">🏫</span> Secondary School (10th)
+                  </h4>
+                  <div class="space-y-3 text-sm">
+                    <div class="data-row">
+                      <span class="data-label">School:</span>
+                      <span class="data-value text-white">ZPHS SCHOOL</span>
+                    </div>
+                    <div class="data-row">
+                      <span class="data-label">Year of Completion:</span>
+                      <span class="data-value text-white">2020</span>
+                    </div>
+                    <div class="data-row">
+                      <span class="data-label">Grade/GPA:</span>
+                      <span class="data-value text-green-300 font-bold">7.0 CGPA</span>
+                    </div>
                   </div>
                 </div>
+                
+                <a
+                  href="https://drive.google.com/file/d/15OPbt8X_FkjVENA-_ByxJ-6acZrH4yVG/view?usp=sharing"
+                  target="_blank"
+                  class="btn-card-link w-full mt-6"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="mr-2"
+                  >
+                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                     <path d="M14 2v6h6" />
+                     <line x1="16" x2="8" y1="13" y2="13" />
+                     <line x1="16" x2="8" y1="17" y2="17" />
+                  </svg>
+                  View Certificate
+                </a>
               </div>
             </div>
 
+            <!-- Intermediate Card -->
             <div class="content-card bg-textured-card bg-intermediate">
-              <!-- Content with Text Over Image -->
-              <div class="bg-card-content p-6">
-                <h4 class="text-xl font-semibold mb-4 flex items-center">
-                  <span class="mr-2 text-white">📖</span> Intermediate (12th)
-                  Details
-                </h4>
-                <div class="space-y-3 text-sm">
-                  <div class="data-row">
-                    <span class="data-label">Institute:</span>
-                    <span class="data-value text-white">N/A</span>
-                  </div>
-                  <div class="data-row">
-                    <span class="data-label">Percentage:</span>
-                    <span class="data-value text-white">6%</span>
-                  </div>
-                  <div class="data-row">
-                    <span class="data-label">Passout:</span>
-                    <span class="data-value text-white">N/A</span>
-                  </div>
-                  <div class="data-row">
-                    <span class="data-label">Certificate:</span>
-                    <a
-                      href="https://drive.google.com/file/d/15LNA5es18GqDRMX1Fg7wYfzcYBWXo5Vk/view?usp=sharing"
-                      target="_blank"
-                      class="data-value text-yellow-300 hover:underline"
-                      >View Certificate</a
-                    >
+              <div class="bg-card-content p-6 flex flex-col justify-between h-full">
+                <div>
+                  <h4 class="text-xl font-bold mb-4 flex items-center border-b border-white/20 pb-3">
+                    <span class="mr-2 text-white text-2xl">📖</span> Intermediate (12th)
+                  </h4>
+                  <div class="space-y-3 text-sm">
+                    <div class="data-row">
+                      <span class="data-label">Board:</span>
+                      <span class="data-value text-white">Board of Intermediate Education</span>
+                    </div>
+                    <div class="data-row">
+                      <span class="data-label">Year of Completion:</span>
+                      <span class="data-value text-white">2022</span>
+                    </div>
+                    <div class="data-row">
+                      <span class="data-label">Grade/GPA:</span>
+                      <span class="data-value text-green-300 font-bold">6.0 CGPA</span>
+                    </div>
                   </div>
                 </div>
+
+                <a
+                  href="https://drive.google.com/file/d/15LNA5es18GqDRMX1Fg7wYfzcYBWXo5Vk/view?usp=sharing"
+                  target="_blank"
+                  class="btn-card-link w-full mt-6"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="mr-2"
+                  >
+                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                     <path d="M14 2v6h6" />
+                     <line x1="16" x2="8" y1="13" y2="13" />
+                     <line x1="16" x2="8" y1="17" y2="17" />
+                  </svg>
+                  View Certificate
+                </a>
               </div>
             </div>
           </div>
 
-          <div class="content-card bg-textured-card bg-ug h-64 flex items-end">
-            <!-- Content must be wrapped to control z-index and spacing -->
+          <!-- UG Card -->
+          <div class="content-card bg-textured-card bg-ug min-h-[300px] flex items-end">
             <div class="bg-card-content p-6 w-full">
-              <h4 class="text-xl font-semibold mb-4 flex items-center">
-                <span class="mr-2 text-white">🎓</span> UG Details
+              <h4 class="text-2xl font-bold mb-6 flex items-center text-white border-b border-white/20 pb-4">
+                <span class="mr-3 text-3xl">🎓</span> Bachelor of Technology (B.Tech)
               </h4>
-              <div
-                class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3 text-sm"
-              >
-                <div class="data-row">
-                  <span class="data-label">Institute:</span>
-                  <span class="data-value text-white text-right"
-                    >Kakinada Institute of Engineering and Technology</span
-                  >
+              
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-sm">
+                <!-- Column 1: Institute Info -->
+                <div class="space-y-3 border-r border-white/10 pr-4">
+                   <div class="data-row">
+                      <span class="data-label text-gray-300">Institute:</span>
+                      <span class="data-value text-white text-right font-bold">Kakinada Institute of Engineering & Technology (KIET)</span>
+                   </div>
+                   <div class="data-row">
+                      <span class="data-label text-gray-300">Location:</span>
+                      <span class="data-value text-white">Andhra Pradesh</span>
+                   </div>
+                   <div class="data-row">
+                      <span class="data-label text-gray-300">University Reg:</span>
+                      <span class="data-value text-white font-mono bg-white/10 px-2 rounded">22B21A4627</span>
+                   </div>
                 </div>
-                <div class="data-row">
-                  <span class="data-label">Course:</span>
-                  <span class="data-value text-white">B.Tech</span>
-                </div>
-                <div class="data-row">
-                  <span class="data-label">Branch:</span>
-                  <span class="data-value text-white">Cyber Security</span>
-                </div>
-                <div class="data-row">
-                  <span class="data-label">State:</span>
-                  <span class="data-value text-white">Andhra Pradesh</span>
-                </div>
-                <div class="data-row">
-                  <span class="data-label">Univ. Reg No:</span>
-                  <span class="data-value text-white">22B21A4627</span>
-                </div>
-                <div class="data-row">
-                  <span class="data-label">Passout:</span>
-                  <span class="data-value text-white">2026</span>
+
+                <!-- Column 2: Course Info -->
+                <div class="space-y-3">
+                   <div class="data-row">
+                      <span class="data-label text-gray-300">Specialization:</span>
+                      <span class="data-value text-green-300 font-bold">Cyber Security</span>
+                   </div>
+                   <div class="data-row">
+                      <span class="data-label text-gray-300">Timeline:</span>
+                      <span class="data-value text-white">2022 - 2026</span>
+                   </div>
+                   <div class="data-row">
+                      <span class="data-label text-gray-300">Status:</span>
+                      <span class="data-value text-yellow-300 font-bold">Pursuing</span>
+                   </div>
                 </div>
               </div>
             </div>
@@ -728,42 +791,46 @@
 
         <!-- -------------------------------- 3. CAREER & LINKS TAB -------------------------------- -->
         <section id="career-links" class="tab-pane hidden space-y-8">
-          <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">
-            Career & Links
-          </h3>
-
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Current Position Card -->
             <div class="content-card">
               <h4
-                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center"
+                class="text-xl font-extrabold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
               >
-                <span class="mr-2 text-red-500">💼</span> Current Position
+                <span class="mr-2 text-red-500">💼</span> Current Professional
+                Status
               </h4>
               <div class="space-y-3 text-sm">
                 <div class="data-row">
                   <span class="data-label">Role:</span>
-                  <span class="data-value">N/A</span>
+                  <span class="data-value">Seeking Intern/Entry-Level Role</span>
                 </div>
                 <div class="data-row">
-                  <span class="data-label">Company:</span>
-                  <span class="data-value">N/A</span>
+                  <span class="data-label">Focus Area:</span>
+                  <span class="data-value">Cybersecurity / Cloud (GCP/AWS)</span>
                 </div>
                 <div class="data-row">
-                  <span class="data-label">Location:</span>
-                  <span class="data-value">Andhra Pradesh</span>
+                  <span class="data-label">Availability:</span>
+                  <span class="data-value text-[var(--color-accent)] font-bold">Immediately Available</span>
+                </div>
+                <div class="data-row">
+                  <span class="data-label">Preferred Location:</span>
+                  <span class="data-value">Remote / India (Andhra Pradesh)</span>
                 </div>
               </div>
             </div>
 
+            <!-- Social & Portfolio Links Card -->
             <div class="content-card">
               <h4
-                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center"
+                class="text-xl font-extrabold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
               >
                 <span class="mr-2 text-purple-500">🔗</span> Social & Portfolio
                 Links
               </h4>
-              <div class="space-y-3 text-sm">
-                <div class="data-row items-center">
+              <div class="space-y-4 text-sm">
+                <!-- LinkedIn -->
+                <div class="flex justify-between items-center">
                   <span class="data-label flex items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -788,12 +855,14 @@
                   <a
                     href="https://www.linkedin.com/in/shaiksaidavali/"
                     target="_blank"
-                    class="data-value text-[var(--color-accent)] hover:underline"
-                    >View Profile</a
-                  >
+                    class="data-value text-[var(--color-accent)] hover:underline flex items-center"
+                    >View Profile
+                    <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
                 </div>
 
-                <div class="data-row items-center">
+                <!-- GitHub -->
+                <div class="flex justify-between items-center">
                   <span class="data-label flex items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -817,12 +886,14 @@
                   <a
                     href="https://github.com/urstrulysaida"
                     target="_blank"
-                    class="data-value text-[var(--color-accent)] hover:underline"
-                    >View Profile</a
-                  >
+                    class="data-value text-[var(--color-accent)] hover:underline flex items-center"
+                    >View Repos
+                    <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
                 </div>
-
-                <div class="data-row items-center">
+                
+                <!-- Codepen -->
+                <div class="flex justify-between items-center">
                   <span class="data-label flex items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -849,16 +920,17 @@
                   <a
                     href="https://codepen.io/Mr_-Prince_Ssv"
                     target="_blank"
-                    class="data-value text-[var(--color-accent)] hover:underline"
-                    >View Codepen</a
-                  >
+                    class="data-value text-[var(--color-accent)] hover:underline flex items-center"
+                    >View Codepen
+                    <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
 
           <h3
-            class="text-2xl font-bold text-[var(--color-accent)] pt-4 mb-4 border-t border-[var(--color-border)]"
+            class="text-2xl font-bold text-[var(--color-accent)] pt-4 mb-6 border-t border-[var(--color-border)]"
           >
             Career Highlights
           </h3>
@@ -872,6 +944,7 @@
           <div
             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8"
           >
+            <!-- Google Cybersecurity Cert. -->
             <div class="content-card">
               <h5 class="text-lg font-bold mb-2 text-green-500">
                 Google Cybersecurity Cert.
@@ -881,13 +954,13 @@
               >
                 Professional Certification
               </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
-                  <strong>Key Focus:</strong> SIEM Analysis, Threat Detection,
+                  <strong class="font-semibold">Key Focus:</strong> SIEM Analysis, Threat Detection,
                   Risk Management (NIST/MITRE).
                 </li>
                 <li>
-                  <strong>Skills Gained:</strong> Enterprise Defense Strategies,
+                  <strong class="font-semibold">Skills Gained:</strong> Enterprise Defense Strategies,
                   Vulnerability Assessment, Security Operations Center (SOC)
                   Fundamentals.
                 </li>
@@ -918,6 +991,7 @@
               </a>
             </div>
 
+            <!-- AWS Cloud Technology -->
             <div class="content-card">
               <h5 class="text-lg font-bold mb-2 text-yellow-500">
                 AWS Cloud Technology
@@ -927,13 +1001,13 @@
               >
                 Industry Training Program
               </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
-                  <strong>Key Focus:</strong> Cloud Migration, Solution Design,
+                  <strong class="font-semibold">Key Focus:</strong> Cloud Migration, Solution Design,
                   Core AWS Services (EC2, S3, VPC).
                 </li>
                 <li>
-                  <strong>Skills Gained:</strong> Architecture Principles,
+                  <strong class="font-semibold">Skills Gained:</strong> Architecture Principles,
                   Scalability, Cost Optimization, Infrastructure Fundamentals.
                 </li>
               </ul>
@@ -963,6 +1037,7 @@
               </a>
             </div>
 
+            <!-- Advanced Data Analytics -->
             <div class="content-card">
               <h5 class="text-lg font-bold mb-2 text-purple-500">
                 Advanced Data Analytics
@@ -972,13 +1047,13 @@
               >
                 Professional Certification
               </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
-                  <strong>Key Focus:</strong> Predictive Modeling, Statistical
+                  <strong class="font-semibold">Key Focus:</strong> Predictive Modeling, Statistical
                   Analysis (R), Complex SQL Queries.
                 </li>
                 <li>
-                  <strong>Skills Gained:</strong> Data Visualization, Business
+                  <strong class="font-semibold">Skills Gained:</strong> Data Visualization, Business
                   Intelligence, Advanced Data Manipulation.
                 </li>
               </ul>
@@ -1012,10 +1087,11 @@
           <h4
             class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center pt-4 border-t border-[var(--color-border)]"
           >
-            <span class="mr-2 text-red-500">💼</span> Internships & Practical
+            <span class="mr-2 text-red-500">🧠</span> Internships & Practical
             Experience
           </h4>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Zscaler Cloud Networking -->
             <div class="content-card">
               <h5 class="text-lg font-bold mb-2 text-indigo-500">
                 Zscaler Cloud Networking
@@ -1025,13 +1101,13 @@
               >
                 Virtual Internship
               </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
-                  <strong>Key Focus:</strong> Zero Trust Architecture (ZTA),
+                  <strong class="font-semibold">Key Focus:</strong> Zero Trust Architecture (ZTA),
                   Secure Access Service Edge (SASE).
                 </li>
                 <li>
-                  <strong>Skills Gained:</strong> Modern Network Security,
+                  <strong class="font-semibold">Skills Gained:</strong> Modern Network Security,
                   Cloud-First Environment Protection, Access Policy Management.
                 </li>
               </ul>
@@ -1061,6 +1137,7 @@
               </a>
             </div>
 
+            <!-- Fortinet Network Security -->
             <div class="content-card">
               <h5 class="text-lg font-bold mb-2 text-red-500">
                 Fortinet Network Security
@@ -1070,13 +1147,13 @@
               >
                 Associate (NSE)
               </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
-                  <strong>Key Focus:</strong> Next-Generation Firewalls,
+                  <strong class="font-semibold">Key Focus:</strong> Next-Generation Firewalls,
                   Cybersecurity Threat Landscape.
                 </li>
                 <li>
-                  <strong>Skills Gained:</strong> Network Segmentation, Security
+                  <strong class="font-semibold">Skills Gained:</strong> Network Segmentation, Security
                   Fabric Concepts, Wired/Wireless Network Security.
                 </li>
               </ul>
@@ -1106,22 +1183,23 @@
               </a>
             </div>
 
+            <!-- Cloud Computing Internship (GCP Focus) -->
             <div class="content-card">
               <h5 class="text-lg font-bold mb-2 text-blue-500">
-                Cloud Computing Internship
+                Cloud Computing Internship (GCP)
               </h5>
               <p
                 class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
               >
                 8 Weeks Experience
               </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
-                  <strong>Key Focus:</strong> GCP Services (Compute, Storage,
+                  <strong class="font-semibold">Key Focus:</strong> GCP Services (Compute, Storage,
                   VPC), Infrastructure-as-Code (IaC) concepts.
                 </li>
                 <li>
-                  <strong>Skills Gained:</strong> Practical Deployment, Cloud
+                  <strong class="font-semibold">Skills Gained:</strong> Practical Deployment, Cloud
                   Security & Cost Management, Networking setup in a cloud
                   environment.
                 </li>
@@ -1148,10 +1226,11 @@
                   <line x1="16" x2="8" y1="13" y2="13" />
                   <line x1="16" x2="8" y1="17" y2="17" />
                 </svg>
-                View Certificate
+                View Proof
               </a>
             </div>
 
+            <!-- IoT Internship -->
             <div class="content-card">
               <h5 class="text-lg font-bold mb-2 text-pink-500">
                 IoT Internship
@@ -1161,13 +1240,13 @@
               >
                 16 Weeks Experience
               </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
-                  <strong>Key Focus:</strong> Device Prototyping (Arduino/ESP),
+                  <strong class="font-semibold">Key Focus:</strong> Device Prototyping (Arduino/ESP),
                   Sensor Integration, Data Transmission (MQTT).
                 </li>
                 <li>
-                  <strong>Skills Gained:</strong> Full-Stack IoT Deployment,
+                  <strong class="font-semibold">Skills Gained:</strong> Full-Stack IoT Deployment,
                   Hardware-Software Interfacing, Cloud Connectivity Protocols.
                 </li>
               </ul>
@@ -1197,6 +1276,7 @@
               </a>
             </div>
 
+            <!-- Ethical Hacking Internship -->
             <div class="content-card">
               <h5 class="text-lg font-bold mb-2 text-indigo-500">
                 Ethical Hacking Internship
@@ -1206,13 +1286,13 @@
               >
                 10 Weeks Experience
               </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)]">
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
-                  <strong>Key Focus:</strong> Vulnerability Assessment,
+                  <strong class="font-semibold">Key Focus:</strong> Vulnerability Assessment,
                   Penetration Testing Methodologies.
                 </li>
                 <li>
-                  <strong>Skills Gained:</strong> Network and Web App Security
+                  <strong class="font-semibold">Skills Gained:</strong> Network and Web App Security
                   Testing, Foundational Defense Strategies.
                 </li>
               </ul>
@@ -1434,7 +1514,7 @@
           // Fallback: Clear height after a safe duration in case transitionend doesn't fire for height
           setTimeout(() => {
               if (tabContent.style.height !== "auto" && newPane.classList.contains('active')) {
-                  tabContent.style.height = "auto";
+                tabContent.style.height = "auto";
               }
           }, transitionDuration + 100);
         };
@@ -1464,14 +1544,14 @@
             const handleTransitionEnd = (event) => {
                 // Ensure we only trigger once for the opacity property that signals the end of the visual transition
                 if (event.propertyName === 'opacity') {
-                    currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
+                  currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
 
-                    // 3. Finish hiding the old pane
-                    currentActivePane.classList.add("hidden");
-                    currentActivePane.classList.remove("hiding");
+                  // 3. Finish hiding the old pane
+                  currentActivePane.classList.add("hidden");
+                  currentActivePane.classList.remove("hiding");
 
-                    // 4. Show the new pane immediately after old one is hidden
-                    showNewPane(newPane);
+                  // 4. Show the new pane immediately after old one is hidden
+                  showNewPane(newPane);
                 }
             };
 
@@ -1484,10 +1564,10 @@
             // use a timeout. We check if it's still 'hiding'.
             setTimeout(() => {
                 if (currentActivePane.classList.contains("hiding")) {
-                    currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
-                    currentActivePane.classList.add("hidden");
-                    currentActivePane.classList.remove("hiding");
-                    showNewPane(newPane);
+                  currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
+                  currentActivePane.classList.add("hidden");
+                  currentActivePane.classList.remove("hiding");
+                  showNewPane(newPane);
                 }
             }, transitionDuration + 50);
 

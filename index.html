@@ -451,6 +451,9 @@
       body.dark-mode #projects strong {
           color: var(--color-text-primary) !important;
       }
+      body.dark-mode #roadmap strong {
+          color: var(--color-text-primary) !important;
+      }
 
 
       /* Responsive Layout for Tabs */
@@ -617,9 +620,12 @@
             <span class="mr-2" role="img" aria-label="Links">🔗</span> Career &
             Links
           </div>
-          <!-- NEW TAB LINK -->
           <div class="tab-link" data-tab="projects">
             <span class="mr-2" role="img" aria-label="Projects">💡</span> Projects
+          </div>
+          <!-- NEW TAB LINK: Roadmap -->
+          <div class="tab-link" data-tab="roadmap">
+            <span class="mr-2" role="img" aria-label="Roadmap">🗺️</span> Roadmap
           </div>
         </div>
       </nav>
@@ -726,7 +732,7 @@
             </div>
           </div>
           
-          <!-- NEW: Awards & Recognition Card -->
+          <!-- Awards & Recognition Card -->
           <div class="content-card">
             <h3
               class="text-xl font-semibold mb-3 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
@@ -743,6 +749,27 @@
                 </li>
                 <li>
                     <strong class="font-semibold text-[var(--color-accent)]">IoT Innovation Prize:</strong> Recognized for the "Real-time IoT Monitoring Dashboard" project's novelty and practical deployment.
+                </li>
+            </ul>
+          </div>
+
+          <!-- NEW: Leadership & Initiative Card -->
+          <div class="content-card">
+            <h3
+              class="text-xl font-semibold mb-3 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
+            >
+              <span class="mr-2 text-red-500">🌟</span>
+              Leadership & Initiative
+            </h3>
+            <ul class="space-y-3 text-base text-[var(--color-text-primary)] list-disc ml-6">
+                <li>
+                    <strong class="font-semibold text-[var(--color-accent)]">Technical Lead, CSE Student Body:</strong> Organized and led workshops on Python scripting and fundamental networking concepts for junior students (2023-2024).
+                </li>
+                <li>
+                    <strong class="font-semibold text-[var(--color-accent)]">Cyber Club Core Member:</strong> Responsible for creating weekly problem sets focusing on Linux security, Wireshark analysis, and incident response scenarios.
+                </li>
+                <li>
+                    <strong class="font-semibold text-[var(--color-accent)]">Mentorship Program:</strong> Volunteered to guide high school students in introductory programming concepts using C.
                 </li>
             </ul>
           </div>
@@ -1242,7 +1269,7 @@
                   <line x1="16" x2="8" y1="13" y2="13" />
                   <line x1="16" x2="8" y1="17" y2="17" />
                 </svg>
-                View Certificate
+                View Proof
               </a>
             </div>
 
@@ -1533,7 +1560,7 @@
           </div>
         </section>
 
-        <!-- -------------------------------- 4. PROJECTS TAB (NEW) -------------------------------- -->
+        <!-- -------------------------------- 4. PROJECTS TAB -------------------------------- -->
         <section id="projects" class="tab-pane hidden space-y-8">
           <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">
             Key Projects & Portfolio
@@ -1627,7 +1654,7 @@
               </a>
             </div>
             
-            <!-- NEW Project 3: Network Reconnaissance Tool -->
+            <!-- Project 3: Network Reconnaissance Tool -->
             <div class="project-card">
               <h4 class="text-xl font-bold mb-2 text-indigo-500 flex items-center">
                 <span class="mr-2">🔎</span> Automated Network Recon Tool
@@ -1672,6 +1699,58 @@
             
           </div>
           
+        </section>
+        
+        <!-- -------------------------------- 5. LEARNING ROADMAP TAB (NEW) -------------------------------- -->
+        <section id="roadmap" class="tab-pane hidden space-y-8">
+            <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">
+                <span class="mr-2">🗺️</span> Current Learning & Future Roadmap
+            </h3>
+            
+            <div class="project-card md:col-span-2">
+              <h4 class="text-xl font-bold mb-2 text-[var(--color-accent)] flex items-center">
+                <span class="mr-2">🎯</span> Focused Learning Modules
+              </h4>
+              <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">
+                Continuous Improvement
+              </p>
+              
+              <!-- VISUAL ROADMAP SECTION -->
+              <div class="mb-6">
+                <h5 class="font-bold text-lg mb-2 text-purple-500">Targeted Path: DevOps & Infrastructure Security</h5>
+                 <p class="text-sm text-[var(--color-text-primary)] mb-4">
+                    The visual roadmap below outlines the key stages I'm targeting in my learning journey, with a focus on building robust, scalable, and secure cloud infrastructure. Click the image to view the interactive version.
+                 </p>
+                 <a href="https://roadmap.sh/devops" target="_blank" class="block rounded-lg overflow-hidden border border-[var(--color-border)] shadow-xl hover:scale-[1.01] transition-transform duration-300">
+                    <img 
+                      src="https://roadmap.sh/card/wide/651b0fcc1205b5c21b6a74fc?variant=light" 
+                      alt="DevOps Roadmap Visual by roadmap.sh" 
+                      class="w-full h-auto object-cover"
+                      onerror="this.style.display='none'; this.after(document.createTextNode('DevOps Roadmap Visual (Source: roadmap.sh)'));"
+                    />
+                 </a>
+              </div>
+              <!-- END VISUAL ROADMAP SECTION -->
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t pt-4 border-[var(--color-border)]">
+                <div>
+                    <h5 class="font-bold text-lg mb-2 text-red-500">Q4 2024 Focus: Advanced Cloud Security</h5>
+                    <ul class="space-y-1 text-sm text-[var(--color-text-primary)] list-disc ml-4">
+                        <li>Deep dive into **Terraform (IaC)** for secure infrastructure deployment on AWS.</li>
+                        <li>Practicing **Vulnerability Management** workflows using OpenVAS/Nessus concepts.</li>
+                        <li>Studying for the **CompTIA Security+** certification.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-lg mb-2 text-blue-500">Future Goals: Advanced Specialization</h5>
+                    <ul class="space-y-1 text-sm text-[var(--color-text-primary)] list-disc ml-4">
+                        <li>Exploring **Cloud Security Posture Management (CSPM)** tools and policies.</li>
+                        <li>Developing custom **YARA/Sigma Rules** for advanced threat hunting in SIEM.</li>
+                        <li>Building a containerized project using **Docker and Kubernetes** basics.</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
         </section>
       </main>
     </div>

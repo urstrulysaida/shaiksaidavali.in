@@ -26,7 +26,7 @@
         --color-card-hover-bg: rgba(255, 255, 255, 0.10); /* Slightly less transparent on hover (10%) */
         --color-border: rgba(255, 255, 255, 0.3); /* Soft White Border for highlight (30%) */
         /* Specific override for profile summary contrast in light mode */
-        --color-summary-text: #000000; 
+        --color-summary-text: #000000;
       }
 
       body.dark-mode {
@@ -38,13 +38,13 @@
         --color-text-secondary: #cccccc; /* Light gray for labels */
         --color-border: rgba(255, 255, 255, 0.10); /* Faint Border (10%) */
         /* Specific override for profile summary contrast in dark mode */
-        --color-summary-text: #ffffff; 
+        --color-summary-text: #ffffff;
       }
 
       body {
         font-family: "Josefin Sans", sans-serif;
         /* Using transparent background color to let the image show through fully */
-        background-color: transparent; 
+        background-color: transparent;
         color: var(--color-text-primary);
         min-height: 100vh;
         display: flex;
@@ -63,7 +63,7 @@
         z-index: 0;
         transition: background-image 1s ease-in-out; /* Smooth transition for BG image change */
       }
-      
+
       /* Dark mode specific background image */
       body.dark-mode {
         background-image: var(--bg-image-dark);
@@ -107,9 +107,9 @@
       .profile-container {
         max-width: 1024px;
         width: 100%;
-        background-color: var(--color-card-bg); 
+        background-color: var(--color-card-bg);
         border-radius: 1.5rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         border: 1px solid var(--color-border);
         padding: 2rem;
         transition: all 0.5s;
@@ -152,7 +152,7 @@
         padding: 0.75rem 0;
         cursor: pointer;
         border-bottom: 2px solid transparent;
-        color: var(--color-text-primary); 
+        color: var(--color-text-primary);
         font-weight: 500;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
@@ -351,12 +351,12 @@
       /* Style for the SVG icon inside the button */
       .btn-resume svg {
         /* Default: White stroke on green background */
-        stroke: white; 
+        stroke: white;
         transition: stroke 0.3s ease;
       }
       .btn-resume:hover svg {
         /* Hover: Green stroke on transparent background */
-        stroke: var(--color-accent); 
+        stroke: var(--color-accent);
       }
 
       /* New style for the smaller link buttons inside content cards */
@@ -373,7 +373,7 @@
           background-color: var(--color-accent); /* Solid green background */
           box-shadow: 0 2px 5px rgba(0, 168, 89, 0.2);
           transition: all 0.2s ease-in-out;
-          margin-top: 0.75rem; 
+          margin-top: 0.75rem;
           margin-bottom: 0.5rem; /* space from list above and bottom */
       }
 
@@ -416,8 +416,8 @@
         /* Dark gradient overlay for text contrast is kept for image cards */
         background: linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0.5) 0%, 
-          rgba(0, 0, 0, 0.8) 100% 
+          rgba(0, 0, 0, 0.5) 0%,
+          rgba(0, 0, 0, 0.8) 100%
         );
         border-radius: 0.75rem;
         z-index: 1;
@@ -492,6 +492,8 @@
             <!-- Profile Image -->
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS05MbssENUfC5BDSWkElWp3XKfu8DwT-GKdg&s"
+              onerror="this.onerror=null; this.src='https://placehold.co/112x112/00a859/ffffff?text=SV';"
+              alt="Shaik Saida Vali"
               class="w-full h-full object-cover"
             />
           </div>
@@ -641,14 +643,10 @@
               Professional Summary
             </h3>
             <p class="text-base text-[var(--color-summary-text)] leading-relaxed">
-              A dedicated Computer Science student specializing in
+              A highly motivated Computer Science student specializing in securing and architecting modern cloud environments. My core expertise spans
               <strong class="text-[var(--color-accent)] font-semibold"
-                >Cybersecurity, Cloud Architecture (GCP/AWS), and DevOps
-                practices</strong
-              >. Driven by a passion for building secure, scalable
-              infrastructure, I leverage skills in Python, network security, and
-              SIEM analysis to contribute to robust defense strategies and
-              efficient cloud deployments.
+                >Cybersecurity (Threat Detection & SIEM), Cloud Architecture (GCP/AWS), and Infrastructure Automation (DevOps practices)</strong
+              >. I leverage Python scripting and foundational network security principles to develop scalable infrastructure and contribute to robust, preventative defense strategies.
             </p>
           </div>
 
@@ -740,13 +738,13 @@
             </h3>
             <ul class="space-y-3 text-base text-[var(--color-text-primary)] list-disc ml-6">
                 <li>
-                    <strong class="font-semibold text-[var(--color-accent)]">Cyber Hackathon Finalist (2024):</strong> Participated in a 24-hour national hackathon focused on defensive security in cloud environments.
+                    <strong class="font-semibold text-[var(--color-accent)]">Cyber Hackathon Finalist (2024):</strong> Participated in a 24-hour national hackathon focused on defensive security in cloud environments, developing a high-scoring security prototype.
                 </li>
                 <li>
-                    <strong class="font-semibold text-[var(--color-accent)]">Top 10% in Coding Competitions:</strong> Consistently ranked highly in internal college programming contests (C++ and Python).
+                    <strong class="font-semibold text-[var(--color-accent)]">Top 10% in Coding Competitions:</strong> Consistently achieved top ranks in internal college programming contests demonstrating proficiency in C++ and Python data structures and algorithms.
                 </li>
                 <li>
-                    <strong class="font-semibold text-[var(--color-accent)]">IoT Innovation Prize:</strong> Recognized for the "Real-time IoT Monitoring Dashboard" project's novelty and practical deployment.
+                    <strong class="font-semibold text-[var(--color-accent)]">IoT Innovation Prize:</strong> Recognized for the "Real-time IoT Monitoring Dashboard" project's novelty, scalability, and practical deployment efficiency.
                 </li>
             </ul>
           </div>
@@ -771,6 +769,47 @@
                 </li>
             </ul>
           </div>
+          
+          <!-- START NEW CARD: Language Proficiency and Interests -->
+          <div class="content-card">
+            <h3
+              class="text-xl font-semibold mb-3 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
+            >
+              <span class="mr-2 text-green-400">🗣️</span>
+              Languages & Interests
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h5 class="font-bold mb-2 text-[var(--color-accent)]">Language Proficiency</h5>
+                <ul class="space-y-2 text-base text-[var(--color-text-primary)] list-disc ml-6">
+                  <li>
+                    <strong class="font-semibold">Telugu:</strong> Native (Reading, Writing, Speaking)
+                  </li>
+                  <li>
+                    <strong class="font-semibold">English:</strong> Professional Working Proficiency
+                  </li>
+                  <li>
+                    <strong class="font-semibold">Hindi:</strong> Limited Conversational Proficiency
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h5 class="font-bold mb-2 text-[var(--color-accent)]">Personal Interests</h5>
+                <ul class="space-y-2 text-base text-[var(--color-text-primary)] list-disc ml-6">
+                  <li>
+                    <strong class="font-semibold">Ethical Hacking Labs:</strong> Dedicated practice on platforms like TryHackMe/HackTheBox, focusing on privilege escalation techniques.
+                  </li>
+                  <li>
+                    <strong class="font-semibold">Technical Blogging:</strong> Documenting Cloud/Cybersecurity learning experiences to reinforce knowledge and share practical insights.
+                  </li>
+                  <li>
+                    <strong class="font-semibold">Open Source:</strong> Contributing to small Python utility projects for community development and version control practice.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- END NEW CARD -->
         </section>
 
         <!-- -------------------------------- 2. EDUCATION TAB -------------------------------- -->
@@ -1151,14 +1190,14 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Dev Tools / Soft Skills -->
-            <div class="pt-4 border-t mt-4 border-[var(--color-border)]">
-                <p class="text-sm">
-                    <strong class="text-[var(--color-accent)]">DevOps & Tools:</strong> Docker, Git/GitHub, Linux (Bash), CI/CD Concepts (Theoretical).
-                </p>
-            </div>
+              </div>
+              
+              <!-- Dev Tools / Soft Skills -->
+              <div class="pt-4 border-t mt-4 border-[var(--color-border)]">
+                  <p class="text-sm">
+                      <strong class="text-[var(--color-accent)]">DevOps & Tools:</strong> Docker, Git/GitHub, Linux (Bash), CI/CD Concepts (Theoretical).
+                  </p>
+              </div>
           </div>
           <!-- END SKILL MATRIX -->
 
@@ -1190,13 +1229,10 @@
               </p>
               <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
-                  <strong class="font-semibold">Key Focus:</strong> SIEM Analysis, Threat Detection,
-                  Risk Management (NIST/MITRE).
+                  <strong class="font-semibold">Key Focus:</strong> Security Analytics (Splunk/ELK concept), Threat Hunting, Enterprise Risk Frameworks (NIST/MITRE).
                 </li>
                 <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Enterprise Defense Strategies,
-                  Vulnerability Assessment, Security Operations Center (SOC)
-                  Fundamentals.
+                  <strong class="font-semibold">Skills Gained:</strong> Security Operations Center (SOC) Fundamentals, Vulnerability Assessment, Incident Response Workflow.
                 </li>
               </ul>
               <a
@@ -1237,12 +1273,10 @@
               </p>
               <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
-                  <strong class="font-semibold">Key Focus:</strong> Cloud Migration, Solution Design,
-                  Core AWS Services (EC2, S3, VPC).
+                  <strong class="font-semibold">Key Focus:</strong> Well-Architected Framework, High Availability Design, Core Services (EC2, S3, VPC), Serverless Computing concepts.
                 </li>
                 <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Architecture Principles,
-                  Scalability, Cost Optimization, Infrastructure Fundamentals.
+                  <strong class="font-semibold">Skills Gained:</strong> Cloud Migration Strategy, Scalability Principles, Cost Optimization Techniques.
                 </li>
               </ul>
               <a
@@ -1284,11 +1318,10 @@
               <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
                   <strong class="font-semibold">Key Focus:</strong> Predictive Modeling, Statistical
-                  Analysis (R), Complex SQL Queries.
+                  Analysis (R), Complex SQL Queries for relational databases.
                 </li>
                 <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Data Visualization, Business
-                  Intelligence, Advanced Data Manipulation.
+                  <strong class="font-semibold">Skills Gained:</strong> Data Storytelling and Visualization, Business Intelligence fundamentals, Advanced Data Manipulation.
                 </li>
               </ul>
               <a
@@ -1338,11 +1371,10 @@
               <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
                   <strong class="font-semibold">Key Focus:</strong> Zero Trust Architecture (ZTA),
-                  Secure Access Service Edge (SASE).
+                  Secure Access Service Edge (SASE), Micro-segmentation strategies.
                 </li>
                 <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Modern Network Security,
-                  Cloud-First Environment Protection, Access Policy Management.
+                  <strong class="font-semibold">Skills Gained:</strong> Cloud Policy Enforcement, Access Management in Hybrid Environments, Modern Perimeter Definition.
                 </li>
               </ul>
               <a
@@ -1383,12 +1415,11 @@
               </p>
               <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
-                  <strong class="font-semibold">Key Focus:</strong> Next-Generation Firewalls,
-                  Cybersecurity Threat Landscape.
+                  <strong class="font-semibold">Key Focus:</strong> Next-Generation Firewalls (NGFW),
+                  Cybersecurity Threat Landscape, Security Fabric Concepts.
                 </li>
                 <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Network Segmentation, Security
-                  Fabric Concepts, Wired/Wireless Network Security.
+                  <strong class="font-semibold">Skills Gained:</strong> Network Segmentation, Policy Management, Defense-in-Depth principles for wired/wireless networks.
                 </li>
               </ul>
               <a
@@ -1429,13 +1460,10 @@
               </p>
               <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
-                  <strong class="font-semibold">Key Focus:</strong> GCP Services (Compute, Storage,
-                  VPC), Infrastructure-as-Code (IaC) concepts.
+                  <strong class="font-semibold">Key Focus:</strong> GCP Services (Compute Engine, Cloud Storage, VPC), Infrastructure-as-Code (IaC) principles.
                 </li>
                 <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Practical Deployment, Cloud
-                  Security & Cost Management, Networking setup in a cloud
-                  environment.
+                  <strong class="font-semibold">Skills Gained:</strong> Practical Deployment, Cloud Security Posture Management (CSPM) fundamentals, Resource Optimization.
                 </li>
               </ul>
               <a
@@ -1477,11 +1505,11 @@
               <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
                   <strong class="font-semibold">Key Focus:</strong> Device Prototyping (Arduino/ESP),
-                  Sensor Integration, Data Transmission (MQTT).
+                  Sensor Integration, Asynchronous Data Transmission (MQTT protocol).
                 </li>
                 <li>
                   <strong class="font-semibold">Skills Gained:</strong> Full-Stack IoT Deployment,
-                  Hardware-Software Interfacing, Cloud Connectivity Protocols.
+                  Hardware-Software Interfacing, Telemetry Data Pipelines.
                 </li>
               </ul>
               <a
@@ -1522,12 +1550,12 @@
               </p>
               <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
                 <li>
-                  <strong class="font-semibold">Key Focus:</strong> Vulnerability Assessment,
-                  Penetration Testing Methodologies.
+                  <strong class="font-semibold">Key Focus:</strong> Vulnerability Assessment (VA),
+                  Penetration Testing (PT) Methodologies (OWASP Top 10 focus).
                 </li>
                 <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Network and Web App Security
-                  Testing, Foundational Defense Strategies.
+                  <strong class="font-semibold">Skills Gained:</strong> Network and Web Application Security
+                  Testing, Foundational Defense Strategies and Countermeasures.
                 </li>
               </ul>
               <a
@@ -1576,12 +1604,12 @@
               </p>
               
               <p class="text-base text-[var(--color-text-primary)] mb-4 leading-relaxed">
-                Automated threat detection and response in a simulated GCP environment. The project integrated Python scripts with a custom SIEM (Splunk/ELK concept) to monitor network logs and automatically isolate compromised Compute Engine instances.
+                Developed a Python-based Security Orchestration, Automation, and Response (SOAR) playbook within a simulated GCP environment. The solution ingested VPC flow logs into a custom SIEM mockup, enabling near real-time detection of lateral movement and automated isolation of non-compliant VM workloads via Compute Engine API calls.
               </p>
 
               <div class="mb-4">
                 <span class="project-tag bg-blue-600">GCP Compute</span>
-                <span class="project-tag bg-yellow-600">Python</span>
+                <span class="project-tag bg-yellow-600">Python SOAR</span>
                 <span class="project-tag bg-red-600">SIEM Logic</span>
                 <span class="project-tag bg-gray-600">VPC Networking</span>
               </div>
@@ -1619,14 +1647,14 @@
               </p>
               
               <p class="text-base text-[var(--color-text-primary)] mb-4 leading-relaxed">
-                Developed an end-to-end data pipeline to monitor ambient temperature and humidity from an Arduino/ESP device. Data was streamed via MQTT to a local database and visualized on a simple web dashboard using JavaScript.
+                Engineered a scalable, full-stack IoT telemetry solution to monitor ambient data. The project utilized MQTT for low-latency data ingestion, persisting metrics in a non-relational database (e.g., MongoDB/Firestore concept) and presenting real-time operational metrics via a dedicated, responsive web dashboard (Node.js/JS stack).
               </p>
 
               <div class="mb-4">
                 <span class="project-tag bg-purple-600">Arduino/ESP32</span>
                 <span class="project-tag bg-indigo-600">MQTT Protocol</span>
                 <span class="project-tag bg-green-600">Node.js/JS</span>
-                <span class="project-tag bg-blue-600">Sensor Integration</span>
+                <span class="project-tag bg-blue-600">Telemetry Pipeline</span>
               </div>
               
               <a
@@ -1662,14 +1690,14 @@
               </p>
               
               <p class="text-base text-[var(--color-text-primary)] mb-4 leading-relaxed">
-                A command-line tool built using Python's Scapy library to passively scan local networks, identify active hosts, and map open ports. Used to practice and verify penetration testing methodology fundamentals.
+                Created a custom Python/Scapy CLI utility for automated network footprinting and discovery. The tool performs active host enumeration, target identification, and port scanning (TCP/UDP) to simulate the initial phase of a penetration test and uncover vulnerable services.
               </p>
 
               <div class="mb-4">
                 <span class="project-tag bg-yellow-600">Python</span>
-                <span class="project-tag bg-green-600">Scapy</span>
+                <span class="project-tag bg-green-600">Scapy Library</span>
                 <span class="project-tag bg-red-600">Network Security</span>
-                <span class="project-tag bg-gray-600">Linux CLI</span>
+                <span class="project-tag bg-gray-600">Footprinting</span>
               </div>
               
               <a
@@ -1717,7 +1745,7 @@
               <div class="mb-6">
                 <h5 class="font-bold text-lg mb-2 text-purple-500">Targeted Path: DevOps & Infrastructure Security</h5>
                  <p class="text-sm text-[var(--color-text-primary)] mb-4">
-                    The visual roadmap below outlines the key stages I'm targeting in my learning journey, with a focus on building robust, scalable, and secure cloud infrastructure. Click the image to view the interactive version.
+                   The visual roadmap below outlines the key stages I'm targeting in my learning journey, with a focus on building robust, scalable, and secure cloud infrastructure. Click the image to view the interactive version.
                  </p>
                  <a href="https://roadmap.sh/devops" target="_blank" class="block rounded-lg overflow-hidden border border-[var(--color-border)] shadow-xl hover:scale-[1.01] transition-transform duration-300">
                     <img 
@@ -1866,7 +1894,7 @@
               !firstMatchFound
             ) {
               // Activate the tab without pushing history/changing hash, as search is transient state
-              activateTab(pane.id, false); 
+              activateTab(pane.id, false);
               firstMatchFound = true;
             }
           });
@@ -2038,7 +2066,7 @@
           }
           
           if (updateHistory) {
-             window.history.pushState(null, "", `#${targetId}`);
+              window.history.pushState(null, "", `#${targetId}`);
           }
         };
 
@@ -2058,7 +2086,7 @@
             // After a tiny delay, remove fixed height for smooth future transitions
             setTimeout(() => {
                 tabContent.style.height = "auto";
-            }, 50); 
+            }, 50);
         } else {
             tabContent.style.minHeight = "400px"; // Fallback min height
         }

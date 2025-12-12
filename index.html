@@ -384,10 +384,12 @@
           transform: scale(1.03);
       }
       .btn-card-link svg {
-          stroke: white;
+          /* Force White stroke for icons when solid green */
+          stroke: white; 
           transition: stroke 0.2s;
       }
       .btn-card-link:hover svg {
+          /* Force Green stroke for icons when glassy */
           stroke: var(--color-accent);
       }
 
@@ -455,6 +457,34 @@
           color: var(--color-text-primary) !important;
       }
 
+      /* --- NEW: Activity Chart Styles --- */
+      .activity-chart {
+          display: grid;
+          grid-template-columns: repeat(7, 1fr); /* 7 days */
+          gap: 4px;
+          height: 60px;
+          align-items: flex-end;
+          padding: 0 4px;
+          border-bottom: 1px solid var(--color-border);
+      }
+      .day-bar {
+          width: 100%;
+          border-radius: 2px 2px 0 0;
+          transition: background-color 0.3s ease;
+          min-height: 4px;
+      }
+      .day-bar:hover {
+          transform: translateY(-2px);
+          transition: transform 0.1s ease;
+      }
+
+      /* Specific activity levels - based on accent color */
+      .level-0 { background-color: rgba(0, 168, 89, 0.1); }
+      .level-1 { background-color: rgba(0, 168, 89, 0.4); }
+      .level-2 { background-color: rgba(0, 168, 89, 0.7); }
+      .level-3 { background-color: rgba(0, 168, 89, 1.0); }
+      /* --- END NEW: Activity Chart Styles --- */
+
 
       /* Responsive Layout for Tabs */
       @media (max-width: 640px) {
@@ -501,10 +531,23 @@
             <h1 class="text-3xl font-bold text-[var(--color-text-primary)]">
               Shaik Saida Vali
             </h1>
-            <!-- UPDATED: Made email clickable and added hover effect -->
-            <a href="mailto:urstrulysaida@gmail.com" class="text-lg text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-200">
-              urstrulysaida@gmail.com
-            </a>
+            <!-- UPDATED: Added Copy Email Feature -->
+            <div class="flex items-center group relative">
+              <a href="mailto:urstrulysaida@gmail.com" id="email-text" class="text-lg text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-200 mr-2">
+                urstrulysaida@gmail.com
+              </a>
+              <button onclick="copyEmail()" class="p-1 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-all duration-200 opacity-70 hover:opacity-100 hover:bg-[var(--color-card-hover-bg)]">
+                <!-- Copy Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="13" height="13" x="9" y="9" rx="2" ry="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+              </button>
+              <!-- Copy Success Message -->
+              <span id="copy-message" class="absolute top-full mt-1 px-3 py-1 bg-[var(--color-accent)] text-white text-xs rounded-lg shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-20 whitespace-nowrap">
+                Copied to clipboard!
+              </span>
+            </div>
           </div>
         </div>
         <div
@@ -519,7 +562,7 @@
             <svg
               id="sun-icon"
               xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6 hidden"
+              class="h-6 w-6"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -540,7 +583,7 @@
             <svg
               id="moon-icon"
               xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
+              class="h-6 w-6 hidden"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -649,6 +692,33 @@
               >. I leverage Python scripting and foundational network security principles to develop scalable infrastructure and contribute to robust, preventative defense strategies.
             </p>
           </div>
+
+          <!-- START NEW: Key Metrics & Achievements Card -->
+          <div class="content-card">
+              <h3 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
+                  <span class="mr-2 text-orange-500">📊</span> Key Metrics & Achievements
+              </h3>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                  <div class="p-3 rounded-lg bg-[var(--color-card-hover-bg)] border border-[var(--color-border)] hover:border-orange-500 transition-all duration-300">
+                      <p class="text-3xl font-extrabold text-orange-500">4+</p>
+                      <p class="text-xs uppercase font-medium text-[var(--color-text-secondary)]">Major Projects</p>
+                  </div>
+                  <div class="p-3 rounded-lg bg-[var(--color-card-hover-bg)] border border-[var(--color-border)] hover:border-green-500 transition-all duration-300">
+                      <p class="text-3xl font-extrabold text-green-500">5</p>
+                      <p class="text-xs uppercase font-medium text-[var(--color-text-secondary)]">Certifications</p>
+                  </div>
+                  <div class="p-3 rounded-lg bg-[var(--color-card-hover-bg)] border border-[var(--color-border)] hover:border-blue-500 transition-all duration-300">
+                      <p class="text-3xl font-extrabold text-blue-500">10k+</p>
+                      <p class="text-xs uppercase font-medium text-[var(--color-text-secondary)]">Lines of Code</p>
+                  </div>
+                  <div class="p-3 rounded-lg bg-[var(--color-card-hover-bg)] border border-[var(--color-border)] hover:border-purple-500 transition-all duration-300">
+                      <p class="text-3xl font-extrabold text-purple-500">90%</p>
+                      <p class="text-xs uppercase font-medium text-[var(--color-text-secondary)]">Cybersecurity Focus</p>
+                  </div>
+              </div>
+          </div>
+          <!-- END NEW: Key Metrics & Achievements Card -->
+
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="content-card md:col-span-1">
@@ -1104,6 +1174,28 @@
             </div>
           </div>
           
+          <!-- START NEW: Code Contributions Snapshot -->
+          <div class="content-card">
+              <h4 class="text-xl font-extrabold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
+                  <span class="mr-2 text-green-500">💻</span> Weekly Code Activity Snapshot (Past 7 Days)
+              </h4>
+              <div class="flex justify-between text-xs text-[var(--color-text-secondary)] mb-2 px-1">
+                  <span>Low Activity</span>
+                  <span>High Activity</span>
+              </div>
+              <div class="activity-chart">
+                  <!-- Monday --> <div class="day-bar level-1" style="height: 30%;" title="Mon: Medium"></div>
+                  <!-- Tuesday --> <div class="day-bar level-3" style="height: 100%;" title="Tue: High"></div>
+                  <!-- Wednesday --> <div class="day-bar level-2" style="height: 60%;" title="Wed: Medium"></div>
+                  <!-- Thursday --> <div class="day-bar level-0" style="height: 10%;" title="Thu: Low"></div>
+                  <!-- Friday --> <div class="day-bar level-3" style="height: 100%;" title="Fri: High"></div>
+                  <!-- Saturday --> <div class="day-bar level-1" style="height: 30%;" title="Sat: Medium"></div>
+                  <!-- Sunday --> <div class="day-bar level-0" style="height: 10%;" title="Sun: Low"></div>
+              </div>
+              <p class="text-xs text-right text-[var(--color-text-secondary)] mt-3">Visual representation based on GitHub activity mock data.</p>
+          </div>
+          <!-- END NEW: Code Contributions Snapshot -->
+
           <!-- Skill Matrix Card -->
           <div class="content-card">
               <h3
@@ -1116,7 +1208,9 @@
                 <!-- Column 1: Core & Cloud -->
                 <div>
                     <h5 class="text-lg font-bold mb-3 text-red-500 flex items-center">
-                        <span class="mr-2">☁️</span> Cloud & Architecture
+                        <!-- Custom Cloud Icon (simplified) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.5a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1h-15a.5.5 0 0 1-.5-.5z"/><path d="M15 10a5 5 0 0 0-10 0 3 3 0 0 0-3 3 4 4 0 0 0 4 4h10a4 4 0 0 0 4-4 3 3 0 0 0-3-3h-1"/></svg>
+                        Cloud & Architecture
                     </h5>
                     <div class="space-y-4 text-sm">
                         <!-- Skill Item: GCP -->
@@ -1126,7 +1220,7 @@
                                 <span class="text-xs font-medium text-[var(--color-accent)]">85%</span>
                             </div>
                             <div class="skill-bar-container">
-                                <div class="skill-bar" style="width: 85%" data-level="85"></div>
+                                <div class="skill-bar" style="width: 0%" data-level="85"></div>
                             </div>
                         </div>
                         <!-- Skill Item: AWS -->
@@ -1136,7 +1230,7 @@
                                 <span class="text-xs font-medium text-[var(--color-accent)]">70%</span>
                             </div>
                             <div class="skill-bar-container">
-                                <div class="skill-bar" style="width: 70%" data-level="70"></div>
+                                <div class="skill-bar" style="width: 0%" data-level="70"></div>
                             </div>
                         </div>
                         <!-- Skill Item: Networking -->
@@ -1146,7 +1240,7 @@
                                 <span class="text-xs font-medium text-[var(--color-accent)]">75%</span>
                             </div>
                             <div class="skill-bar-container">
-                                <div class="skill-bar" style="width: 75%" data-level="75"></div>
+                                <div class="skill-bar" style="width: 0%" data-level="75"></div>
                             </div>
                         </div>
                     </div>
@@ -1155,7 +1249,9 @@
                 <!-- Column 2: Security & Development -->
                 <div>
                     <h5 class="text-lg font-bold mb-3 text-indigo-500 flex items-center">
-                        <span class="mr-2">🔒</span> Security & Development
+                        <!-- Custom Security Icon (Shield) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Security & Development
                     </h5>
                     <div class="space-y-4 text-sm">
                         <!-- Skill Item: Cybersecurity -->
@@ -1165,7 +1261,7 @@
                                 <span class="text-xs font-medium text-[var(--color-accent)]">90%</span>
                             </div>
                             <div class="skill-bar-container">
-                                <div class="skill-bar" style="width: 90%" data-level="90"></div>
+                                <div class="skill-bar" style="width: 0%" data-level="90"></div>
                             </div>
                         </div>
                         <!-- Skill Item: Python -->
@@ -1175,7 +1271,7 @@
                                 <span class="text-xs font-medium text-[var(--color-accent)]">80%</span>
                             </div>
                             <div class="skill-bar-container">
-                                <div class="skill-bar" style="width: 80%" data-level="80"></div>
+                                <div class="skill-bar" style="width: 0%" data-level="80"></div>
                             </div>
                         </div>
                         <!-- Skill Item: SQL -->
@@ -1185,7 +1281,7 @@
                                 <span class="text-xs font-medium text-[var(--color-accent)]">65%</span>
                             </div>
                             <div class="skill-bar-container">
-                                <div class="skill-bar" style="width: 65%" data-level="65"></div>
+                                <div class="skill-bar" style="width: 0%" data-level="65"></div>
                             </div>
                         </div>
                     </div>
@@ -1603,6 +1699,12 @@
                 Cybersecurity / Cloud Architecture
               </p>
               
+              <!-- NEW: Project Timeline -->
+              <p class="text-sm font-medium text-[var(--color-accent)] mb-2">
+                Timeline: <strong class="text-[var(--color-text-primary)]">Feb 2024 - Apr 2024 (10 Weeks)</strong>
+              </p>
+              <!-- END NEW -->
+              
               <p class="text-base text-[var(--color-text-primary)] mb-4 leading-relaxed">
                 Developed a Python-based Security Orchestration, Automation, and Response (SOAR) playbook within a simulated GCP environment. The solution ingested VPC flow logs into a custom SIEM mockup, enabling near real-time detection of lateral movement and automated isolation of non-compliant VM workloads via Compute Engine API calls.
               </p>
@@ -1646,6 +1748,12 @@
                 IoT / Data Engineering
               </p>
               
+              <!-- NEW: Project Timeline -->
+              <p class="text-sm font-medium text-[var(--color-accent)] mb-2">
+                Timeline: <strong class="text-[var(--color-text-primary)]">Aug 2023 - Nov 2023 (16 Weeks)</strong>
+              </p>
+              <!-- END NEW -->
+              
               <p class="text-base text-[var(--color-text-primary)] mb-4 leading-relaxed">
                 Engineered a scalable, full-stack IoT telemetry solution to monitor ambient data. The project utilized MQTT for low-latency data ingestion, persisting metrics in a non-relational database (e.g., MongoDB/Firestore concept) and presenting real-time operational metrics via a dedicated, responsive web dashboard (Node.js/JS stack).
               </p>
@@ -1688,6 +1796,12 @@
               <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">
                 Ethical Hacking / Python Scripting
               </p>
+              
+              <!-- NEW: Project Timeline -->
+              <p class="text-sm font-medium text-[var(--color-accent)] mb-2">
+                Timeline: <strong class="text-[var(--color-text-primary)]">Jan 2024 - Mar 2024 (8 Weeks)</strong>
+              </p>
+              <!-- END NEW -->
               
               <p class="text-base text-[var(--color-text-primary)] mb-4 leading-relaxed">
                 Created a custom Python/Scapy CLI utility for automated network footprinting and discovery. The tool performs active host enumeration, target identification, and port scanning (TCP/UDP) to simulate the initial phase of a penetration test and uncover vulnerable services.
@@ -1744,17 +1858,17 @@
               <!-- VISUAL ROADMAP SECTION -->
               <div class="mb-6">
                 <h5 class="font-bold text-lg mb-2 text-purple-500">Targeted Path: DevOps & Infrastructure Security</h5>
-                 <p class="text-sm text-[var(--color-text-primary)] mb-4">
-                   The visual roadmap below outlines the key stages I'm targeting in my learning journey, with a focus on building robust, scalable, and secure cloud infrastructure. Click the image to view the interactive version.
-                 </p>
-                 <a href="https://roadmap.sh/devops" target="_blank" class="block rounded-lg overflow-hidden border border-[var(--color-border)] shadow-xl hover:scale-[1.01] transition-transform duration-300">
-                    <img 
-                      src="https://roadmap.sh/card/wide/651b0fcc1205b5c21b6a74fc?variant=light" 
-                      alt="DevOps Roadmap Visual by roadmap.sh" 
-                      class="w-full h-auto object-cover"
-                      onerror="this.style.display='none'; this.after(document.createTextNode('DevOps Roadmap Visual (Source: roadmap.sh)'));"
-                    />
-                 </a>
+                   <p class="text-sm text-[var(--color-text-primary)] mb-4">
+                    The visual roadmap below outlines the key stages I'm targeting in my learning journey, with a focus on building robust, scalable, and secure cloud infrastructure. Click the image to view the interactive version.
+                   </p>
+                   <a href="https://roadmap.sh/devops" target="_blank" class="block rounded-lg overflow-hidden border border-[var(--color-border)] shadow-xl hover:scale-[1.01] transition-transform duration-300">
+                     <img 
+                       src="https://roadmap.sh/card/wide/651b0fcc1205b5c21b6a74fc?variant=light" 
+                       alt="DevOps Roadmap Visual by roadmap.sh" 
+                       class="w-full h-auto object-cover"
+                       onerror="this.style.display='none'; this.after(document.createTextNode('DevOps Roadmap Visual (Source: roadmap.sh)'));"
+                     />
+                   </a>
               </div>
               <!-- END VISUAL ROADMAP SECTION -->
 
@@ -1851,9 +1965,6 @@
         
         // --- Skill Bar Animation Function ---
         const animateSkillBars = () => {
-            // Reset widths immediately before starting animation
-            document.querySelectorAll('#career-links .skill-bar').forEach(bar => bar.style.width = '0%');
-            
             const skillBars = document.querySelectorAll('.tab-pane.active .skill-bar');
             skillBars.forEach(bar => {
                 const level = bar.getAttribute('data-level');
@@ -1864,16 +1975,54 @@
             });
         };
         
+        // --- Copy Email Function ---
+        window.copyEmail = () => {
+            const email = document.getElementById("email-text").innerText.trim();
+            const message = document.getElementById("copy-message");
+
+            // Use fallback method for clipboard access consistency in embedded environments
+            const textArea = document.createElement("textarea");
+            textArea.value = email;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                message.classList.add("opacity-100");
+                message.classList.remove("opacity-0");
+                setTimeout(() => {
+                    message.classList.remove("opacity-100");
+                    message.classList.add("opacity-0");
+                }, 1500);
+            } catch (err) {
+                console.error('Could not copy text: ', err);
+                message.innerText = 'Failed to copy!';
+                message.style.backgroundColor = '#dc2626'; // red
+                message.classList.add("opacity-100");
+                setTimeout(() => {
+                    message.classList.remove("opacity-100");
+                    message.classList.add("opacity-0");
+                    message.innerText = 'Copied to clipboard!'; // Reset message
+                    message.style.backgroundColor = 'var(--color-accent)'; // Reset color
+                }, 1500);
+            } finally {
+                document.body.removeChild(textArea);
+            }
+        };
+
+
         // --- Search Handlers ---
         window.handleSearch = (query) => {
           const term = query.trim().toLowerCase();
           let firstMatchFound = false;
 
-          // 1. Restore content for ALL panes first
+          // 1. Restore content for ALL panes first (and reset skill bars)
           tabPanes.forEach((pane) => {
             if (originalContent[pane.id]) {
               pane.innerHTML = originalContent[pane.id];
             }
+            // Immediate reset of skill bars visually
+            pane.querySelectorAll('.skill-bar').forEach(bar => bar.style.width = '0%');
           });
 
           if (term === "") {
@@ -2033,7 +2182,8 @@
 
             // 2. Define the transition end handler for the outgoing tab
             const handleTransitionEnd = (event) => {
-                if (event.propertyName === 'opacity') {
+                // Ensure we only listen for the opacity change, which signals the end of the visual hide animation
+                if (event.propertyName === 'opacity') { 
                   currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
 
                   // 3. Finish hiding the old pane
@@ -2099,12 +2249,11 @@
             // Clear search bar and restore content when switching tabs normally
             document.getElementById("global-search").value = "";
             tabPanes.forEach((pane) => {
-              // Reset skill bar width before restoring content, to ensure animation plays on re-entry
-              pane.querySelectorAll('.skill-bar').forEach(bar => bar.style.width = '0%');
-
               if (originalContent[pane.id]) {
                 pane.innerHTML = originalContent[pane.id];
               }
+              // Reset skill bar width *before* changing content for visual smoothness on re-entry
+              pane.querySelectorAll('.skill-bar').forEach(bar => bar.style.width = '0%');
             });
 
             activateTab(targetId, true);

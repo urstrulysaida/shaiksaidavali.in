@@ -392,6 +392,29 @@
           /* Force Green stroke for icons when glassy */
           stroke: var(--color-accent);
       }
+      
+      /* New style for filter buttons */
+      .btn-filter {
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          font-weight: 600;
+          font-size: 0.875rem;
+          border: 1px solid var(--color-border);
+          background-color: var(--color-card-bg);
+          color: var(--color-text-primary);
+          transition: all 0.2s ease;
+      }
+      .btn-filter:hover {
+          background-color: var(--color-card-hover-bg);
+          border-color: var(--color-accent);
+          color: var(--color-accent);
+      }
+      .btn-filter.active {
+          background-color: var(--color-accent);
+          color: white;
+          border-color: var(--color-accent);
+          box-shadow: 0 4px 8px rgba(0, 168, 89, 0.4);
+      }
 
       /* General Button Active State */
       button:active, a:active {
@@ -1684,14 +1707,37 @@
 
         <!-- -------------------------------- 4. PROJECTS TAB -------------------------------- -->
         <section id="projects" class="tab-pane hidden space-y-8">
-          <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">
+          <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-4">
             Key Projects & Portfolio
           </h3>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <!-- NEW: Technology Badges -->
+          <div class="content-card">
+              <h4 class="text-xl font-bold mb-4 text-[var(--color-accent)] border-b pb-2 border-[var(--color-border)]">
+                <span class="mr-2">🧩</span> Core Technology Expertise
+              </h4>
+              <div class="flex flex-wrap gap-3">
+                  <span class="project-tag bg-blue-700">Google Cloud Platform (GCP)</span>
+                  <span class="project-tag bg-yellow-600">Python/Pandas/Scapy</span>
+                  <span class="project-tag bg-red-600">SIEM/Threat Hunting</span>
+                  <span class="project-tag bg-indigo-700">Zscaler SASE/ZTA</span>
+                  <span class="project-tag bg-green-700">Networking/Firewalls</span>
+                  <span class="project-tag bg-purple-700">IoT (MQTT/Embedded C)</span>
+              </div>
+          </div>
+          
+          <!-- NEW: Filter Buttons -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <button class="btn-filter active" data-filter="all">All Projects</button>
+            <button class="btn-filter" data-filter="cloud">Cloud / GCP</button>
+            <button class="btn-filter" data-filter="security">Security / Hacking</button>
+            <button class="btn-filter" data-filter="iot">IoT / Data</button>
+          </div>
+          
+          <div id="project-list" class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
             <!-- Project 1: Cloud Security Incident Response -->
-            <div class="project-card">
+            <div class="project-card" data-tags="cloud security python">
               <h4 class="text-xl font-bold mb-2 text-blue-500 flex items-center">
                 <span class="mr-2">🛡️</span> Cloud Security Automation (GCP)
               </h4>
@@ -1699,11 +1745,9 @@
                 Cybersecurity / Cloud Architecture
               </p>
               
-              <!-- NEW: Project Timeline -->
               <p class="text-sm font-medium text-[var(--color-accent)] mb-2">
                 Timeline: <strong class="text-[var(--color-text-primary)]">Feb 2024 - Apr 2024 (10 Weeks)</strong>
               </p>
-              <!-- END NEW -->
               
               <p class="text-base text-[var(--color-text-primary)] mb-4 leading-relaxed">
                 Developed a Python-based Security Orchestration, Automation, and Response (SOAR) playbook within a simulated GCP environment. The solution ingested VPC flow logs into a custom SIEM mockup, enabling near real-time detection of lateral movement and automated isolation of non-compliant VM workloads via Compute Engine API calls.
@@ -1740,7 +1784,7 @@
             </div>
 
             <!-- Project 2: Real-time IoT Data Pipeline -->
-            <div class="project-card">
+            <div class="project-card" data-tags="iot data python">
               <h4 class="text-xl font-bold mb-2 text-pink-500 flex items-center">
                 <span class="mr-2">📊</span> Real-time IoT Monitoring Dashboard
               </h4>
@@ -1748,11 +1792,9 @@
                 IoT / Data Engineering
               </p>
               
-              <!-- NEW: Project Timeline -->
               <p class="text-sm font-medium text-[var(--color-accent)] mb-2">
                 Timeline: <strong class="text-[var(--color-text-primary)]">Aug 2023 - Nov 2023 (16 Weeks)</strong>
               </p>
-              <!-- END NEW -->
               
               <p class="text-base text-[var(--color-text-primary)] mb-4 leading-relaxed">
                 Engineered a scalable, full-stack IoT telemetry solution to monitor ambient data. The project utilized MQTT for low-latency data ingestion, persisting metrics in a non-relational database (e.g., MongoDB/Firestore concept) and presenting real-time operational metrics via a dedicated, responsive web dashboard (Node.js/JS stack).
@@ -1789,7 +1831,7 @@
             </div>
             
             <!-- Project 3: Network Reconnaissance Tool -->
-            <div class="project-card">
+            <div class="project-card" data-tags="security python networking">
               <h4 class="text-xl font-bold mb-2 text-indigo-500 flex items-center">
                 <span class="mr-2">🔎</span> Automated Network Recon Tool
               </h4>
@@ -1797,11 +1839,9 @@
                 Ethical Hacking / Python Scripting
               </p>
               
-              <!-- NEW: Project Timeline -->
               <p class="text-sm font-medium text-[var(--color-accent)] mb-2">
                 Timeline: <strong class="text-[var(--color-text-primary)]">Jan 2024 - Mar 2024 (8 Weeks)</strong>
               </p>
-              <!-- END NEW -->
               
               <p class="text-base text-[var(--color-text-primary)] mb-4 leading-relaxed">
                 Created a custom Python/Scapy CLI utility for automated network footprinting and discovery. The tool performs active host enumeration, target identification, and port scanning (TCP/UDP) to simulate the initial phase of a penetration test and uncover vulnerable services.
@@ -1913,6 +1953,8 @@
         const tabPanes = document.querySelectorAll(".tab-pane");
         const tabContent = document.getElementById("tab-content");
         const transitionDuration = 400; // Match CSS transition duration
+        const projectList = document.getElementById("project-list");
+        const filterButtons = document.querySelectorAll('.btn-filter');
 
         const themeToggle = document.getElementById("theme-toggle");
         const sunIcon = document.getElementById("sun-icon");
@@ -2009,6 +2051,50 @@
                 document.body.removeChild(textArea);
             }
         };
+        
+        // --- Project Filter Logic ---
+        const filterProjects = (filter) => {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.btn-filter[data-filter="${filter}"]`).classList.add('active');
+
+            const projects = projectList.querySelectorAll('.project-card');
+            
+            // Recalculate height before starting filter animation
+            const initialHeight = projectList.offsetHeight;
+            projectList.style.height = `${initialHeight}px`;
+
+            projects.forEach(card => {
+                const tags = card.getAttribute('data-tags').split(' ');
+                const matches = filter === 'all' || tags.includes(filter);
+
+                if (matches) {
+                    card.style.display = 'block';
+                    // Delay opacity change to stagger visibility
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50); 
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(10px)';
+                    // Hide completely after fade out animation
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+
+            // Update container height to fit filtered content after a delay
+            setTimeout(() => {
+                projectList.style.height = 'auto'; 
+            }, 400); 
+        };
+        
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                filterProjects(e.target.getAttribute('data-filter'));
+            });
+        });
 
 
         // --- Search Handlers ---
@@ -2029,6 +2115,11 @@
             const currentActiveId =
               document.querySelector(".tab-pane.active")?.id || "personal-info";
             activateTab(currentActiveId, false); // Don't push history for empty search
+            
+            // When clearing search, restore project filter to 'all'
+            if (currentActiveId === 'projects') {
+                 filterProjects('all');
+            }
             return;
           }
 
@@ -2036,6 +2127,21 @@
           tabPanes.forEach((pane) => {
             const newHtml = highlightText(pane.innerHTML, term);
             pane.innerHTML = newHtml;
+            
+            // Filter projects implicitly during search
+            if (pane.id === 'projects') {
+                const projects = pane.querySelectorAll('.project-card');
+                projects.forEach(card => {
+                    const hasHighlight = card.innerHTML.includes('<span class="highlight">');
+                    card.style.display = hasHighlight ? 'block' : 'none';
+                    card.style.opacity = hasHighlight ? '1' : '0';
+                    card.style.transform = hasHighlight ? 'translateY(0)' : 'translateY(10px)';
+                });
+                
+                // Deactivate filter buttons when search is active
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+            }
+
 
             // 3. Check for the first match and switch to that tab
             if (
@@ -2118,10 +2224,15 @@
           // 4. Start the incoming visual transition (fade in/slide down)
           newPane.classList.add("active");
           
-          // 5. Animate skill bars if it's the Career & Links tab
+          // 5. Animate relevant elements
           if (newPane.id === 'career-links') {
             animateSkillBars();
           }
+          if (newPane.id === 'projects') {
+             // Reset filters to 'all' when navigating to the projects tab normally
+             filterProjects('all');
+          }
+
 
           // 6. Clean up the fixed height constraint after the height transition is done
           const handleHeightTransitionEnd = (event) => {
@@ -2171,7 +2282,7 @@
           }
 
           if (currentActivePane) {
-            // Reset skill bars on the outgoing tab immediately
+            // Reset elements on the outgoing tab
             if (currentActivePane.id === 'career-links') {
                  currentActivePane.querySelectorAll('.skill-bar').forEach(bar => bar.style.width = '0%');
             }
@@ -2228,9 +2339,11 @@
         if (initialActivePane) {
             tabContent.style.height = initialActivePane.offsetHeight + "px";
             
-            // Animate skills on first load if it's the career tab
+            // Animate elements on first load
             if (initialActivePane.id === 'career-links') {
                 animateSkillBars();
+            } else if (initialActivePane.id === 'projects') {
+                 filterProjects('all'); // Ensure all projects are visible initially
             }
             
             // After a tiny delay, remove fixed height for smooth future transitions

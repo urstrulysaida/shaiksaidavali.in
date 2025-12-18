@@ -23,8 +23,8 @@
         --color-text-secondary: #333333; /* Darker gray for labels */
         --color-background: transparent;
         --color-card-bg: rgba(255, 255, 255, 0.05); /* EXTREMELY Transparent White backdrop (5%) */
-        --color-card-hover-bg: rgba(255, 255, 255, 0.10); /* Slightly less transparent on hover (10%) */
-        --color-border: rgba(255, 255, 255, 0.3); /* Soft White Border for highlight (30%) */
+        --color-card-hover-bg: rgba(255, 255, 255, 0.1); /* Slightly less transparent on hover (10%) */
+        --color-border: rgba(0, 0, 0, 0.15); /* Soft Gray Border for light mode (15%) */
         /* Specific override for profile summary contrast in light mode */
         --color-summary-text: #000000;
       }
@@ -36,7 +36,7 @@
         --color-card-hover-bg: rgba(0, 0, 0, 0.08); /* Slightly less transparent on hover (8%) */
         --color-text-primary: #ffffff; /* Pure White for contrast */
         --color-text-secondary: #cccccc; /* Light gray for labels */
-        --color-border: rgba(255, 255, 255, 0.10); /* Faint Border (10%) */
+        --color-border: rgba(255, 255, 255, 0.15); /* Faint Border (15%) */
         /* Specific override for profile summary contrast in dark mode */
         --color-summary-text: #ffffff;
       }
@@ -213,6 +213,7 @@
       .data-label {
         color: var(--color-text-secondary);
         font-weight: 500;
+        text-align: left;
       }
       
       /* Profile Summary text color fix */
@@ -255,7 +256,7 @@
         height: 100%;
         background-color: var(--color-accent);
         width: 0; /* Initial width for animation */
-        transition: width 1.5s ease-out;
+        transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Added Bezier for smoothness */
         box-shadow: 0 0 10px rgba(0, 168, 89, 0.6);
       }
       /* --- END SKILL BAR STYLES --- */
@@ -269,6 +270,7 @@
         transition: all 0.3s ease;
         backdrop-filter: blur(45px);
         -webkit-backdrop-filter: blur(45px);
+        transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s, display 0.3s; /* Added opacity/display transition */
       }
       .project-card:hover {
         transform: translateY(-5px);
@@ -456,26 +458,10 @@
       .bg-textured-card.content-card {
         padding: 0;
       }
-
-      /* Specific Texture Styles */
-      /* Note: Using the same image for 10th and Intermediate. */
-      .bg-10th {
-        background-image: url("https://i.ytimg.com/vi/sU7KHbJxr0s/maxresdefault.jpg");
-      }
-      .bg-intermediate {
-        background-image: url("https://i.ytimg.com/vi/sU7KHbJxr0s/maxresdefault.jpg");
-      }
-      .bg-ug {
-        background-image: url("https://image-static.collegedunia.com/public/reviewPhotos/951801/inbound2892504353987376923.jpg");
-      }
       
-      /* Fix for strong tag color in Career section when in Dark Mode */
-      body.dark-mode #career-links strong {
-          color: var(--color-text-primary) !important;
-      }
-      body.dark-mode #projects strong {
-          color: var(--color-text-primary) !important;
-      }
+      /* Fix for strong tag color in sections when in Dark Mode */
+      body.dark-mode #career-links strong,
+      body.dark-mode #projects strong,
       body.dark-mode #roadmap strong {
           color: var(--color-text-primary) !important;
       }
@@ -495,9 +481,10 @@
           border-radius: 2px 2px 0 0;
           transition: background-color 0.3s ease;
           min-height: 4px;
+          cursor: help; /* Indicate it's interactive/informative */
       }
       .day-bar:hover {
-          transform: translateY(-2px);
+          transform: translateY(-2px) scaleX(1.1); /* Slight lift and squeeze on hover */
           transition: transform 0.1s ease;
       }
 
@@ -559,7 +546,7 @@
               <a href="mailto:urstrulysaida@gmail.com" id="email-text" class="text-lg text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-200 mr-2">
                 urstrulysaida@gmail.com
               </a>
-              <button onclick="copyEmail()" class="p-1 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-all duration-200 opacity-70 hover:opacity-100 hover:bg-[var(--color-card-hover-bg)]">
+              <button onclick="copyEmail()" class="p-1 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-all duration-200 opacity-70 hover:opacity-100 hover:bg-[var(--color-card-hover-bg)]" aria-label="Copy email address">
                 <!-- Copy Icon -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <rect width="13" height="13" x="9" y="9" rx="2" ry="2"/>
@@ -567,7 +554,7 @@
                 </svg>
               </button>
               <!-- Copy Success Message -->
-              <span id="copy-message" class="absolute top-full mt-1 px-3 py-1 bg-[var(--color-accent)] text-white text-xs rounded-lg shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-20 whitespace-nowrap">
+              <span id="copy-message" class="absolute top-full mt-1 px-3 py-1 bg-[var(--color-accent)] text-white text-xs rounded-lg shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-20 whitespace-nowrap" aria-live="polite" role="status">
                 Copied to clipboard!
               </span>
             </div>
@@ -581,6 +568,7 @@
           <button
             id="theme-toggle"
             class="p-3 rounded-lg text-[var(--color-text-primary)] border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:shadow-lg transition duration-300 hover:scale-[1.05]"
+            aria-label="Toggle light and dark theme"
           >
             <svg
               id="sun-icon"
@@ -671,26 +659,26 @@
         />
       </div>
 
-      <!-- Tab Navigation -->
+      <!-- Tab Navigation (ARIA roles added) -->
       <nav class="mb-8 header-content" style="animation-delay: 0.5s">
-        <div class="flex space-x-6 border-b border-gray-200">
-          <div class="tab-link active" data-tab="personal-info">
+        <div class="flex space-x-6 border-b border-gray-200" role="tablist">
+          <div id="tab-link-personal-info" class="tab-link active" data-tab="personal-info" role="tab" aria-controls="personal-info" aria-selected="true" tabindex="0">
             <span class="mr-2" role="img" aria-label="Person">👤</span> Personal
             Info
           </div>
-          <div class="tab-link" data-tab="education">
+          <div id="tab-link-education" class="tab-link" data-tab="education" role="tab" aria-controls="education" aria-selected="false" tabindex="-1">
             <span class="mr-2" role="img" aria-label="Education">🎓</span>
             Education
           </div>
-          <div class="tab-link" data-tab="career-links">
+          <div id="tab-link-career-links" class="tab-link" data-tab="career-links" role="tab" aria-controls="career-links" aria-selected="false" tabindex="-1">
             <span class="mr-2" role="img" aria-label="Links">🔗</span> Career &
             Links
           </div>
-          <div class="tab-link" data-tab="projects">
+          <div id="tab-link-projects" class="tab-link" data-tab="projects" role="tab" aria-controls="projects" aria-selected="false" tabindex="-1">
             <span class="mr-2" role="img" aria-label="Projects">💡</span> Projects
           </div>
           <!-- NEW TAB LINK: Roadmap -->
-          <div class="tab-link" data-tab="roadmap">
+          <div id="tab-link-roadmap" class="tab-link" data-tab="roadmap" role="tab" aria-controls="roadmap" aria-selected="false" tabindex="-1">
             <span class="mr-2" role="img" aria-label="Roadmap">🗺️</span> Roadmap
           </div>
         </div>
@@ -699,7 +687,7 @@
       <!-- Main Content Area -->
       <main id="tab-content">
         <!-- -------------------------------- 1. PERSONAL INFO TAB -------------------------------- -->
-        <section id="personal-info" class="tab-pane active space-y-8">
+        <section id="personal-info" class="tab-pane active space-y-8" role="tabpanel" aria-labelledby="tab-link-personal-info">
           <!-- Professional Summary Card -->
           <div class="content-card">
             <h3
@@ -906,7 +894,7 @@
         </section>
 
         <!-- -------------------------------- 2. EDUCATION TAB -------------------------------- -->
-        <section id="education" class="tab-pane hidden space-y-8">
+        <section id="education" class="tab-pane hidden space-y-8" role="tabpanel" aria-labelledby="tab-link-education" aria-hidden="true">
           <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">
             Academic History
           </h3>
@@ -1024,32 +1012,32 @@
                 <!-- Column 1: Institute Info -->
                 <div class="space-y-3 lg:border-r border-white/10 lg:pr-4">
                    <div class="data-row">
-                      <span class="data-label text-gray-300">Institute:</span>
-                      <span class="data-value text-white text-left lg:text-right font-bold">Kakinada Institute of Engineering & Technology (KIET)</span>
+                     <span class="data-label text-gray-300">Institute:</span>
+                     <span class="data-value text-white text-left lg:text-right font-bold">Kakinada Institute of Engineering & Technology (KIET)</span>
                    </div>
                    <div class="data-row">
-                      <span class="data-label text-gray-300">Location:</span>
-                      <span class="data-value text-white text-left lg:text-right">Andhra Pradesh</span>
+                     <span class="data-label text-gray-300">Location:</span>
+                     <span class="data-value text-white text-left lg:text-right">Andhra Pradesh</span>
                    </div>
                    <div class="data-row">
-                      <span class="data-label text-gray-300">University Reg:</span>
-                      <span class="data-value text-white font-mono bg-white/10 px-2 rounded text-left lg:text-right">22B21A4627</span>
+                     <span class="data-label text-gray-300">University Reg:</span>
+                     <span class="data-value text-white font-mono bg-white/10 px-2 rounded text-left lg:text-right">22B21A4627</span>
                    </div>
                 </div>
 
                 <!-- Column 2: Course Info -->
                 <div class="space-y-3 mt-4 lg:mt-0">
                    <div class="data-row">
-                      <span class="data-label text-gray-300">Specialization:</span>
-                      <span class="data-value text-green-300 font-bold text-left lg:text-right">Cyber Security</span>
+                     <span class="data-label text-gray-300">Specialization:</span>
+                     <span class="data-value text-green-300 font-bold text-left lg:text-right">Cyber Security</span>
                    </div>
                    <div class="data-row">
-                      <span class="data-label text-gray-300">Timeline:</span>
-                      <span class="data-value text-white text-left lg:text-right">2022 - 2026</span>
+                     <span class="data-label text-gray-300">Timeline:</span>
+                     <span class="data-value text-white text-left lg:text-right">2022 - 2026</span>
                    </div>
                    <div class="data-row">
-                      <span class="data-label text-gray-300">Status:</span>
-                      <span class="data-value text-yellow-300 font-bold text-left lg:text-right">Pursuing</span>
+                     <span class="data-label text-gray-300">Status:</span>
+                     <span class="data-value text-yellow-300 font-bold text-left lg:text-right">Pursuing</span>
                    </div>
                 </div>
               </div>
@@ -1058,7 +1046,7 @@
         </section>
 
         <!-- -------------------------------- 3. CAREER & LINKS TAB -------------------------------- -->
-        <section id="career-links" class="tab-pane hidden space-y-8">
+        <section id="career-links" class="tab-pane hidden space-y-8" role="tabpanel" aria-labelledby="tab-link-career-links" aria-hidden="true">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Current Position Card -->
             <div class="content-card">
@@ -1215,7 +1203,7 @@
                   <!-- Saturday --> <div class="day-bar level-1" style="height: 30%;" title="Sat: Medium"></div>
                   <!-- Sunday --> <div class="day-bar level-0" style="height: 10%;" title="Sun: Low"></div>
               </div>
-              <p class="text-xs text-right text-[var(--color-text-secondary)] mt-3">Visual representation based on GitHub activity mock data.</p>
+              <p class="text-xs text-right text-[var(--color-text-secondary)] mt-3">Visual representation based on mock data.</p>
           </div>
           <!-- END NEW: Code Contributions Snapshot -->
 
@@ -1313,7 +1301,7 @@
               
               <!-- Dev Tools / Soft Skills -->
               <div class="pt-4 border-t mt-4 border-[var(--color-border)]">
-                  <p class="text-sm">
+                  <p class="text-sm text-[var(--color-text-primary)]">
                       <strong class="text-[var(--color-accent)]">DevOps & Tools:</strong> Docker, Git/GitHub, Linux (Bash), CI/CD Concepts (Theoretical).
                   </p>
               </div>
@@ -1470,103 +1458,14 @@
             </div>
           </div>
 
+          <!-- SPLIT SECTION: 1. Experience (Renamed from Internships) -->
           <h4
             class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center pt-4 border-t border-[var(--color-border)]"
           >
-            <span class="mr-2 text-red-500">🧠</span> Internships & Practical
-            Experience
+            <span class="mr-2 text-red-500">🧠</span> Experience
           </h4>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Zscaler Cloud Networking -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-indigo-500">
-                Zscaler Cloud Networking
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                Virtual Internship
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> Zero Trust Architecture (ZTA),
-                  Secure Access Service Edge (SASE), Micro-segmentation strategies.
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Cloud Policy Enforcement, Access Management in Hybrid Environments, Modern Perimeter Definition.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-
-            <!-- Fortinet Network Security -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-red-500">
-                Fortinet Network Security
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                Associate (NSE)
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> Next-Generation Firewalls (NGFW),
-                  Cybersecurity Threat Landscape, Security Fabric Concepts.
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Network Segmentation, Policy Management, Defense-in-Depth principles for wired/wireless networks.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            
             <!-- Cloud Computing Internship (GCP Focus) -->
             <div class="content-card">
               <h5 class="text-lg font-bold mb-2 text-blue-500">
@@ -1703,10 +1602,241 @@
               </a>
             </div>
           </div>
+
+          <!-- SPLIT SECTION: 2. Internships (Renamed from Practical Experience) -->
+          <h4
+            class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center pt-4 border-t border-[var(--color-border)]"
+          >
+            <span class="mr-2 text-orange-500">⚡</span> Internships
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Zscaler Cloud Networking -->
+            <div class="content-card">
+              <h5 class="text-lg font-bold mb-2 text-indigo-500">
+                Zscaler Cloud Networking
+              </h5>
+              <p
+                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
+              >
+                Virtual Internship
+              </p>
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
+                <li>
+                  <strong class="font-semibold">Key Focus:</strong> Zero Trust Architecture (ZTA),
+                  Secure Access Service Edge (SASE), Micro-segmentation strategies.
+                </li>
+                <li>
+                  <strong class="font-semibold">Skills Gained:</strong> Cloud Policy Enforcement, Access Management in Hybrid Environments, Modern Perimeter Definition.
+                </li>
+              </ul>
+              <a
+                href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link"
+                target="_blank"
+                class="btn-card-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <line x1="16" x2="8" y1="13" y2="13" />
+                  <line x1="16" x2="8" y1="17" y2="17" />
+                </svg>
+                View Proof
+              </a>
+            </div>
+
+            <!-- Fortinet Network Security -->
+            <div class="content-card">
+              <h5 class="text-lg font-bold mb-2 text-red-500">
+                Fortinet Network Security
+              </h5>
+              <p
+                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
+              >
+                Associate (NSE)
+              </p>
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
+                <li>
+                  <strong class="font-semibold">Key Focus:</strong> Next-Generation Firewalls (NGFW),
+                  Cybersecurity Threat Landscape, Security Fabric Concepts.
+                </li>
+                <li>
+                  <strong class="font-semibold">Skills Gained:</strong> Network Segmentation, Policy Management, Defense-in-Depth principles for wired/wireless networks.
+                </li>
+              </ul>
+              <a
+                href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link"
+                target="_blank"
+                class="btn-card-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <line x1="16" x2="8" y1="13" y2="13" />
+                  <line x1="16" x2="8" y1="17" y2="17" />
+                </svg>
+                View Proof
+              </a>
+            </div>
+
+            <!-- ETHICAL HACKING VIRTUAL INTERNSHIP -->
+            <div class="content-card">
+              <h5 class="text-lg font-bold mb-2 text-teal-500">
+                ETHICAL HACKING VIRTUAL INTERNSHIP
+              </h5>
+              <p
+                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
+              >
+                Virtual Experience
+              </p>
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
+                <li>
+                  <strong class="font-semibold">Key Focus:</strong> Network Defense, Incident Analysis, and Security Best Practices.
+                </li>
+                <li>
+                  <strong class="font-semibold">Skills Gained:</strong> Threat Landscape Analysis, Defensive Strategies, and hands-on virtual lab experience.
+                </li>
+              </ul>
+              <a
+                href="https://drive.google.com/file/d/1gXGAQ-W92tTVBiNBNISdAlXM3tYSF6Z_/view?usp=sharing"
+                target="_blank"
+                class="btn-card-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <line x1="16" x2="8" y1="13" y2="13" />
+                  <line x1="16" x2="8" y1="17" y2="17" />
+                </svg>
+                View Proof
+              </a>
+            </div>
+
+            <!-- AUTOMATION VIRTUAL INTERNSHIP -->
+            <div class="content-card">
+              <h5 class="text-lg font-bold mb-2 text-orange-500">
+                AUTOMATION VIRTUAL INTERNSHIP
+              </h5>
+              <p
+                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
+              >
+                Virtual Experience
+              </p>
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
+                <li>
+                  <strong class="font-semibold">Key Focus:</strong> Process Automation, Task Scheduling, and System Integration strategies.
+                </li>
+                <li>
+                  <strong class="font-semibold">Skills Gained:</strong> RPA Concepts, Workflow Optimization, and Scripting for Automation efficiency.
+                </li>
+              </ul>
+              <a
+                href="https://drive.google.com/file/d/1iTvnbJdyDNZzmsNNKVRAK5gixOXWtnzk/view?usp=sharing"
+                target="_blank"
+                class="btn-card-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <line x1="16" x2="8" y1="13" y2="13" />
+                  <line x1="16" x2="8" y1="17" y2="17" />
+                </svg>
+                View Proof
+              </a>
+            </div>
+
+            <!-- NEW CARD ADDED HERE: Google for Developers -->
+            <div class="content-card">
+              <h5 class="text-lg font-bold mb-2 text-blue-600">
+                Google for Developers
+              </h5>
+              <p
+                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
+              >
+                Virtual Experience
+              </p>
+              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
+                <li>
+                  <strong class="font-semibold">Key Focus:</strong> Modern Application Development, Cloud Integration, and Developer Tools.
+                </li>
+                <li>
+                  <strong class="font-semibold">Skills Gained:</strong> Hands-on experience with Google APIs, Cloud deployment basics, and development workflows.
+                </li>
+              </ul>
+              <a
+                href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=sharing"
+                target="_blank"
+                class="btn-card-link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <line x1="16" x2="8" y1="13" y2="13" />
+                  <line x1="16" x2="8" y1="17" y2="17" />
+                </svg>
+                View Proof
+              </a>
+            </div>
+          </div>
         </section>
 
         <!-- -------------------------------- 4. PROJECTS TAB -------------------------------- -->
-        <section id="projects" class="tab-pane hidden space-y-8">
+        <section id="projects" class="tab-pane hidden space-y-8" role="tabpanel" aria-labelledby="tab-link-projects" aria-hidden="true">
           <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-4">
             Key Projects & Portfolio
           </h3>
@@ -1717,21 +1847,21 @@
                 <span class="mr-2">🧩</span> Core Technology Expertise
               </h4>
               <div class="flex flex-wrap gap-3">
-                  <span class="project-tag bg-blue-700">Google Cloud Platform (GCP)</span>
-                  <span class="project-tag bg-yellow-600">Python/Pandas/Scapy</span>
-                  <span class="project-tag bg-red-600">SIEM/Threat Hunting</span>
-                  <span class="project-tag bg-indigo-700">Zscaler SASE/ZTA</span>
-                  <span class="project-tag bg-green-700">Networking/Firewalls</span>
-                  <span class="project-tag bg-purple-700">IoT (MQTT/Embedded C)</span>
+                <span class="project-tag bg-blue-700">Google Cloud Platform (GCP)</span>
+                <span class="project-tag bg-yellow-600">Python/Pandas/Scapy</span>
+                <span class="project-tag bg-red-600">SIEM/Threat Hunting</span>
+                <span class="project-tag bg-indigo-700">Zscaler SASE/ZTA</span>
+                <span class="project-tag bg-green-700">Networking/Firewalls</span>
+                <span class="project-tag bg-purple-700">IoT (MQTT/Embedded C)</span>
               </div>
           </div>
           
           <!-- NEW: Filter Buttons -->
           <div class="flex flex-wrap gap-3 mb-6">
-            <button class="btn-filter active" data-filter="all">All Projects</button>
-            <button class="btn-filter" data-filter="cloud">Cloud / GCP</button>
-            <button class="btn-filter" data-filter="security">Security / Hacking</button>
-            <button class="btn-filter" data-filter="iot">IoT / Data</button>
+            <button class="btn-filter active" data-filter="all" onclick="filterProjects('all')">All Projects</button>
+            <button class="btn-filter" data-filter="cloud" onclick="filterProjects('cloud')">Cloud / GCP</button>
+            <button class="btn-filter" data-filter="security" onclick="filterProjects('security')">Security / Hacking</button>
+            <button class="btn-filter" data-filter="iot" onclick="filterProjects('iot')">IoT / Data</button>
           </div>
           
           <div id="project-list" class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -1855,7 +1985,7 @@
               </div>
               
               <a
-                href="#"
+                href="https://github.com/urstrulysaida/network-recon-tool-mock"
                 target="_blank"
                 class="btn-card-link"
               >
@@ -1882,7 +2012,7 @@
         </section>
         
         <!-- -------------------------------- 5. LEARNING ROADMAP TAB (NEW) -------------------------------- -->
-        <section id="roadmap" class="tab-pane hidden space-y-8">
+        <section id="roadmap" class="tab-pane hidden space-y-8" role="tabpanel" aria-labelledby="tab-link-roadmap" aria-hidden="true">
             <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">
                 <span class="mr-2">🗺️</span> Current Learning & Future Roadmap
             </h3>
@@ -1898,17 +2028,17 @@
               <!-- VISUAL ROADMAP SECTION -->
               <div class="mb-6">
                 <h5 class="font-bold text-lg mb-2 text-purple-500">Targeted Path: DevOps & Infrastructure Security</h5>
-                   <p class="text-sm text-[var(--color-text-primary)] mb-4">
+                    <p class="text-sm text-[var(--color-text-primary)] mb-4">
                     The visual roadmap below outlines the key stages I'm targeting in my learning journey, with a focus on building robust, scalable, and secure cloud infrastructure. Click the image to view the interactive version.
-                   </p>
-                   <a href="https://roadmap.sh/devops" target="_blank" class="block rounded-lg overflow-hidden border border-[var(--color-border)] shadow-xl hover:scale-[1.01] transition-transform duration-300">
-                     <img 
-                       src="https://roadmap.sh/card/wide/651b0fcc1205b5c21b6a74fc?variant=light" 
-                       alt="DevOps Roadmap Visual by roadmap.sh" 
-                       class="w-full h-auto object-cover"
-                       onerror="this.style.display='none'; this.after(document.createTextNode('DevOps Roadmap Visual (Source: roadmap.sh)'));"
-                     />
-                   </a>
+                    </p>
+                    <a href="https://roadmap.sh/devops" target="_blank" class="block rounded-lg overflow-hidden border border-[var(--color-border)] shadow-xl hover:scale-[1.01] transition-transform duration-300">
+                      <img 
+                        src="https://roadmap.sh/card/wide/651b0fcc1205b5c21b6a74fc?variant=dark" 
+                        alt="DevOps Roadmap Visual by roadmap.sh" 
+                        class="w-full h-auto object-cover"
+                        onerror="this.style.display='none'; this.after(document.createTextNode('DevOps Roadmap Visual (Source: roadmap.sh)'));"
+                      />
+                    </a>
               </div>
               <!-- END VISUAL ROADMAP SECTION -->
 
@@ -1916,17 +2046,17 @@
                 <div>
                     <h5 class="font-bold text-lg mb-2 text-red-500">Q4 2024 Focus: Advanced Cloud Security</h5>
                     <ul class="space-y-1 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                        <li>Deep dive into **Terraform (IaC)** for secure infrastructure deployment on AWS.</li>
-                        <li>Practicing **Vulnerability Management** workflows using OpenVAS/Nessus concepts.</li>
-                        <li>Studying for the **CompTIA Security+** certification.</li>
+                        <li>Deep dive into <strong class="text-[var(--color-accent)]">Terraform (IaC)</strong> for secure infrastructure deployment on AWS.</li>
+                        <li>Practicing <strong class="text-[var(--color-accent)]">Vulnerability Management</strong> workflows using OpenVAS/Nessus concepts.</li>
+                        <li>Studying for the <strong class="text-[var(--color-accent)]">CompTIA Security+</strong> certification.</li>
                     </ul>
                 </div>
                 <div>
                     <h5 class="font-bold text-lg mb-2 text-blue-500">Future Goals: Advanced Specialization</h5>
                     <ul class="space-y-1 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                        <li>Exploring **Cloud Security Posture Management (CSPM)** tools and policies.</li>
-                        <li>Developing custom **YARA/Sigma Rules** for advanced threat hunting in SIEM.</li>
-                        <li>Building a containerized project using **Docker and Kubernetes** basics.</li>
+                        <li>Exploring <strong class="text-[var(--color-accent)]">Cloud Security Posture Management (CSPM)</strong> tools and policies.</li>
+                        <li>Developing custom <strong class="text-[var(--color-accent)]">YARA/Sigma Rules</strong> for advanced threat hunting in SIEM.</li>
+                        <li>Building a containerized project using <strong class="text-[var(--color-accent)]">Docker and Kubernetes</strong> basics.</li>
                     </ul>
                 </div>
               </div>
@@ -2002,12 +2132,16 @@
 
         // --- Content Storage & Search Initialization ---
         tabPanes.forEach((pane) => {
+          // Store original content to restore after search/highlighting
           originalContent[pane.id] = pane.innerHTML;
         });
         
         // --- Skill Bar Animation Function ---
         const animateSkillBars = () => {
-            const skillBars = document.querySelectorAll('.tab-pane.active .skill-bar');
+            // Reset existing widths immediately before setting new widths
+            document.querySelectorAll('#career-links .skill-bar').forEach(bar => bar.style.width = '0%');
+            
+            const skillBars = document.querySelectorAll('#career-links .skill-bar');
             skillBars.forEach(bar => {
                 const level = bar.getAttribute('data-level');
                 // Use a short delay after the tab transition is complete
@@ -2017,7 +2151,7 @@
             });
         };
         
-        // --- Copy Email Function ---
+        // --- Copy Email Function (made global for inline call) ---
         window.copyEmail = () => {
             const email = document.getElementById("email-text").innerText.trim();
             const message = document.getElementById("copy-message");
@@ -2025,37 +2159,60 @@
             // Use fallback method for clipboard access consistency in embedded environments
             const textArea = document.createElement("textarea");
             textArea.value = email;
+            // Place out of view
+            textArea.style.position = 'fixed';
+            textArea.style.top = '0';
+            textArea.style.left = '0';
+            textArea.style.opacity = '0';
+            
             document.body.appendChild(textArea);
+            textArea.focus();
             textArea.select();
             
+            let success = false;
             try {
-                document.execCommand('copy');
-                message.classList.add("opacity-100");
-                message.classList.remove("opacity-0");
-                setTimeout(() => {
-                    message.classList.remove("opacity-100");
-                    message.classList.add("opacity-0");
-                }, 1500);
+                success = document.execCommand('copy');
             } catch (err) {
                 console.error('Could not copy text: ', err);
-                message.innerText = 'Failed to copy!';
-                message.style.backgroundColor = '#dc2626'; // red
-                message.classList.add("opacity-100");
-                setTimeout(() => {
-                    message.classList.remove("opacity-100");
-                    message.classList.add("opacity-0");
-                    message.innerText = 'Copied to clipboard!'; // Reset message
-                    message.style.backgroundColor = 'var(--color-accent)'; // Reset color
-                }, 1500);
             } finally {
                 document.body.removeChild(textArea);
             }
+
+            if (success) {
+                message.innerText = 'Copied to clipboard!';
+                message.style.backgroundColor = 'var(--color-accent)';
+            } else {
+                message.innerText = 'Failed to copy!';
+                message.style.backgroundColor = '#dc2626'; // red
+            }
+
+            message.classList.add("opacity-100");
+            message.classList.remove("opacity-0");
+            setTimeout(() => {
+                message.classList.remove("opacity-100");
+                message.classList.add("opacity-0");
+            }, 1500);
         };
         
-        // --- Project Filter Logic ---
-        const filterProjects = (filter) => {
+        // --- Project Filter Logic (made global for inline call) ---
+        window.filterProjects = (filter) => {
+            // 1. Clear search and restore content before filtering by tags
+            const searchBar = document.getElementById("global-search");
+            if (searchBar.value !== "") {
+                 searchBar.value = "";
+                 tabPanes.forEach(pane => {
+                    if (originalContent[pane.id]) {
+                        pane.innerHTML = originalContent[pane.id];
+                    }
+                 });
+            }
+
+            // 2. Update active button state
             filterButtons.forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`.btn-filter[data-filter="${filter}"]`).classList.add('active');
+            const activeButton = document.querySelector(`.btn-filter[data-filter="${filter}"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
 
             const projects = projectList.querySelectorAll('.project-card');
             
@@ -2089,12 +2246,6 @@
                 projectList.style.height = 'auto'; 
             }, 400); 
         };
-        
-        filterButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                filterProjects(e.target.getAttribute('data-filter'));
-            });
-        });
 
 
         // --- Search Handlers ---
@@ -2102,24 +2253,31 @@
           const term = query.trim().toLowerCase();
           let firstMatchFound = false;
 
-          // 1. Restore content for ALL panes first (and reset skill bars)
+          // 1. Restore content for ALL panes first (and reset skill bars/filters)
           tabPanes.forEach((pane) => {
             if (originalContent[pane.id]) {
               pane.innerHTML = originalContent[pane.id];
             }
-            // Immediate reset of skill bars visually
+            // Immediate visual reset of skill bars
             pane.querySelectorAll('.skill-bar').forEach(bar => bar.style.width = '0%');
+            
+            // Always reset filters when running/clearing search
+            if (pane.id === 'projects') {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                document.querySelector('.btn-filter[data-filter="all"]')?.classList.add('active');
+                
+                // If search is empty, re-apply the filter to show all projects again
+                if (term === "") {
+                    window.filterProjects('all');
+                    return; // Stop processing this pane for empty search
+                }
+            }
           });
 
           if (term === "") {
             const currentActiveId =
               document.querySelector(".tab-pane.active")?.id || "personal-info";
             activateTab(currentActiveId, false); // Don't push history for empty search
-            
-            // When clearing search, restore project filter to 'all'
-            if (currentActiveId === 'projects') {
-                 filterProjects('all');
-            }
             return;
           }
 
@@ -2128,18 +2286,30 @@
             const newHtml = highlightText(pane.innerHTML, term);
             pane.innerHTML = newHtml;
             
-            // Filter projects implicitly during search
+            // Filter projects explicitly during search (overrides filter buttons)
             if (pane.id === 'projects') {
                 const projects = pane.querySelectorAll('.project-card');
+                
+                // Deactivate filter buttons when search is active (already done above, but belt and braces)
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+
                 projects.forEach(card => {
                     const hasHighlight = card.innerHTML.includes('<span class="highlight">');
-                    card.style.display = hasHighlight ? 'block' : 'none';
-                    card.style.opacity = hasHighlight ? '1' : '0';
-                    card.style.transform = hasHighlight ? 'translateY(0)' : 'translateY(10px)';
+                    if (hasHighlight) {
+                        card.style.display = 'block';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(10px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
                 });
                 
-                // Deactivate filter buttons when search is active
-                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Temporarily allow height to calculate for filtered content
+                projectList.style.height = 'auto';
             }
 
 
@@ -2154,6 +2324,7 @@
             }
           });
 
+          // Fallback if no tab is active after search
           if (!document.querySelector(".tab-pane.active")) {
             activateTab("personal-info", false);
           }
@@ -2166,43 +2337,39 @@
           const tempDiv = document.createElement("div");
           tempDiv.innerHTML = html;
 
-          // XPath to select all text nodes that are not inside a link (<a>)
+          // XPath to select all text nodes that are not inside a link (<a>) or in an image alt/src
           const textNodeSnapshot = document.evaluate(
-            ".//text()[normalize-space()!='']",
+            ".//text()[normalize-space()!='' and not(ancestor-or-self::a) and not(ancestor-or-self::img)]",
             tempDiv,
             null,
             XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
             null
           );
 
-          const regex = new RegExp(`(${term})`, "gi");
+          // Regex must escape special characters but keep the global and insensitive flags
+          const escapedTerm = term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+          const regex = new RegExp(`(${escapedTerm})`, "gi");
           const highlightSpan = '<span class="highlight">$&</span>';
 
           for (let i = 0; i < textNodeSnapshot.snapshotLength; i++) {
             const node = textNodeSnapshot.snapshotItem(i);
+            const originalText = node.nodeValue;
+            
+            if (originalText.toLowerCase().includes(term)) {
+              const newText = originalText.replace(regex, highlightSpan);
 
-            // Ensure we are operating on a text node whose parent is not a link
-            if (
-              node.parentNode.nodeType === 1 &&
-              node.parentNode.closest("a") === null
-            ) {
-              const originalText = node.nodeValue;
-              if (originalText.toLowerCase().includes(term)) {
-                const newText = originalText.replace(regex, highlightSpan);
+              const tempSpan = document.createElement("span");
+              tempSpan.innerHTML = newText;
 
-                const tempSpan = document.createElement("span");
-                tempSpan.innerHTML = newText;
+              node.parentNode.replaceChild(tempSpan, node);
 
-                node.parentNode.replaceChild(tempSpan, node);
-
-                while (tempSpan.firstChild) {
-                  tempSpan.parentNode.insertBefore(
-                    tempSpan.firstChild,
-                    tempSpan
-                  );
-                }
-                tempSpan.remove();
+              while (tempSpan.firstChild) {
+                tempSpan.parentNode.insertBefore(
+                  tempSpan.firstChild,
+                  tempSpan
+                );
               }
+              tempSpan.remove();
             }
           }
           return tempDiv.innerHTML;
@@ -2212,25 +2379,31 @@
         const showNewPane = (newPane) => {
           if (!newPane) return;
 
-          // 1. Temporarily remove the `hidden` class to calculate the new height
+          // 1. Temporarily remove the `hidden` class and ARIA hidden attribute
           newPane.classList.remove("hidden");
+          newPane.setAttribute('aria-hidden', 'false');
 
-          // 2. Force reflow to ensure the pane dimensions are calculated correctly
-          void newPane.offsetWidth;
+          // 2. Calculate the new height *before* applying active class to prevent reflow issues during transition
+          const newHeight = newPane.offsetHeight;
 
           // 3. Update the parent container's height to the new pane's height.
-          tabContent.style.height = newPane.offsetHeight + "px";
+          tabContent.style.height = newHeight + "px";
 
           // 4. Start the incoming visual transition (fade in/slide down)
-          newPane.classList.add("active");
+          // Use setTimeout 0 to ensure height is set before transition starts
+          setTimeout(() => {
+              newPane.classList.add("active");
+          }, 0);
           
-          // 5. Animate relevant elements
+          // 5. Animate relevant elements immediately or on a short delay
           if (newPane.id === 'career-links') {
             animateSkillBars();
           }
           if (newPane.id === 'projects') {
-             // Reset filters to 'all' when navigating to the projects tab normally
-             filterProjects('all');
+              // Ensure all filters reset correctly on initial navigation (if not in search mode)
+              if (document.getElementById("global-search").value === "") {
+                 filterProjects('all');
+              }
           }
 
 
@@ -2260,36 +2433,31 @@
           const currentActivePane = document.querySelector(".tab-pane.active");
           const newPane = document.getElementById(targetId);
 
-          // Update tab links styles immediately
-          tabs.forEach((tab) => tab.classList.remove("active"));
-          const activeTabLink = document.querySelector(
-            `.tab-link[data-tab="${targetId}"]`
-          );
-          if (activeTabLink) {
-            activeTabLink.classList.add("active");
-          }
+          // 1. Update tab links (style and ARIA) immediately
+          tabs.forEach((tab) => {
+            const isActive = tab.getAttribute("data-tab") === targetId;
+            tab.classList.toggle("active", isActive);
+            tab.setAttribute('aria-selected', isActive);
+            tab.setAttribute('tabindex', isActive ? '0' : '-1'); // Make inactive tabs non-focusable
+          });
 
-          // If the target is already active, just handle history/hash update if needed
+          // If the target is already active, return.
           if (newPane && newPane === currentActivePane) {
             if (updateHistory) {
               window.history.pushState(null, "", `#${targetId}`);
             }
-            // If the active pane is the 'career-links' tab, re-animate the bars when clicked.
             if (targetId === 'career-links') {
-                animateSkillBars();
+                animateSkillBars(); // Re-animate if already on skill tab
             }
             return;
           }
 
           if (currentActivePane) {
             // Reset elements on the outgoing tab
-            if (currentActivePane.id === 'career-links') {
-                 currentActivePane.querySelectorAll('.skill-bar').forEach(bar => bar.style.width = '0%');
-            }
+            currentActivePane.querySelectorAll('.skill-bar').forEach(bar => bar.style.width = '0%');
             
-            // 1. Set the height of the parent container to the current pane's height
-            // We use the greater of current height or minimum height to avoid abrupt jumps
-            tabContent.style.height = Math.max(currentActivePane.offsetHeight, 400) + "px";
+            // 1. Set the height of the parent container to the current pane's height (start height transition)
+            tabContent.style.height = currentActivePane.offsetHeight + "px";
 
             // 2. Define the transition end handler for the outgoing tab
             const handleTransitionEnd = (event) => {
@@ -2300,6 +2468,7 @@
                   // 3. Finish hiding the old pane
                   currentActivePane.classList.add("hidden");
                   currentActivePane.classList.remove("hiding");
+                  currentActivePane.setAttribute('aria-hidden', 'true');
 
                   // 4. Show the new pane immediately after old one is hidden
                   showNewPane(newPane);
@@ -2317,6 +2486,7 @@
                   currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
                   currentActivePane.classList.add("hidden");
                   currentActivePane.classList.remove("hiding");
+                  currentActivePane.setAttribute('aria-hidden', 'true');
                   showNewPane(newPane);
                 }
             }, transitionDuration + 50);
@@ -2334,24 +2504,22 @@
 
         // --- Initialization ---
 
-        // Set initial tab content height to prevent CLS
+        // Set initial tab content height for a smooth start
         const initialActivePane = document.querySelector(".tab-pane.active");
         if (initialActivePane) {
             tabContent.style.height = initialActivePane.offsetHeight + "px";
             
-            // Animate elements on first load
+            // Initial animation calls
             if (initialActivePane.id === 'career-links') {
                 animateSkillBars();
             } else if (initialActivePane.id === 'projects') {
-                 filterProjects('all'); // Ensure all projects are visible initially
+                filterProjects('all'); 
             }
             
             // After a tiny delay, remove fixed height for smooth future transitions
             setTimeout(() => {
                 tabContent.style.height = "auto";
             }, 50);
-        } else {
-            tabContent.style.minHeight = "400px"; // Fallback min height
         }
         
         // Add click listeners to tabs
@@ -2359,16 +2527,19 @@
           tab.addEventListener("click", () => {
             const targetId = tab.getAttribute("data-tab");
 
-            // Clear search bar and restore content when switching tabs normally
-            document.getElementById("global-search").value = "";
-            tabPanes.forEach((pane) => {
-              if (originalContent[pane.id]) {
-                pane.innerHTML = originalContent[pane.id];
-              }
-              // Reset skill bar width *before* changing content for visual smoothness on re-entry
-              pane.querySelectorAll('.skill-bar').forEach(bar => bar.style.width = '0%');
-            });
-
+            // Clear search bar when clicking a tab normally
+            const searchBar = document.getElementById("global-search");
+            if (searchBar.value !== "") {
+                 searchBar.value = "";
+                 // Force cleanup of highlight spans from all tabs
+                 tabPanes.forEach(pane => {
+                    if (originalContent[pane.id]) {
+                        pane.innerHTML = originalContent[pane.id];
+                    }
+                 });
+            }
+            
+            // Trigger activation
             activateTab(targetId, true);
           });
         });
@@ -2384,11 +2555,12 @@
 
         // Handle browser back/forward navigation
         window.addEventListener("popstate", () => {
-          document.getElementById("global-search").value = "";
+          // Clear search bar and reset content when navigating history
+          const searchBar = document.getElementById("global-search");
+          searchBar.value = "";
 
           tabPanes.forEach((pane) => {
-            // Reset skill bar width
-            pane.querySelectorAll('.skill-bar').forEach(bar => bar.style.width = '0%');
+            // Reset content by restoring from backup
             if (originalContent[pane.id]) {
               pane.innerHTML = originalContent[pane.id];
             }

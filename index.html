@@ -28,6 +28,7 @@
         /* Specific override for profile summary contrast in light mode */
         --color-summary-text: #000000;
         --color-icon-bg: rgba(0, 168, 89, 0.1);
+        --color-timeline-line: rgba(0, 0, 0, 0.1);
       }
 
       body.dark-mode {
@@ -41,6 +42,7 @@
         /* Specific override for profile summary contrast in dark mode */
         --color-summary-text: #ffffff;
         --color-icon-bg: rgba(255, 255, 255, 0.1);
+        --color-timeline-line: rgba(255, 255, 255, 0.1);
       }
 
       body {
@@ -274,7 +276,7 @@
         margin-bottom: 1rem;
       }
       .skill-bar-container {
-        height: 8px;
+        height: 6px;
         background-color: var(--color-border); /* Use a light, glassy background */
         border-radius: 4px;
         overflow: hidden;
@@ -284,7 +286,7 @@
         background-color: var(--color-accent);
         width: 0; /* Initial width for animation */
         transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Added Bezier for smoothness */
-        box-shadow: 0 0 10px rgba(0, 168, 89, 0.6);
+        box-shadow: 0 0 8px rgba(0, 168, 89, 0.6);
       }
       /* --- END SKILL BAR STYLES --- */
       
@@ -595,6 +597,99 @@
           display: inline-block;
       }
 
+      /* --- NEW TIMELINE STYLES --- */
+      .timeline-container {
+        position: relative;
+        padding-left: 20px;
+      }
+      .timeline-container::before {
+        content: '';
+        position: absolute;
+        top: 10px;
+        bottom: 10px;
+        left: 6px;
+        width: 2px;
+        background-color: var(--color-timeline-line);
+        border-radius: 2px;
+      }
+      .timeline-item {
+        position: relative;
+        margin-bottom: 2rem;
+        padding-left: 1.5rem;
+      }
+      .timeline-item:last-child {
+        margin-bottom: 0;
+      }
+      .timeline-dot {
+        position: absolute;
+        left: 0;
+        top: 6px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background-color: var(--color-card-bg);
+        border: 3px solid var(--color-accent);
+        z-index: 2;
+        transition: transform 0.3s ease;
+      }
+      .timeline-item:hover .timeline-dot {
+        transform: scale(1.3);
+        background-color: var(--color-accent);
+      }
+      .timeline-date {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--color-accent);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.25rem;
+        display: block;
+      }
+
+      /* --- Social Grid Styles --- */
+      .social-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        background-color: var(--color-card-bg);
+        border: 1px solid var(--color-border);
+        transition: all 0.3s ease;
+        height: 100%;
+      }
+      .social-btn:hover {
+        background-color: var(--color-card-hover-bg);
+        border-color: var(--color-accent);
+        transform: translateY(-3px);
+      }
+      .social-btn svg {
+        margin-bottom: 0.5rem;
+        transition: transform 0.3s ease;
+      }
+      .social-btn:hover svg {
+        transform: scale(1.1);
+        color: var(--color-accent);
+      }
+
+      /* --- Cert Grid Styles --- */
+      .cert-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border-radius: 0.75rem;
+        border: 1px solid var(--color-border);
+        background-color: var(--color-card-bg);
+        padding: 1rem;
+        transition: all 0.3s ease;
+      }
+      .cert-card:hover {
+        border-color: var(--color-accent);
+        background-color: var(--color-card-hover-bg);
+        transform: translateY(-3px);
+      }
+
       /* Responsive Layout for Tabs */
       @media (max-width: 640px) {
         .tab-link {
@@ -808,7 +903,7 @@
                     A highly motivated Computer Science student specializing in <strong class="text-[var(--color-accent)] font-semibold">Cybersecurity</strong> and <strong class="text-[var(--color-accent)] font-semibold">Cloud Architecture</strong>. 
                 </p>
                 <p class="text-base text-[var(--color-summary-text)] leading-relaxed opacity-90">
-                     My expertise spans Threat Detection (SIEM), Cloud Infrastructure (GCP/AWS), and DevOps automation. I leverage Python scripting and foundational network security principles to develop scalable infrastructure and contribute to robust, preventative defense strategies.
+                      My expertise spans Threat Detection (SIEM), Cloud Infrastructure (GCP/AWS), and DevOps automation. I leverage Python scripting and foundational network security principles to develop scalable infrastructure and contribute to robust, preventative defense strategies.
                 </p>
             </div>
             <!-- Decorative background blur -->
@@ -1091,153 +1186,58 @@
 
         <!-- -------------------------------- 3. CAREER & LINKS TAB -------------------------------- -->
         <section id="career-links" class="tab-pane hidden space-y-8" role="tabpanel" aria-labelledby="tab-link-career-links" aria-hidden="true">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Current Position Card -->
-            <div class="content-card">
-              <h4
-                class="text-xl font-extrabold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
-              >
-                <span class="mr-2 text-red-500">💼</span> Current Professional
-                Status
-              </h4>
-              <div class="space-y-3 text-sm">
-                <div class="data-row">
-                  <span class="data-label">Role:</span>
-                  <span class="data-value">Seeking Intern/Entry-Level Role</span>
+          
+          <!-- Top Row: Status & Socials Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Left: Current Professional Status (Span 1) -->
+            <div class="content-card md:col-span-1 flex flex-col justify-between">
+              <div>
+                <h4 class="text-lg font-bold text-[var(--color-text-primary)] mb-4 flex items-center">
+                  <span class="status-dot mr-2"></span> Current Status
+                </h4>
+                <div class="mb-4">
+                  <p class="text-2xl font-bold text-[var(--color-accent)] mb-1">Open to Work</p>
+                  <p class="text-sm text-[var(--color-text-secondary)]">Seeking Intern / Entry-Level</p>
                 </div>
-                <div class="data-row">
-                  <span class="data-label">Focus Area:</span>
-                  <span class="data-value">Cybersecurity / Cloud (GCP/AWS)</span>
-                </div>
-                <div class="data-row">
-                  <span class="data-label">Availability:</span>
-                  <span class="data-value text-[var(--color-accent)] font-bold">Immediately Available</span>
-                </div>
-                <div class="data-row">
-                  <span class="data-label">Preferred Location:</span>
-                  <span class="data-value">Remote / India (Andhra Pradesh)</span>
+                <div class="space-y-2 text-sm">
+                   <div class="flex justify-between"><span class="text-[var(--color-text-secondary)]">Role:</span> <strong>Cybersecurity / Cloud</strong></div>
+                   <div class="flex justify-between"><span class="text-[var(--color-text-secondary)]">Location:</span> <strong>Remote / India</strong></div>
+                   <div class="flex justify-between"><span class="text-[var(--color-text-secondary)]">Start:</span> <strong>Immediate</strong></div>
                 </div>
               </div>
             </div>
 
-            <!-- Social & Portfolio Links Card -->
-            <div class="content-card">
-              <h4
-                class="text-xl font-extrabold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
-              >
-                <span class="mr-2 text-purple-500">🔗</span> Social & Portfolio
-                Links
-              </h4>
-              <div class="space-y-4 text-sm">
+            <!-- Right: Quick Connect Social Grid (Span 2) -->
+            <div class="md:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <!-- LinkedIn -->
-                <div class="flex justify-between items-center">
-                  <span class="data-label flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="mr-2 text-blue-700"
-                    >
-                      <path
-                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
-                      />
-                      <rect width="4" height="12" x="2" y="9" />
-                      <circle cx="4" cy="4" r="2" />
-                    </svg>
-                    LinkedIn:
-                  </span>
-                  <a
-                    href="https://www.linkedin.com/in/shaiksaidavali/"
-                    target="_blank"
-                    class="data-value text-[var(--color-accent)] hover:underline flex items-center"
-                    >View Profile
-                    <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                  </a>
-                </div>
-
+                <a href="https://www.linkedin.com/in/shaiksaidavali/" target="_blank" class="social-btn group">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    <span class="text-xs font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)]">LinkedIn</span>
+                </a>
                 <!-- GitHub -->
-                <div class="flex justify-between items-center">
-                  <span class="data-label flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="mr-2 text-gray-700 dark:text-gray-300"
-                    >
-                      <path
-                        d="M15 22v-4a4.8 4.8 0 0 0-1-3.6c3.2 0 4.8-1.5 4.8-4.2a4 4 0 0 0-1-3.6c.3-1 .3-2.5-.1-3.6 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"
-                      />
-                      <path d="M12 2v3" />
-                    </svg>
-                    GitHub:
-                  </span>
-                  <a
-                    href="https://github.com/urstrulysaida"
-                    target="_blank"
-                    class="data-value text-[var(--color-accent)] hover:underline flex items-center"
-                    >View Repos
-                    <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                  </a>
-                </div>
-                
-                <!-- Codepen -->
-                <div class="flex justify-between items-center">
-                  <span class="data-label flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="mr-2 text-yellow-600"
-                    >
-                      <polygon
-                        points="12 2 22 13 15.46 22 12 18 8.54 22 2 13 12 2"
-                      />
-                      <line x1="2" x2="15.46" y1="13" y2="13" />
-                      <line x1="8.54" x2="12" y1="22" y2="18" />
-                      <line x1="12" x2="15.46" y1="18" y2="22" />
-                      <line x1="12" x2="12" y1="2" y2="18" />
-                    </svg>
-                    Codepen:
-                  </span>
-                  <a
-                    href="https://codepen.io/Mr_-Prince_Ssv"
-                    target="_blank"
-                    class="data-value text-[var(--color-accent)] hover:underline flex items-center"
-                    >View Codepen
-                    <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                  </a>
-                </div>
-              </div>
+                <a href="https://github.com/urstrulysaida" target="_blank" class="social-btn group">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-800 dark:text-gray-200"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/><path d="M12 2v3"/></svg>
+                    <span class="text-xs font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)]">GitHub</span>
+                </a>
+                <!-- CodePen -->
+                <a href="https://codepen.io/Mr_-Prince_Ssv" target="_blank" class="social-btn group">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-600"><polygon points="12 2 22 13 15.46 22 12 18 8.54 22 2 13 12 2"/><line x1="2" x2="15.46" y1="13" y2="13"/><line x1="8.54" x2="12" y1="22" y2="18"/><line x1="12" x2="15.46" y1="18" y2="22"/><line x1="12" x2="12" y1="2" y2="18"/></svg>
+                    <span class="text-xs font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)]">CodePen</span>
+                </a>
+                <!-- Resume/Docs -->
+                <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="social-btn group">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-500"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    <span class="text-xs font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)]">CV / Resume</span>
+                </a>
             </div>
           </div>
           
-          <!-- START NEW: Code Contributions Snapshot -->
+          <!-- Code Contributions Snapshot -->
           <div class="content-card">
-              <h4 class="text-xl font-extrabold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
-                  <span class="mr-2 text-green-500">💻</span> Weekly Code Activity Snapshot (Past 7 Days)
+              <h4 class="text-sm font-bold mb-3 text-[var(--color-text-secondary)] uppercase tracking-wide flex items-center justify-between">
+                 <span>Code Activity (Last 7 Days)</span>
+                 <span class="text-xs font-normal opacity-70">Live Data Mockup</span>
               </h4>
-              <div class="flex justify-between text-xs text-[var(--color-text-secondary)] mb-2 px-1">
-                  <span>Low Activity</span>
-                  <span>High Activity</span>
-              </div>
               <div class="activity-chart">
                   <!-- Monday --> <div class="day-bar level-1" style="height: 30%;" title="Mon: Medium"></div>
                   <!-- Tuesday --> <div class="day-bar level-3" style="height: 100%;" title="Tue: High"></div>
@@ -1247,680 +1247,196 @@
                   <!-- Saturday --> <div class="day-bar level-1" style="height: 30%;" title="Sat: Medium"></div>
                   <!-- Sunday --> <div class="day-bar level-0" style="height: 10%;" title="Sun: Low"></div>
               </div>
-              <p class="text-xs text-right text-[var(--color-text-secondary)] mt-3">Visual representation based on mock data.</p>
           </div>
-          <!-- END NEW: Code Contributions Snapshot -->
 
-          <!-- Skill Matrix Card -->
+          <!-- Skill Matrix Card - Refined Layout -->
           <div class="content-card">
-              <h3
-                class="text-2xl font-bold text-[var(--color-accent)] mb-6 border-b pb-2 border-[var(--color-border)]"
-              >
-                <span class="mr-2 text-yellow-500">🛠️</span> Technical Skills & Stack
+              <h3 class="text-xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center">
+                <span class="mr-2 text-yellow-500">🛠️</span> Technical Arsenal
               </h3>
               
               <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Column 1: Core & Cloud -->
+                <!-- Column 1 -->
                 <div>
-                    <h5 class="text-lg font-bold mb-3 text-red-500 flex items-center">
-                        <!-- Custom Cloud Icon (simplified) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.5a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1h-15a.5.5 0 0 1-.5-.5z"/><path d="M15 10a5 5 0 0 0-10 0 3 3 0 0 0-3 3 4 4 0 0 0 4 4h10a4 4 0 0 0 4-4 3 3 0 0 0-3-3h-1"/></svg>
-                        Cloud & Architecture
-                    </h5>
-                    <div class="space-y-4 text-sm">
-                        <!-- Skill Item: GCP -->
+                   <h5 class="text-sm font-bold text-red-500 uppercase tracking-wider mb-4 border-b border-[var(--color-border)] pb-2">Cloud & Infra</h5>
+                   <div class="space-y-4">
+                       <div class="skill-item">
+                           <div class="flex justify-between text-sm mb-1"><span class="font-semibold text-[var(--color-text-primary)]">GCP Architecture</span><span class="text-[var(--color-accent)]">85%</span></div>
+                           <div class="skill-bar-container"><div class="skill-bar" style="width: 0%" data-level="85"></div></div>
+                       </div>
+                       <div class="skill-item">
+                           <div class="flex justify-between text-sm mb-1"><span class="font-semibold text-[var(--color-text-primary)]">AWS Core</span><span class="text-[var(--color-accent)]">70%</span></div>
+                           <div class="skill-bar-container"><div class="skill-bar" style="width: 0%" data-level="70"></div></div>
+                       </div>
                         <div class="skill-item">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-[var(--color-text-primary)]">Google Cloud Platform (GCP)</span>
-                                <span class="text-xs font-medium text-[var(--color-accent)]">85%</span>
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="width: 0%" data-level="85"></div>
-                            </div>
-                        </div>
-                        <!-- Skill Item: AWS -->
-                        <div class="skill-item">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-[var(--color-text-primary)]">Amazon Web Services (AWS)</span>
-                                <span class="text-xs font-medium text-[var(--color-accent)]">70%</span>
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="width: 0%" data-level="70"></div>
-                            </div>
-                        </div>
-                        <!-- Skill Item: Networking -->
-                        <div class="skill-item">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-[var(--color-text-primary)]">Networking & SASE (Zscaler)</span>
-                                <span class="text-xs font-medium text-[var(--color-accent)]">75%</span>
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="width: 0%" data-level="75"></div>
-                            </div>
-                        </div>
-                    </div>
+                           <div class="flex justify-between text-sm mb-1"><span class="font-semibold text-[var(--color-text-primary)]">Zscaler SASE</span><span class="text-[var(--color-accent)]">75%</span></div>
+                           <div class="skill-bar-container"><div class="skill-bar" style="width: 0%" data-level="75"></div></div>
+                       </div>
+                   </div>
                 </div>
-
-                <!-- Column 2: Security & Development -->
-                <div>
-                    <h5 class="text-lg font-bold mb-3 text-indigo-500 flex items-center">
-                        <!-- Custom Security Icon (Shield) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                        Security & Development
-                    </h5>
-                    <div class="space-y-4 text-sm">
-                        <!-- Skill Item: Cybersecurity -->
-                        <div class="skill-item">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-[var(--color-text-primary)]">Cybersecurity & SIEM</span>
-                                <span class="text-xs font-medium text-[var(--color-accent)]">90%</span>
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="width: 0%" data-level="90"></div>
-                            </div>
-                        </div>
-                        <!-- Skill Item: Python -->
-                        <div class="skill-item">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-[var(--color-text-primary)]">Programming (Python, C++)</span>
-                                <span class="text-xs font-medium text-[var(--color-accent)]">80%</span>
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="width: 0%" data-level="80"></div>
-                            </div>
-                        </div>
-                        <!-- Skill Item: SQL -->
-                        <div class="skill-item">
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold text-[var(--color-text-primary)]">Database & SQL</span>
-                                <span class="text-xs font-medium text-[var(--color-accent)]">65%</span>
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="width: 0%" data-level="65"></div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Column 2 -->
+                 <div>
+                   <h5 class="text-sm font-bold text-indigo-500 uppercase tracking-wider mb-4 border-b border-[var(--color-border)] pb-2">Security & Code</h5>
+                   <div class="space-y-4">
+                       <div class="skill-item">
+                           <div class="flex justify-between text-sm mb-1"><span class="font-semibold text-[var(--color-text-primary)]">Cybersecurity / SIEM</span><span class="text-[var(--color-accent)]">90%</span></div>
+                           <div class="skill-bar-container"><div class="skill-bar" style="width: 0%" data-level="90"></div></div>
+                       </div>
+                       <div class="skill-item">
+                           <div class="flex justify-between text-sm mb-1"><span class="font-semibold text-[var(--color-text-primary)]">Python & C++</span><span class="text-[var(--color-accent)]">80%</span></div>
+                           <div class="skill-bar-container"><div class="skill-bar" style="width: 0%" data-level="80"></div></div>
+                       </div>
+                       <div class="skill-item">
+                           <div class="flex justify-between text-sm mb-1"><span class="font-semibold text-[var(--color-text-primary)]">SQL & Databases</span><span class="text-[var(--color-accent)]">65%</span></div>
+                           <div class="skill-bar-container"><div class="skill-bar" style="width: 0%" data-level="65"></div></div>
+                       </div>
+                   </div>
                 </div>
               </div>
+              <div class="mt-6 pt-4 border-t border-[var(--color-border)]">
+                 <p class="text-sm text-[var(--color-text-secondary)]">
+                     <strong class="text-[var(--color-text-primary)]">Additional Tools:</strong> Docker, Git/GitHub, Linux (Bash), CI/CD Principles.
+                 </p>
+              </div>
+          </div>
+
+          <!-- Professional Certifications Grid -->
+          <div>
+            <h3 class="text-xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center">
+                 <span class="mr-2 text-green-500">🏅</span> Certifications
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Google Cyber -->
+                <div class="cert-card">
+                    <div class="mb-3 text-green-500"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                    <h5 class="font-bold text-sm text-[var(--color-text-primary)] mb-1">Google Cybersecurity</h5>
+                    <p class="text-xs text-[var(--color-text-secondary)] mb-4">Security Analytics, SIEM, Risk</p>
+                    <a href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank" class="mt-auto text-xs font-bold text-[var(--color-accent)] hover:underline">View Credential &rarr;</a>
+                </div>
+                <!-- AWS -->
+                <div class="cert-card">
+                    <div class="mb-3 text-yellow-500"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19c0-1.7-1.3-3-3-3h-5c-1.7 0-3 1.3-3 3"/><path d="M22 10.5V9a2 2 0 0 0-2-2h-3.3a5 5 0 0 0-9.4 0H4a2 2 0 0 0-2 2v1.5"/><path d="M8 10a2 2 0 1 0 4 0 2 2 0 1 0-4 0"/></svg></div>
+                    <h5 class="font-bold text-sm text-[var(--color-text-primary)] mb-1">AWS Cloud Tech</h5>
+                    <p class="text-xs text-[var(--color-text-secondary)] mb-4">Architecture, EC2, VPC</p>
+                    <a href="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link" target="_blank" class="mt-auto text-xs font-bold text-[var(--color-accent)] hover:underline">View Credential &rarr;</a>
+                </div>
+                 <!-- Google Advanced Data -->
+                <div class="cert-card">
+                    <div class="mb-3 text-purple-500"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+                    <h5 class="font-bold text-sm text-[var(--color-text-primary)] mb-1">Advanced Data Analytics</h5>
+                    <p class="text-xs text-[var(--color-text-secondary)] mb-4">Python, R, Modeling</p>
+                    <a href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank" class="mt-auto text-xs font-bold text-[var(--color-accent)] hover:underline">View Credential &rarr;</a>
+                </div>
+                <!-- Google Data -->
+                <div class="cert-card">
+                    <div class="mb-3 text-blue-500"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+                    <h5 class="font-bold text-sm text-[var(--color-text-primary)] mb-1">Google Data Analytics</h5>
+                    <p class="text-xs text-[var(--color-text-secondary)] mb-4">SQL, Tableau, Viz</p>
+                    <a href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=sharing" target="_blank" class="mt-auto text-xs font-bold text-[var(--color-accent)] hover:underline">View Credential &rarr;</a>
+                </div>
+            </div>
+          </div>
+
+          <!-- Vertical Timeline: Core Experience -->
+          <div class="content-card">
+              <h3 class="text-xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center border-b pb-2 border-[var(--color-border)]">
+                 <span class="mr-2 text-red-500">🧠</span> Core Internships & Experience
+              </h3>
               
-              <!-- Dev Tools / Soft Skills -->
-              <div class="pt-4 border-t mt-4 border-[var(--color-border)]">
-                  <p class="text-sm text-[var(--color-text-primary)]">
-                      <strong class="text-[var(--color-accent)]">DevOps & Tools:</strong> Docker, Git/GitHub, Linux (Bash), CI/CD Concepts (Theoretical).
-                  </p>
+              <div class="timeline-container">
+                  <!-- Item 1 -->
+                  <div class="timeline-item">
+                      <div class="timeline-dot"></div>
+                      <span class="timeline-date">Feb 2024 - Apr 2024 (10 Weeks)</span>
+                      <h4 class="text-lg font-bold text-blue-500">Cloud Computing Internship (GCP)</h4>
+                      <p class="text-xs font-bold uppercase text-[var(--color-text-secondary)] mb-2">Infrastructure & Security</p>
+                      <p class="text-sm text-[var(--color-text-primary)] mb-2">
+                          Focused on GCP Services (Compute, Storage, VPC) and IaC principles. Deployed secure cloud architectures and managed Cloud Security Posture (CSPM).
+                      </p>
+                      <a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Certificate &rarr;</a>
+                  </div>
+
+                  <!-- Item 2 -->
+                  <div class="timeline-item">
+                      <div class="timeline-dot"></div>
+                      <span class="timeline-date">Aug 2023 - Nov 2023 (16 Weeks)</span>
+                      <h4 class="text-lg font-bold text-pink-500">IoT Internship</h4>
+                      <p class="text-xs font-bold uppercase text-[var(--color-text-secondary)] mb-2">Embedded Systems & Data</p>
+                      <p class="text-sm text-[var(--color-text-primary)] mb-2">
+                          Engineered full-stack IoT solutions using Arduino/ESP32 and MQTT protocols. Built telemetry pipelines for real-time sensor data monitoring.
+                      </p>
+                      <a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Certificate &rarr;</a>
+                  </div>
+
+                   <!-- Item 3 -->
+                  <div class="timeline-item">
+                      <div class="timeline-dot"></div>
+                      <span class="timeline-date">Jan 2023 - Mar 2023 (10 Weeks)</span>
+                      <h4 class="text-lg font-bold text-indigo-500">Ethical Hacking Internship</h4>
+                      <p class="text-xs font-bold uppercase text-[var(--color-text-secondary)] mb-2">Vulnerability Assessment</p>
+                      <p class="text-sm text-[var(--color-text-primary)] mb-2">
+                          Conducted Vulnerability Assessments (VA) and Penetration Testing (PT). Focused on OWASP Top 10, network defense strategies, and countermeasure implementation.
+                      </p>
+                      <a href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Certificate &rarr;</a>
+                  </div>
               </div>
           </div>
-          <!-- END SKILL MATRIX -->
 
+          <!-- Vertical Timeline: Virtual Programs -->
+           <div class="content-card">
+              <h3 class="text-xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center border-b pb-2 border-[var(--color-border)]">
+                 <span class="mr-2 text-orange-500">⚡</span> Virtual Experience & Programs
+              </h3>
+              
+              <div class="timeline-container">
+                  <!-- Zscaler -->
+                  <div class="timeline-item">
+                      <div class="timeline-dot"></div>
+                      <h4 class="text-lg font-bold text-indigo-500">Zscaler Cloud Networking</h4>
+                      <p class="text-sm text-[var(--color-text-primary)] mb-1">
+                          Mastered Zero Trust Architecture (ZTA) and SASE principles. Learned modern perimeter definition and access management.
+                      </p>
+                      <a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Proof &rarr;</a>
+                  </div>
+                   <!-- Fortinet -->
+                  <div class="timeline-item">
+                      <div class="timeline-dot"></div>
+                      <h4 class="text-lg font-bold text-red-500">Fortinet Network Security (NSE)</h4>
+                      <p class="text-sm text-[var(--color-text-primary)] mb-1">
+                          Focused on Next-Gen Firewalls (NGFW), Security Fabric concepts, and Defense-in-Depth for enterprise networks.
+                      </p>
+                      <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Proof &rarr;</a>
+                  </div>
+                   <!-- Ethical Hacking Virtual -->
+                  <div class="timeline-item">
+                      <div class="timeline-dot"></div>
+                      <h4 class="text-lg font-bold text-teal-500">Ethical Hacking Virtual Experience</h4>
+                      <p class="text-sm text-[var(--color-text-primary)] mb-1">
+                          Hands-on virtual labs for network defense, threat analysis, and incident response scenarios.
+                      </p>
+                      <a href="https://drive.google.com/file/d/1gXGAQ-W92tTVBiNBNISdAlXM3tYSF6Z_/view?usp=sharing" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Proof &rarr;</a>
+                  </div>
+                   <!-- Automation -->
+                  <div class="timeline-item">
+                      <div class="timeline-dot"></div>
+                      <h4 class="text-lg font-bold text-orange-500">Automation Virtual Experience</h4>
+                      <p class="text-sm text-[var(--color-text-primary)] mb-1">
+                          Process automation, task scheduling, and scripting for operational efficiency using RPA concepts.
+                      </p>
+                      <a href="https://drive.google.com/file/d/1iTvnbJdyDNZzmsNNKVRAK5gixOXWtnzk/view?usp=sharing" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Proof &rarr;</a>
+                  </div>
+                  <!-- Google Dev -->
+                  <div class="timeline-item">
+                      <div class="timeline-dot"></div>
+                      <h4 class="text-lg font-bold text-blue-600">Google for Developers</h4>
+                      <p class="text-sm text-[var(--color-text-primary)] mb-1">
+                          Modern app development, cloud integration with Google APIs, and developer workflow tools.
+                      </p>
+                      <a href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=sharing" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Proof &rarr;</a>
+                  </div>
+              </div>
+           </div>
 
-          <h3
-            class="text-2xl font-bold text-[var(--color-accent)] pt-4 mb-6 border-t border-[var(--color-border)]"
-          >
-            Career Highlights
-          </h3>
-
-          <h4
-            class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center"
-          >
-            <span class="mr-2 text-green-500">🏅</span> Professional
-            Certifications
-          </h4>
-          <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8"
-          >
-            <!-- Google Cybersecurity Cert. -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-green-500">
-                Google Cybersecurity Cert.
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                Professional Certification
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> Security Analytics (Splunk/ELK concept), Threat Hunting, Enterprise Risk Frameworks (NIST/MITRE).
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Security Operations Center (SOC) Fundamentals, Vulnerability Assessment, Incident Response Workflow.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-
-            <!-- AWS Cloud Technology -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-yellow-500">
-                AWS Cloud Technology
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                Industry Training Program
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> Well-Architected Framework, High Availability Design, Core Services (EC2, S3, VPC), Serverless Computing concepts.
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Cloud Migration Strategy, Scalability Principles, Cost Optimization Techniques.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-
-            <!-- Advanced Data Analytics -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-purple-500">
-                Google Advanced Data Analytics
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                Professional Certification
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> Predictive Modeling, Statistical
-                  Analysis (R), Complex SQL Queries for relational databases.
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Data Storytelling and Visualization, Business Intelligence fundamentals, Advanced Data Manipulation.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-
-            <!-- NEW CARD ADDED HERE: Google Data Analytics -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-blue-500">
-                Google Data Analytics
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                Professional Certification
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> Data Analysis Process, Data Cleaning, Visualization, and Case Studies.
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Spreadsheets, SQL, Tableau, R Programming.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=sharing"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-          </div>
-
-          <!-- SPLIT SECTION: 1. Experience (Renamed from Internships) -->
-          <h4
-            class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center pt-4 border-t border-[var(--color-border)]"
-          >
-            <span class="mr-2 text-red-500">🧠</span> Experience
-          </h4>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-            
-            <!-- Cloud Computing Internship (GCP Focus) -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-blue-500">
-                Cloud Computing Internship (GCP)
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                8 Weeks Experience
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> GCP Services (Compute Engine, Cloud Storage, VPC), Infrastructure-as-Code (IaC) principles.
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Practical Deployment, Cloud Security Posture Management (CSPM) fundamentals, Resource Optimization.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-
-            <!-- IoT Internship -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-pink-500">
-                IoT Internship
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                16 Weeks Experience
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> Device Prototyping (Arduino/ESP),
-                  Sensor Integration, Asynchronous Data Transmission (MQTT protocol).
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Full-Stack IoT Deployment,
-                  Hardware-Software Interfacing, Telemetry Data Pipelines.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-
-            <!-- Ethical Hacking Internship -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-indigo-500">
-                Ethical Hacking Internship
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                10 Weeks Experience
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> Vulnerability Assessment (VA),
-                  Penetration Testing (PT) Methodologies (OWASP Top 10 focus).
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Network and Web Application Security
-                  Testing, Foundational Defense Strategies and Countermeasures.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-          </div>
-
-          <!-- SPLIT SECTION: 2. Internships (Renamed from Practical Experience) -->
-          <h4
-            class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center pt-4 border-t border-[var(--color-border)]"
-          >
-            <span class="mr-2 text-orange-500">⚡</span> Internships
-          </h4>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- Zscaler Cloud Networking -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-indigo-500">
-                Zscaler Cloud Networking
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                Virtual Internship
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> Zero Trust Architecture (ZTA),
-                  Secure Access Service Edge (SASE), Micro-segmentation strategies.
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Cloud Policy Enforcement, Access Management in Hybrid Environments, Modern Perimeter Definition.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-
-            <!-- Fortinet Network Security -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-red-500">
-                Fortinet Network Security
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                Associate (NSE)
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> Next-Generation Firewalls (NGFW),
-                  Cybersecurity Threat Landscape, Security Fabric Concepts.
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Network Segmentation, Policy Management, Defense-in-Depth principles for wired/wireless networks.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-
-            <!-- ETHICAL HACKING VIRTUAL INTERNSHIP -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-teal-500">
-                ETHICAL HACKING VIRTUAL INTERNSHIP
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                Virtual Experience
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> Network Defense, Incident Analysis, and Security Best Practices.
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Threat Landscape Analysis, Defensive Strategies, and hands-on virtual lab experience.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/file/d/1gXGAQ-W92tTVBiNBNISdAlXM3tYSF6Z_/view?usp=sharing"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-
-            <!-- AUTOMATION VIRTUAL INTERNSHIP -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-orange-500">
-                AUTOMATION VIRTUAL INTERNSHIP
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                Virtual Experience
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> Process Automation, Task Scheduling, and System Integration strategies.
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> RPA Concepts, Workflow Optimization, and Scripting for Automation efficiency.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/file/d/1iTvnbJdyDNZzmsNNKVRAK5gixOXWtnzk/view?usp=sharing"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-
-            <!-- NEW CARD ADDED HERE: Google for Developers -->
-            <div class="content-card">
-              <h5 class="text-lg font-bold mb-2 text-blue-600">
-                Google for Developers
-              </h5>
-              <p
-                class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3"
-              >
-                Virtual Experience
-              </p>
-              <ul class="space-y-2 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                <li>
-                  <strong class="font-semibold">Key Focus:</strong> Modern Application Development, Cloud Integration, and Developer Tools.
-                </li>
-                <li>
-                  <strong class="font-semibold">Skills Gained:</strong> Hands-on experience with Google APIs, Cloud deployment basics, and development workflows.
-                </li>
-              </ul>
-              <a
-                href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=sharing"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                  <line x1="16" x2="8" y1="13" y2="13" />
-                  <line x1="16" x2="8" y1="17" y2="17" />
-                </svg>
-                View Proof
-              </a>
-            </div>
-          </div>
         </section>
 
         <!-- -------------------------------- 4. PROJECTS TAB -------------------------------- -->
@@ -1929,22 +1445,22 @@
             Key Projects & Portfolio
           </h3>
           
-          <!-- NEW: Technology Badges -->
+          <!-- NEW: Technology Badges - Organized Layout -->
           <div class="content-card">
-              <h4 class="text-xl font-bold mb-4 text-[var(--color-accent)] border-b pb-2 border-[var(--color-border)]">
+              <h4 class="text-xl font-bold mb-4 text-[var(--color-accent)] border-b pb-2 border-[var(--color-border)] flex items-center">
                 <span class="mr-2">🧩</span> Core Technology Expertise
               </h4>
-              <div class="flex flex-wrap gap-3">
-                <span class="project-tag bg-blue-700">Google Cloud Platform (GCP)</span>
-                <span class="project-tag bg-yellow-600">Python/Pandas/Scapy</span>
-                <span class="project-tag bg-red-600">SIEM/Threat Hunting</span>
-                <span class="project-tag bg-indigo-700">Zscaler SASE/ZTA</span>
-                <span class="project-tag bg-green-700">Networking/Firewalls</span>
-                <span class="project-tag bg-purple-700">IoT (MQTT/Embedded C)</span>
+              <div class="flex flex-wrap gap-2">
+                <span class="tag-pill bg-blue-500/10 text-blue-500 border-blue-500/20">Google Cloud Platform (GCP)</span>
+                <span class="tag-pill bg-yellow-500/10 text-yellow-500 border-yellow-500/20">Python/Pandas/Scapy</span>
+                <span class="tag-pill bg-red-500/10 text-red-500 border-red-500/20">SIEM/Threat Hunting</span>
+                <span class="tag-pill bg-indigo-500/10 text-indigo-500 border-indigo-500/20">Zscaler SASE/ZTA</span>
+                <span class="tag-pill bg-green-500/10 text-green-500 border-green-500/20">Networking/Firewalls</span>
+                <span class="tag-pill bg-purple-500/10 text-purple-500 border-purple-500/20">IoT (MQTT/Embedded C)</span>
               </div>
           </div>
           
-          <!-- NEW: Filter Buttons -->
+          <!-- NEW: Filter Buttons - Improved Spacing -->
           <div class="flex flex-wrap gap-3 mb-6">
             <button class="btn-filter active" data-filter="all" onclick="filterProjects('all')">All Projects</button>
             <button class="btn-filter" data-filter="cloud" onclick="filterProjects('cloud')">Cloud / GCP</button>
@@ -1955,144 +1471,117 @@
           <div id="project-list" class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
             <!-- Project 1: Cloud Security Incident Response -->
-            <div class="project-card" data-tags="cloud security python">
-              <h4 class="text-xl font-bold mb-2 text-blue-500 flex items-center">
-                <span class="mr-2">🛡️</span> Cloud Security Automation (GCP)
+            <div class="project-card group relative overflow-hidden flex flex-col h-full" data-tags="cloud security python">
+              <!-- Header with Icon and Year -->
+              <div class="flex items-start justify-between mb-4">
+                  <div class="p-3 rounded-lg bg-blue-500/10 text-blue-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  </div>
+                  <span class="text-xs font-mono px-2 py-1 rounded bg-[var(--color-border)] text-[var(--color-text-secondary)]">2024</span>
+              </div>
+
+              <h4 class="text-xl font-bold mb-1 text-[var(--color-text-primary)] group-hover:text-blue-500 transition-colors">
+                Cloud Security Automation (GCP)
               </h4>
-              <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">
+              <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-4 tracking-wider">
                 Cybersecurity / Cloud Architecture
               </p>
               
-              <p class="text-sm font-medium text-[var(--color-accent)] mb-2">
-                Timeline: <strong class="text-[var(--color-text-primary)]">Feb 2024 - Apr 2024 (10 Weeks)</strong>
-              </p>
-              
-              <p class="text-base text-[var(--color-text-primary)] mb-4 leading-relaxed">
+              <p class="text-sm text-[var(--color-text-primary)] mb-6 leading-relaxed flex-grow">
                 Developed a Python-based Security Orchestration, Automation, and Response (SOAR) playbook within a simulated GCP environment. The solution ingested VPC flow logs into a custom SIEM mockup, enabling near real-time detection of lateral movement and automated isolation of non-compliant VM workloads via Compute Engine API calls.
               </p>
 
-              <div class="mb-4">
-                <span class="project-tag bg-blue-600">GCP Compute</span>
-                <span class="project-tag bg-yellow-600">Python SOAR</span>
-                <span class="project-tag bg-red-600">SIEM Logic</span>
-                <span class="project-tag bg-gray-600">VPC Networking</span>
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="text-xs font-semibold px-2 py-1 rounded bg-blue-500/10 text-blue-500">GCP Compute</span>
+                <span class="text-xs font-semibold px-2 py-1 rounded bg-yellow-500/10 text-yellow-500">Python SOAR</span>
+                <span class="text-xs font-semibold px-2 py-1 rounded bg-red-500/10 text-red-500">SIEM Logic</span>
+                <span class="text-xs font-semibold px-2 py-1 rounded bg-gray-500/10 text-gray-500">VPC Networking</span>
               </div>
               
-              <a
-                href="https://github.com/urstrulysaida/cloud-security-automation-gcp"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4" />
-                </svg>
-                View GitHub Repo
-              </a>
+              <!-- Footer Action -->
+              <div class="mt-auto flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
+                  <span class="text-xs font-bold text-[var(--color-text-secondary)]">10 Weeks</span>
+                  <a href="https://github.com/urstrulysaida/cloud-security-automation-gcp" target="_blank" class="flex items-center text-sm font-bold text-[var(--color-accent)] hover:underline group-hover:translate-x-1 transition-transform">
+                    View Code <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/></svg>
+                  </a>
+              </div>
             </div>
 
             <!-- Project 2: Real-time IoT Data Pipeline -->
-            <div class="project-card" data-tags="iot data python">
-              <h4 class="text-xl font-bold mb-2 text-pink-500 flex items-center">
-                <span class="mr-2">📊</span> Real-time IoT Monitoring Dashboard
+            <div class="project-card group relative overflow-hidden flex flex-col h-full" data-tags="iot data python">
+               <!-- Header with Icon and Year -->
+              <div class="flex items-start justify-between mb-4">
+                  <div class="p-3 rounded-lg bg-pink-500/10 text-pink-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                  </div>
+                  <span class="text-xs font-mono px-2 py-1 rounded bg-[var(--color-border)] text-[var(--color-text-secondary)]">2023</span>
+              </div>
+
+              <h4 class="text-xl font-bold mb-1 text-[var(--color-text-primary)] group-hover:text-pink-500 transition-colors">
+                Real-time IoT Monitoring Dashboard
               </h4>
-              <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">
+              <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-4 tracking-wider">
                 IoT / Data Engineering
               </p>
               
-              <p class="text-sm font-medium text-[var(--color-accent)] mb-2">
-                Timeline: <strong class="text-[var(--color-text-primary)]">Aug 2023 - Nov 2023 (16 Weeks)</strong>
-              </p>
-              
-              <p class="text-base text-[var(--color-text-primary)] mb-4 leading-relaxed">
+              <p class="text-sm text-[var(--color-text-primary)] mb-6 leading-relaxed flex-grow">
                 Engineered a scalable, full-stack IoT telemetry solution to monitor ambient data. The project utilized MQTT for low-latency data ingestion, persisting metrics in a non-relational database (e.g., MongoDB/Firestore concept) and presenting real-time operational metrics via a dedicated, responsive web dashboard (Node.js/JS stack).
               </p>
 
-              <div class="mb-4">
-                <span class="project-tag bg-purple-600">Arduino/ESP32</span>
-                <span class="project-tag bg-indigo-600">MQTT Protocol</span>
-                <span class="project-tag bg-green-600">Node.js/JS</span>
-                <span class="project-tag bg-blue-600">Telemetry Pipeline</span>
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="text-xs font-semibold px-2 py-1 rounded bg-purple-500/10 text-purple-500">Arduino/ESP32</span>
+                <span class="text-xs font-semibold px-2 py-1 rounded bg-indigo-500/10 text-indigo-500">MQTT Protocol</span>
+                <span class="text-xs font-semibold px-2 py-1 rounded bg-green-500/10 text-green-500">Node.js/JS</span>
+                <span class="text-xs font-semibold px-2 py-1 rounded bg-blue-500/10 text-blue-500">Telemetry Pipeline</span>
               </div>
               
-              <a
-                href="https://github.com/urstrulysaida/iot-real-time-monitor"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4" />
-                </svg>
-                View GitHub Repo
-              </a>
+              <!-- Footer Action -->
+              <div class="mt-auto flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
+                  <span class="text-xs font-bold text-[var(--color-text-secondary)]">16 Weeks</span>
+                  <a href="https://github.com/urstrulysaida/iot-real-time-monitor" target="_blank" class="flex items-center text-sm font-bold text-[var(--color-accent)] hover:underline group-hover:translate-x-1 transition-transform">
+                    View Code <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/></svg>
+                  </a>
+              </div>
             </div>
             
             <!-- Project 3: Network Reconnaissance Tool -->
-            <div class="project-card" data-tags="security python networking">
-              <h4 class="text-xl font-bold mb-2 text-indigo-500 flex items-center">
-                <span class="mr-2">🔎</span> Automated Network Recon Tool
+            <div class="project-card group relative overflow-hidden flex flex-col h-full" data-tags="security python networking">
+               <!-- Header with Icon and Year -->
+              <div class="flex items-start justify-between mb-4">
+                  <div class="p-3 rounded-lg bg-indigo-500/10 text-indigo-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  </div>
+                  <span class="text-xs font-mono px-2 py-1 rounded bg-[var(--color-border)] text-[var(--color-text-secondary)]">2024</span>
+              </div>
+
+              <h4 class="text-xl font-bold mb-1 text-[var(--color-text-primary)] group-hover:text-indigo-500 transition-colors">
+                Automated Network Recon Tool
               </h4>
-              <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">
+              <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-4 tracking-wider">
                 Ethical Hacking / Python Scripting
               </p>
               
-              <p class="text-sm font-medium text-[var(--color-accent)] mb-2">
-                Timeline: <strong class="text-[var(--color-text-primary)]">Jan 2024 - Mar 2024 (8 Weeks)</strong>
-              </p>
-              
-              <p class="text-base text-[var(--color-text-primary)] mb-4 leading-relaxed">
+              <p class="text-sm text-[var(--color-text-primary)] mb-6 leading-relaxed flex-grow">
                 Created a custom Python/Scapy CLI utility for automated network footprinting and discovery. The tool performs active host enumeration, target identification, and port scanning (TCP/UDP) to simulate the initial phase of a penetration test and uncover vulnerable services.
               </p>
 
-              <div class="mb-4">
-                <span class="project-tag bg-yellow-600">Python</span>
-                <span class="project-tag bg-green-600">Scapy Library</span>
-                <span class="project-tag bg-red-600">Network Security</span>
-                <span class="project-tag bg-gray-600">Footprinting</span>
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="text-xs font-semibold px-2 py-1 rounded bg-yellow-500/10 text-yellow-500">Python</span>
+                <span class="text-xs font-semibold px-2 py-1 rounded bg-green-500/10 text-green-500">Scapy Library</span>
+                <span class="text-xs font-semibold px-2 py-1 rounded bg-red-500/10 text-red-500">Network Security</span>
+                <span class="text-xs font-semibold px-2 py-1 rounded bg-gray-500/10 text-gray-500">Footprinting</span>
               </div>
               
-              <a
-                href="https://github.com/urstrulysaida/network-recon-tool-mock"
-                target="_blank"
-                class="btn-card-link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="mr-1"
-                >
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4" />
-                </svg>
-                View GitHub Repo (Mock)
-              </a>
+              <!-- Footer Action -->
+              <div class="mt-auto flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
+                  <span class="text-xs font-bold text-[var(--color-text-secondary)]">8 Weeks</span>
+                  <a href="https://github.com/urstrulysaida/network-recon-tool-mock" target="_blank" class="flex items-center text-sm font-bold text-[var(--color-accent)] hover:underline group-hover:translate-x-1 transition-transform">
+                    View Code <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/></svg>
+                  </a>
+              </div>
             </div>
             
           </div>
@@ -2102,52 +1591,96 @@
         <!-- -------------------------------- 5. LEARNING ROADMAP TAB (NEW) -------------------------------- -->
         <section id="roadmap" class="tab-pane hidden space-y-8" role="tabpanel" aria-labelledby="tab-link-roadmap" aria-hidden="true">
             <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">
-                <span class="mr-2">🗺️</span> Current Learning & Future Roadmap
+                <span class="mr-2">🗺️</span> Strategic Roadmap & Learning Path
             </h3>
             
-            <div class="project-card md:col-span-2">
-              <h4 class="text-xl font-bold mb-2 text-[var(--color-accent)] flex items-center">
-                <span class="mr-2">🎯</span> Focused Learning Modules
-              </h4>
-              <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3">
-                Continuous Improvement
-              </p>
-              
-              <!-- VISUAL ROADMAP SECTION -->
-              <div class="mb-6">
-                <h5 class="font-bold text-lg mb-2 text-purple-500">Targeted Path: DevOps & Infrastructure Security</h5>
-                    <p class="text-sm text-[var(--color-text-primary)] mb-4">
-                    The visual roadmap below outlines the key stages I'm targeting in my learning journey, with a focus on building robust, scalable, and secure cloud infrastructure. Click the image to view the interactive version.
-                    </p>
-                    <a href="https://roadmap.sh/devops" target="_blank" class="block rounded-lg overflow-hidden border border-[var(--color-border)] shadow-xl hover:scale-[1.01] transition-transform duration-300">
-                      <img 
-                        src="https://roadmap.sh/card/wide/651b0fcc1205b5c21b6a74fc?variant=dark" 
-                        alt="DevOps Roadmap Visual by roadmap.sh" 
-                        class="w-full h-auto object-cover"
-                        onerror="this.style.display='none'; this.after(document.createTextNode('DevOps Roadmap Visual (Source: roadmap.sh)'));"
-                      />
-                    </a>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <!-- Visual Roadmap Card (Span 2) -->
+              <div class="content-card lg:col-span-2 flex flex-col h-full">
+                 <h4 class="text-xl font-bold mb-4 text-[var(--color-text-primary)] flex items-center">
+                    <span class="mr-2">📍</span> DevOps & Cloud Security Path
+                 </h4>
+                 <div class="relative group overflow-hidden rounded-xl border border-[var(--color-border)] flex-grow shadow-lg">
+                    <img 
+                      src="https://roadmap.sh/card/wide/651b0fcc1205b5c21b6a74fc?variant=dark" 
+                      alt="DevOps Roadmap Visual by roadmap.sh" 
+                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      onerror="this.style.display='none'; this.after(document.createTextNode('DevOps Roadmap Visual (Source: roadmap.sh)'));"
+                    />
+                    <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                       <a href="https://roadmap.sh/devops" target="_blank" class="btn-resume bg-white text-black border-none hover:bg-gray-200 shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                          View Interactive Map
+                       </a>
+                    </div>
+                 </div>
               </div>
-              <!-- END VISUAL ROADMAP SECTION -->
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t pt-4 border-[var(--color-border)]">
-                <div>
-                    <h5 class="font-bold text-lg mb-2 text-red-500">Q4 2024 Focus: Advanced Cloud Security</h5>
-                    <ul class="space-y-1 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                        <li>Deep dive into <strong class="text-[var(--color-accent)]">Terraform (IaC)</strong> for secure infrastructure deployment on AWS.</li>
-                        <li>Practicing <strong class="text-[var(--color-accent)]">Vulnerability Management</strong> workflows using OpenVAS/Nessus concepts.</li>
-                        <li>Studying for the <strong class="text-[var(--color-accent)]">CompTIA Security+</strong> certification.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="font-bold text-lg mb-2 text-blue-500">Future Goals: Advanced Specialization</h5>
-                    <ul class="space-y-1 text-sm text-[var(--color-text-primary)] list-disc ml-4">
-                        <li>Exploring <strong class="text-[var(--color-accent)]">Cloud Security Posture Management (CSPM)</strong> tools and policies.</li>
-                        <li>Developing custom <strong class="text-[var(--color-accent)]">YARA/Sigma Rules</strong> for advanced threat hunting in SIEM.</li>
-                        <li>Building a containerized project using <strong class="text-[var(--color-accent)]">Docker and Kubernetes</strong> basics.</li>
-                    </ul>
-                </div>
+              <!-- Current Focus: Active Quest (Span 1) -->
+              <div class="content-card flex flex-col">
+                 <h4 class="text-xl font-bold mb-4 text-[var(--color-text-primary)] flex items-center border-b border-[var(--color-border)] pb-2">
+                    <span class="mr-2 text-yellow-500">⚡</span> Active Quests (Q4 2024)
+                 </h4>
+                 <!-- List active items with status badges (In Progress) -->
+                 <div class="space-y-4 flex-grow">
+                    <!-- Item 1 -->
+                    <div class="p-4 bg-[var(--color-card-hover-bg)] rounded-lg border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-300 group">
+                       <div class="flex justify-between items-start mb-2">
+                          <span class="font-bold text-[var(--color-accent)] group-hover:underline">Terraform (IaC)</span>
+                          <span class="text-[10px] font-bold uppercase tracking-wider bg-yellow-500/20 text-yellow-500 px-2 py-1 rounded-full border border-yellow-500/30">In Progress</span>
+                       </div>
+                       <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+                          Automating secure AWS infrastructure deployment. Focus on state management and modules.
+                       </p>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="p-4 bg-[var(--color-card-hover-bg)] rounded-lg border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-300 group">
+                       <div class="flex justify-between items-start mb-2">
+                          <span class="font-bold text-[var(--color-accent)] group-hover:underline">Vuln. Management</span>
+                          <span class="text-[10px] font-bold uppercase tracking-wider bg-yellow-500/20 text-yellow-500 px-2 py-1 rounded-full border border-yellow-500/30">In Progress</span>
+                       </div>
+                       <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+                          Setting up OpenVAS/Nessus workflows for automated scanning and reporting.
+                       </p>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="p-4 bg-[var(--color-card-hover-bg)] rounded-lg border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-300 group">
+                       <div class="flex justify-between items-start mb-2">
+                          <span class="font-bold text-[var(--color-accent)] group-hover:underline">CompTIA Security+</span>
+                          <span class="text-[10px] font-bold uppercase tracking-wider bg-blue-500/20 text-blue-500 px-2 py-1 rounded-full border border-blue-500/30">Planned</span>
+                       </div>
+                       <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+                          Structured study for certification exam. Targeting completion by Dec 2024.
+                       </p>
+                    </div>
+                 </div>
               </div>
+            </div>
+
+            <!-- Future Goals Section -->
+            <div class="content-card mt-8">
+               <h4 class="text-xl font-bold mb-6 text-[var(--color-text-primary)] flex items-center border-b border-[var(--color-border)] pb-2">
+                  <span class="mr-2 text-purple-500">🚀</span> Future Horizons (2025+)
+               </h4>
+               <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <!-- Goal 1 -->
+                  <div class="p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:bg-[var(--color-card-hover-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-300 group">
+                     <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">☁️</div>
+                     <h5 class="font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent)]">CSPM Mastery</h5>
+                     <p class="text-sm text-[var(--color-text-secondary)]">Deep dive into Cloud Security Posture Management tools and compliance frameworks.</p>
+                  </div>
+                  <!-- Goal 2 -->
+                  <div class="p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:bg-[var(--color-card-hover-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-300 group">
+                     <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🕵️‍♂️</div>
+                     <h5 class="font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent)]">Threat Hunting</h5>
+                     <p class="text-sm text-[var(--color-text-secondary)]">Developing custom YARA & Sigma rules for advanced proactive threat detection.</p>
+                  </div>
+                  <!-- Goal 3 -->
+                  <div class="p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:bg-[var(--color-card-hover-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-300 group">
+                     <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🐳</div>
+                     <h5 class="font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent)]">DevSecOps</h5>
+                     <p class="text-sm text-[var(--color-text-secondary)]">Building end-to-end secure pipelines with Docker, Kubernetes, and automated scanning.</p>
+                  </div>
+               </div>
             </div>
         </section>
       </main>

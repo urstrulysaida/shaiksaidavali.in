@@ -27,6 +27,7 @@
         --color-border: rgba(0, 0, 0, 0.15); /* Soft Gray Border for light mode (15%) */
         /* Specific override for profile summary contrast in light mode */
         --color-summary-text: #000000;
+        --color-icon-bg: rgba(0, 168, 89, 0.1);
       }
 
       body.dark-mode {
@@ -39,6 +40,7 @@
         --color-border: rgba(255, 255, 255, 0.15); /* Faint Border (15%) */
         /* Specific override for profile summary contrast in dark mode */
         --color-summary-text: #ffffff;
+        --color-icon-bg: rgba(255, 255, 255, 0.1);
       }
 
       body {
@@ -206,9 +208,27 @@
 
       /* Data Alignment */
       .data-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+      }
+      .data-row-icon {
+          display: flex;
+          align-items: center;
+          color: var(--color-text-secondary);
+      }
+      .data-icon-box {
+          width: 28px;
+          height: 28px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 6px;
+          background-color: var(--color-icon-bg);
+          color: var(--color-accent);
+          margin-right: 10px;
+          flex-shrink: 0;
       }
       .data-label {
         color: var(--color-text-secondary);
@@ -231,6 +251,13 @@
         text-align: right;
         font-weight: 600;
         color: var(--color-text-primary);
+      }
+      .data-value a {
+          color: var(--color-text-primary);
+          transition: color 0.2s;
+      }
+      .data-value a:hover {
+          color: var(--color-accent);
       }
       
       /* Updated data-value color for Career/Link tab to use primary text color for better visibility in light mode */
@@ -494,7 +521,79 @@
       .level-2 { background-color: rgba(0, 168, 89, 0.7); }
       .level-3 { background-color: rgba(0, 168, 89, 1.0); }
       /* --- END NEW: Activity Chart Styles --- */
-
+      
+      /* --- NEW: UI Improvements --- */
+      .list-icon {
+          color: var(--color-accent);
+          flex-shrink: 0;
+          margin-top: 4px;
+      }
+      .tag-pill {
+          background-color: var(--color-card-hover-bg);
+          border: 1px solid var(--color-border);
+          color: var(--color-text-primary);
+          padding: 0.3rem 0.8rem;
+          border-radius: 20px;
+          font-size: 0.85rem;
+          font-weight: 500;
+          transition: all 0.2s ease;
+          display: inline-flex;
+          align-items: center;
+      }
+      .tag-pill:hover {
+          border-color: var(--color-accent);
+          color: var(--color-accent);
+          background-color: var(--color-icon-bg);
+      }
+      .status-badge {
+          display: inline-flex;
+          align-items: center;
+          padding: 0.25rem 0.75rem;
+          background-color: rgba(0, 168, 89, 0.1);
+          border: 1px solid rgba(0, 168, 89, 0.3);
+          border-radius: 9999px;
+          color: var(--color-accent);
+          font-size: 0.75rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          margin-top: 0.5rem;
+      }
+      .status-dot {
+          width: 8px;
+          height: 8px;
+          background-color: var(--color-accent);
+          border-radius: 50%;
+          margin-right: 6px;
+          box-shadow: 0 0 0 0 rgba(0, 168, 89, 0.7);
+          animation: status-pulse 2s infinite;
+      }
+      @keyframes status-pulse {
+          0% { box-shadow: 0 0 0 0 rgba(0, 168, 89, 0.7); }
+          70% { box-shadow: 0 0 0 6px rgba(0, 168, 89, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(0, 168, 89, 0); }
+      }
+      .stat-card-icon {
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
+          opacity: 0.8;
+      }
+      
+      /* --- Education Section Backgrounds & Badges --- */
+      .bg-10th { background-image: url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=1000&auto=format&fit=crop'); }
+      .bg-intermediate { background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1000&auto=format&fit=crop'); }
+      .bg-ug { background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000&auto=format&fit=crop'); }
+      
+      .academic-badge {
+          background: rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          color: white;
+          padding: 4px 12px;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          font-weight: 700;
+          display: inline-block;
+      }
 
       /* Responsive Layout for Tabs */
       @media (max-width: 640px) {
@@ -511,11 +610,18 @@
         .profile-container {
             padding: 1rem;
         }
+        /* Mobile specific adjustments for data-row flex */
         .data-row {
-            grid-template-columns: 100px 1fr; /* Better label alignment on small screens */
+            flex-direction: row; 
+            align-items: flex-start;
+        }
+        .data-label {
+            min-width: 100px; /* Ensure labels align */
         }
         .data-value {
-            text-align: left; /* Align right side data left on mobile for reading flow */
+            text-align: right; /* Keep right align on mobile but allow wrap */
+            word-break: break-word;
+            flex: 1;
         }
       }
 
@@ -541,8 +647,11 @@
             <h1 class="text-3xl font-bold text-[var(--color-text-primary)]">
               Shaik Saida Vali
             </h1>
+            <div class="status-badge">
+                <span class="status-dot"></span> Open to Work
+            </div>
             <!-- UPDATED: Added Copy Email Feature -->
-            <div class="flex items-center group relative">
+            <div class="flex items-center group relative mt-2">
               <a href="mailto:urstrulysaida@gmail.com" id="email-text" class="text-lg text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-200 mr-2">
                 urstrulysaida@gmail.com
               </a>
@@ -689,204 +798,221 @@
         <!-- -------------------------------- 1. PERSONAL INFO TAB -------------------------------- -->
         <section id="personal-info" class="tab-pane active space-y-8" role="tabpanel" aria-labelledby="tab-link-personal-info">
           <!-- Professional Summary Card -->
-          <div class="content-card">
-            <h3
-              class="text-xl font-semibold mb-3 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
-            >
-              <span class="mr-2 text-[var(--color-accent)]">⭐</span>
-              Professional Summary
-            </h3>
-            <p class="text-base text-[var(--color-summary-text)] leading-relaxed">
-              A highly motivated Computer Science student specializing in securing and architecting modern cloud environments. My core expertise spans
-              <strong class="text-[var(--color-accent)] font-semibold"
-                >Cybersecurity (Threat Detection & SIEM), Cloud Architecture (GCP/AWS), and Infrastructure Automation (DevOps practices)</strong
-              >. I leverage Python scripting and foundational network security principles to develop scalable infrastructure and contribute to robust, preventative defense strategies.
-            </p>
+          <div class="content-card relative overflow-hidden">
+            <div class="relative z-10">
+                <h3 class="text-2xl font-bold mb-4 text-[var(--color-text-primary)] flex items-center">
+                    <span class="mr-3 text-[var(--color-accent)]">👋</span>
+                    About Me
+                </h3>
+                <p class="text-lg text-[var(--color-summary-text)] leading-relaxed mb-4">
+                    A highly motivated Computer Science student specializing in <strong class="text-[var(--color-accent)] font-semibold">Cybersecurity</strong> and <strong class="text-[var(--color-accent)] font-semibold">Cloud Architecture</strong>. 
+                </p>
+                <p class="text-base text-[var(--color-summary-text)] leading-relaxed opacity-90">
+                     My expertise spans Threat Detection (SIEM), Cloud Infrastructure (GCP/AWS), and DevOps automation. I leverage Python scripting and foundational network security principles to develop scalable infrastructure and contribute to robust, preventative defense strategies.
+                </p>
+            </div>
+            <!-- Decorative background blur -->
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-[var(--color-accent)] rounded-full opacity-10 blur-3xl pointer-events-none"></div>
           </div>
 
           <!-- START NEW: Key Metrics & Achievements Card -->
-          <div class="content-card">
-              <h3 class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
-                  <span class="mr-2 text-orange-500">📊</span> Key Metrics & Achievements
-              </h3>
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                  <div class="p-3 rounded-lg bg-[var(--color-card-hover-bg)] border border-[var(--color-border)] hover:border-orange-500 transition-all duration-300">
-                      <p class="text-3xl font-extrabold text-orange-500">4+</p>
-                      <p class="text-xs uppercase font-medium text-[var(--color-text-secondary)]">Major Projects</p>
-                  </div>
-                  <div class="p-3 rounded-lg bg-[var(--color-card-hover-bg)] border border-[var(--color-border)] hover:border-green-500 transition-all duration-300">
-                      <p class="text-3xl font-extrabold text-green-500">5</p>
-                      <p class="text-xs uppercase font-medium text-[var(--color-text-secondary)]">Certifications</p>
-                  </div>
-                  <div class="p-3 rounded-lg bg-[var(--color-card-hover-bg)] border border-[var(--color-border)] hover:border-blue-500 transition-all duration-300">
-                      <p class="text-3xl font-extrabold text-blue-500">10k+</p>
-                      <p class="text-xs uppercase font-medium text-[var(--color-text-secondary)]">Lines of Code</p>
-                  </div>
-                  <div class="p-3 rounded-lg bg-[var(--color-card-hover-bg)] border border-[var(--color-border)] hover:border-purple-500 transition-all duration-300">
-                      <p class="text-3xl font-extrabold text-purple-500">90%</p>
-                      <p class="text-xs uppercase font-medium text-[var(--color-text-secondary)]">Cybersecurity Focus</p>
-                  </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="content-card flex flex-col items-center justify-center p-6 hover:border-[var(--color-accent)] transition-colors duration-300">
+                  <div class="stat-card-icon text-orange-500">🚀</div>
+                  <p class="text-3xl font-extrabold text-[var(--color-text-primary)]">4+</p>
+                  <p class="text-xs uppercase font-bold text-[var(--color-text-secondary)] mt-1">Major Projects</p>
+              </div>
+              <div class="content-card flex flex-col items-center justify-center p-6 hover:border-[var(--color-accent)] transition-colors duration-300">
+                  <div class="stat-card-icon text-green-500">🏆</div>
+                  <p class="text-3xl font-extrabold text-[var(--color-text-primary)]">5</p>
+                  <p class="text-xs uppercase font-bold text-[var(--color-text-secondary)] mt-1">Certifications</p>
+              </div>
+              <div class="content-card flex flex-col items-center justify-center p-6 hover:border-[var(--color-accent)] transition-colors duration-300">
+                  <div class="stat-card-icon text-blue-500">💻</div>
+                  <p class="text-3xl font-extrabold text-[var(--color-text-primary)]">10k+</p>
+                  <p class="text-xs uppercase font-bold text-[var(--color-text-secondary)] mt-1">Lines of Code</p>
+              </div>
+              <div class="content-card flex flex-col items-center justify-center p-6 hover:border-[var(--color-accent)] transition-colors duration-300">
+                  <div class="stat-card-icon text-purple-500">🛡️</div>
+                  <p class="text-3xl font-extrabold text-[var(--color-text-primary)]">90%</p>
+                  <p class="text-xs uppercase font-bold text-[var(--color-text-secondary)] mt-1">Cyber Focus</p>
               </div>
           </div>
           <!-- END NEW: Key Metrics & Achievements Card -->
 
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="content-card md:col-span-1">
-              <h3
-                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
-              >
-                <span class="mr-2 text-blue-500">📞</span> Primary Contact
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Contact & Details Combined -->
+            <div class="content-card lg:col-span-2">
+              <h3 class="text-xl font-semibold mb-6 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
+                <span class="mr-2 text-blue-500">📍</span> Contact & Location
               </h3>
-              <div class="space-y-3">
-                <div class="data-row">
-                  <span class="data-label">Email:</span>
-                  <span class="data-value text-sm">urstrulysaida@gmail.com</span>
-                </div>
-                <div class="data-row">
-                  <span class="data-label">Mobile:</span>
-                  <span class="data-value">7674012184</span>
-                </div>
-                <div class="data-row">
-                  <span class="data-label">WhatsApp:</span>
-                  <span class="data-value">6301466654</span>
-                </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                  <!-- Email -->
+                  <div class="data-row">
+                      <div class="data-row-icon">
+                          <div class="data-icon-box">✉️</div>
+                          <span class="data-label">Email</span>
+                      </div>
+                      <span class="data-value text-sm">urstrulysaida@gmail.com</span>
+                  </div>
+                  
+                  <!-- Mobile -->
+                  <div class="data-row">
+                      <div class="data-row-icon">
+                          <div class="data-icon-box">📱</div>
+                          <span class="data-label">Mobile</span>
+                      </div>
+                      <span class="data-value">
+                          <a href="tel:+917674012184" class="hover:text-[var(--color-accent)] transition-colors">7674012184</a>
+                      </span>
+                  </div>
+
+                  <!-- WhatsApp -->
+                  <div class="data-row">
+                      <div class="data-row-icon">
+                          <div class="data-icon-box">💬</div>
+                          <span class="data-label">WhatsApp</span>
+                      </div>
+                      <span class="data-value">
+                          <a href="https://wa.me/916301466654" target="_blank" class="hover:text-[var(--color-accent)] transition-colors">6301466654</a>
+                      </span>
+                  </div>
+
+                   <!-- City -->
+                  <div class="data-row">
+                      <div class="data-row-icon">
+                          <div class="data-icon-box">🏙️</div>
+                          <span class="data-label">City</span>
+                      </div>
+                      <span class="data-value">Guntur, AP</span>
+                  </div>
+
+                   <!-- Address -->
+                  <div class="data-row md:col-span-2 border-t border-[var(--color-border)] pt-4 mt-2">
+                      <div class="data-row-icon mb-2 md:mb-0">
+                          <div class="data-icon-box">🏠</div>
+                          <span class="data-label">Full Address</span>
+                      </div>
+                      <span class="data-value text-sm text-right">10-11, Avulavaripalem, Guntur, Andhra Pradesh - 522411</span>
+                  </div>
               </div>
             </div>
 
-            <div class="content-card md:col-span-1">
-              <h3
-                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
-              >
-                <span class="mr-2 text-purple-500">👤</span> Demographics
+            <!-- Demographics Mini Card -->
+            <div class="content-card">
+              <h3 class="text-xl font-semibold mb-6 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
+                <span class="mr-2 text-purple-500">👤</span> Personal Info
               </h3>
-              <div class="space-y-3">
-                <div class="data-row">
-                  <span class="data-label">DOB:</span>
-                  <span class="data-value">2001-01-11</span>
+              <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-[var(--color-text-secondary)] font-medium">DOB</span>
+                    <span class="font-bold">2001-01-11</span>
                 </div>
-                <div class="data-row">
-                  <span class="data-label">Gender:</span>
-                  <span class="data-value">Male</span>
+                <div class="flex justify-between items-center">
+                    <span class="text-[var(--color-text-secondary)] font-medium">Gender</span>
+                    <span class="font-bold">Male</span>
                 </div>
-                <div class="data-row">
-                  <span class="data-label">Category:</span>
-                  <span class="data-value">GEN</span>
+                <div class="flex justify-between items-center">
+                    <span class="text-[var(--color-text-secondary)] font-medium">Category</span>
+                    <span class="bg-[var(--color-icon-bg)] text-[var(--color-accent)] px-3 py-1 rounded text-xs font-bold">GEN</span>
                 </div>
-                <div class="data-row">
-                  <span class="data-label">Disability:</span>
-                  <span class="data-value">No</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="content-card md:col-span-1">
-              <h3
-                class="text-xl font-semibold mb-4 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
-              >
-                <span class="mr-2 text-red-500">📍</span> Current Location
-              </h3>
-              <div class="space-y-3">
-                <div class="data-row">
-                  <span class="data-label">Address (Line 1):</span>
-                  <span class="data-value text-right"
-                    >10-11, avulavaripalem</span
-                  >
-                </div>
-                <div class="data-row">
-                  <span class="data-label">City:</span>
-                  <span class="data-value">Guntur</span>
-                </div>
-                <div class="data-row">
-                  <span class="data-label">State/Region:</span>
-                  <span class="data-value">Andhra Pradesh</span>
-                </div>
-                <div class="data-row">
-                  <span class="data-label">Pin Code:</span>
-                  <span class="data-value">522411</span>
+                <div class="flex justify-between items-center">
+                    <span class="text-[var(--color-text-secondary)] font-medium">Disability</span>
+                    <span class="font-bold">No</span>
                 </div>
               </div>
             </div>
           </div>
           
-          <!-- Awards & Recognition Card -->
-          <div class="content-card">
-            <h3
-              class="text-xl font-semibold mb-3 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
-            >
-              <span class="mr-2 text-yellow-400">🏆</span>
-              Awards & Recognition
-            </h3>
-            <ul class="space-y-3 text-base text-[var(--color-text-primary)] list-disc ml-6">
-                <li>
-                    <strong class="font-semibold text-[var(--color-accent)]">Cyber Hackathon Finalist (2024):</strong> Participated in a 24-hour national hackathon focused on defensive security in cloud environments, developing a high-scoring security prototype.
-                </li>
-                <li>
-                    <strong class="font-semibold text-[var(--color-accent)]">Top 10% in Coding Competitions:</strong> Consistently achieved top ranks in internal college programming contests demonstrating proficiency in C++ and Python data structures and algorithms.
-                </li>
-                <li>
-                    <strong class="font-semibold text-[var(--color-accent)]">IoT Innovation Prize:</strong> Recognized for the "Real-time IoT Monitoring Dashboard" project's novelty, scalability, and practical deployment efficiency.
-                </li>
-            </ul>
-          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <!-- Awards & Recognition Card -->
+              <div class="content-card flex flex-col">
+                <h3 class="text-xl font-semibold mb-5 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
+                  <span class="mr-2 text-yellow-400">🏆</span>
+                  Awards & Honors
+                </h3>
+                <ul class="space-y-4 text-base text-[var(--color-text-primary)] flex-grow">
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="list-icon w-5 h-5 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <div>
+                            <strong class="font-semibold text-[var(--color-accent)] block mb-1">Cyber Hackathon Finalist (2024)</strong>
+                            <span class="text-sm text-[var(--color-text-secondary)]">National level defense security challenge finalist.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="list-icon w-5 h-5 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <div>
+                            <strong class="font-semibold text-[var(--color-accent)] block mb-1">Top 10% in Coding Competitions</strong>
+                            <span class="text-sm text-[var(--color-text-secondary)]">High proficiency in DSA (C++/Python).</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="list-icon w-5 h-5 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <div>
+                            <strong class="font-semibold text-[var(--color-accent)] block mb-1">IoT Innovation Prize</strong>
+                            <span class="text-sm text-[var(--color-text-secondary)]">Awarded for Real-time Monitoring Dashboard.</span>
+                        </div>
+                    </li>
+                </ul>
+              </div>
 
-          <!-- NEW: Leadership & Initiative Card -->
-          <div class="content-card">
-            <h3
-              class="text-xl font-semibold mb-3 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
-            >
-              <span class="mr-2 text-red-500">🌟</span>
-              Leadership & Initiative
-            </h3>
-            <ul class="space-y-3 text-base text-[var(--color-text-primary)] list-disc ml-6">
-                <li>
-                    <strong class="font-semibold text-[var(--color-accent)]">Technical Lead, CSE Student Body:</strong> Organized and led workshops on Python scripting and fundamental networking concepts for junior students (2023-2024).
-                </li>
-                <li>
-                    <strong class="font-semibold text-[var(--color-accent)]">Cyber Club Core Member:</strong> Responsible for creating weekly problem sets focusing on Linux security, Wireshark analysis, and incident response scenarios.
-                </li>
-                <li>
-                    <strong class="font-semibold text-[var(--color-accent)]">Mentorship Program:</strong> Volunteered to guide high school students in introductory programming concepts using C.
-                </li>
-            </ul>
+              <!-- Leadership & Initiative Card -->
+              <div class="content-card flex flex-col">
+                <h3 class="text-xl font-semibold mb-5 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
+                  <span class="mr-2 text-red-500">🌟</span>
+                  Leadership
+                </h3>
+                <ul class="space-y-4 text-base text-[var(--color-text-primary)] flex-grow">
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="list-icon w-5 h-5 mr-3 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <div>
+                            <strong class="font-semibold text-[var(--color-text-primary)] block mb-1">Technical Lead, CSE Student Body</strong>
+                            <span class="text-sm text-[var(--color-text-secondary)]">Led workshops on Python & Networking (2023-24).</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="list-icon w-5 h-5 mr-3 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <div>
+                            <strong class="font-semibold text-[var(--color-text-primary)] block mb-1">Cyber Club Core Member</strong>
+                            <span class="text-sm text-[var(--color-text-secondary)]">Created problem sets for Linux & Wireshark training.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="list-icon w-5 h-5 mr-3 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <div>
+                            <strong class="font-semibold text-[var(--color-text-primary)] block mb-1">Community Mentor</strong>
+                            <span class="text-sm text-[var(--color-text-secondary)]">Guided high school students in C programming.</span>
+                        </div>
+                    </li>
+                </ul>
+              </div>
           </div>
           
           <!-- START NEW CARD: Language Proficiency and Interests -->
           <div class="content-card">
-            <h3
-              class="text-xl font-semibold mb-3 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]"
-            >
-              <span class="mr-2 text-green-400">🗣️</span>
+            <h3 class="text-xl font-semibold mb-5 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
+              <span class="mr-2 text-green-400">🧩</span>
               Languages & Interests
             </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <h5 class="font-bold mb-2 text-[var(--color-accent)]">Language Proficiency</h5>
-                <ul class="space-y-2 text-base text-[var(--color-text-primary)] list-disc ml-6">
-                  <li>
-                    <strong class="font-semibold">Telugu:</strong> Native (Reading, Writing, Speaking)
-                  </li>
-                  <li>
-                    <strong class="font-semibold">English:</strong> Professional Working Proficiency
-                  </li>
-                  <li>
-                    <strong class="font-semibold">Hindi:</strong> Limited Conversational Proficiency
-                  </li>
-                </ul>
+                <h5 class="font-bold mb-3 text-[var(--color-text-primary)] text-sm uppercase tracking-wide opacity-80">Language Proficiency</h5>
+                <div class="flex flex-wrap gap-2">
+                    <span class="tag-pill">Telugu (Native)</span>
+                    <span class="tag-pill">English (Professional)</span>
+                    <span class="tag-pill">Hindi (Conversational)</span>
+                </div>
               </div>
               <div>
-                <h5 class="font-bold mb-2 text-[var(--color-accent)]">Personal Interests</h5>
-                <ul class="space-y-2 text-base text-[var(--color-text-primary)] list-disc ml-6">
-                  <li>
-                    <strong class="font-semibold">Ethical Hacking Labs:</strong> Dedicated practice on platforms like TryHackMe/HackTheBox, focusing on privilege escalation techniques.
-                  </li>
-                  <li>
-                    <strong class="font-semibold">Technical Blogging:</strong> Documenting Cloud/Cybersecurity learning experiences to reinforce knowledge and share practical insights.
-                  </li>
-                  <li>
-                    <strong class="font-semibold">Open Source:</strong> Contributing to small Python utility projects for community development and version control practice.
-                  </li>
-                </ul>
+                <h5 class="font-bold mb-3 text-[var(--color-text-primary)] text-sm uppercase tracking-wide opacity-80">Passions</h5>
+                <div class="flex flex-wrap gap-2">
+                    <span class="tag-pill">🕵️ Ethical Hacking</span>
+                    <span class="tag-pill">✍️ Tech Blogging</span>
+                    <span class="tag-pill">🌐 Open Source</span>
+                    <span class="tag-pill">☁️ Cloud Labs</span>
+                </div>
               </div>
             </div>
           </div>
@@ -895,153 +1021,71 @@
 
         <!-- -------------------------------- 2. EDUCATION TAB -------------------------------- -->
         <section id="education" class="tab-pane hidden space-y-8" role="tabpanel" aria-labelledby="tab-link-education" aria-hidden="true">
-          <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">
-            Academic History
+          <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6 flex items-center">
+            <span class="mr-2">🎓</span> Academic Timeline
           </h3>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- 10th Card -->
-            <div class="content-card bg-textured-card bg-10th">
-              <div class="bg-card-content p-6 flex flex-col justify-between h-full">
-                <div>
-                  <h4 class="text-xl font-bold mb-4 flex items-center border-b border-white/20 pb-3">
-                    <span class="mr-2 text-white text-2xl">🏫</span> Secondary School (10th)
-                  </h4>
-                  <div class="space-y-3 text-sm">
-                    <div class="data-row">
-                      <span class="data-label">School:</span>
-                      <span class="data-value text-white">ZPHS SCHOOL</span>
-                    </div>
-                    <div class="data-row">
-                      <span class="data-label">Year of Completion:</span>
-                      <span class="data-value text-white">2020</span>
-                    </div>
-                    <div class="data-row">
-                      <span class="data-label">Grade/GPA:</span>
-                      <span class="data-value text-green-300 font-bold">7.0 CGPA</span>
-                    </div>
+          <!-- B.Tech Main Card -->
+          <div class="content-card bg-textured-card bg-ug mb-8 overflow-hidden group">
+              <div class="bg-card-content p-8 relative">
+                  <div class="absolute top-4 right-4">
+                      <span class="academic-badge bg-green-500/80 border-green-400">Pursuing</span>
                   </div>
-                </div>
-                
-                <a
-                  href="https://drive.google.com/file/d/15OPbt8X_FkjVENA-_ByxJ-6acZrH4yVG/view?usp=sharing"
-                  target="_blank"
-                  class="btn-card-link w-full mt-6"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="mr-2"
-                  >
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                    <path d="M14 2v6h6" />
-                    <line x1="16" x2="8" y1="13" y2="13" />
-                    <line x1="16" x2="8" y1="17" y2="17" />
-                  </svg>
-                  View Certificate
-                </a>
-              </div>
-            </div>
-
-            <!-- Intermediate Card -->
-            <div class="content-card bg-textured-card bg-intermediate">
-              <div class="bg-card-content p-6 flex flex-col justify-between h-full">
-                <div>
-                  <h4 class="text-xl font-bold mb-4 flex items-center border-b border-white/20 pb-3">
-                    <span class="mr-2 text-white text-2xl">📖</span> Intermediate (12th)
-                  </h4>
-                  <div class="space-y-3 text-sm">
-                    <div class="data-row">
-                      <span class="data-label">Board:</span>
-                      <span class="data-value text-white">Board of Intermediate Education</span>
-                    </div>
-                    <div class="data-row">
-                      <span class="data-label">Year of Completion:</span>
-                      <span class="data-value text-white">2022</span>
-                    </div>
-                    <div class="data-row">
-                      <span class="data-label">Grade/GPA:</span>
-                      <span class="data-value text-green-300 font-bold">6.0 CGPA</span>
-                    </div>
+                  <h4 class="text-3xl font-bold text-white mb-2">Bachelor of Technology</h4>
+                  <p class="text-xl text-gray-200 mb-6 flex items-center"><span class="text-[var(--color-accent)] mr-2">🛡️</span> Cyber Security</p>
+                  
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                      <div>
+                          <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Institution</p>
+                          <p class="text-white font-semibold">Kakinada Institute of Engineering & Technology (KIET)</p>
+                      </div>
+                      <div>
+                          <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Timeline</p>
+                          <p class="text-white font-semibold">2022 - 2026</p>
+                      </div>
                   </div>
-                </div>
-
-                <a
-                  href="https://drive.google.com/file/d/15LNA5es18GqDRMX1Fg7wYfzcYBWXo5Vk/view?usp=sharing"
-                  target="_blank"
-                  class="btn-card-link w-full mt-6"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="mr-2"
-                  >
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                    <path d="M14 2v6h6" />
-                    <line x1="16" x2="8" y1="13" y2="13" />
-                    <line x1="16" x2="8" y1="17" y2="17" />
-                  </svg>
-                  View Certificate
-                </a>
+                  
+                  <!-- Progress Bar -->
+                  <div class="w-full bg-gray-700/50 rounded-full h-2.5 mb-2 backdrop-blur-sm border border-white/10">
+                      <div class="bg-[var(--color-accent)] h-2.5 rounded-full" style="width: 65%"></div>
+                  </div>
+                  <p class="text-right text-xs text-gray-300">Degree Progress ~65%</p>
               </div>
-            </div>
           </div>
 
-          <!-- UG Card -->
-          <div class="content-card bg-textured-card bg-ug min-h-[300px] flex items-end">
-            <div class="bg-card-content p-6 w-full">
-              <h4 class="text-2xl font-bold mb-6 flex items-center text-white border-b border-white/20 pb-4">
-                <span class="mr-3 text-3xl">🎓</span> Bachelor of Technology (B.Tech)
-              </h4>
-              
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-sm">
-                <!-- Column 1: Institute Info -->
-                <div class="space-y-3 lg:border-r border-white/10 lg:pr-4">
-                   <div class="data-row">
-                     <span class="data-label text-gray-300">Institute:</span>
-                     <span class="data-value text-white text-left lg:text-right font-bold">Kakinada Institute of Engineering & Technology (KIET)</span>
-                   </div>
-                   <div class="data-row">
-                     <span class="data-label text-gray-300">Location:</span>
-                     <span class="data-value text-white text-left lg:text-right">Andhra Pradesh</span>
-                   </div>
-                   <div class="data-row">
-                     <span class="data-label text-gray-300">University Reg:</span>
-                     <span class="data-value text-white font-mono bg-white/10 px-2 rounded text-left lg:text-right">22B21A4627</span>
-                   </div>
-                </div>
-
-                <!-- Column 2: Course Info -->
-                <div class="space-y-3 mt-4 lg:mt-0">
-                   <div class="data-row">
-                     <span class="data-label text-gray-300">Specialization:</span>
-                     <span class="data-value text-green-300 font-bold text-left lg:text-right">Cyber Security</span>
-                   </div>
-                   <div class="data-row">
-                     <span class="data-label text-gray-300">Timeline:</span>
-                     <span class="data-value text-white text-left lg:text-right">2022 - 2026</span>
-                   </div>
-                   <div class="data-row">
-                     <span class="data-label text-gray-300">Status:</span>
-                     <span class="data-value text-yellow-300 font-bold text-left lg:text-right">Pursuing</span>
-                   </div>
-                </div>
+          <!-- Secondary Education Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Intermediate -->
+              <div class="content-card bg-textured-card bg-intermediate group">
+                  <div class="bg-card-content p-6">
+                      <div class="flex justify-between items-start mb-4">
+                          <div class="p-3 bg-white/10 rounded-lg backdrop-blur-md">
+                              <span class="text-2xl">📖</span>
+                          </div>
+                          <span class="academic-badge">6.0 CGPA</span>
+                      </div>
+                      <h5 class="text-xl font-bold text-white mb-1">Intermediate (12th)</h5>
+                      <p class="text-sm text-gray-300 mb-4">Board of Intermediate Education</p>
+                      <p class="text-sm text-white/80 mb-6">Completed in 2022</p>
+                      <a href="https://drive.google.com/file/d/15LNA5es18GqDRMX1Fg7wYfzcYBWXo5Vk/view?usp=sharing" target="_blank" class="btn-card-link w-full bg-white/10 hover:bg-white/20 border-white/30 text-white">View Certificate</a>
+                  </div>
               </div>
-            </div>
+
+              <!-- 10th -->
+              <div class="content-card bg-textured-card bg-10th group">
+                  <div class="bg-card-content p-6">
+                      <div class="flex justify-between items-start mb-4">
+                          <div class="p-3 bg-white/10 rounded-lg backdrop-blur-md">
+                              <span class="text-2xl">🏫</span>
+                          </div>
+                          <span class="academic-badge">7.0 CGPA</span>
+                      </div>
+                      <h5 class="text-xl font-bold text-white mb-1">Secondary School (10th)</h5>
+                      <p class="text-sm text-gray-300 mb-4">ZPHS SCHOOL</p>
+                      <p class="text-sm text-white/80 mb-6">Completed in 2020</p>
+                      <a href="https://drive.google.com/file/d/15OPbt8X_FkjVENA-_ByxJ-6acZrH4yVG/view?usp=sharing" target="_blank" class="btn-card-link w-full bg-white/10 hover:bg-white/20 border-white/30 text-white">View Certificate</a>
+                  </div>
+              </div>
           </div>
         </section>
 

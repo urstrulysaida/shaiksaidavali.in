@@ -15,33 +15,37 @@
         --color-accent: #00a859; /* Primary Vibrant Green */
 
         /* --- THEME IMAGES --- */
-        --bg-image-light: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_NgIGsfoQftetL18g1wjDFRPlKM8GWQwJC1Cv9Nsefb_vnk682_H6aVhKZ15g_frxvvQ&usqp=CAU"); /* Soft, bright tech/abstract image */
-        --bg-image-dark: url("https://img.freepik.com/free-photo/bright-light-black-background_23-2148132723.jpg?semt=ais_se_enriched&w=740&q=80"); /* Original dark image */
+        --bg-image-light: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/Image.jpg?raw=true"); /* Soft, bright tech/abstract image */
+        --bg-image-dark: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/WhatsApp%20Image%202025-12-21%20at%202.28.05%20PM.jpeg?raw=true"); /* Original dark image */
 
-        /* Light Mode (ABSOLUTE MAX Transparency) */
-        --color-text-primary: #000000; /* Pure Black for contrast */
-        --color-text-secondary: #333333; /* Darker gray for labels */
+        /* Light Mode Glass Settings */
+        --color-text-primary: #000000;
+        --color-text-secondary: #333333;
         --color-background: transparent;
-        --color-card-bg: rgba(255, 255, 255, 0.05); /* EXTREMELY Transparent White backdrop (5%) */
-        --color-card-hover-bg: rgba(255, 255, 255, 0.1); /* Slightly less transparent on hover (10%) */
-        --color-border: rgba(0, 0, 0, 0.15); /* Soft Gray Border for light mode (15%) */
-        /* Specific override for profile summary contrast in light mode */
+        /* Gradient background for sheen */
+        --color-card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+        --color-card-hover-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+        /* White translucent border for glass edge highlight */
+        --color-border: rgba(255, 255, 255, 0.4); 
+        
         --color-summary-text: #000000;
-        --color-icon-bg: rgba(0, 168, 89, 0.1);
+        --color-icon-bg: rgba(0, 168, 89, 0.05);
         --color-timeline-line: rgba(0, 0, 0, 0.1);
       }
 
       body.dark-mode {
-        /* Dark Mode (ULTRA MAX Transparency) */
+        /* Dark Mode Glass Settings */
         --color-background: transparent;
-        --color-card-bg: rgba(0, 0, 0, 0.05); /* EXTREMELY Transparent Dark backdrop (5%) */
-        --color-card-hover-bg: rgba(0, 0, 0, 0.08); /* Slightly less transparent on hover (8%) */
-        --color-text-primary: #ffffff; /* Pure White for contrast */
-        --color-text-secondary: #cccccc; /* Light gray for labels */
-        --color-border: rgba(255, 255, 255, 0.15); /* Faint Border (15%) */
-        /* Specific override for profile summary contrast in dark mode */
+        /* Subtle white gradient over dark background for glass feel */
+        --color-card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+        --color-card-hover-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+        
+        --color-text-primary: #ffffff; 
+        --color-text-secondary: #cccccc; 
+        --color-border: rgba(255, 255, 255, 0.1); /* Faint Border */
+        
         --color-summary-text: #ffffff;
-        --color-icon-bg: rgba(255, 255, 255, 0.1);
+        --color-icon-bg: rgba(255, 255, 255, 0.05);
         --color-timeline-line: rgba(255, 255, 255, 0.1);
       }
 
@@ -111,18 +115,18 @@
       .profile-container {
         max-width: 1024px;
         width: 100%;
-        background-color: var(--color-card-bg);
+        background: var(--color-card-bg);
         border-radius: 1.5rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
         border: 1px solid var(--color-border);
         padding: 2rem;
         transition: all 0.5s;
         z-index: 1;
         position: relative;
 
-        /* GLASS MORPHISM EFFECT - MAX Blur */
-        backdrop-filter: blur(45px);
-        -webkit-backdrop-filter: blur(45px);
+        /* GLASS MORPHISM EFFECT - Premium Blur */
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
 
         /* Page Load Animation */
         animation: fadeInUp 0.8s ease-out;
@@ -185,25 +189,32 @@
 
       /* Content Card - Now using highly transparent backdrop and enhanced hover */
       .content-card {
-        background-color: var(--color-card-bg);
+        background: var(--color-card-bg);
         border-radius: 0.75rem;
         border: 1px solid var(--color-border);
         padding: 1.5rem;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 
-        /* GLASS MORPHISM EFFECT - MAX Blur */
-        backdrop-filter: blur(45px);
-        -webkit-backdrop-filter: blur(45px);
+        /* GLASS MORPHISM EFFECT - Premium Blur */
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
 
         /* Hover Effect */
         transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-          box-shadow 0.3s ease, background-color 0.5s, border-color 0.5s;
+          box-shadow 0.3s ease, background 0.5s, border-color 0.5s;
         opacity: 1;
       }
       .content-card:hover {
         transform: translateY(-5px);
         /* Enhanced Shadow & Glow for Glass Effect */
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 168, 89, 0.6);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        border-color: var(--color-accent);
+        background: var(--color-card-hover-bg); /* Slight opacity increase on hover */
+      }
+      .content-card:hover {
+        transform: translateY(-5px);
+        /* Enhanced Shadow & Glow for Glass Effect */
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 168, 89, 0.3);
         border-color: var(--color-accent);
         background-color: var(--color-card-hover-bg); /* Slight opacity increase on hover */
       }
@@ -292,18 +303,24 @@
       
       /* --- PROJECT CARD STYLES --- */
       .project-card {
-        background-color: var(--color-card-bg);
+        background: var(--color-card-bg);
         border: 1px solid var(--color-border);
         border-radius: 0.75rem;
         padding: 1.5rem;
         transition: all 0.3s ease;
-        backdrop-filter: blur(45px);
-        -webkit-backdrop-filter: blur(45px);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
         transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s, display 0.3s; /* Added opacity/display transition */
       }
       .project-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 168, 89, 0.6);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        border-color: var(--color-accent);
+        background: var(--color-card-hover-bg);
+      }
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 168, 89, 0.3);
         border-color: var(--color-accent);
         background-color: var(--color-card-hover-bg);
       }

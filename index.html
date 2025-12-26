@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shaik Saida Vali - Profile Dashboard</title>
+    <title>Shaik Saida Vali - Portfolio</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap"
       rel="stylesheet"
@@ -15,17 +15,15 @@
         --color-accent: #00a859; /* Primary Vibrant Green */
 
         /* --- THEME IMAGES --- */
-        --bg-image-light: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/Image.jpg?raw=true"); /* Soft, bright tech/abstract image */
-        --bg-image-dark: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/Image.jpg?raw=true"); /* Original dark image */
+        --bg-image-light: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/Image.jpg?raw=true"); 
+        --bg-image-dark: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/Image.jpg?raw=true");
 
         /* Light Mode Glass Settings */
         --color-text-primary: #000000;
         --color-text-secondary: #333333;
         --color-background: transparent;
-        /* Gradient background for sheen */
         --color-card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
         --color-card-hover-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
-        /* White translucent border for glass edge highlight */
         --color-border: rgba(255, 255, 255, 0.4); 
         
         --color-summary-text: #000000;
@@ -36,13 +34,12 @@
       body.dark-mode {
         /* Dark Mode Glass Settings */
         --color-background: transparent;
-        /* Subtle white gradient over dark background for glass feel */
         --color-card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
         --color-card-hover-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
         
         --color-text-primary: #ffffff; 
         --color-text-secondary: #cccccc; 
-        --color-border: rgba(255, 255, 255, 0.1); /* Faint Border */
+        --color-border: rgba(255, 255, 255, 0.1);
         
         --color-summary-text: #ffffff;
         --color-icon-bg: rgba(255, 255, 255, 0.05);
@@ -51,17 +48,14 @@
 
       body {
         font-family: "Josefin Sans", sans-serif;
-        /* Using transparent background color to let the image show through fully */
         background-color: transparent;
         color: var(--color-text-primary);
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 2rem 1rem;
+        padding: 2rem 0; /* Adjusted padding for vertical centering */
         transition: background-color 0.5s, color 0.5s;
-
-        /* Background Image Setup: Default to Light Image */
         background-image: var(--bg-image-light);
         background-size: cover;
         background-position: center;
@@ -69,77 +63,54 @@
         background-repeat: no-repeat;
         position: relative;
         z-index: 0;
-        transition: background-image 1s ease-in-out; /* Smooth transition for BG image change */
+        transition: background-image 1s ease-in-out;
       }
 
-      /* Dark mode specific background image */
       body.dark-mode {
         background-image: var(--bg-image-dark);
       }
 
-      
       /* --- ANIMATIONS --- */
       @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
       }
       @keyframes slideInLeft {
-        from {
-          opacity: 0;
-          transform: translateX(-20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
       }
       @keyframes pulse-glow {
-        0% {
-          box-shadow: 0 0 0 0 rgba(0, 168, 89, 0.4); /* Use new accent color for glow */
-        }
-        70% {
-          box-shadow: 0 0 0 10px rgba(0, 168, 89, 0);
-        }
-        100% {
-          box-shadow: 0 0 0 0 rgba(0, 168, 89, 0);
-        }
+        0% { box-shadow: 0 0 0 0 rgba(0, 168, 89, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(0, 168, 89, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(0, 168, 89, 0); }
       }
 
-      /* Main Profile Container - Now using highly transparent backdrop */
+      /* --- MAIN CONTAINER OPTIMIZATION --- */
       .profile-container {
-        max-width: 1024px;
-        width: 100%;
+        /* Optimized for Full HD (1920x1080) and standard laptops (1366x768) */
+        max-width: 1280px; 
+        width: 95%; /* Responsive width: prevents touching edges on smaller screens */
         background: var(--color-card-bg);
         border-radius: 1.5rem;
         box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
         border: 1px solid var(--color-border);
-        padding: 2rem;
+        padding: 2.5rem; /* Increased padding for spacious desktop feel */
         transition: all 0.5s;
         z-index: 1;
         position: relative;
-
-        /* GLASS MORPHISM EFFECT - Premium Blur */
         backdrop-filter: blur(16px) saturate(180%);
         -webkit-backdrop-filter: blur(16px) saturate(180%);
-
-        /* Page Load Animation */
         animation: fadeInUp 0.8s ease-out;
+        margin: 0 auto; /* Center alignment */
       }
 
-      /* Profile Image */
       .profile-img-container {
         width: 112px;
         height: 112px;
         border-radius: 50%;
         overflow: hidden;
         border: 4px solid var(--color-accent);
-        box-shadow: 0 0 15px rgba(0, 168, 89, 0.6); /* Use new accent color for glow */
+        box-shadow: 0 0 15px rgba(0, 168, 89, 0.6);
         flex-shrink: 0;
         transition: all 0.3s ease;
         animation: pulse-glow 2s infinite;
@@ -150,7 +121,6 @@
         box-shadow: 0 0 25px rgba(0, 168, 89, 0.8);
       }
 
-      /* Header Text Animation */
       .header-content {
         animation: slideInLeft 0.8s ease-out 0.2s backwards;
       }
@@ -164,6 +134,7 @@
         font-weight: 500;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
+        font-size: 1.1rem; /* Slightly larger text for desktop */
       }
       .tab-link::after {
         content: "";
@@ -175,148 +146,60 @@
         background-color: var(--color-accent);
         transition: width 0.3s ease, left 0.3s ease;
       }
-      .tab-link:hover {
-        color: var(--color-accent);
-      }
-      .tab-link.active {
-        color: var(--color-accent);
-        font-weight: 600;
-      }
-      .tab-link.active::after {
-        width: 100%;
-        left: 0;
-      }
+      .tab-link:hover { color: var(--color-accent); }
+      .tab-link.active { color: var(--color-accent); font-weight: 600; }
+      .tab-link.active::after { width: 100%; left: 0; }
 
-      /* Content Card - Now using highly transparent backdrop and enhanced hover */
+      /* Content Card */
       .content-card {
         background: var(--color-card-bg);
         border-radius: 0.75rem;
         border: 1px solid var(--color-border);
         padding: 1.5rem;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-
-        /* GLASS MORPHISM EFFECT - Premium Blur */
         backdrop-filter: blur(16px) saturate(180%);
         -webkit-backdrop-filter: blur(16px) saturate(180%);
-
-        /* Hover Effect */
-        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-          box-shadow 0.3s ease, background 0.5s, border-color 0.5s;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background 0.5s, border-color 0.5s;
         opacity: 1;
       }
       .content-card:hover {
         transform: translateY(-5px);
-        /* Enhanced Shadow & Glow for Glass Effect */
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-        border-color: var(--color-accent);
-        background: var(--color-card-hover-bg); /* Slight opacity increase on hover */
-      }
-      .content-card:hover {
-        transform: translateY(-5px);
-        /* Enhanced Shadow & Glow for Glass Effect */
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 168, 89, 0.3);
         border-color: var(--color-accent);
-        background-color: var(--color-card-hover-bg); /* Slight opacity increase on hover */
+        background-color: var(--color-card-hover-bg);
       }
 
       /* Data Alignment */
-      .data-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 0.75rem;
-      }
-      .data-row-icon {
-          display: flex;
-          align-items: center;
-          color: var(--color-text-secondary);
-      }
+      .data-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+      .data-row-icon { display: flex; align-items: center; color: var(--color-text-secondary); }
       .data-icon-box {
-          width: 28px;
-          height: 28px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 6px;
-          background-color: var(--color-icon-bg);
-          color: var(--color-accent);
-          margin-right: 10px;
-          flex-shrink: 0;
+          width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+          border-radius: 6px; background-color: var(--color-icon-bg); color: var(--color-accent);
+          margin-right: 10px; flex-shrink: 0;
       }
-      .data-label {
-        color: var(--color-text-secondary);
-        font-weight: 500;
-        text-align: left;
-      }
-      
-      /* Profile Summary text color fix */
-      #personal-info p, #personal-info strong {
-          color: var(--color-summary-text) !important;
-      }
+      .data-label { color: var(--color-text-secondary); font-weight: 500; text-align: left; }
+      #personal-info p, #personal-info strong { color: var(--color-summary-text) !important; }
+      .bg-textured-card .data-label { color: white !important; }
+      .data-value { text-align: right; font-weight: 600; color: var(--color-text-primary); }
+      .data-value a { color: var(--color-text-primary); transition: color 0.2s; }
+      .data-value a:hover { color: var(--color-accent); }
+      #career-links .data-value, #career-links strong { color: var(--color-text-primary); }
+      #career-links .content-card strong { color: var(--color-text-primary); }
 
-      /* --- FIX: Ensure data labels in image-backed cards (Education) are white for contrast --- */
-      .bg-textured-card .data-label {
-        color: white !important;
-      }
-      /* --- END FIX --- */
-      
-      .data-value {
-        text-align: right;
-        font-weight: 600;
-        color: var(--color-text-primary);
-      }
-      .data-value a {
-          color: var(--color-text-primary);
-          transition: color 0.2s;
-      }
-      .data-value a:hover {
-          color: var(--color-accent);
-      }
-      
-      /* Updated data-value color for Career/Link tab to use primary text color for better visibility in light mode */
-      #career-links .data-value, #career-links strong {
-          color: var(--color-text-primary);
-      }
-      /* Ensure strong tags inside data-value inherit the primary color */
-      #career-links .content-card strong {
-        color: var(--color-text-primary);
-      }
-      
-      /* --- SKILL BAR STYLES --- */
-      .skill-item {
-        margin-bottom: 1rem;
-      }
-      .skill-bar-container {
-        height: 6px;
-        background-color: var(--color-border); /* Use a light, glassy background */
-        border-radius: 4px;
-        overflow: hidden;
-      }
+      /* Skill Bar */
+      .skill-item { margin-bottom: 1rem; }
+      .skill-bar-container { height: 6px; background-color: var(--color-border); border-radius: 4px; overflow: hidden; }
       .skill-bar {
-        height: 100%;
-        background-color: var(--color-accent);
-        width: 0; /* Initial width for animation */
-        transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Added Bezier for smoothness */
+        height: 100%; background-color: var(--color-accent); width: 0;
+        transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         box-shadow: 0 0 8px rgba(0, 168, 89, 0.6);
       }
-      /* --- END SKILL BAR STYLES --- */
-      
-      /* --- PROJECT CARD STYLES --- */
+
+      /* Project Card */
       .project-card {
-        background: var(--color-card-bg);
-        border: 1px solid var(--color-border);
-        border-radius: 0.75rem;
-        padding: 1.5rem;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(16px) saturate(180%);
-        -webkit-backdrop-filter: blur(16px) saturate(180%);
-        transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s, display 0.3s; /* Added opacity/display transition */
-      }
-      .project-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-        border-color: var(--color-accent);
-        background: var(--color-card-hover-bg);
+        background: var(--color-card-bg); border: 1px solid var(--color-border); border-radius: 0.75rem;
+        padding: 1.5rem; transition: all 0.3s ease;
+        backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%);
       }
       .project-card:hover {
         transform: translateY(-5px);
@@ -324,430 +207,172 @@
         border-color: var(--color-accent);
         background-color: var(--color-card-hover-bg);
       }
-      .project-tag {
-        display: inline-block;
-        background-color: var(--color-accent);
-        color: white;
-        padding: 0.2rem 0.6rem;
-        border-radius: 0.5rem;
-        font-size: 0.75rem;
-        font-weight: 600;
-        margin-right: 0.5rem;
-        margin-bottom: 0.5rem;
-      }
 
-
-      /* Tab Transition Animation */
-      #tab-content {
-        position: relative;
-        /* Initial min-height is set in JS to avoid CLS */
-        transition: height 0.4s ease-in-out;
-      }
-
+      /* Tab Transition */
+      #tab-content { position: relative; transition: height 0.4s ease-in-out; }
       .tab-pane {
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-        position: absolute;
-        width: 100%;
-        pointer-events: none;
-        top: 0;
-        box-sizing: border-box; /* Ensure padding/border is included in height calculation */
+        opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        position: absolute; width: 100%; pointer-events: none; top: 0;
       }
-      .tab-pane.active {
-        opacity: 1;
-        transform: translateY(0);
-        position: relative;
-        pointer-events: auto;
-      }
-      .tab-pane.hiding {
-        opacity: 0;
-        transform: translateY(-10px);
-        position: absolute;
-        pointer-events: none;
-      }
+      .tab-pane.active { opacity: 1; transform: translateY(0); position: relative; pointer-events: auto; }
+      .tab-pane.hiding { opacity: 0; transform: translateY(-10px); position: absolute; pointer-events: none; }
+      
+      .highlight { background-color: #ffc107; color: black; padding: 0 2px; border-radius: 3px; }
 
-      /* Search Highlight Style */
-      .highlight {
-        background-color: #ffc107;
-        color: black;
-        padding: 0 2px;
-        border-radius: 3px;
-      }
-
-      /* Button Styles for solid green default state */
+      /* Buttons */
       .btn-resume {
-        /* Default State: Solid Green */
-        background-color: var(--color-accent);
-        color: white; /* White text on green background */
-        border: 2px solid var(--color-accent);
-        padding: 0.5rem 1.5rem;
-        font-weight: 600;
-        border-radius: 0.5rem;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
+        background-color: var(--color-accent); color: white; border: 2px solid var(--color-accent);
+        padding: 0.5rem 1.5rem; font-weight: 600; border-radius: 0.5rem; transition: all 0.3s ease;
+        display: flex; align-items: center;
       }
       .btn-resume:hover {
-        /* Hover State: Transparent/Glass Look */
-        background-color: var(--color-card-hover-bg); /* Use transparent card hover color */
-        color: var(--color-accent); /* Green text on transparent background */
-        border-color: var(--color-accent);
-        box-shadow: 0 4px 15px rgba(0, 168, 89, 0.4);
-        transform: scale(1.05);
+        background-color: var(--color-card-hover-bg); color: var(--color-accent);
+        border-color: var(--color-accent); box-shadow: 0 4px 15px rgba(0, 168, 89, 0.4); transform: scale(1.05);
       }
-      /* Style for the SVG icon inside the button */
-      .btn-resume svg {
-        /* Default: White stroke on green background */
-        stroke: white;
-        transition: stroke 0.3s ease;
-      }
-      .btn-resume:hover svg {
-        /* Hover: Green stroke on transparent background */
-        stroke: var(--color-accent);
-      }
+      .btn-resume svg { stroke: white; transition: stroke 0.3s ease; }
+      .btn-resume:hover svg { stroke: var(--color-accent); }
 
-      /* New style for the smaller link buttons inside content cards */
       .btn-card-link {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0.3rem 0.8rem;
-          font-weight: 600;
-          font-size: 0.875rem; /* text-sm */
-          border-radius: 0.375rem; /* rounded-md */
-          border: 1px solid var(--color-accent);
-          color: white;
-          background-color: var(--color-accent); /* Solid green background */
-          box-shadow: 0 2px 5px rgba(0, 168, 89, 0.2);
-          transition: all 0.2s ease-in-out;
-          margin-top: 0.75rem;
-          margin-bottom: 0.5rem; /* space from list above and bottom */
+          display: inline-flex; align-items: center; justify-content: center; padding: 0.3rem 0.8rem;
+          font-weight: 600; font-size: 0.875rem; border-radius: 0.375rem; border: 1px solid var(--color-accent);
+          color: white; background-color: var(--color-accent); box-shadow: 0 2px 5px rgba(0, 168, 89, 0.2);
+          transition: all 0.2s ease-in-out; margin-top: 0.75rem; margin-bottom: 0.5rem;
       }
-
       .btn-card-link:hover {
-          background-color: var(--color-card-hover-bg); /* Glassy background on hover */
-          color: var(--color-accent); /* Green text on transparent background */
-          box-shadow: 0 4px 8px rgba(0, 168, 89, 0.4);
-          transform: scale(1.03);
+          background-color: var(--color-card-hover-bg); color: var(--color-accent);
+          box-shadow: 0 4px 8px rgba(0, 168, 89, 0.4); transform: scale(1.03);
       }
-      .btn-card-link svg {
-          /* Force White stroke for icons when solid green */
-          stroke: white; 
-          transition: stroke 0.2s;
-      }
-      .btn-card-link:hover svg {
-          /* Force Green stroke for icons when glassy */
-          stroke: var(--color-accent);
-      }
+      .btn-card-link svg { stroke: white; transition: stroke 0.2s; }
+      .btn-card-link:hover svg { stroke: var(--color-accent); }
       
-      /* New style for filter buttons */
       .btn-filter {
-          padding: 0.5rem 1rem;
-          border-radius: 0.5rem;
-          font-weight: 600;
-          font-size: 0.875rem;
-          border: 1px solid var(--color-border);
-          background-color: var(--color-card-bg);
-          color: var(--color-text-primary);
-          transition: all 0.2s ease;
+          padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.875rem;
+          border: 1px solid var(--color-border); background-color: var(--color-card-bg);
+          color: var(--color-text-primary); transition: all 0.2s ease;
       }
       .btn-filter:hover {
-          background-color: var(--color-card-hover-bg);
-          border-color: var(--color-accent);
-          color: var(--color-accent);
+          background-color: var(--color-card-hover-bg); border-color: var(--color-accent); color: var(--color-accent);
       }
       .btn-filter.active {
-          background-color: var(--color-accent);
-          color: white;
-          border-color: var(--color-accent);
+          background-color: var(--color-accent); color: white; border-color: var(--color-accent);
           box-shadow: 0 4px 8px rgba(0, 168, 89, 0.4);
       }
+      button:active, a:active { transform: scale(0.95) !important; }
 
-      /* General Button Active State */
-      button:active, a:active {
-        transform: scale(0.95) !important;
-      }
-
-      /* --- Reusable Background Texture Card Styles --- */
+      /* Textured Cards */
       .bg-textured-card {
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        position: relative;
-        z-index: 0;
-        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-          box-shadow 0.3s ease, background-color 0.5s, border-color 0.5s;
+        background-size: cover; background-position: center center; background-repeat: no-repeat;
+        position: relative; z-index: 0; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background-color 0.5s, border-color 0.5s;
       }
       .bg-textured-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        /* Dark gradient overlay for text contrast is kept for image cards */
-        background: linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0.5) 0%,
-          rgba(0, 0, 0, 0.8) 100%
-        );
-        border-radius: 0.75rem;
-        z-index: 1;
+        content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.8) 100%);
+        border-radius: 0.75rem; z-index: 1;
       }
-      .bg-card-content {
-        position: relative;
-        z-index: 2;
-        color: white; /* Ensure text is white over dark background */
-      }
-      /* Override content-card padding for image cards */
-      .bg-textured-card.content-card {
-        padding: 0;
-      }
+      .bg-card-content { position: relative; z-index: 2; color: white; }
+      .bg-textured-card.content-card { padding: 0; }
       
-      /* Fix for strong tag color in sections when in Dark Mode */
-      body.dark-mode #career-links strong,
-      body.dark-mode #projects strong,
-      body.dark-mode #roadmap strong {
-          color: var(--color-text-primary) !important;
-      }
+      body.dark-mode #career-links strong, body.dark-mode #projects strong, body.dark-mode #roadmap strong { color: var(--color-text-primary) !important; }
 
-      /* --- NEW: Activity Chart Styles --- */
-      .activity-chart {
-          display: grid;
-          grid-template-columns: repeat(7, 1fr); /* 7 days */
-          gap: 4px;
-          height: 60px;
-          align-items: flex-end;
-          padding: 0 4px;
-          border-bottom: 1px solid var(--color-border);
-      }
-      .day-bar {
-          width: 100%;
-          border-radius: 2px 2px 0 0;
-          transition: background-color 0.3s ease;
-          min-height: 4px;
-          cursor: help; /* Indicate it's interactive/informative */
-      }
-      .day-bar:hover {
-          transform: translateY(-2px) scaleX(1.1); /* Slight lift and squeeze on hover */
-          transition: transform 0.1s ease;
-      }
-
-      /* Specific activity levels - based on accent color */
+      /* Activity Chart */
+      .activity-chart { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; height: 60px; align-items: flex-end; padding: 0 4px; border-bottom: 1px solid var(--color-border); }
+      .day-bar { width: 100%; border-radius: 2px 2px 0 0; transition: background-color 0.3s ease; min-height: 4px; cursor: help; }
+      .day-bar:hover { transform: translateY(-2px) scaleX(1.1); transition: transform 0.1s ease; }
       .level-0 { background-color: rgba(0, 168, 89, 0.1); }
       .level-1 { background-color: rgba(0, 168, 89, 0.4); }
       .level-2 { background-color: rgba(0, 168, 89, 0.7); }
       .level-3 { background-color: rgba(0, 168, 89, 1.0); }
-      /* --- END NEW: Activity Chart Styles --- */
       
-      /* --- NEW: UI Improvements --- */
-      .list-icon {
-          color: var(--color-accent);
-          flex-shrink: 0;
-          margin-top: 4px;
-      }
+      /* UI Improvements */
+      .list-icon { color: var(--color-accent); flex-shrink: 0; margin-top: 4px; }
       .tag-pill {
-          background-color: var(--color-card-hover-bg);
-          border: 1px solid var(--color-border);
-          color: var(--color-text-primary);
-          padding: 0.3rem 0.8rem;
-          border-radius: 20px;
-          font-size: 0.85rem;
-          font-weight: 500;
-          transition: all 0.2s ease;
-          display: inline-flex;
-          align-items: center;
+          background-color: var(--color-card-hover-bg); border: 1px solid var(--color-border);
+          color: var(--color-text-primary); padding: 0.3rem 0.8rem; border-radius: 20px;
+          font-size: 0.85rem; font-weight: 500; transition: all 0.2s ease; display: inline-flex; align-items: center;
       }
-      .tag-pill:hover {
-          border-color: var(--color-accent);
-          color: var(--color-accent);
-          background-color: var(--color-icon-bg);
-      }
+      .tag-pill:hover { border-color: var(--color-accent); color: var(--color-accent); background-color: var(--color-icon-bg); }
       .status-badge {
-          display: inline-flex;
-          align-items: center;
-          padding: 0.25rem 0.75rem;
-          background-color: rgba(0, 168, 89, 0.1);
-          border: 1px solid rgba(0, 168, 89, 0.3);
-          border-radius: 9999px;
-          color: var(--color-accent);
-          font-size: 0.75rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          margin-top: 0.5rem;
+          display: inline-flex; align-items: center; padding: 0.25rem 0.75rem;
+          background-color: rgba(0, 168, 89, 0.1); border: 1px solid rgba(0, 168, 89, 0.3);
+          border-radius: 9999px; color: var(--color-accent); font-size: 0.75rem;
+          font-weight: 700; text-transform: uppercase; margin-top: 0.5rem;
       }
       .status-dot {
-          width: 8px;
-          height: 8px;
-          background-color: var(--color-accent);
-          border-radius: 50%;
-          margin-right: 6px;
-          box-shadow: 0 0 0 0 rgba(0, 168, 89, 0.7);
-          animation: status-pulse 2s infinite;
+          width: 8px; height: 8px; background-color: var(--color-accent); border-radius: 50%; margin-right: 6px;
+          box-shadow: 0 0 0 0 rgba(0, 168, 89, 0.7); animation: status-pulse 2s infinite;
       }
       @keyframes status-pulse {
           0% { box-shadow: 0 0 0 0 rgba(0, 168, 89, 0.7); }
           70% { box-shadow: 0 0 0 6px rgba(0, 168, 89, 0); }
           100% { box-shadow: 0 0 0 0 rgba(0, 168, 89, 0); }
       }
-      .stat-card-icon {
-          font-size: 1.5rem;
-          margin-bottom: 0.5rem;
-          opacity: 0.8;
-      }
+      .stat-card-icon { font-size: 1.5rem; margin-bottom: 0.5rem; opacity: 0.8; }
       
-      /* --- Education Section Backgrounds & Badges --- */
       .bg-10th { background-image: url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=1000&auto=format&fit=crop'); }
       .bg-intermediate { background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1000&auto=format&fit=crop'); }
       .bg-ug { background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000&auto=format&fit=crop'); }
       
       .academic-badge {
-          background: rgba(255, 255, 255, 0.2);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          color: white;
-          padding: 4px 12px;
-          border-radius: 20px;
-          font-size: 0.75rem;
-          font-weight: 700;
-          display: inline-block;
+          background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.3); color: white; padding: 4px 12px;
+          border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: inline-block;
       }
 
-      /* --- NEW TIMELINE STYLES --- */
-      .timeline-container {
-        position: relative;
-        padding-left: 20px;
-      }
+      /* Timeline */
+      .timeline-container { position: relative; padding-left: 20px; }
       .timeline-container::before {
-        content: '';
-        position: absolute;
-        top: 10px;
-        bottom: 10px;
-        left: 6px;
-        width: 2px;
-        background-color: var(--color-timeline-line);
-        border-radius: 2px;
+        content: ''; position: absolute; top: 10px; bottom: 10px; left: 6px;
+        width: 2px; background-color: var(--color-timeline-line); border-radius: 2px;
       }
-      .timeline-item {
-        position: relative;
-        margin-bottom: 2rem;
-        padding-left: 1.5rem;
-      }
-      .timeline-item:last-child {
-        margin-bottom: 0;
-      }
+      .timeline-item { position: relative; margin-bottom: 2rem; padding-left: 1.5rem; }
+      .timeline-item:last-child { margin-bottom: 0; }
       .timeline-dot {
-        position: absolute;
-        left: 0;
-        top: 6px;
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background-color: var(--color-card-bg);
-        border: 3px solid var(--color-accent);
-        z-index: 2;
-        transition: transform 0.3s ease;
+        position: absolute; left: 0; top: 6px; width: 14px; height: 14px;
+        border-radius: 50%; background-color: var(--color-card-bg); border: 3px solid var(--color-accent);
+        z-index: 2; transition: transform 0.3s ease;
       }
-      .timeline-item:hover .timeline-dot {
-        transform: scale(1.3);
-        background-color: var(--color-accent);
-      }
+      .timeline-item:hover .timeline-dot { transform: scale(1.3); background-color: var(--color-accent); }
       .timeline-date {
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: var(--color-accent);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: 0.25rem;
-        display: block;
+        font-size: 0.75rem; font-weight: 700; color: var(--color-accent); text-transform: uppercase;
+        letter-spacing: 0.05em; margin-bottom: 0.25rem; display: block;
       }
 
-      /* --- Social Grid Styles --- */
+      /* Social & Certs */
       .social-btn {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 1rem;
-        border-radius: 0.75rem;
-        background-color: var(--color-card-bg);
-        border: 1px solid var(--color-border);
-        transition: all 0.3s ease;
-        height: 100%;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        padding: 1rem; border-radius: 0.75rem; background-color: var(--color-card-bg);
+        border: 1px solid var(--color-border); transition: all 0.3s ease; height: 100%;
       }
-      .social-btn:hover {
-        background-color: var(--color-card-hover-bg);
-        border-color: var(--color-accent);
-        transform: translateY(-3px);
-      }
-      .social-btn svg {
-        margin-bottom: 0.5rem;
-        transition: transform 0.3s ease;
-      }
-      .social-btn:hover svg {
-        transform: scale(1.1);
-        color: var(--color-accent);
-      }
+      .social-btn:hover { background-color: var(--color-card-hover-bg); border-color: var(--color-accent); transform: translateY(-3px); }
+      .social-btn svg { margin-bottom: 0.5rem; transition: transform 0.3s ease; }
+      .social-btn:hover svg { transform: scale(1.1); color: var(--color-accent); }
 
-      /* --- Cert Grid Styles --- */
       .cert-card {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        border-radius: 0.75rem;
-        border: 1px solid var(--color-border);
-        background-color: var(--color-card-bg);
-        padding: 1rem;
-        transition: all 0.3s ease;
+        display: flex; flex-direction: column; height: 100%; border-radius: 0.75rem;
+        border: 1px solid var(--color-border); background-color: var(--color-card-bg);
+        padding: 1rem; transition: all 0.3s ease;
       }
-      .cert-card:hover {
-        border-color: var(--color-accent);
-        background-color: var(--color-card-hover-bg);
-        transform: translateY(-3px);
-      }
+      .cert-card:hover { border-color: var(--color-accent); background-color: var(--color-card-hover-bg); transform: translateY(-3px); }
 
-      /* Responsive Layout for Tabs */
+      /* Responsive Layout */
       @media (max-width: 640px) {
-        .tab-link {
-          flex-grow: 1;
-          text-align: center;
-          font-size: 0.875rem; /* text-sm on mobile */
-          padding: 0.5rem 0.25rem;
-        }
-        nav .flex {
-          justify-content: space-around;
-          margin-bottom: 0;
-        }
-        .profile-container {
-            padding: 1rem;
-        }
-        /* Mobile specific adjustments for data-row flex */
-        .data-row {
-            flex-direction: row; 
-            align-items: flex-start;
-        }
-        .data-label {
-            min-width: 100px; /* Ensure labels align */
-        }
-        .data-value {
-            text-align: right; /* Keep right align on mobile but allow wrap */
-            word-break: break-word;
-            flex: 1;
-        }
+        .tab-link { flex-grow: 1; text-align: center; font-size: 0.875rem; padding: 0.5rem 0.25rem; }
+        nav .flex { justify-content: space-around; margin-bottom: 0; }
+        .profile-container { padding: 1rem; width: 100%; }
+        .data-row { flex-direction: row; align-items: flex-start; }
+        .data-label { min-width: 100px; }
+        .data-value { text-align: right; word-break: break-word; flex: 1; }
       }
 
     </style>
   </head>
   <body>
     <div class="profile-container">
-      <!-- HEADER AND CONTACT INFO -->
       <header
         class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-6 mb-6 border-b border-[var(--color-border)]"
       >
         <div class="flex items-center mb-4 sm:mb-0 header-content">
           <div class="profile-img-container mr-4 cursor-pointer">
-            <!-- Profile Image -->
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS05MbssENUfC5BDSWkElWp3XKfu8DwT-GKdg&s"
               onerror="this.onerror=null; this.src='https://placehold.co/112x112/00a859/ffffff?text=SV';"
@@ -762,19 +387,16 @@
             <div class="status-badge">
                 <span class="status-dot"></span> Open to Work
             </div>
-            <!-- UPDATED: Added Copy Email Feature -->
             <div class="flex items-center group relative mt-2">
               <a href="mailto:urstrulysaida@gmail.com" id="email-text" class="text-lg text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-200 mr-2">
                 urstrulysaida@gmail.com
               </a>
               <button onclick="copyEmail()" class="p-1 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-all duration-200 opacity-70 hover:opacity-100 hover:bg-[var(--color-card-hover-bg)]" aria-label="Copy email address">
-                <!-- Copy Icon -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <rect width="13" height="13" x="9" y="9" rx="2" ry="2"/>
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
                 </svg>
               </button>
-              <!-- Copy Success Message -->
               <span id="copy-message" class="absolute top-full mt-1 px-3 py-1 bg-[var(--color-accent)] text-white text-xs rounded-lg shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-20 whitespace-nowrap" aria-live="polite" role="status">
                 Copied to clipboard!
               </span>
@@ -785,136 +407,73 @@
           class="flex space-x-3 header-content"
           style="animation-delay: 0.3s"
         >
-          <!-- Theme Toggle Button -->
           <button
             id="theme-toggle"
             class="p-3 rounded-lg text-[var(--color-text-primary)] border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:shadow-lg transition duration-300 hover:scale-[1.05]"
             aria-label="Toggle light and dark theme"
           >
-            <svg
-              id="sun-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="12" r="4" />
-              <path d="M12 2v2" />
-              <path d="M12 20v2" />
-              <path d="M4.93 4.93l1.41 1.41" />
-              <path d="M17.66 17.66l1.41 1.41" />
-              <path d="M2 12h2" />
-              <path d="M20 12h2" />
-              <path d="M6.34 17.66l-1.41 1.41" />
-              <path d="M19.07 4.93l-1.41 1.41" />
+            <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="M4.93 4.93l1.41 1.41" /><path d="M17.66 17.66l1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="M6.34 17.66l-1.41 1.41" /><path d="M19.07 4.93l-1.41 1.41" />
             </svg>
-            <svg
-              id="moon-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6 hidden"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+            <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           </button>
-          <!-- Resume Link Button -->
           <a
             href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing"
             target="_blank"
             class="btn-resume"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="mr-2"
-            >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" x2="12" y1="15" y2="3" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" />
             </svg>
             View Resume
           </a>
         </div>
       </header>
 
-      <!-- Search Bar -->
       <div
         class="mb-6 flex items-center space-x-2 header-content"
         style="animation-delay: 0.4s"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 text-[var(--color-text-secondary)]"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <circle cx="11" cy="11" r="8" />
-          <path d="m21 21-4.3-4.3" />
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[var(--color-text-secondary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
         </svg>
         <input
           type="text"
           id="global-search"
           oninput="debouncedHandleSearch(this.value)"
-          placeholder="Search keywords across all sections (e.g., 'GCP', 'SIEM', '2026')"
+          placeholder="Search keywords (e.g., 'GCP', 'SIEM', '2026')"
           class="w-full p-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-card-bg)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-colors duration-300"
         />
       </div>
 
-      <!-- Tab Navigation (ARIA roles added) -->
       <nav class="mb-8 header-content" style="animation-delay: 0.5s">
         <div class="flex space-x-6 border-b border-gray-200" role="tablist">
           <div id="tab-link-personal-info" class="tab-link active" data-tab="personal-info" role="tab" aria-controls="personal-info" aria-selected="true" tabindex="0">
-            <span class="mr-2" role="img" aria-label="Person">👤</span> Personal
-            Info
+            <span class="mr-2" role="img" aria-label="Person">👤</span> Personal Info
           </div>
           <div id="tab-link-education" class="tab-link" data-tab="education" role="tab" aria-controls="education" aria-selected="false" tabindex="-1">
-            <span class="mr-2" role="img" aria-label="Education">🎓</span>
-            Education
+            <span class="mr-2" role="img" aria-label="Education">🎓</span> Education
           </div>
           <div id="tab-link-career-links" class="tab-link" data-tab="career-links" role="tab" aria-controls="career-links" aria-selected="false" tabindex="-1">
-            <span class="mr-2" role="img" aria-label="Links">🔗</span> Career &
-            Links
+            <span class="mr-2" role="img" aria-label="Links">🔗</span> Career & Links
           </div>
           <div id="tab-link-projects" class="tab-link" data-tab="projects" role="tab" aria-controls="projects" aria-selected="false" tabindex="-1">
             <span class="mr-2" role="img" aria-label="Projects">💡</span> Projects
           </div>
-          <!-- NEW TAB LINK: Roadmap -->
           <div id="tab-link-roadmap" class="tab-link" data-tab="roadmap" role="tab" aria-controls="roadmap" aria-selected="false" tabindex="-1">
             <span class="mr-2" role="img" aria-label="Roadmap">🗺️</span> Roadmap
           </div>
         </div>
       </nav>
 
-      <!-- Main Content Area -->
       <main id="tab-content">
-        <!-- -------------------------------- 1. PERSONAL INFO TAB -------------------------------- -->
         <section id="personal-info" class="tab-pane active space-y-8" role="tabpanel" aria-labelledby="tab-link-personal-info">
-          <!-- Professional Summary Card -->
           <div class="content-card relative overflow-hidden">
             <div class="relative z-10">
                 <h3 class="text-2xl font-bold mb-4 text-[var(--color-text-primary)] flex items-center">
-                    <span class="mr-3 text-[var(--color-accent)]">👋</span>
-                    About Me
+                    <span class="mr-3 text-[var(--color-accent)]">👋</span> About Me
                 </h3>
                 <p class="text-lg text-[var(--color-summary-text)] leading-relaxed mb-4">
                     A highly motivated Computer Science student specializing in <strong class="text-[var(--color-accent)] font-semibold">Cybersecurity</strong> and <strong class="text-[var(--color-accent)] font-semibold">Cloud Architecture</strong>. 
@@ -923,12 +482,10 @@
                       My expertise spans Threat Detection (SIEM), Cloud Infrastructure (GCP/AWS), and DevOps automation. I leverage Python scripting and foundational network security principles to develop scalable infrastructure and contribute to robust, preventative defense strategies.
                 </p>
             </div>
-            <!-- Decorative background blur -->
             <div class="absolute -top-10 -right-10 w-40 h-40 bg-[var(--color-accent)] rounded-full opacity-10 blur-3xl pointer-events-none"></div>
           </div>
 
-          <!-- START NEW: Key Metrics & Achievements Card -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <div class="content-card flex flex-col items-center justify-center p-6 hover:border-[var(--color-accent)] transition-colors duration-300">
                   <div class="stat-card-icon text-orange-500">🚀</div>
                   <p class="text-3xl font-extrabold text-[var(--color-text-primary)]">4+</p>
@@ -950,18 +507,14 @@
                   <p class="text-xs uppercase font-bold text-[var(--color-text-secondary)] mt-1">Cyber Focus</p>
               </div>
           </div>
-          <!-- END NEW: Key Metrics & Achievements Card -->
-
 
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Contact & Details Combined -->
             <div class="content-card lg:col-span-2">
               <h3 class="text-xl font-semibold mb-6 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
                 <span class="mr-2 text-blue-500">📍</span> Contact & Location
               </h3>
               
               <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-                  <!-- Email -->
                   <div class="data-row">
                       <div class="data-row-icon">
                           <div class="data-icon-box">✉️</div>
@@ -970,30 +523,23 @@
                       <span class="data-value text-sm">urstrulysaida@gmail.com</span>
                   </div>
                   
-                  <!-- Mobile -->
                   <div class="data-row">
                       <div class="data-row-icon">
                           <div class="data-icon-box">📱</div>
                           <span class="data-label">Mobile</span>
                       </div>
-                      <span class="data-value">
-                          <a href="tel:+917674012184" class="hover:text-[var(--color-accent)] transition-colors">7674012184</a>
-                      </span>
+                      <span class="data-value"><a href="tel:+917674012184" class="hover:text-[var(--color-accent)] transition-colors">7674012184</a></span>
                   </div>
 
-                  <!-- WhatsApp -->
                   <div class="data-row">
                       <div class="data-row-icon">
                           <div class="data-icon-box">💬</div>
                           <span class="data-label">WhatsApp</span>
                       </div>
-                      <span class="data-value">
-                          <a href="https://wa.me/916301466654" target="_blank" class="hover:text-[var(--color-accent)] transition-colors">6301466654</a>
-                      </span>
+                      <span class="data-value"><a href="https://wa.me/916301466654" target="_blank" class="hover:text-[var(--color-accent)] transition-colors">6301466654</a></span>
                   </div>
 
-                   <!-- City -->
-                  <div class="data-row">
+                    <div class="data-row">
                       <div class="data-row-icon">
                           <div class="data-icon-box">🏙️</div>
                           <span class="data-label">City</span>
@@ -1001,8 +547,7 @@
                       <span class="data-value">Guntur, AP</span>
                   </div>
 
-                   <!-- Address -->
-                  <div class="data-row md:col-span-2 border-t border-[var(--color-border)] pt-4 mt-2">
+                    <div class="data-row md:col-span-2 border-t border-[var(--color-border)] pt-4 mt-2">
                       <div class="data-row-icon mb-2 md:mb-0">
                           <div class="data-icon-box">🏠</div>
                           <span class="data-label">Full Address</span>
@@ -1012,7 +557,6 @@
               </div>
             </div>
 
-            <!-- Demographics Mini Card -->
             <div class="content-card">
               <h3 class="text-xl font-semibold mb-6 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
                 <span class="mr-2 text-purple-500">👤</span> Personal Info
@@ -1039,11 +583,9 @@
           </div>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <!-- Awards & Recognition Card -->
               <div class="content-card flex flex-col">
                 <h3 class="text-xl font-semibold mb-5 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
-                  <span class="mr-2 text-yellow-400">🏆</span>
-                  Awards & Honors
+                  <span class="mr-2 text-yellow-400">🏆</span> Awards & Honors
                 </h3>
                 <ul class="space-y-4 text-base text-[var(--color-text-primary)] flex-grow">
                     <li class="flex items-start">
@@ -1070,11 +612,9 @@
                 </ul>
               </div>
 
-              <!-- Leadership & Initiative Card -->
               <div class="content-card flex flex-col">
                 <h3 class="text-xl font-semibold mb-5 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
-                  <span class="mr-2 text-red-500">🌟</span>
-                  Leadership
+                  <span class="mr-2 text-red-500">🌟</span> Leadership
                 </h3>
                 <ul class="space-y-4 text-base text-[var(--color-text-primary)] flex-grow">
                     <li class="flex items-start">
@@ -1102,11 +642,9 @@
               </div>
           </div>
           
-          <!-- START NEW CARD: Language Proficiency and Interests -->
           <div class="content-card">
             <h3 class="text-xl font-semibold mb-5 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
-              <span class="mr-2 text-green-400">🧩</span>
-              Languages & Interests
+              <span class="mr-2 text-green-400">🧩</span> Languages & Interests
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
@@ -1128,16 +666,13 @@
               </div>
             </div>
           </div>
-          <!-- END NEW CARD -->
         </section>
 
-        <!-- -------------------------------- 2. EDUCATION TAB -------------------------------- -->
         <section id="education" class="tab-pane hidden space-y-8" role="tabpanel" aria-labelledby="tab-link-education" aria-hidden="true">
           <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6 flex items-center">
             <span class="mr-2">🎓</span> Academic Timeline
           </h3>
 
-          <!-- B.Tech Main Card -->
           <div class="content-card bg-textured-card bg-ug mb-8 overflow-hidden group">
               <div class="bg-card-content p-8 relative">
                   <div class="absolute top-4 right-4">
@@ -1157,7 +692,6 @@
                       </div>
                   </div>
                   
-                  <!-- Progress Bar -->
                   <div class="w-full bg-gray-700/50 rounded-full h-2.5 mb-2 backdrop-blur-sm border border-white/10">
                       <div class="bg-[var(--color-accent)] h-2.5 rounded-full" style="width: 65%"></div>
                   </div>
@@ -1165,9 +699,7 @@
               </div>
           </div>
 
-          <!-- Secondary Education Grid -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Intermediate -->
               <div class="content-card bg-textured-card bg-intermediate group">
                   <div class="bg-card-content p-6">
                       <div class="flex justify-between items-start mb-4">
@@ -1183,7 +715,6 @@
                   </div>
               </div>
 
-              <!-- 10th -->
               <div class="content-card bg-textured-card bg-10th group">
                   <div class="bg-card-content p-6">
                       <div class="flex justify-between items-start mb-4">
@@ -1201,12 +732,9 @@
           </div>
         </section>
 
-        <!-- -------------------------------- 3. CAREER & LINKS TAB -------------------------------- -->
         <section id="career-links" class="tab-pane hidden space-y-8" role="tabpanel" aria-labelledby="tab-link-career-links" aria-hidden="true">
           
-          <!-- Top Row: Status & Socials Grid -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Left: Current Professional Status (Span 1) -->
             <div class="content-card md:col-span-1 flex flex-col justify-between">
               <div>
                 <h4 class="text-lg font-bold text-[var(--color-text-primary)] mb-4 flex items-center">
@@ -1224,24 +752,19 @@
               </div>
             </div>
 
-            <!-- Right: Quick Connect Social Grid (Span 2) -->
             <div class="md:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <!-- LinkedIn -->
                 <a href="https://www.linkedin.com/in/shaiksaidavali/" target="_blank" class="social-btn group">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                     <span class="text-xs font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)]">LinkedIn</span>
                 </a>
-                <!-- GitHub -->
                 <a href="https://github.com/urstrulysaida" target="_blank" class="social-btn group">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-800 dark:text-gray-200"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/><path d="M12 2v3"/></svg>
                     <span class="text-xs font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)]">GitHub</span>
                 </a>
-                <!-- CodePen -->
                 <a href="https://codepen.io/Mr_-Prince_Ssv" target="_blank" class="social-btn group">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-600"><polygon points="12 2 22 13 15.46 22 12 18 8.54 22 2 13 12 2"/><line x1="2" x2="15.46" y1="13" y2="13"/><line x1="8.54" x2="12" y1="22" y2="18"/><line x1="12" x2="15.46" y1="18" y2="22"/><line x1="12" x2="12" y1="2" y2="18"/></svg>
                     <span class="text-xs font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)]">CodePen</span>
                 </a>
-                <!-- Resume/Docs -->
                 <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" class="social-btn group">
                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-500"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                     <span class="text-xs font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)]">CV / Resume</span>
@@ -1249,31 +772,28 @@
             </div>
           </div>
           
-          <!-- Code Contributions Snapshot -->
           <div class="content-card">
               <h4 class="text-sm font-bold mb-3 text-[var(--color-text-secondary)] uppercase tracking-wide flex items-center justify-between">
                  <span>Code Activity (Last 7 Days)</span>
                  <span class="text-xs font-normal opacity-70">Live Data Mockup</span>
               </h4>
               <div class="activity-chart">
-                  <!-- Monday --> <div class="day-bar level-1" style="height: 30%;" title="Mon: Medium"></div>
-                  <!-- Tuesday --> <div class="day-bar level-3" style="height: 100%;" title="Tue: High"></div>
-                  <!-- Wednesday --> <div class="day-bar level-2" style="height: 60%;" title="Wed: Medium"></div>
-                  <!-- Thursday --> <div class="day-bar level-0" style="height: 10%;" title="Thu: Low"></div>
-                  <!-- Friday --> <div class="day-bar level-3" style="height: 100%;" title="Fri: High"></div>
-                  <!-- Saturday --> <div class="day-bar level-1" style="height: 30%;" title="Sat: Medium"></div>
-                  <!-- Sunday --> <div class="day-bar level-0" style="height: 10%;" title="Sun: Low"></div>
+                  <div class="day-bar level-1" style="height: 30%;" title="Mon: Medium"></div>
+                  <div class="day-bar level-3" style="height: 100%;" title="Tue: High"></div>
+                  <div class="day-bar level-2" style="height: 60%;" title="Wed: Medium"></div>
+                  <div class="day-bar level-0" style="height: 10%;" title="Thu: Low"></div>
+                  <div class="day-bar level-3" style="height: 100%;" title="Fri: High"></div>
+                  <div class="day-bar level-1" style="height: 30%;" title="Sat: Medium"></div>
+                  <div class="day-bar level-0" style="height: 10%;" title="Sun: Low"></div>
               </div>
           </div>
 
-          <!-- Skill Matrix Card - Refined Layout -->
           <div class="content-card">
               <h3 class="text-xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center">
                 <span class="mr-2 text-yellow-500">🛠️</span> Technical Arsenal
               </h3>
               
               <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Column 1 -->
                 <div>
                    <h5 class="text-sm font-bold text-red-500 uppercase tracking-wider mb-4 border-b border-[var(--color-border)] pb-2">Cloud & Infra</h5>
                    <div class="space-y-4">
@@ -1291,8 +811,7 @@
                        </div>
                    </div>
                 </div>
-                <!-- Column 2 -->
-                 <div>
+                <div>
                    <h5 class="text-sm font-bold text-indigo-500 uppercase tracking-wider mb-4 border-b border-[var(--color-border)] pb-2">Security & Code</h5>
                    <div class="space-y-4">
                        <div class="skill-item">
@@ -1317,34 +836,29 @@
               </div>
           </div>
 
-          <!-- Professional Certifications Grid -->
           <div>
             <h3 class="text-xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center">
                  <span class="mr-2 text-green-500">🏅</span> Certifications
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Google Cyber -->
                 <div class="cert-card">
                     <div class="mb-3 text-green-500"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
                     <h5 class="font-bold text-sm text-[var(--color-text-primary)] mb-1">Google Cybersecurity</h5>
                     <p class="text-xs text-[var(--color-text-secondary)] mb-4">Security Analytics, SIEM, Risk</p>
                     <a href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank" class="mt-auto text-xs font-bold text-[var(--color-accent)] hover:underline">View Credential &rarr;</a>
                 </div>
-                <!-- AWS -->
                 <div class="cert-card">
                     <div class="mb-3 text-yellow-500"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19c0-1.7-1.3-3-3-3h-5c-1.7 0-3 1.3-3 3"/><path d="M22 10.5V9a2 2 0 0 0-2-2h-3.3a5 5 0 0 0-9.4 0H4a2 2 0 0 0-2 2v1.5"/><path d="M8 10a2 2 0 1 0 4 0 2 2 0 1 0-4 0"/></svg></div>
                     <h5 class="font-bold text-sm text-[var(--color-text-primary)] mb-1">AWS Cloud Tech</h5>
                     <p class="text-xs text-[var(--color-text-secondary)] mb-4">Architecture, EC2, VPC</p>
                     <a href="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link" target="_blank" class="mt-auto text-xs font-bold text-[var(--color-accent)] hover:underline">View Credential &rarr;</a>
                 </div>
-                 <!-- Google Advanced Data -->
-                <div class="cert-card">
+                 <div class="cert-card">
                     <div class="mb-3 text-purple-500"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
                     <h5 class="font-bold text-sm text-[var(--color-text-primary)] mb-1">Advanced Data Analytics</h5>
                     <p class="text-xs text-[var(--color-text-secondary)] mb-4">Python, R, Modeling</p>
                     <a href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank" class="mt-auto text-xs font-bold text-[var(--color-accent)] hover:underline">View Credential &rarr;</a>
                 </div>
-                <!-- Google Data -->
                 <div class="cert-card">
                     <div class="mb-3 text-blue-500"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
                     <h5 class="font-bold text-sm text-[var(--color-text-primary)] mb-1">Google Data Analytics</h5>
@@ -1354,14 +868,12 @@
             </div>
           </div>
 
-          <!-- Vertical Timeline: Core Experience -->
           <div class="content-card">
               <h3 class="text-xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center border-b pb-2 border-[var(--color-border)]">
-                 <span class="mr-2 text-red-500">🧠</span> Core Internships & Experience
+                  <span class="mr-2 text-red-500">🧠</span> Core Internships & Experience
               </h3>
               
               <div class="timeline-container">
-                  <!-- Item 1 -->
                   <div class="timeline-item">
                       <div class="timeline-dot"></div>
                       <span class="timeline-date">Feb 2024 - Apr 2024 (10 Weeks)</span>
@@ -1373,7 +885,6 @@
                       <a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Certificate &rarr;</a>
                   </div>
 
-                  <!-- Item 2 -->
                   <div class="timeline-item">
                       <div class="timeline-dot"></div>
                       <span class="timeline-date">Aug 2023 - Nov 2023 (16 Weeks)</span>
@@ -1385,8 +896,7 @@
                       <a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Certificate &rarr;</a>
                   </div>
 
-                   <!-- Item 3 -->
-                  <div class="timeline-item">
+                    <div class="timeline-item">
                       <div class="timeline-dot"></div>
                       <span class="timeline-date">Jan 2023 - Mar 2023 (10 Weeks)</span>
                       <h4 class="text-lg font-bold text-indigo-500">Ethical Hacking Internship</h4>
@@ -1399,14 +909,12 @@
               </div>
           </div>
 
-          <!-- Vertical Timeline: Virtual Programs -->
-           <div class="content-card">
+          <div class="content-card">
               <h3 class="text-xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center border-b pb-2 border-[var(--color-border)]">
-                 <span class="mr-2 text-orange-500">⚡</span> Virtual Experience & Programs
+                  <span class="mr-2 text-orange-500">⚡</span> Virtual Experience & Programs
               </h3>
               
               <div class="timeline-container">
-                  <!-- Zscaler -->
                   <div class="timeline-item">
                       <div class="timeline-dot"></div>
                       <h4 class="text-lg font-bold text-indigo-500">Zscaler Cloud Networking</h4>
@@ -1415,8 +923,7 @@
                       </p>
                       <a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Proof &rarr;</a>
                   </div>
-                   <!-- Fortinet -->
-                  <div class="timeline-item">
+                    <div class="timeline-item">
                       <div class="timeline-dot"></div>
                       <h4 class="text-lg font-bold text-red-500">Fortinet Network Security (NSE)</h4>
                       <p class="text-sm text-[var(--color-text-primary)] mb-1">
@@ -1424,8 +931,7 @@
                       </p>
                       <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Proof &rarr;</a>
                   </div>
-                   <!-- Ethical Hacking Virtual -->
-                  <div class="timeline-item">
+                    <div class="timeline-item">
                       <div class="timeline-dot"></div>
                       <h4 class="text-lg font-bold text-teal-500">Ethical Hacking Virtual Experience</h4>
                       <p class="text-sm text-[var(--color-text-primary)] mb-1">
@@ -1433,8 +939,7 @@
                       </p>
                       <a href="https://drive.google.com/file/d/1gXGAQ-W92tTVBiNBNISdAlXM3tYSF6Z_/view?usp=sharing" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Proof &rarr;</a>
                   </div>
-                   <!-- Automation -->
-                  <div class="timeline-item">
+                    <div class="timeline-item">
                       <div class="timeline-dot"></div>
                       <h4 class="text-lg font-bold text-orange-500">Automation Virtual Experience</h4>
                       <p class="text-sm text-[var(--color-text-primary)] mb-1">
@@ -1442,7 +947,6 @@
                       </p>
                       <a href="https://drive.google.com/file/d/1iTvnbJdyDNZzmsNNKVRAK5gixOXWtnzk/view?usp=sharing" target="_blank" class="text-xs font-bold text-[var(--color-accent)] hover:underline">View Proof &rarr;</a>
                   </div>
-                  <!-- Google Dev -->
                   <div class="timeline-item">
                       <div class="timeline-dot"></div>
                       <h4 class="text-lg font-bold text-blue-600">Google for Developers</h4>
@@ -1456,13 +960,11 @@
 
         </section>
 
-        <!-- -------------------------------- 4. PROJECTS TAB -------------------------------- -->
         <section id="projects" class="tab-pane hidden space-y-8" role="tabpanel" aria-labelledby="tab-link-projects" aria-hidden="true">
           <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-4">
             Key Projects & Portfolio
           </h3>
           
-          <!-- NEW: Technology Badges - Organized Layout -->
           <div class="content-card">
               <h4 class="text-xl font-bold mb-4 text-[var(--color-accent)] border-b pb-2 border-[var(--color-border)] flex items-center">
                 <span class="mr-2">🧩</span> Core Technology Expertise
@@ -1477,7 +979,6 @@
               </div>
           </div>
           
-          <!-- NEW: Filter Buttons - Improved Spacing -->
           <div class="flex flex-wrap gap-3 mb-6">
             <button class="btn-filter active" data-filter="all" onclick="filterProjects('all')">All Projects</button>
             <button class="btn-filter" data-filter="cloud" onclick="filterProjects('cloud')">Cloud / GCP</button>
@@ -1485,11 +986,9 @@
             <button class="btn-filter" data-filter="iot" onclick="filterProjects('iot')">IoT / Data</button>
           </div>
           
-          <div id="project-list" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div id="project-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <!-- Project 1: Cloud Security Incident Response -->
             <div class="project-card group relative overflow-hidden flex flex-col h-full" data-tags="cloud security python">
-              <!-- Header with Icon and Year -->
               <div class="flex items-start justify-between mb-4">
                   <div class="p-3 rounded-lg bg-blue-500/10 text-blue-500">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1508,7 +1007,6 @@
                 Developed a Python-based Security Orchestration, Automation, and Response (SOAR) playbook within a simulated GCP environment. The solution ingested VPC flow logs into a custom SIEM mockup, enabling near real-time detection of lateral movement and automated isolation of non-compliant VM workloads via Compute Engine API calls.
               </p>
 
-              <!-- Tags -->
               <div class="flex flex-wrap gap-2 mb-6">
                 <span class="text-xs font-semibold px-2 py-1 rounded bg-blue-500/10 text-blue-500">GCP Compute</span>
                 <span class="text-xs font-semibold px-2 py-1 rounded bg-yellow-500/10 text-yellow-500">Python SOAR</span>
@@ -1516,7 +1014,6 @@
                 <span class="text-xs font-semibold px-2 py-1 rounded bg-gray-500/10 text-gray-500">VPC Networking</span>
               </div>
               
-              <!-- Footer Action -->
               <div class="mt-auto flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
                   <span class="text-xs font-bold text-[var(--color-text-secondary)]">10 Weeks</span>
                   <a href="https://github.com/urstrulysaida/cloud-security-automation-gcp" target="_blank" class="flex items-center text-sm font-bold text-[var(--color-accent)] hover:underline group-hover:translate-x-1 transition-transform">
@@ -1525,9 +1022,7 @@
               </div>
             </div>
 
-            <!-- Project 2: Real-time IoT Data Pipeline -->
             <div class="project-card group relative overflow-hidden flex flex-col h-full" data-tags="iot data python">
-               <!-- Header with Icon and Year -->
               <div class="flex items-start justify-between mb-4">
                   <div class="p-3 rounded-lg bg-pink-500/10 text-pink-500">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
@@ -1546,7 +1041,6 @@
                 Engineered a scalable, full-stack IoT telemetry solution to monitor ambient data. The project utilized MQTT for low-latency data ingestion, persisting metrics in a non-relational database (e.g., MongoDB/Firestore concept) and presenting real-time operational metrics via a dedicated, responsive web dashboard (Node.js/JS stack).
               </p>
 
-              <!-- Tags -->
               <div class="flex flex-wrap gap-2 mb-6">
                 <span class="text-xs font-semibold px-2 py-1 rounded bg-purple-500/10 text-purple-500">Arduino/ESP32</span>
                 <span class="text-xs font-semibold px-2 py-1 rounded bg-indigo-500/10 text-indigo-500">MQTT Protocol</span>
@@ -1554,7 +1048,6 @@
                 <span class="text-xs font-semibold px-2 py-1 rounded bg-blue-500/10 text-blue-500">Telemetry Pipeline</span>
               </div>
               
-              <!-- Footer Action -->
               <div class="mt-auto flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
                   <span class="text-xs font-bold text-[var(--color-text-secondary)]">16 Weeks</span>
                   <a href="https://github.com/urstrulysaida/iot-real-time-monitor" target="_blank" class="flex items-center text-sm font-bold text-[var(--color-accent)] hover:underline group-hover:translate-x-1 transition-transform">
@@ -1563,9 +1056,7 @@
               </div>
             </div>
             
-            <!-- Project 3: Network Reconnaissance Tool -->
             <div class="project-card group relative overflow-hidden flex flex-col h-full" data-tags="security python networking">
-               <!-- Header with Icon and Year -->
               <div class="flex items-start justify-between mb-4">
                   <div class="p-3 rounded-lg bg-indigo-500/10 text-indigo-500">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -1584,7 +1075,6 @@
                 Created a custom Python/Scapy CLI utility for automated network footprinting and discovery. The tool performs active host enumeration, target identification, and port scanning (TCP/UDP) to simulate the initial phase of a penetration test and uncover vulnerable services.
               </p>
 
-              <!-- Tags -->
               <div class="flex flex-wrap gap-2 mb-6">
                 <span class="text-xs font-semibold px-2 py-1 rounded bg-yellow-500/10 text-yellow-500">Python</span>
                 <span class="text-xs font-semibold px-2 py-1 rounded bg-green-500/10 text-green-500">Scapy Library</span>
@@ -1592,7 +1082,6 @@
                 <span class="text-xs font-semibold px-2 py-1 rounded bg-gray-500/10 text-gray-500">Footprinting</span>
               </div>
               
-              <!-- Footer Action -->
               <div class="mt-auto flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
                   <span class="text-xs font-bold text-[var(--color-text-secondary)]">8 Weeks</span>
                   <a href="https://github.com/urstrulysaida/network-recon-tool-mock" target="_blank" class="flex items-center text-sm font-bold text-[var(--color-accent)] hover:underline group-hover:translate-x-1 transition-transform">
@@ -1605,14 +1094,12 @@
           
         </section>
         
-        <!-- -------------------------------- 5. LEARNING ROADMAP TAB (NEW) -------------------------------- -->
         <section id="roadmap" class="tab-pane hidden space-y-8" role="tabpanel" aria-labelledby="tab-link-roadmap" aria-hidden="true">
             <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">
                 <span class="mr-2">🗺️</span> Strategic Roadmap & Learning Path
             </h3>
             
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <!-- Visual Roadmap Card (Span 2) -->
               <div class="content-card lg:col-span-2 flex flex-col h-full">
                  <h4 class="text-xl font-bold mb-4 text-[var(--color-text-primary)] flex items-center">
                     <span class="mr-2">📍</span> DevOps & Cloud Security Path
@@ -1632,14 +1119,11 @@
                  </div>
               </div>
 
-              <!-- Current Focus: Active Quest (Span 1) -->
               <div class="content-card flex flex-col">
                  <h4 class="text-xl font-bold mb-4 text-[var(--color-text-primary)] flex items-center border-b border-[var(--color-border)] pb-2">
                     <span class="mr-2 text-yellow-500">⚡</span> Active Quests (Q4 2024)
                  </h4>
-                 <!-- List active items with status badges (In Progress) -->
                  <div class="space-y-4 flex-grow">
-                    <!-- Item 1 -->
                     <div class="p-4 bg-[var(--color-card-hover-bg)] rounded-lg border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-300 group">
                        <div class="flex justify-between items-start mb-2">
                           <span class="font-bold text-[var(--color-accent)] group-hover:underline">Terraform (IaC)</span>
@@ -1649,7 +1133,6 @@
                           Automating secure AWS infrastructure deployment. Focus on state management and modules.
                        </p>
                     </div>
-                    <!-- Item 2 -->
                     <div class="p-4 bg-[var(--color-card-hover-bg)] rounded-lg border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-300 group">
                        <div class="flex justify-between items-start mb-2">
                           <span class="font-bold text-[var(--color-accent)] group-hover:underline">Vuln. Management</span>
@@ -1659,7 +1142,6 @@
                           Setting up OpenVAS/Nessus workflows for automated scanning and reporting.
                        </p>
                     </div>
-                    <!-- Item 3 -->
                     <div class="p-4 bg-[var(--color-card-hover-bg)] rounded-lg border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-300 group">
                        <div class="flex justify-between items-start mb-2">
                           <span class="font-bold text-[var(--color-accent)] group-hover:underline">CompTIA Security+</span>
@@ -1673,25 +1155,21 @@
               </div>
             </div>
 
-            <!-- Future Goals Section -->
             <div class="content-card mt-8">
                <h4 class="text-xl font-bold mb-6 text-[var(--color-text-primary)] flex items-center border-b border-[var(--color-border)] pb-2">
                   <span class="mr-2 text-purple-500">🚀</span> Future Horizons (2025+)
                </h4>
                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <!-- Goal 1 -->
                   <div class="p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:bg-[var(--color-card-hover-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-300 group">
                      <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">☁️</div>
                      <h5 class="font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent)]">CSPM Mastery</h5>
                      <p class="text-sm text-[var(--color-text-secondary)]">Deep dive into Cloud Security Posture Management tools and compliance frameworks.</p>
                   </div>
-                  <!-- Goal 2 -->
                   <div class="p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:bg-[var(--color-card-hover-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-300 group">
                      <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🕵️‍♂️</div>
                      <h5 class="font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent)]">Threat Hunting</h5>
                      <p class="text-sm text-[var(--color-text-secondary)]">Developing custom YARA & Sigma rules for advanced proactive threat detection.</p>
                   </div>
-                  <!-- Goal 3 -->
                   <div class="p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:bg-[var(--color-card-hover-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-300 group">
                      <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🐳</div>
                      <h5 class="font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent)]">DevSecOps</h5>
@@ -1703,11 +1181,9 @@
       </main>
     </div>
 
-    <!-- ============================ JAVASCRIPT LOGIC ============================ -->
     <script>
       let originalContent = {};
 
-      // --- DEBOUNCE FUNCTION ---
       const debounce = (func, delay) => {
         let timeout;
         return function (...args) {
@@ -1720,7 +1196,7 @@
         const tabs = document.querySelectorAll(".tab-link");
         const tabPanes = document.querySelectorAll(".tab-pane");
         const tabContent = document.getElementById("tab-content");
-        const transitionDuration = 400; // Match CSS transition duration
+        const transitionDuration = 400; 
         const projectList = document.getElementById("project-list");
         const filterButtons = document.querySelectorAll('.btn-filter');
 
@@ -1748,7 +1224,6 @@
           }
         };
 
-        // Initialize theme
         const savedTheme = localStorage.getItem("theme");
         const prefersDark =
           window.matchMedia &&
@@ -1760,7 +1235,6 @@
           applyTheme(false);
         }
 
-        // Add listener to toggle button
         if (themeToggle) {
           themeToggle.addEventListener("click", () => {
             const isDark = document.body.classList.contains("dark-mode");
@@ -1770,34 +1244,28 @@
 
         // --- Content Storage & Search Initialization ---
         tabPanes.forEach((pane) => {
-          // Store original content to restore after search/highlighting
           originalContent[pane.id] = pane.innerHTML;
         });
         
-        // --- Skill Bar Animation Function ---
+        // --- Skill Bar Animation ---
         const animateSkillBars = () => {
-            // Reset existing widths immediately before setting new widths
             document.querySelectorAll('#career-links .skill-bar').forEach(bar => bar.style.width = '0%');
-            
             const skillBars = document.querySelectorAll('#career-links .skill-bar');
             skillBars.forEach(bar => {
                 const level = bar.getAttribute('data-level');
-                // Use a short delay after the tab transition is complete
                 setTimeout(() => {
                     bar.style.width = level + '%';
                 }, transitionDuration + 50);
             });
         };
         
-        // --- Copy Email Function (made global for inline call) ---
+        // --- Copy Email ---
         window.copyEmail = () => {
             const email = document.getElementById("email-text").innerText.trim();
             const message = document.getElementById("copy-message");
 
-            // Use fallback method for clipboard access consistency in embedded environments
             const textArea = document.createElement("textarea");
             textArea.value = email;
-            // Place out of view
             textArea.style.position = 'fixed';
             textArea.style.top = '0';
             textArea.style.left = '0';
@@ -1821,7 +1289,7 @@
                 message.style.backgroundColor = 'var(--color-accent)';
             } else {
                 message.innerText = 'Failed to copy!';
-                message.style.backgroundColor = '#dc2626'; // red
+                message.style.backgroundColor = '#dc2626';
             }
 
             message.classList.add("opacity-100");
@@ -1832,9 +1300,8 @@
             }, 1500);
         };
         
-        // --- Project Filter Logic (made global for inline call) ---
+        // --- Project Filter ---
         window.filterProjects = (filter) => {
-            // 1. Clear search and restore content before filtering by tags
             const searchBar = document.getElementById("global-search");
             if (searchBar.value !== "") {
                  searchBar.value = "";
@@ -1845,7 +1312,6 @@
                  });
             }
 
-            // 2. Update active button state
             filterButtons.forEach(btn => btn.classList.remove('active'));
             const activeButton = document.querySelector(`.btn-filter[data-filter="${filter}"]`);
             if (activeButton) {
@@ -1854,7 +1320,6 @@
 
             const projects = projectList.querySelectorAll('.project-card');
             
-            // Recalculate height before starting filter animation
             const initialHeight = projectList.offsetHeight;
             projectList.style.height = `${initialHeight}px`;
 
@@ -1864,7 +1329,6 @@
 
                 if (matches) {
                     card.style.display = 'block';
-                    // Delay opacity change to stagger visibility
                     setTimeout(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
@@ -1872,14 +1336,12 @@
                 } else {
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(10px)';
-                    // Hide completely after fade out animation
                     setTimeout(() => {
                         card.style.display = 'none';
                     }, 300);
                 }
             });
 
-            // Update container height to fit filtered content after a delay
             setTimeout(() => {
                 projectList.style.height = 'auto'; 
             }, 400); 
@@ -1891,23 +1353,18 @@
           const term = query.trim().toLowerCase();
           let firstMatchFound = false;
 
-          // 1. Restore content for ALL panes first (and reset skill bars/filters)
           tabPanes.forEach((pane) => {
             if (originalContent[pane.id]) {
               pane.innerHTML = originalContent[pane.id];
             }
-            // Immediate visual reset of skill bars
             pane.querySelectorAll('.skill-bar').forEach(bar => bar.style.width = '0%');
             
-            // Always reset filters when running/clearing search
             if (pane.id === 'projects') {
                 filterButtons.forEach(btn => btn.classList.remove('active'));
                 document.querySelector('.btn-filter[data-filter="all"]')?.classList.add('active');
-                
-                // If search is empty, re-apply the filter to show all projects again
                 if (term === "") {
                     window.filterProjects('all');
-                    return; // Stop processing this pane for empty search
+                    return;
                 }
             }
           });
@@ -1915,20 +1372,16 @@
           if (term === "") {
             const currentActiveId =
               document.querySelector(".tab-pane.active")?.id || "personal-info";
-            activateTab(currentActiveId, false); // Don't push history for empty search
+            activateTab(currentActiveId, false);
             return;
           }
 
-          // 2. Perform search and highlighting
           tabPanes.forEach((pane) => {
             const newHtml = highlightText(pane.innerHTML, term);
             pane.innerHTML = newHtml;
             
-            // Filter projects explicitly during search (overrides filter buttons)
             if (pane.id === 'projects') {
                 const projects = pane.querySelectorAll('.project-card');
-                
-                // Deactivate filter buttons when search is active (already done above, but belt and braces)
                 filterButtons.forEach(btn => btn.classList.remove('active'));
 
                 projects.forEach(card => {
@@ -1945,37 +1398,30 @@
                         }, 300);
                     }
                 });
-                
-                // Temporarily allow height to calculate for filtered content
                 projectList.style.height = 'auto';
             }
 
 
-            // 3. Check for the first match and switch to that tab
             if (
               newHtml.includes('<span class="highlight">') &&
               !firstMatchFound
             ) {
-              // Activate the tab without pushing history/changing hash, as search is transient state
               activateTab(pane.id, false);
               firstMatchFound = true;
             }
           });
 
-          // Fallback if no tab is active after search
           if (!document.querySelector(".tab-pane.active")) {
             activateTab("personal-info", false);
           }
         };
 
-        // Apply debounce to the handleSearch function
         window.debouncedHandleSearch = debounce(window.handleSearch, 300);
 
         const highlightText = (html, term) => {
           const tempDiv = document.createElement("div");
           tempDiv.innerHTML = html;
 
-          // XPath to select all text nodes that are not inside a link (<a>) or in an image alt/src
           const textNodeSnapshot = document.evaluate(
             ".//text()[normalize-space()!='' and not(ancestor-or-self::a) and not(ancestor-or-self::img)]",
             tempDiv,
@@ -1984,7 +1430,6 @@
             null
           );
 
-          // Regex must escape special characters but keep the global and insensitive flags
           const escapedTerm = term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
           const regex = new RegExp(`(${escapedTerm})`, "gi");
           const highlightSpan = '<span class="highlight">$&</span>';
@@ -2013,43 +1458,31 @@
           return tempDiv.innerHTML;
         };
 
-        // Function to handle the smooth display of the new pane
         const showNewPane = (newPane) => {
           if (!newPane) return;
 
-          // 1. Temporarily remove the `hidden` class and ARIA hidden attribute
           newPane.classList.remove("hidden");
           newPane.setAttribute('aria-hidden', 'false');
 
-          // 2. Calculate the new height *before* applying active class to prevent reflow issues during transition
           const newHeight = newPane.offsetHeight;
-
-          // 3. Update the parent container's height to the new pane's height.
           tabContent.style.height = newHeight + "px";
 
-          // 4. Start the incoming visual transition (fade in/slide down)
-          // Use setTimeout 0 to ensure height is set before transition starts
           setTimeout(() => {
               newPane.classList.add("active");
           }, 0);
           
-          // 5. Animate relevant elements immediately or on a short delay
           if (newPane.id === 'career-links') {
             animateSkillBars();
           }
           if (newPane.id === 'projects') {
-              // Ensure all filters reset correctly on initial navigation (if not in search mode)
               if (document.getElementById("global-search").value === "") {
                  filterProjects('all');
               }
           }
 
-
-          // 6. Clean up the fixed height constraint after the height transition is done
           const handleHeightTransitionEnd = (event) => {
             if (event.propertyName === 'height') {
               tabContent.removeEventListener('transitionend', handleHeightTransitionEnd);
-              // Only set to auto if the new pane is still the active one
               if (newPane.classList.contains('active')) {
                 tabContent.style.height = "auto";
               }
@@ -2058,7 +1491,6 @@
 
           tabContent.addEventListener('transitionend', handleHeightTransitionEnd);
 
-          // Fallback: Clear height after a safe duration in case transitionend doesn't fire for height
           setTimeout(() => {
               if (tabContent.style.height !== "auto" && newPane.classList.contains('active')) {
                 tabContent.style.height = "auto";
@@ -2066,59 +1498,46 @@
           }, transitionDuration + 100);
         };
 
-        // --- Navigation Logic (Animated Tab Switching) ---
         const activateTab = (targetId, updateHistory = true) => {
           const currentActivePane = document.querySelector(".tab-pane.active");
           const newPane = document.getElementById(targetId);
 
-          // 1. Update tab links (style and ARIA) immediately
           tabs.forEach((tab) => {
             const isActive = tab.getAttribute("data-tab") === targetId;
             tab.classList.toggle("active", isActive);
             tab.setAttribute('aria-selected', isActive);
-            tab.setAttribute('tabindex', isActive ? '0' : '-1'); // Make inactive tabs non-focusable
+            tab.setAttribute('tabindex', isActive ? '0' : '-1');
           });
 
-          // If the target is already active, return.
           if (newPane && newPane === currentActivePane) {
             if (updateHistory) {
               window.history.pushState(null, "", `#${targetId}`);
             }
             if (targetId === 'career-links') {
-                animateSkillBars(); // Re-animate if already on skill tab
+                animateSkillBars();
             }
             return;
           }
 
           if (currentActivePane) {
-            // Reset elements on the outgoing tab
             currentActivePane.querySelectorAll('.skill-bar').forEach(bar => bar.style.width = '0%');
             
-            // 1. Set the height of the parent container to the current pane's height (start height transition)
             tabContent.style.height = currentActivePane.offsetHeight + "px";
 
-            // 2. Define the transition end handler for the outgoing tab
             const handleTransitionEnd = (event) => {
-                // Ensure we only listen for the opacity change, which signals the end of the visual hide animation
                 if (event.propertyName === 'opacity') { 
                   currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
-
-                  // 3. Finish hiding the old pane
                   currentActivePane.classList.add("hidden");
                   currentActivePane.classList.remove("hiding");
                   currentActivePane.setAttribute('aria-hidden', 'true');
-
-                  // 4. Show the new pane immediately after old one is hidden
                   showNewPane(newPane);
                 }
             };
 
-            // Attach listener and immediately start hiding the current pane
             currentActivePane.addEventListener('transitionend', handleTransitionEnd);
             currentActivePane.classList.remove("active");
-            currentActivePane.classList.add("hiding"); // opacity 0, transform up, position absolute
+            currentActivePane.classList.add("hiding");
 
-            // Fallback for transitionend
             setTimeout(() => {
                 if (currentActivePane.classList.contains("hiding")) {
                   currentActivePane.removeEventListener('transitionend', handleTransitionEnd);
@@ -2130,7 +1549,6 @@
             }, transitionDuration + 50);
 
           } else if (newPane) {
-            // First load case
             showNewPane(newPane);
           }
           
@@ -2139,71 +1557,48 @@
           }
         };
 
-
-        // --- Initialization ---
-
-        // Set initial tab content height for a smooth start
         const initialActivePane = document.querySelector(".tab-pane.active");
         if (initialActivePane) {
             tabContent.style.height = initialActivePane.offsetHeight + "px";
-            
-            // Initial animation calls
             if (initialActivePane.id === 'career-links') {
                 animateSkillBars();
             } else if (initialActivePane.id === 'projects') {
                 filterProjects('all'); 
             }
-            
-            // After a tiny delay, remove fixed height for smooth future transitions
             setTimeout(() => {
                 tabContent.style.height = "auto";
             }, 50);
         }
         
-        // Add click listeners to tabs
         tabs.forEach((tab) => {
           tab.addEventListener("click", () => {
             const targetId = tab.getAttribute("data-tab");
-
-            // Clear search bar when clicking a tab normally
             const searchBar = document.getElementById("global-search");
             if (searchBar.value !== "") {
                  searchBar.value = "";
-                 // Force cleanup of highlight spans from all tabs
                  tabPanes.forEach(pane => {
                     if (originalContent[pane.id]) {
                         pane.innerHTML = originalContent[pane.id];
                     }
                  });
             }
-            
-            // Trigger activation
             activateTab(targetId, true);
           });
         });
 
-        // Handle initial load (based on hash or default to 'personal-info')
         const initialHash = window.location.hash.substring(1);
         const defaultTab = "personal-info";
+        const initialTab = document.getElementById(initialHash) ? initialHash : defaultTab;
+        activateTab(initialTab, false);
 
-        const initialTab = document.getElementById(initialHash)
-          ? initialHash
-          : defaultTab;
-        activateTab(initialTab, false); // Don't push history on initial load
-
-        // Handle browser back/forward navigation
         window.addEventListener("popstate", () => {
-          // Clear search bar and reset content when navigating history
           const searchBar = document.getElementById("global-search");
           searchBar.value = "";
-
           tabPanes.forEach((pane) => {
-            // Reset content by restoring from backup
             if (originalContent[pane.id]) {
               pane.innerHTML = originalContent[pane.id];
             }
           });
-
           const hash = window.location.hash.substring(1) || defaultTab;
           activateTab(hash, false);
         });

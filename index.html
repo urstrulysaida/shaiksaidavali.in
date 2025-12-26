@@ -15,8 +15,8 @@
         --color-accent: #00a859; /* Primary Vibrant Green */
 
         /* --- THEME IMAGES --- */
-        --bg-image-light: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_NgIGsfoQftetL18g1wjDFRPlKM8GWQwJC1Cv9Nsefb_vnk682_H6aVhKZ15g_frxvvQ&usqp=CAU"); /* Soft, bright tech/abstract image */
-        --bg-image-dark: url("https://img.freepik.com/free-photo/bright-light-black-background_23-2148132723.jpg?semt=ais_se_enriched&w=740&q=80"); /* Original dark image */
+        --bg-image-light: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/Image.jpg?raw=true"); /* Soft, bright tech/abstract image */
+        --bg-image-dark: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/Image.jpg?raw=true"); /* Original dark image */
 
         /* Light Mode Glass Settings */
         --color-text-primary: #000000;
@@ -707,66 +707,6 @@
         transform: translateY(-3px);
       }
 
-      /* --- NEW: Welcome Modal Styles --- */
-      .welcome-overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 100;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(8px);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.5s ease-in-out;
-      }
-      .welcome-overlay.show {
-        opacity: 1;
-        pointer-events: auto;
-      }
-      .welcome-card {
-        max-width: 450px;
-        width: 90%;
-        padding: 2.5rem;
-        border-radius: 1.5rem;
-        text-align: center;
-        transform: scale(0.9) translateY(20px);
-        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        
-        /* Glass Style Override for higher contrast */
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
-        backdrop-filter: blur(30px) saturate(200%);
-        -webkit-backdrop-filter: blur(30px) saturate(200%);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      }
-      body.dark-mode .welcome-card {
-         background: linear-gradient(135deg, rgba(30, 30, 30, 0.6), rgba(30, 30, 30, 0.4));
-         border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-      .welcome-overlay.show .welcome-card {
-        transform: scale(1) translateY(0);
-      }
-      .btn-welcome {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.75rem 2rem;
-        background-color: var(--color-accent);
-        color: white;
-        font-weight: 700;
-        border-radius: 9999px;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 168, 89, 0.4);
-        border: none;
-        cursor: pointer;
-      }
-      .btn-welcome:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 168, 89, 0.6);
-      }
-
       /* Responsive Layout for Tabs */
       @media (max-width: 640px) {
         .tab-link {
@@ -800,21 +740,6 @@
     </style>
   </head>
   <body>
-    <!-- NEW: Welcome Popup HTML -->
-    <div id="welcome-modal" class="welcome-overlay">
-      <div class="welcome-card">
-        <div class="mb-4 text-5xl">👋</div>
-        <h2 class="text-2xl font-bold mb-3 text-[var(--color-text-primary)]">Welcome to My Portfolio</h2>
-        <p class="text-[var(--color-text-secondary)] mb-8 leading-relaxed">
-          Hi! I'm <strong>Shaik Saida Vali</strong>. <br>
-          Explore my journey in <span class="text-[var(--color-accent)] font-bold">Cybersecurity</span>, <span class="text-blue-500 font-bold">Cloud</span>, and <span class="text-purple-500 font-bold">IoT</span>.
-        </p>
-        <button id="close-welcome-btn" class="btn-welcome">
-          Start Exploring
-        </button>
-      </div>
-    </div>
-
     <div class="profile-container">
       <!-- HEADER AND CONTACT INFO -->
       <header
@@ -1802,26 +1727,6 @@
         const themeToggle = document.getElementById("theme-toggle");
         const sunIcon = document.getElementById("sun-icon");
         const moonIcon = document.getElementById("moon-icon");
-
-        // --- NEW: Welcome Modal Logic ---
-        const welcomeModal = document.getElementById('welcome-modal');
-        const closeWelcomeBtn = document.getElementById('close-welcome-btn');
-
-        // Check if user has seen the modal in this session
-        if (!sessionStorage.getItem('portfolio_welcome_seen')) {
-            // Show with a slight delay for better UX
-            setTimeout(() => {
-                welcomeModal.classList.add('show');
-            }, 500);
-        }
-
-        if (closeWelcomeBtn) {
-            closeWelcomeBtn.addEventListener('click', () => {
-                welcomeModal.classList.remove('show');
-                // Mark as seen for this session
-                sessionStorage.setItem('portfolio_welcome_seen', 'true');
-            });
-        }
 
         // --- Theme Toggle Logic ---
         const applyTheme = (isDark) => {

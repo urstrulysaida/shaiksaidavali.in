@@ -16,7 +16,6 @@
 
         /* --- THEME IMAGES --- */
         --bg-image-light: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/Image.jpg?raw=true"); 
-        --bg-image-dark: url("https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/Image.jpg?raw=true");
 
         /* Light Mode Glass Settings */
         --color-text-primary: #000000;
@@ -29,21 +28,6 @@
         --color-summary-text: #000000;
         --color-icon-bg: rgba(0, 168, 89, 0.05);
         --color-timeline-line: rgba(0, 0, 0, 0.1);
-      }
-
-      body.dark-mode {
-        /* Dark Mode Glass Settings */
-        --color-background: transparent;
-        --color-card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
-        --color-card-hover-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-        
-        --color-text-primary: #ffffff; 
-        --color-text-secondary: #cccccc; 
-        --color-border: rgba(255, 255, 255, 0.1);
-        
-        --color-summary-text: #ffffff;
-        --color-icon-bg: rgba(255, 255, 255, 0.05);
-        --color-timeline-line: rgba(255, 255, 255, 0.1);
       }
 
       body {
@@ -63,11 +47,6 @@
         background-repeat: no-repeat;
         position: relative;
         z-index: 0;
-        transition: background-image 1s ease-in-out;
-      }
-
-      body.dark-mode {
-        background-image: var(--bg-image-dark);
       }
 
       /* --- ANIMATIONS --- */
@@ -216,7 +195,7 @@
       }
       .tab-pane.active { opacity: 1; transform: translateY(0); position: relative; pointer-events: auto; }
       .tab-pane.hiding { opacity: 0; transform: translateY(-10px); position: absolute; pointer-events: none; }
-      
+       
       .highlight { background-color: #ffc107; color: black; padding: 0 2px; border-radius: 3px; }
 
       /* Buttons */
@@ -244,7 +223,7 @@
       }
       .btn-card-link svg { stroke: white; transition: stroke 0.2s; }
       .btn-card-link:hover svg { stroke: var(--color-accent); }
-      
+       
       .btn-filter {
           padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.875rem;
           border: 1px solid var(--color-border); background-color: var(--color-card-bg);
@@ -271,9 +250,7 @@
       }
       .bg-card-content { position: relative; z-index: 2; color: white; }
       .bg-textured-card.content-card { padding: 0; }
-      
-      body.dark-mode #career-links strong, body.dark-mode #projects strong, body.dark-mode #roadmap strong { color: var(--color-text-primary) !important; }
-
+       
       /* Activity Chart */
       .activity-chart { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; height: 60px; align-items: flex-end; padding: 0 4px; border-bottom: 1px solid var(--color-border); }
       .day-bar { width: 100%; border-radius: 2px 2px 0 0; transition: background-color 0.3s ease; min-height: 4px; cursor: help; }
@@ -282,7 +259,7 @@
       .level-1 { background-color: rgba(0, 168, 89, 0.4); }
       .level-2 { background-color: rgba(0, 168, 89, 0.7); }
       .level-3 { background-color: rgba(0, 168, 89, 1.0); }
-      
+       
       /* UI Improvements */
       .list-icon { color: var(--color-accent); flex-shrink: 0; margin-top: 4px; }
       .tag-pill {
@@ -307,11 +284,11 @@
           100% { box-shadow: 0 0 0 0 rgba(0, 168, 89, 0); }
       }
       .stat-card-icon { font-size: 1.5rem; margin-bottom: 0.5rem; opacity: 0.8; }
-      
+       
       .bg-10th { background-image: url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=1000&auto=format&fit=crop'); }
       .bg-intermediate { background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1000&auto=format&fit=crop'); }
       .bg-ug { background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000&auto=format&fit=crop'); }
-      
+       
       .academic-badge {
           background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);
           border: 1px solid rgba(255, 255, 255, 0.3); color: white; padding: 4px 12px;
@@ -407,18 +384,6 @@
           class="flex space-x-3 header-content"
           style="animation-delay: 0.3s"
         >
-          <button
-            id="theme-toggle"
-            class="p-3 rounded-lg text-[var(--color-text-primary)] border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:shadow-lg transition duration-300 hover:scale-[1.05]"
-            aria-label="Toggle light and dark theme"
-          >
-            <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="M4.93 4.93l1.41 1.41" /><path d="M17.66 17.66l1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="M6.34 17.66l-1.41 1.41" /><path d="M19.07 4.93l-1.41 1.41" />
-            </svg>
-            <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-            </svg>
-          </button>
           <a
             href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing"
             target="_blank"
@@ -1199,48 +1164,6 @@
         const transitionDuration = 400; 
         const projectList = document.getElementById("project-list");
         const filterButtons = document.querySelectorAll('.btn-filter');
-
-        const themeToggle = document.getElementById("theme-toggle");
-        const sunIcon = document.getElementById("sun-icon");
-        const moonIcon = document.getElementById("moon-icon");
-
-        // --- Theme Toggle Logic ---
-        const applyTheme = (isDark) => {
-          const body = document.body;
-          if (isDark) {
-            body.classList.add("dark-mode");
-            localStorage.setItem("theme", "dark");
-            if (sunIcon && moonIcon) {
-              sunIcon.classList.remove("hidden");
-              moonIcon.classList.add("hidden");
-            }
-          } else {
-            body.classList.remove("dark-mode");
-            localStorage.setItem("theme", "light");
-            if (sunIcon && moonIcon) {
-              sunIcon.classList.add("hidden");
-              moonIcon.classList.remove("hidden");
-            }
-          }
-        };
-
-        const savedTheme = localStorage.getItem("theme");
-        const prefersDark =
-          window.matchMedia &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-        if (savedTheme === "dark" || (savedTheme === null && prefersDark)) {
-          applyTheme(true);
-        } else {
-          applyTheme(false);
-        }
-
-        if (themeToggle) {
-          themeToggle.addEventListener("click", () => {
-            const isDark = document.body.classList.contains("dark-mode");
-            applyTheme(!isDark);
-          });
-        }
 
         // --- Content Storage & Search Initialization ---
         tabPanes.forEach((pane) => {

@@ -181,36 +181,78 @@
         animation: slideInLeft 0.8s ease-out 0.2s backwards;
       }
 
-      /* Tab Navigation */
-      .tab-link {
-        padding: 0.75rem 0;
-        cursor: pointer;
-        border-bottom: 2px solid transparent;
-        color: var(--color-text-primary);
-        font-weight: 500;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-      }
-      .tab-link::after {
-        content: "";
-        position: absolute;
-        bottom: -2px;
-        left: 50%;
-        width: 0;
-        height: 2px;
-        background-color: var(--color-accent);
-        transition: width 0.3s ease, left 0.3s ease;
-      }
-      .tab-link:hover {
-        color: var(--color-accent);
-      }
-      .tab-link.active {
-        color: var(--color-accent);
-        font-weight: 600;
-      }
-      .tab-link.active::after {
+      /* --- NEW: Enhanced Tab Navigation Styles --- */
+      nav.glass-nav-container {
+        display: flex;
+        justify-content: center;
         width: 100%;
-        left: 0;
+      }
+
+      .glass-nav {
+        background: var(--color-card-bg);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid var(--color-border);
+        border-radius: 1rem;
+        padding: 0.5rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      /* Desktop: Pill Shape */
+      @media (min-width: 768px) {
+          .glass-nav {
+              border-radius: 9999px;
+              width: auto;
+              display: inline-flex;
+          }
+      }
+
+      .tab-link {
+        padding: 0.75rem 1.25rem;
+        cursor: pointer;
+        border-radius: 0.75rem; /* Soft rounded corners for mobile */
+        color: var(--color-text-secondary);
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        position: relative;
+        border: 1px solid transparent;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.95rem;
+        user-select: none;
+      }
+      
+      @media (min-width: 768px) {
+          .tab-link {
+              border-radius: 9999px; /* Full pill on desktop */
+              padding: 0.75rem 1.5rem;
+          }
+      }
+
+      .tab-link:hover {
+        color: var(--color-text-primary);
+        background-color: var(--color-card-hover-bg);
+        transform: translateY(-1px);
+      }
+
+      .tab-link.active {
+        background-color: var(--color-accent);
+        color: white !important; /* Force white text for contrast on accent */
+        box-shadow: 0 4px 15px rgba(0, 168, 89, 0.4);
+        transform: translateY(-2px) scale(1.02);
+      }
+      
+      /* Hide the old underline pseudo-element */
+      .tab-link::after {
+        display: none;
       }
 
       /* Content Card - Enhanced Motion */
@@ -930,16 +972,17 @@
 
       /* Responsive Layout for Tabs */
       @media (max-width: 640px) {
+        .glass-nav {
+            border-radius: 1rem;
+            padding: 0.75rem;
+        }
         .tab-link {
-          flex-grow: 1;
+          flex: 1 1 45%; /* 2 items per row roughly */
           text-align: center;
-          font-size: 0.875rem; /* text-sm on mobile */
-          padding: 0.5rem 0.25rem;
+          font-size: 0.85rem; 
+          padding: 0.6rem 0.5rem;
         }
-        nav .flex {
-          justify-content: space-around;
-          margin-bottom: 0;
-        }
+        
         .profile-container {
             padding: 1rem;
         }
@@ -1116,28 +1159,24 @@
         />
       </div>
 
-      <!-- Tab Navigation (ARIA roles added) -->
-      <nav class="mb-8 header-content" style="animation-delay: 0.5s">
-        <div class="flex space-x-6 border-b border-gray-200" role="tablist">
-          <div id="tab-link-personal-info" class="tab-link active" data-tab="personal-info" role="tab" aria-controls="personal-info" aria-selected="true" tabindex="0">
-            <span class="mr-2" role="img" aria-label="Person">👤</span> Personal
-            Info
-          </div>
-          <div id="tab-link-education" class="tab-link" data-tab="education" role="tab" aria-controls="education" aria-selected="false" tabindex="-1">
-            <span class="mr-2" role="img" aria-label="Education">🎓</span>
-            Education
-          </div>
-          <div id="tab-link-career-links" class="tab-link" data-tab="career-links" role="tab" aria-controls="career-links" aria-selected="false" tabindex="-1">
-            <span class="mr-2" role="img" aria-label="Links">🔗</span> Career &
-            Links
-          </div>
-          <div id="tab-link-projects" class="tab-link" data-tab="projects" role="tab" aria-controls="projects" aria-selected="false" tabindex="-1">
-            <span class="mr-2" role="img" aria-label="Projects">💡</span> Projects
-          </div>
-          <!-- NEW TAB LINK: Roadmap -->
-          <div id="tab-link-roadmap" class="tab-link" data-tab="roadmap" role="tab" aria-controls="roadmap" aria-selected="false" tabindex="-1">
-            <span class="mr-2" role="img" aria-label="Roadmap">🗺️</span> Roadmap
-          </div>
+      <!-- Tab Navigation (Re-designed) -->
+      <nav class="mb-10 header-content glass-nav-container" style="animation-delay: 0.5s">
+        <div class="glass-nav" role="tablist">
+          <button id="tab-link-personal-info" class="tab-link active" data-tab="personal-info" role="tab" aria-controls="personal-info" aria-selected="true" tabindex="0">
+            <span class="mr-2 text-lg" role="img" aria-label="Person">👤</span> Personal Info
+          </button>
+          <button id="tab-link-education" class="tab-link" data-tab="education" role="tab" aria-controls="education" aria-selected="false" tabindex="-1">
+            <span class="mr-2 text-lg" role="img" aria-label="Education">🎓</span> Education
+          </button>
+          <button id="tab-link-career-links" class="tab-link" data-tab="career-links" role="tab" aria-controls="career-links" aria-selected="false" tabindex="-1">
+            <span class="mr-2 text-lg" role="img" aria-label="Links">🔗</span> Career & Links
+          </button>
+          <button id="tab-link-projects" class="tab-link" data-tab="projects" role="tab" aria-controls="projects" aria-selected="false" tabindex="-1">
+            <span class="mr-2 text-lg" role="img" aria-label="Projects">💡</span> Projects
+          </button>
+          <button id="tab-link-roadmap" class="tab-link" data-tab="roadmap" role="tab" aria-controls="roadmap" aria-selected="false" tabindex="-1">
+            <span class="mr-2 text-lg" role="img" aria-label="Roadmap">🗺️</span> Roadmap
+          </button>
         </div>
       </nav>
 

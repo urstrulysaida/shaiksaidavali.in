@@ -181,6 +181,83 @@
         animation: slideInLeft 0.8s ease-out 0.2s backwards;
       }
 
+      /* --- NEW: Enhanced Search Bar Styles --- */
+      .search-glass {
+        background: var(--color-card-bg);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border: 1px solid var(--color-border);
+        border-radius: 9999px; /* Pill shape */
+        padding: 0.75rem 1.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        display: flex;
+        align-items: center;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .search-glass::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transform: translateX(-100%);
+        transition: transform 0.5s;
+        pointer-events: none;
+      }
+
+      .search-glass:focus-within {
+        box-shadow: 0 8px 30px rgba(0, 168, 89, 0.25);
+        border-color: var(--color-accent);
+        background: var(--color-card-hover-bg);
+        transform: translateY(-2px);
+      }
+      
+      .search-glass:focus-within::before {
+        transform: translateX(100%);
+        transition: transform 0.5s;
+      }
+
+      .search-input {
+        background: transparent;
+        border: none;
+        outline: none;
+        width: 100%;
+        color: var(--color-text-primary);
+        font-size: 1rem;
+        margin-left: 0.75rem;
+        font-family: "Josefin Sans", sans-serif;
+      }
+      
+      .search-input::placeholder {
+        color: var(--color-text-secondary);
+        opacity: 0.7;
+        font-weight: 300;
+      }
+      
+      .search-hint {
+        font-size: 0.7rem;
+        color: var(--color-text-secondary);
+        border: 1px solid var(--color-border);
+        padding: 0.2rem 0.6rem;
+        border-radius: 0.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        white-space: nowrap;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+      }
+      
+      .search-glass:focus-within .search-hint {
+        opacity: 1;
+        border-color: var(--color-accent);
+        color: var(--color-accent);
+      }
+
       /* --- NEW: Enhanced Tab Navigation Styles --- */
       nav.glass-nav-container {
         display: flex;
@@ -928,6 +1005,85 @@
         box-shadow: 0 8px 25px rgba(0, 168, 89, 0.6);
       }
 
+      /* --- NEW: Header Components Styles --- */
+      
+      /* Email Glass Badge */
+      .email-glass-badge {
+        display: inline-flex;
+        align-items: center;
+        background: var(--color-card-bg);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid var(--color-border);
+        padding: 0.4rem 1rem;
+        border-radius: 9999px; /* Pill shape */
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        margin-top: 0.75rem;
+        cursor: pointer;
+      }
+      .email-glass-badge:hover {
+        background: var(--color-card-hover-bg);
+        border-color: var(--color-accent);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 168, 89, 0.15);
+      }
+      .email-glass-badge:active {
+        transform: scale(0.98);
+      }
+
+      /* Theme Toggle Glass Button */
+      .glass-btn-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--color-card-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--color-border);
+        color: var(--color-text-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        cursor: pointer;
+      }
+      .glass-btn-icon:hover {
+        background: var(--color-card-hover-bg);
+        transform: rotate(15deg) scale(1.1);
+        color: var(--color-accent);
+        border-color: var(--color-accent);
+        box-shadow: 0 0 15px rgba(0, 168, 89, 0.3);
+      }
+
+      /* Enhanced Resume Button */
+      .btn-resume-glass {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.75rem;
+        background: linear-gradient(135deg, var(--color-accent), #008f4c);
+        color: white;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border-radius: 9999px;
+        box-shadow: 0 4px 15px rgba(0, 168, 89, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        text-decoration: none; /* remove underline */
+      }
+      .btn-resume-glass:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 10px 30px rgba(0, 168, 89, 0.5);
+        border-color: rgba(255, 255, 255, 0.6);
+        color: white; /* Ensure text stays white */
+      }
+      .btn-resume-glass svg {
+        transition: transform 0.3s ease;
+      }
+      .btn-resume-glass:hover svg {
+        transform: translateY(-2px);
+      }
+
       /* Print Styles */
       @media print {
         body {
@@ -1022,10 +1178,11 @@
     <div class="profile-container">
       <!-- HEADER AND CONTACT INFO -->
       <header
-        class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-6 mb-6 border-b border-[var(--color-border)]"
+        class="flex flex-col md:flex-row md:items-center md:justify-between pb-8 mb-8 border-b border-[var(--color-border)]"
       >
-        <div class="flex items-center mb-4 sm:mb-0 header-content">
-          <div class="profile-img-container mr-4 cursor-pointer">
+        <!-- Left Side: Profile Info -->
+        <div class="flex items-center mb-6 md:mb-0 header-content w-full md:w-auto">
+          <div class="profile-img-container mr-6 cursor-pointer">
             <!-- Profile Image -->
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS05MbssENUfC5BDSWkElWp3XKfu8DwT-GKdg&s"
@@ -1035,41 +1192,47 @@
             />
           </div>
           <div>
-            <h1 class="text-3xl font-bold text-[var(--color-text-primary)]">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-[var(--color-text-primary)] mb-1">
               Shaik Saida Vali
             </h1>
-            <div class="status-badge">
-                <span class="status-dot"></span> Open to Work
+            <div class="flex items-center space-x-3 mb-2">
+                <span class="status-badge">
+                    <span class="status-dot"></span> Open to Work
+                </span>
             </div>
-            <!-- UPDATED: Added Copy Email Feature -->
-            <div class="flex items-center group relative mt-2">
-              <a href="mailto:urstrulysaida@gmail.com" id="email-text" class="text-lg text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-200 mr-2">
+            
+            <!-- Organized Email Badge -->
+            <div class="email-glass-badge group" onclick="copyEmail()" title="Click to Copy">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--color-text-secondary)] group-hover:text-[var(--color-accent)] mr-2 transition-colors">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+              <span id="email-text" class="text-sm font-medium text-[var(--color-text-primary)] mr-3">
                 urstrulysaida@gmail.com
-              </a>
-              <button onclick="copyEmail()" class="p-1 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-all duration-200 opacity-70 hover:opacity-100 hover:bg-[var(--color-card-hover-bg)]" aria-label="Copy email address">
-                <!-- Copy Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="13" height="13" x="9" y="9" rx="2" ry="2"/>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                </svg>
-              </button>
-              <!-- Copy Success Message -->
-              <span id="copy-message" class="absolute top-full mt-1 px-3 py-1 bg-[var(--color-accent)] text-white text-xs rounded-lg shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-20 whitespace-nowrap" aria-live="polite" role="status">
-                Copied to clipboard!
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--color-text-secondary)] group-hover:text-[var(--color-accent)] opacity-70 group-hover:opacity-100 transition-all">
+                <rect width="13" height="13" x="9" y="9" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              <!-- Success Message (Absolute) -->
+              <span id="copy-message" class="absolute left-0 top-full mt-2 px-3 py-1 bg-[var(--color-accent)] text-white text-xs font-bold rounded-lg shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-20 whitespace-nowrap">
+                Copied!
               </span>
             </div>
           </div>
         </div>
+
+        <!-- Right Side: Actions -->
         <div
-          class="flex space-x-3 header-content"
+          class="flex items-center space-x-4 header-content"
           style="animation-delay: 0.3s"
         >
           <!-- Theme Toggle Button -->
           <button
             id="theme-toggle"
-            class="p-3 rounded-lg text-[var(--color-text-primary)] border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:shadow-lg transition duration-300 hover:scale-[1.05]"
+            class="glass-btn-icon"
             aria-label="Toggle light and dark theme"
+            title="Toggle Theme"
           >
+            <!-- Sun Icon (Show in Light Mode) -->
             <svg
               id="sun-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -1091,6 +1254,7 @@
               <path d="M6.34 17.66l-1.41 1.41" />
               <path d="M19.07 4.93l-1.41 1.41" />
             </svg>
+            <!-- Moon Icon (Show in Dark Mode) -->
             <svg
               id="moon-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -1105,11 +1269,12 @@
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           </button>
+
           <!-- Resume Link Button -->
           <a
             href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing"
             target="_blank"
-            class="btn-resume"
+            class="btn-resume-glass"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -1118,45 +1283,52 @@
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
+              stroke-width="2.5"
               stroke-linecap="round"
               stroke-linejoin="round"
               class="mr-2"
             >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" x2="12" y1="15" y2="3" />
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="12" x2="12" y1="18" y2="12" />
+              <line x1="9" x2="15" y1="15" y2="15" />
             </svg>
-            View Resume
+            Resume
           </a>
         </div>
       </header>
 
-      <!-- Search Bar -->
+      <!-- Search Bar (Re-designed) -->
       <div
-        class="mb-6 flex items-center space-x-2 header-content search-bar-container"
+        class="mb-8 header-content search-bar-container max-w-2xl mx-auto"
         style="animation-delay: 0.4s"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 text-[var(--color-text-secondary)]"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <circle cx="11" cy="11" r="8" />
-          <path d="m21 21-4.3-4.3" />
-        </svg>
-        <input
-          type="text"
-          id="global-search"
-          oninput="debouncedHandleSearch(this.value)"
-          placeholder="Search keywords across all sections (e.g., 'GCP', 'SIEM', '2026')"
-          class="w-full p-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-card-bg)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-colors duration-300"
-        />
+        <div class="search-glass group">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-[var(--color-text-secondary)] group-focus-within:text-[var(--color-accent)] transition-colors duration-300"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <input
+              type="text"
+              id="global-search"
+              oninput="debouncedHandleSearch(this.value)"
+              placeholder="Search skills, projects, or certifications..."
+              class="search-input"
+              aria-label="Search"
+            />
+            <div class="hidden sm:block search-hint">
+                Type to search
+            </div>
+        </div>
       </div>
 
       <!-- Tab Navigation (Re-designed) -->

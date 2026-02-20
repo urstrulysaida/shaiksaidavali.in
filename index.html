@@ -221,6 +221,15 @@
       .header-content {
         animation: slideInLeft 0.8s var(--ease-out-expo) 0.1s backwards;
       }
+      
+      /* Typewriter Cursor */
+      .cursor.blink {
+        animation: blink 1s step-end infinite;
+      }
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
 
       /* --- NEW: Enhanced Search Bar Styles --- */
       .search-glass {
@@ -532,6 +541,7 @@
         padding: 1.5rem;
         backdrop-filter: blur(16px) saturate(180%);
         -webkit-backdrop-filter: blur(16px) saturate(180%);
+        cursor: pointer;
         
         /* Enhanced Motion */
         transition: transform 0.5s var(--ease-out-expo), 
@@ -955,7 +965,7 @@
         box-shadow: 0 20px 40px rgba(0,0,0,0.15);
       }
 
-      /* --- NEW: Welcome Modal Styles --- */
+      /* --- GENERAL MODAL STYLES (Welcome & Projects) --- */
       .welcome-overlay {
         position: fixed;
         inset: 0;
@@ -967,7 +977,7 @@
         backdrop-filter: blur(8px);
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.5s ease-in-out;
+        transition: opacity 0.4s var(--ease-out-expo);
       }
       .welcome-overlay.show {
         opacity: 1;
@@ -980,7 +990,9 @@
         border-radius: 1.5rem;
         text-align: center;
         transform: scale(0.8) translateY(20px);
-        transition: all 0.6s var(--ease-spring);
+        transition: all 0.5s var(--ease-spring);
+        max-height: 90vh;
+        overflow-y: auto;
         
         /* Glass Style Override for higher contrast */
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
@@ -989,14 +1001,21 @@
         border: 1px solid rgba(255, 255, 255, 0.3);
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       }
+      /* Project Modal Specific overrides */
+      .welcome-card.project-modal-card {
+          max-width: 600px;
+          text-align: left;
+          padding: 2rem;
+      }
+      
       body.dark-mode .welcome-card {
-         background: linear-gradient(135deg, rgba(30, 30, 30, 0.6), rgba(30, 30, 30, 0.4));
-         border: 1px solid rgba(255, 255, 255, 0.1);
+         background: linear-gradient(135deg, rgba(30, 30, 30, 0.7), rgba(30, 30, 30, 0.5));
+         border: 1px solid rgba(255, 255, 255, 0.15);
       }
       .welcome-overlay.show .welcome-card {
         transform: scale(1) translateY(0);
-        animation: popIn 0.6s var(--ease-spring) forwards;
       }
+      
       .btn-welcome {
         display: inline-flex;
         align-items: center;
@@ -1014,6 +1033,29 @@
       .btn-welcome:hover {
         transform: translateY(-3px) scale(1.05);
         box-shadow: 0 10px 30px rgba(0, 168, 89, 0.7);
+      }
+      
+      /* Close button for modals */
+      .btn-close-modal {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          background: rgba(255,255,255,0.1);
+          border: 1px solid rgba(255,255,255,0.2);
+          color: var(--color-text-primary);
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+      }
+      .btn-close-modal:hover {
+          background: rgba(239, 68, 68, 0.8); /* Red hover */
+          color: white;
+          transform: rotate(90deg);
       }
 
       /* --- NEW: Form Styles --- */
@@ -1173,6 +1215,7 @@
         .search-bar-container, /* The div containing search bar */
         nav,
         #welcome-modal, 
+        #project-modal-container,
         .btn-filter, 
         .social-btn,
         footer,
@@ -1231,8 +1274,8 @@
     </style>
   </head>
   <body>
-    <!-- NEW: Welcome Popup HTML -->
-    <div id="welcome-modal" class="welcome-overlay">
+    <!-- Welcome Popup HTML -->
+    <div id="welcome-modal" class="welcome-overlay" aria-hidden="true" role="dialog" aria-modal="true">
       <div class="welcome-card">
         <div class="mb-4 text-5xl">👋</div>
         <h2 class="text-2xl font-bold mb-3 text-[var(--color-text-primary)]">Welcome to My Portfolio</h2>
@@ -1246,7 +1289,38 @@
       </div>
     </div>
 
-    <!-- NEW: Scroll To Top Button -->
+    <!-- NEW: Dynamic Project Details Modal -->
+    <div id="project-modal-container" class="welcome-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="welcome-card project-modal-card relative">
+            <button id="close-project-modal" class="btn-close-modal" type="button" aria-label="Close modal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div id="pm-icon-wrapper" class="mb-4 p-3 rounded-lg inline-block bg-blue-500/10 text-blue-500">
+                <!-- Icon Injected via JS -->
+            </div>
+            <h2 id="pm-title" class="text-2xl font-bold mb-2 text-[var(--color-text-primary)]">Project Title</h2>
+            <p id="pm-category" class="text-xs font-bold uppercase text-[var(--color-text-secondary)] mb-4 tracking-wider">Category</p>
+            
+            <div class="mb-6 space-y-4 text-sm text-[var(--color-text-primary)] leading-relaxed">
+                <p id="pm-desc-1">Detailed description paragraph 1.</p>
+                <p id="pm-desc-2">Detailed description paragraph 2.</p>
+            </div>
+            
+            <div id="pm-tags" class="flex flex-wrap gap-2 mb-8">
+                <!-- Tags injected via JS -->
+            </div>
+            
+            <div class="flex items-center justify-between border-t border-[var(--color-border)] pt-6">
+                <span id="pm-duration" class="text-xs font-bold text-[var(--color-text-secondary)]">Duration</span>
+                <a id="pm-repo-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-card-link !m-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/></svg>
+                    View Source Code
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll To Top Button -->
     <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top" type="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
     </button>
@@ -1259,22 +1333,23 @@
         <!-- Left Side: Profile Info -->
         <div class="flex items-center mb-6 md:mb-0 header-content w-full md:w-auto">
           <div class="profile-img-container mr-6 cursor-pointer">
-            <!-- Profile Image -->
+            <!-- Profile Image (Lazy Loaded) -->
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS05MbssENUfC5BDSWkElWp3XKfu8DwT-GKdg&s"
+              loading="lazy"
               onerror="this.onerror=null; this.src='https://placehold.co/112x112/00a859/ffffff?text=SV';"
               alt="Shaik Saida Vali"
               class="w-full h-full object-cover"
             />
           </div>
           <div>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-[var(--color-text-primary)] mb-1">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-[var(--color-text-primary)] mb-1 tracking-tight">
               Shaik Saida Vali
             </h1>
-            <div class="flex items-center space-x-3 mb-2">
-                <span class="status-badge">
-                    <span class="status-dot"></span> Open to Work
-                </span>
+            
+            <!-- NEW: Dynamic Typing Animation Area -->
+            <div class="text-lg text-[var(--color-accent)] font-semibold h-7 mb-2 flex items-center">
+                <span id="typewriter-text"></span><span class="cursor blink ml-1 text-[var(--color-text-primary)]">|</span>
             </div>
             
             <!-- Organized Email Badge -->
@@ -1320,6 +1395,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <circle cx="12" cy="12" r="4" />
               <path d="M12 2v2" />
@@ -1342,14 +1418,15 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           </button>
 
-          <!-- Resume Link Button -->
+          <!-- Direct PDF Download Resume Link Button -->
           <a
-            href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing"
+            href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/export?format=pdf"
             target="_blank"
             rel="noopener noreferrer"
             class="btn-resume-glass"
@@ -1366,12 +1443,11 @@
               stroke-linejoin="round"
               class="mr-2"
             >
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-              <polyline points="14 2 14 8 20 8" />
-              <line x1="12" x2="12" y1="18" y2="12" />
-              <line x1="9" x2="15" y1="15" y2="15" />
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" x2="12" y1="15" y2="3" />
             </svg>
-            Resume
+            Download CV
           </a>
         </div>
       </header>
@@ -1657,7 +1733,7 @@
           </div>
           <!-- END NEW CARD -->
 
-          <!-- NEW SECTION: Testimonials / Endorsements -->
+          <!-- Testimonials / Endorsements -->
           <div class="content-card mt-8">
             <h3 class="text-xl font-bold mb-6 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
               <span class="mr-2 text-teal-500">🗣️</span> Endorsements & Feedback
@@ -1688,12 +1764,13 @@
             </div>
           </div>
 
-          <!-- NEW SECTION: Contact Form -->
+          <!-- Working Contact Form Simulation -->
           <div class="content-card mt-8">
             <h3 class="text-xl font-bold mb-6 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
               <span class="mr-2 text-blue-500">📬</span> Get In Touch
             </h3>
-            <form onsubmit="event.preventDefault(); alert('Message sent! (Demo Only)');" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Note: Replace action URL with a real endpoint like Formspree (e.g. https://formspree.io/f/YOUR_FORM_ID) -->
+            <form id="contact-form" action="#" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
                 <div class="md:col-span-1">
                     <label for="contact-name" class="glass-label">Your Name</label>
                     <input id="contact-name" name="name" type="text" class="glass-input" placeholder="John Doe" required>
@@ -1704,12 +1781,19 @@
                 </div>
                 <div class="md:col-span-2">
                     <label for="contact-message" class="glass-label">Message</label>
-                    <textarea id="contact-message" name="message" class="glass-input" rows="4" placeholder="Hi Shaik, I'd like to discuss a project..." required></textarea>
+                    <textarea id="contact-message" name="message" class="glass-input" rows="4" placeholder="Hi Shaik, I'd like to discuss an opportunity..." required></textarea>
                 </div>
-                <div class="md:col-span-2 flex justify-end">
-                    <button type="submit" class="btn-resume cursor-pointer">
-                        Send Message
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                <div class="md:col-span-2 flex justify-end items-center">
+                    <div id="form-status" class="mr-4 text-sm font-bold opacity-0 transition-opacity"></div>
+                    <button type="submit" id="submit-btn" class="btn-resume cursor-pointer relative overflow-hidden">
+                        <span id="btn-text">Send Message</span>
+                        <svg id="btn-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 transition-all"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                        
+                        <!-- Loading Spinner -->
+                        <svg id="btn-spinner" class="animate-spin h-5 w-5 ml-2 absolute right-4 opacity-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
                     </button>
                 </div>
             </form>
@@ -1828,7 +1912,7 @@
                     <span class="text-xs font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)]">CodePen</span>
                 </a>
                 <!-- Resume/Docs -->
-                <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="social-btn group">
+                <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/export?format=pdf" target="_blank" rel="noopener noreferrer" class="social-btn group">
                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-500"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                     <span class="text-xs font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)]">CV / Resume</span>
                 </a>
@@ -1903,19 +1987,19 @@
               </div>
           </div>
 
-          <!-- NEW SECTION: Technical Writing / Blog -->
+          <!-- Technical Writing / Blog -->
           <div class="content-card mt-8">
             <h3 class="text-xl font-bold mb-6 text-[var(--color-text-primary)] flex items-center border-b pb-2 border-[var(--color-border)]">
                 <span class="mr-2 text-indigo-500">✍️</span> Technical Writing & Insights
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Blog Item 1 (Placeholder) -->
+                <!-- Blog Item 1 -->
                 <a href="#" class="p-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:bg-[var(--color-card-hover-bg)] transition-all group block">
                     <span class="text-xs font-bold text-[var(--color-accent)] uppercase tracking-wider mb-2 block">Security</span>
                     <h4 class="text-lg font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">Understanding Zero Trust Architecture</h4>
                     <p class="text-sm text-[var(--color-text-secondary)]">A deep dive into why perimeter security is dead and how identity is the new firewall.</p>
                 </a>
-                <!-- Blog Item 2 (Placeholder) -->
+                <!-- Blog Item 2 -->
                 <a href="#" class="p-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:bg-[var(--color-card-hover-bg)] transition-all group block">
                     <span class="text-xs font-bold text-blue-500 uppercase tracking-wider mb-2 block">Cloud</span>
                     <h4 class="text-lg font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">Automating GCP with Python</h4>
@@ -2069,7 +2153,7 @@
             Key Projects & Portfolio
           </h3>
           
-          <!-- NEW: Technology Badges - Organized Layout -->
+          <!-- Technology Badges -->
           <div class="content-card">
               <h4 class="text-xl font-bold mb-4 text-[var(--color-accent)] border-b pb-2 border-[var(--color-border)] flex items-center">
                 <span class="mr-2">🧩</span> Core Technology Expertise
@@ -2084,7 +2168,7 @@
               </div>
           </div>
           
-          <!-- NEW: Filter Buttons - Improved Spacing -->
+          <!-- Filter Buttons -->
           <div class="flex flex-wrap gap-3 mb-6">
             <button class="btn-filter active" data-filter="all" onclick="filterProjects('all')" type="button">All Projects</button>
             <button class="btn-filter" data-filter="cloud" onclick="filterProjects('cloud')" type="button">Cloud / GCP</button>
@@ -2092,12 +2176,11 @@
             <button class="btn-filter" data-filter="iot" onclick="filterProjects('iot')" type="button">IoT / Data</button>
           </div>
           
-          <!-- Updated Grid for Wider Screens (xl:grid-cols-3) -->
+          <!-- Project Grid (Updates to trigger modal) -->
           <div id="project-list" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
 
-            <!-- Project 1: Cloud Security Incident Response -->
+            <!-- Project 1 -->
             <div class="project-card group relative overflow-hidden flex flex-col h-full" data-tags="cloud security python">
-              <!-- Header with Icon and Year -->
               <div class="flex items-start justify-between mb-4">
                   <div class="p-3 rounded-lg bg-blue-500/10 text-blue-500">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -2109,33 +2192,23 @@
                 Cloud Security Automation (GCP)
               </h4>
               <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-4 tracking-wider">
-                Cybersecurity / Cloud Architecture
+                Cybersecurity / Cloud
               </p>
               
               <p class="text-sm text-[var(--color-text-primary)] mb-6 leading-relaxed flex-grow">
-                Developed a Python-based Security Orchestration, Automation, and Response (SOAR) playbook within a simulated GCP environment. The solution ingested VPC flow logs into a custom SIEM mockup, enabling near real-time detection of lateral movement and automated isolation of non-compliant VM workloads via Compute Engine API calls.
+                Developed a Python-based Security Orchestration, Automation, and Response (SOAR) playbook within a simulated GCP environment...
               </p>
-
-              <!-- Tags -->
-              <div class="flex flex-wrap gap-2 mb-6">
-                <span class="text-xs font-semibold px-2 py-1 rounded bg-blue-500/10 text-blue-500">GCP Compute</span>
-                <span class="text-xs font-semibold px-2 py-1 rounded bg-yellow-500/10 text-yellow-500">Python SOAR</span>
-                <span class="text-xs font-semibold px-2 py-1 rounded bg-red-500/10 text-red-500">SIEM Logic</span>
-                <span class="text-xs font-semibold px-2 py-1 rounded bg-gray-500/10 text-gray-500">VPC Networking</span>
-              </div>
               
-              <!-- Footer Action -->
               <div class="mt-auto flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
                   <span class="text-xs font-bold text-[var(--color-text-secondary)]">10 Weeks</span>
-                  <a href="https://github.com/urstrulysaida/cloud-security-automation-gcp" target="_blank" rel="noopener noreferrer" class="flex items-center text-sm font-bold text-[var(--color-accent)] hover:underline group-hover:translate-x-1 transition-transform">
-                    View Code <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/></svg>
-                  </a>
+                  <button onclick="openProjectModal('gcp-automation')" class="flex items-center text-sm font-bold text-[var(--color-accent)] hover:underline group-hover:translate-x-1 transition-transform">
+                    View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </button>
               </div>
             </div>
 
-            <!-- Project 2: Real-time IoT Data Pipeline -->
+            <!-- Project 2 -->
             <div class="project-card group relative overflow-hidden flex flex-col h-full" data-tags="iot data python">
-               <!-- Header with Icon and Year -->
               <div class="flex items-start justify-between mb-4">
                   <div class="p-3 rounded-lg bg-pink-500/10 text-pink-500">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
@@ -2144,36 +2217,26 @@
               </div>
 
               <h4 class="text-xl font-bold mb-1 text-[var(--color-text-primary)] group-hover:text-pink-500 transition-colors">
-                Real-time IoT Monitoring Dashboard
+                IoT Monitoring Dashboard
               </h4>
               <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-4 tracking-wider">
                 IoT / Data Engineering
               </p>
               
               <p class="text-sm text-[var(--color-text-primary)] mb-6 leading-relaxed flex-grow">
-                Engineered a scalable, full-stack IoT telemetry solution to monitor ambient data. The project utilized MQTT for low-latency data ingestion, persisting metrics in a non-relational database (e.g., MongoDB/Firestore concept) and presenting real-time operational metrics via a dedicated, responsive web dashboard (Node.js/JS stack).
+                Engineered a scalable, full-stack IoT telemetry solution to monitor ambient data utilizing MQTT for low-latency data ingestion...
               </p>
-
-              <!-- Tags -->
-              <div class="flex flex-wrap gap-2 mb-6">
-                <span class="text-xs font-semibold px-2 py-1 rounded bg-purple-500/10 text-purple-500">Arduino/ESP32</span>
-                <span class="text-xs font-semibold px-2 py-1 rounded bg-indigo-500/10 text-indigo-500">MQTT Protocol</span>
-                <span class="text-xs font-semibold px-2 py-1 rounded bg-green-500/10 text-green-500">Node.js/JS</span>
-                <span class="text-xs font-semibold px-2 py-1 rounded bg-blue-500/10 text-blue-500">Telemetry Pipeline</span>
-              </div>
               
-              <!-- Footer Action -->
               <div class="mt-auto flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
                   <span class="text-xs font-bold text-[var(--color-text-secondary)]">16 Weeks</span>
-                  <a href="https://github.com/urstrulysaida/iot-real-time-monitor" target="_blank" rel="noopener noreferrer" class="flex items-center text-sm font-bold text-[var(--color-accent)] hover:underline group-hover:translate-x-1 transition-transform">
-                    View Code <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/></svg>
-                  </a>
+                  <button onclick="openProjectModal('iot-dashboard')" class="flex items-center text-sm font-bold text-[var(--color-accent)] hover:underline group-hover:translate-x-1 transition-transform">
+                    View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </button>
               </div>
             </div>
             
-            <!-- Project 3: Network Reconnaissance Tool -->
+            <!-- Project 3 -->
             <div class="project-card group relative overflow-hidden flex flex-col h-full" data-tags="security python networking">
-               <!-- Header with Icon and Year -->
               <div class="flex items-start justify-between mb-4">
                   <div class="p-3 rounded-lg bg-indigo-500/10 text-indigo-500">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -2182,30 +2245,21 @@
               </div>
 
               <h4 class="text-xl font-bold mb-1 text-[var(--color-text-primary)] group-hover:text-indigo-500 transition-colors">
-                Automated Network Recon Tool
+                Network Recon Tool
               </h4>
               <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-4 tracking-wider">
-                Ethical Hacking / Python Scripting
+                Ethical Hacking / Python
               </p>
               
               <p class="text-sm text-[var(--color-text-primary)] mb-6 leading-relaxed flex-grow">
-                Created a custom Python/Scapy CLI utility for automated network footprinting and discovery. The tool performs active host enumeration, target identification, and port scanning (TCP/UDP) to simulate the initial phase of a penetration test and uncover vulnerable services.
+                Created a custom Python/Scapy CLI utility for automated network footprinting, host enumeration, and port scanning...
               </p>
-
-              <!-- Tags -->
-              <div class="flex flex-wrap gap-2 mb-6">
-                <span class="text-xs font-semibold px-2 py-1 rounded bg-yellow-500/10 text-yellow-500">Python</span>
-                <span class="text-xs font-semibold px-2 py-1 rounded bg-green-500/10 text-green-500">Scapy Library</span>
-                <span class="text-xs font-semibold px-2 py-1 rounded bg-red-500/10 text-red-500">Network Security</span>
-                <span class="text-xs font-semibold px-2 py-1 rounded bg-gray-500/10 text-gray-500">Footprinting</span>
-              </div>
               
-              <!-- Footer Action -->
               <div class="mt-auto flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
                   <span class="text-xs font-bold text-[var(--color-text-secondary)]">8 Weeks</span>
-                  <a href="https://github.com/urstrulysaida/network-recon-tool-mock" target="_blank" rel="noopener noreferrer" class="flex items-center text-sm font-bold text-[var(--color-accent)] hover:underline group-hover:translate-x-1 transition-transform">
-                    View Code <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/></svg>
-                  </a>
+                  <button onclick="openProjectModal('recon-tool')" class="flex items-center text-sm font-bold text-[var(--color-accent)] hover:underline group-hover:translate-x-1 transition-transform">
+                    View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </button>
               </div>
             </div>
             
@@ -2213,7 +2267,7 @@
           
         </section>
         
-        <!-- -------------------------------- 5. LEARNING ROADMAP TAB (NEW) -------------------------------- -->
+        <!-- -------------------------------- 5. LEARNING ROADMAP TAB -------------------------------- -->
         <section id="roadmap" class="tab-pane hidden space-y-8" role="tabpanel" aria-labelledby="tab-link-roadmap" aria-hidden="true">
             <h3 class="text-2xl font-bold text-[var(--color-accent)] mb-6">
                 <span class="mr-2">🗺️</span> Strategic Roadmap & Learning Path
@@ -2228,6 +2282,7 @@
                  <div class="relative group overflow-hidden rounded-xl border border-[var(--color-border)] flex-grow shadow-lg">
                     <img 
                       src="https://roadmap.sh/card/wide/651b0fcc1205b5c21b6a74fc?variant=dark" 
+                      loading="lazy"
                       alt="DevOps Roadmap Visual by roadmap.sh" 
                       class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       onerror="this.style.display='none'; this.after(document.createTextNode('DevOps Roadmap Visual (Source: roadmap.sh)'));"
@@ -2398,6 +2453,42 @@
           originalContent[pane.id] = pane.innerHTML;
         });
 
+        // --- NEW: Typing Animation Logic ---
+        const roles = ["Cybersecurity Enthusiast", "Cloud Architect", "Python Developer"];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typeWriterElement = document.getElementById('typewriter-text');
+        
+        function typeWriter() {
+            if(!typeWriterElement) return;
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                typeWriterElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typeWriterElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                typeSpeed = 2000; // Pause at end of word
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typeSpeed = 500; // Pause before typing next word
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+        // Start typing effect
+        setTimeout(typeWriter, 1000);
+
+
         // --- 2. Theme Management ---
         const applyTheme = (isDark) => {
           if (isDark) {
@@ -2451,6 +2542,139 @@
           welcomeModal?.classList.remove('show');
           sessionStorage.setItem('portfolio_welcome_seen', 'true');
         });
+
+        // --- NEW: Contact Form Simulation ---
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Prevent actual submission for demo
+                
+                const submitBtn = document.getElementById('submit-btn');
+                const btnText = document.getElementById('btn-text');
+                const btnIcon = document.getElementById('btn-icon');
+                const btnSpinner = document.getElementById('btn-spinner');
+                const formStatus = document.getElementById('form-status');
+                
+                // Set loading state
+                btnText.style.opacity = '0';
+                btnIcon.style.opacity = '0';
+                btnSpinner.classList.remove('opacity-0');
+                submitBtn.disabled = true;
+
+                // Simulate API call delay
+                setTimeout(() => {
+                    // Restore button state
+                    btnText.style.opacity = '1';
+                    btnIcon.style.opacity = '1';
+                    btnSpinner.classList.add('opacity-0');
+                    submitBtn.disabled = false;
+                    
+                    // Show Success message
+                    formStatus.textContent = "Message Sent Successfully!";
+                    formStatus.classList.remove('opacity-0');
+                    formStatus.classList.add('text-var(--color-accent)');
+                    
+                    contactForm.reset();
+                    
+                    // Hide success message after 3 seconds
+                    setTimeout(() => {
+                        formStatus.classList.add('opacity-0');
+                    }, 3000);
+                    
+                }, 1500);
+            });
+        }
+
+        // --- NEW: Project Modal Logic ---
+        const projectModal = document.getElementById('project-modal-container');
+        const closeProjectModalBtn = document.getElementById('close-project-modal');
+        
+        const projectDatabase = {
+            'gcp-automation': {
+                icon: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+                iconColorClass: 'text-blue-500 bg-blue-500/10',
+                title: 'Cloud Security Automation (GCP)',
+                category: 'Cybersecurity / Cloud Architecture',
+                duration: 'Feb 2024 - Apr 2024 (10 Weeks)',
+                description1: 'Developed a Python-based Security Orchestration, Automation, and Response (SOAR) playbook within a simulated Google Cloud Platform environment.',
+                description2: 'The solution ingested VPC flow logs into a custom SIEM mockup, enabling near real-time detection of lateral movement. It automatically isolated non-compliant VM workloads via Compute Engine API calls, significantly reducing incident response times.',
+                tags: ['GCP Compute', 'Python SOAR', 'SIEM Logic', 'VPC Networking'],
+                repo: 'https://github.com/urstrulysaida/cloud-security-automation-gcp'
+            },
+            'iot-dashboard': {
+                icon: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>',
+                iconColorClass: 'text-pink-500 bg-pink-500/10',
+                title: 'Real-time IoT Monitoring Dashboard',
+                category: 'IoT / Data Engineering',
+                duration: 'Aug 2023 - Nov 2023 (16 Weeks)',
+                description1: 'Engineered a scalable, full-stack IoT telemetry solution designed to monitor and visualize ambient environmental data in real-time.',
+                description2: 'The system utilized lightweight MQTT protocols for low-latency data ingestion from ESP32 microcontrollers. Metrics were persisted in a NoSQL database structure, ensuring high availability, and served to a responsive Node.js web dashboard for operational oversight.',
+                tags: ['Arduino/ESP32', 'MQTT Protocol', 'Node.js/JS', 'Telemetry Pipeline'],
+                repo: 'https://github.com/urstrulysaida/iot-real-time-monitor'
+            },
+            'recon-tool': {
+                icon: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+                iconColorClass: 'text-indigo-500 bg-indigo-500/10',
+                title: 'Automated Network Recon Tool',
+                category: 'Ethical Hacking / Python Scripting',
+                duration: 'Jan 2024 - Mar 2024 (8 Weeks)',
+                description1: 'Created a custom Python CLI utility utilizing the Scapy library to automate the initial phases of network footprinting and discovery.',
+                description2: 'The tool performs active host enumeration, target identification, and comprehensive TCP/UDP port scanning. Designed to mimic the reconnaissance phase of a penetration test, it outputs structured data to aid in identifying exposed and vulnerable network services.',
+                tags: ['Python', 'Scapy Library', 'Network Security', 'Footprinting'],
+                repo: 'https://github.com/urstrulysaida/network-recon-tool-mock'
+            }
+        };
+
+        window.openProjectModal = (projectId) => {
+            const data = projectDatabase[projectId];
+            if(!data) return;
+
+            // Populate Modal
+            const iconWrapper = document.getElementById('pm-icon-wrapper');
+            iconWrapper.innerHTML = data.icon;
+            iconWrapper.className = `mb-4 p-3 rounded-lg inline-block ${data.iconColorClass}`;
+            
+            document.getElementById('pm-title').textContent = data.title;
+            document.getElementById('pm-category').textContent = data.category;
+            document.getElementById('pm-desc-1').textContent = data.description1;
+            document.getElementById('pm-desc-2').textContent = data.description2;
+            document.getElementById('pm-duration').textContent = data.duration;
+            document.getElementById('pm-repo-link').href = data.repo;
+
+            // Generate Tags
+            const tagsContainer = document.getElementById('pm-tags');
+            tagsContainer.innerHTML = '';
+            data.tags.forEach(tag => {
+                const span = document.createElement('span');
+                span.className = 'text-xs font-semibold px-2 py-1 rounded bg-[var(--color-card-hover-bg)] text-[var(--color-text-primary)] border border-[var(--color-border)]';
+                span.textContent = tag;
+                tagsContainer.appendChild(span);
+            });
+
+            // Show Modal
+            projectModal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        };
+
+        const closeProjModal = () => {
+            projectModal.classList.remove('show');
+            document.body.style.overflow = '';
+        };
+
+        closeProjectModalBtn?.addEventListener('click', closeProjModal);
+        
+        // Close modal on outside click
+        projectModal?.addEventListener('click', (e) => {
+            if (e.target === projectModal) closeProjModal();
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && projectModal.classList.contains('show')) {
+                closeProjModal();
+            }
+        });
+
 
         // --- 5. Navigation & Tabs Logic ---
         

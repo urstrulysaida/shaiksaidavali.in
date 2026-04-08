@@ -430,6 +430,20 @@
       .skill-track { height: 8px; background: var(--color-border); border-radius: var(--radius-full); overflow: hidden; }
       .skill-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--color-accent), var(--color-secondary)); border-radius: var(--radius-full); transition: width 1.5s var(--ease-out-expo); box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
 
+      /* CHART GRID - FIXED TO FLEXBOX */
+      .chart-grid { 
+          display: flex; align-items: flex-end; justify-content: space-between; gap: 6px; 
+          height: 120px; width: 100%; padding-top: 1rem; margin-top: auto;
+      }
+      .chart-bar { 
+          flex: 1; background: rgba(16, 185, 129, 0.2); border-radius: 4px 4px 0 0; 
+          transition: height 1s var(--ease-out-expo), background-color 0.3s ease, transform 0.3s ease; 
+          cursor: pointer; min-height: 4px; height: 0%; transform-origin: bottom;
+      }
+      .chart-bar:hover { background: var(--color-accent) !important; transform: scaleY(1.1); }
+      .chart-bar[data-val="high"] { background: rgba(16, 185, 129, 0.9); }
+      .chart-bar[data-val="med"] { background: rgba(16, 185, 129, 0.6); }
+
       .card-icon-wrap { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; transition: transform 0.3s var(--ease-spring);}
       .bento-card:hover .card-icon-wrap { transform: scale(1.1) rotate(5deg); }
       .icon-blue { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
@@ -694,7 +708,6 @@
                     </div>
                 </div>
             </div>
-            
         </section>
 
         <!-- ================= EDUCATION TAB ================= -->
@@ -750,6 +763,100 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Core Internships & Experience -->
+            <div class="bento-card col-span-full mt-4">
+              <h2 class="section-title mb-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-danger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Core Internships & Experience</h2>
+              
+              <div class="timeline">
+                  <!-- Item 1 -->
+                  <div class="timeline-item">
+                      <span class="timeline-date">Feb 2024 - Apr 2024 (10 Weeks)</span>
+                      <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-blue-500 transition-all bg-[var(--glass-bg)]">
+                          <h4 class="text-xl font-bold mb-1 text-blue-500">Cloud Computing Internship (GCP)</h4>
+                          <p class="text-xs font-bold uppercase text-[var(--color-text-secondary)] mb-3">Infrastructure & Security</p>
+                          <p class="text-sm text-[var(--color-text-primary)] mb-4 leading-relaxed">
+                              Focused on GCP Services (Compute, Storage, VPC) and IaC principles. Deployed secure cloud architectures and managed Cloud Security Posture (CSPM).
+                          </p>
+                          <a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate</a>
+                      </div>
+                  </div>
+
+                  <!-- Item 2 -->
+                  <div class="timeline-item">
+                      <span class="timeline-date">Aug 2023 - Nov 2023 (16 Weeks)</span>
+                      <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-pink-500 transition-all bg-[var(--glass-bg)]">
+                          <h4 class="text-xl font-bold mb-1 text-pink-500">IoT Internship</h4>
+                          <p class="text-xs font-bold uppercase text-[var(--color-text-secondary)] mb-3">Embedded Systems & Data</p>
+                          <p class="text-sm text-[var(--color-text-primary)] mb-4 leading-relaxed">
+                              Engineered full-stack IoT solutions using Arduino/ESP32 and MQTT protocols. Built telemetry pipelines for real-time sensor data monitoring.
+                          </p>
+                          <a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate</a>
+                      </div>
+                  </div>
+
+                   <!-- Item 3 -->
+                  <div class="timeline-item">
+                      <span class="timeline-date">Jan 2023 - Mar 2023 (10 Weeks)</span>
+                      <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-indigo-500 transition-all bg-[var(--glass-bg)]">
+                          <h4 class="text-xl font-bold mb-1 text-indigo-500">Ethical Hacking Internship</h4>
+                          <p class="text-xs font-bold uppercase text-[var(--color-text-secondary)] mb-3">Vulnerability Assessment</p>
+                          <p class="text-sm text-[var(--color-text-primary)] mb-4 leading-relaxed">
+                              Conducted Vulnerability Assessments (VA) and Penetration Testing (PT). Focused on OWASP Top 10, network defense strategies, and countermeasure implementation.
+                          </p>
+                          <a href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Virtual Experience & Programs -->
+          <div class="bento-card col-span-full mt-4">
+              <h2 class="section-title mb-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Virtual Experience & Programs</h2>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <!-- Zscaler -->
+                  <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-indigo-500 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
+                      <h4 class="text-lg font-bold text-indigo-500 mb-2">Zscaler Cloud Networking</h4>
+                      <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
+                          Mastered Zero Trust Architecture (ZTA) and SASE principles. Learned modern perimeter definition and access management.
+                      </p>
+                      <a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
+                  </div>
+                   <!-- Fortinet -->
+                  <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-red-500 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
+                      <h4 class="text-lg font-bold text-red-500 mb-2">Fortinet Network Security (NSE)</h4>
+                      <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
+                          Focused on Next-Gen Firewalls (NGFW), Security Fabric concepts, and Defense-in-Depth for enterprise networks.
+                      </p>
+                      <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
+                  </div>
+                   <!-- Ethical Hacking Virtual -->
+                  <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-teal-500 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
+                      <h4 class="text-lg font-bold text-teal-500 mb-2">Ethical Hacking Virtual Experience</h4>
+                      <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
+                          Hands-on virtual labs for network defense, threat analysis, and incident response scenarios.
+                      </p>
+                      <a href="https://drive.google.com/file/d/1gXGAQ-W92tTVBiNBNISdAlXM3tYSF6Z_/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
+                  </div>
+                   <!-- Automation -->
+                  <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-orange-500 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
+                      <h4 class="text-lg font-bold text-orange-500 mb-2">Automation Virtual Experience</h4>
+                      <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
+                          Process automation, task scheduling, and scripting for operational efficiency using RPA concepts.
+                      </p>
+                      <a href="https://drive.google.com/file/d/1iTvnbJdyDNZzmsNNKVRAK5gixOXWtnzk/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
+                  </div>
+                  <!-- Google Dev -->
+                  <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-blue-600 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
+                      <h4 class="text-lg font-bold text-blue-600 mb-2">Google for Developers</h4>
+                      <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
+                          Modern app development, cloud integration with Google APIs, and developer workflow tools.
+                      </p>
+                      <a href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
+                  </div>
+              </div>
+          </div>
         </section>
 
         <!-- ================= SKILLS & LINKS TAB ================= -->
@@ -783,13 +890,13 @@
                     <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse shadow-[0_0_10px_var(--color-accent)]"></span>
                 </div>
                 <div class="chart-grid flex-grow">
-                  <div class="chart-bar" data-val="med" style="height: 30%;"></div>
-                  <div class="chart-bar" data-val="high" style="height: 100%;"></div>
-                  <div class="chart-bar" data-val="med" style="height: 60%;"></div>
-                  <div class="chart-bar" style="height: 15%;"></div>
-                  <div class="chart-bar" data-val="high" style="height: 90%;"></div>
-                  <div class="chart-bar" data-val="med" style="height: 40%;"></div>
-                  <div class="chart-bar" style="height: 20%;"></div>
+                  <div class="chart-bar" data-val="med" data-height="30%"></div>
+                  <div class="chart-bar" data-val="high" data-height="100%"></div>
+                  <div class="chart-bar" data-val="med" data-height="60%"></div>
+                  <div class="chart-bar" data-height="15%"></div>
+                  <div class="chart-bar" data-val="high" data-height="90%"></div>
+                  <div class="chart-bar" data-val="med" data-height="40%"></div>
+                  <div class="chart-bar" data-height="20%"></div>
                 </div>
                 <p class="text-right text-[10px] uppercase font-bold text-[var(--color-text-secondary)] mt-2">Past 7 Days</p>
             </div>
@@ -1095,7 +1202,7 @@
             };
             loop();
 
-            const hoverElements = document.querySelectorAll('a, button, .project-card, .tab-btn, .cert-card, .social-btn, input, textarea');
+            const hoverElements = document.querySelectorAll('a, button, .project-card, .tab-btn, .cert-card, .social-btn, input, textarea, .chart-bar');
             hoverElements.forEach(el => {
                 el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
@@ -1213,7 +1320,8 @@
         projectModal?.addEventListener('click', e => { if (e.target === projectModal) closePM(); });
         document.addEventListener('keydown', e => { if (e.key === 'Escape' && projectModal.classList.contains('show')) closePM(); });
 
-        // --- Intersection Observer for Skill Bars ---
+        // --- Intersection Observers for Animations ---
+        // Skill Bars Observer
         const skillObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1224,10 +1332,28 @@
             });
         }, { threshold: 0.1 });
 
+        // Chart Bars Observer
+        const chartObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bar = entry.target;
+                    bar.style.height = bar.getAttribute('data-height');
+                    chartObserver.unobserve(bar);
+                }
+            });
+        }, { threshold: 0.1 });
+
         const animateSkillBars = () => {
             document.querySelectorAll('.skill-fill').forEach(bar => {
                 bar.style.width = '0%';
                 skillObserver.observe(bar);
+            });
+        };
+        
+        const animateChartBars = () => {
+            document.querySelectorAll('.chart-bar').forEach(bar => {
+                bar.style.height = '0%';
+                chartObserver.observe(bar);
             });
         };
 
@@ -1238,7 +1364,7 @@
             const cur = document.querySelector(".tab-pane.active");
             const nxt = document.getElementById(id);
             if(!nxt || cur === nxt) {
-                if(id==='career-links') animateSkillBars();
+                if(id==='career-links') { animateSkillBars(); animateChartBars(); }
                 return;
             }
             isAnim = true;
@@ -1255,13 +1381,13 @@
                     if(id === 'projects' && document.getElementById("global-search").value === "") window.filterProjects('all');
                     requestAnimationFrame(() => {
                         nxt.classList.add("active");
-                        if(id==='career-links') animateSkillBars();
+                        if(id==='career-links') { animateSkillBars(); animateChartBars(); }
                     });
                     setTimeout(() => { tabContent.style.height = 'auto'; isAnim = false; }, 500);
                 }, 400);
             } else {
                 nxt.classList.remove("hidden"); nxt.classList.add("active"); tabContent.style.height = "auto"; isAnim = false;
-                if(id==='career-links') animateSkillBars();
+                if(id==='career-links') { animateSkillBars(); animateChartBars(); }
             }
         };
 

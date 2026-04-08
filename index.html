@@ -695,26 +695,6 @@
                 </div>
             </div>
             
-            <div class="bento-card col-span-full xl:col-span-2 xl:col-start-2">
-                <h3 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Direct Message</h3>
-                <form id="contact-form" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <input type="text" placeholder="Your Name" required class="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors cursor-text">
-                    </div>
-                    <div>
-                        <input type="email" placeholder="Your Email" required class="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors cursor-text">
-                    </div>
-                    <div class="sm:col-span-2">
-                        <textarea rows="3" placeholder="How can we collaborate?" required class="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors resize-none cursor-text"></textarea>
-                    </div>
-                    <div class="sm:col-span-2 flex justify-end">
-                        <button type="submit" id="submit-btn" class="btn-primary py-2 px-6 cursor-pointer relative overflow-hidden">
-                            <span id="btn-text">Send Flight</span>
-                            <svg id="btn-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 transition-all"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                        </button>
-                    </div>
-                </form>
-            </div>
         </section>
 
         <!-- ================= EDUCATION TAB ================= -->
@@ -1187,27 +1167,6 @@
         if (!sessionStorage.getItem('portfolio_welcome_seen')) setTimeout(() => welcomeModal?.classList.add('show'), 2000);
         document.getElementById('close-welcome-btn')?.addEventListener('click', () => {
           welcomeModal?.classList.remove('show'); sessionStorage.setItem('portfolio_welcome_seen', 'true');
-        });
-
-        // Form Submit
-        document.body.addEventListener('submit', (e) => {
-            if (e.target && e.target.id === 'contact-form') {
-                e.preventDefault(); 
-                const btn = document.getElementById('submit-btn');
-                const span = document.getElementById('btn-text');
-                
-                if(!btn) return;
-                const origText = span.textContent;
-                span.textContent = "Sending...";
-                btn.disabled = true;
-
-                setTimeout(() => {
-                    span.textContent = origText;
-                    btn.disabled = false;
-                    window.showToast("Message Sent Successfully!", "success");
-                    e.target.reset();
-                }, 1500);
-            }
         });
 
         // Project Modal

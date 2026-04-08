@@ -12,13 +12,13 @@
     <meta property="og:url" content="https://urstrulysaida.github.io/" />
     <meta property="og:title" content="Shaik Saida Vali - Cybersecurity & Cloud Architect" />
     <meta property="og:description" content="Explore my projects, certifications, and journey in Cybersecurity and Cloud Computing." />
-    <meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS05MbssENUfC5BDSWkElWp3XKfu8DwT-GKdg&s" />
+    <meta property="og:image" content="https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/website%20pic.jpeg?raw=true" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:title" content="Shaik Saida Vali - Profile Dashboard" />
     <meta property="twitter:description" content="Explore my projects, certifications, and journey in Cybersecurity and Cloud Computing." />
-    <meta property="twitter:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS05MbssENUfC5BDSWkElWp3XKfu8DwT-GKdg&s" />
+    <meta property="twitter:image" content="https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/website%20pic.jpeg?raw=true" />
     
     <!-- Favicon (Cybersecurity Shield) -->
     <link rel="icon" type="image/png" href="https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-security-cyber-security-flaticons-flat-flat-icons-2.png" />
@@ -87,6 +87,13 @@
         -moz-osx-font-smoothing: grayscale;
       }
 
+      /* Hide default cursor on desktop for custom cursor */
+      @media (pointer: fine) {
+          body, a, button, input, textarea {
+              cursor: none !important;
+          }
+      }
+
       /* --- DYNAMIC AMBIENT BACKGROUND --- */
       .ambient-bg {
         position: fixed;
@@ -129,25 +136,88 @@
         100% { opacity: 1; transform: scale(1); filter: blur(0); }
       }
 
+      @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-30px); filter: blur(5px); }
+        to { opacity: 1; transform: translateX(0); filter: blur(0); }
+      }
+
       @keyframes pulseGlow {
         0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
         70% { box-shadow: 0 0 0 20px rgba(16, 185, 129, 0); }
         100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
       }
 
-      @keyframes typing {
-        from { width: 0; }
-        to { width: 100%; }
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
       }
 
-      /* --- PREMIUM GLASS UTILITY --- */
-      .glass-panel {
-        background: var(--glass-bg);
-        backdrop-filter: blur(24px) saturate(180%);
-        -webkit-backdrop-filter: blur(24px) saturate(180%);
-        border: 1px solid var(--glass-border);
-        box-shadow: var(--glass-shadow);
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
       }
+
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+
+      /* --- PRELOADER --- */
+      #preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: var(--color-bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.6s var(--ease-out-expo), visibility 0.6s;
+      }
+      #preloader.hide {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .loader-rings {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 3px solid transparent;
+      }
+      .ring:nth-child(1) { border-top-color: var(--color-accent); animation: spin 1s linear infinite; }
+      .ring:nth-child(2) { inset: 8px; border-right-color: var(--color-secondary); animation: spin 1.5s linear infinite reverse; }
+      .ring:nth-child(3) { inset: 16px; border-bottom-color: var(--color-purple); animation: spin 2s linear infinite; }
+      @keyframes spin { 100% { transform: rotate(360deg); } }
+
+      /* --- CUSTOM CURSOR --- */
+      #custom-cursor {
+        position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+        background-color: var(--color-accent); border-radius: 50%;
+        pointer-events: none; z-index: 100000; transform: translate(-50%, -50%);
+        transition: width 0.2s, height 0.2s, background-color 0.2s;
+        display: none;
+      }
+      #cursor-follower {
+        position: fixed; top: 0; left: 0; width: 32px; height: 32px;
+        border: 2px solid rgba(16, 185, 129, 0.5); border-radius: 50%;
+        pointer-events: none; z-index: 99999; transform: translate(-50%, -50%);
+        transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+        display: none;
+      }
+      @media (pointer: fine) {
+          #custom-cursor, #cursor-follower { display: block; }
+      }
+      /* Cursor Hover States */
+      body.cursor-hover #custom-cursor { width: 4px; height: 4px; background-color: var(--color-bg); }
+      body.cursor-hover #cursor-follower { width: 48px; height: 48px; background-color: rgba(16, 185, 129, 0.1); border-color: var(--color-accent); }
 
       /* --- MAIN LAYOUT --- */
       .dashboard-wrapper {
@@ -157,6 +227,9 @@
         display: flex;
         flex-direction: column;
         gap: 2rem;
+        opacity: 0; /* Hidden until preloader finishes */
+      }
+      .dashboard-wrapper.loaded {
         animation: slideUpFade 1s var(--ease-out-expo) forwards;
       }
 
@@ -169,6 +242,10 @@
         gap: 2rem;
         position: relative;
         overflow: hidden;
+        background: var(--glass-bg);
+        backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--glass-shadow);
       }
       @media (min-width: 768px) {
         .hero-card { flex-direction: row; align-items: center; justify-content: space-between; }
@@ -187,84 +264,41 @@
         transition: all 0.5s var(--ease-spring);
         animation: pulseGlow 3s infinite;
       }
-      .hero-card:hover .profile-avatar {
-        transform: scale(1.05) rotate(3deg);
-      }
+      .hero-card:hover .profile-avatar { transform: scale(1.05) rotate(3deg); }
 
       /* Typewriter */
       .typewriter-container {
-        display: inline-flex;
-        align-items: center;
-        height: 2rem;
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: var(--color-accent);
-        background: rgba(16, 185, 129, 0.1);
-        padding: 0 1rem;
-        border-radius: var(--radius-full);
-        border: 1px solid rgba(16, 185, 129, 0.2);
-        margin-top: 0.5rem;
-        margin-bottom: 1rem;
+        display: inline-flex; align-items: center; height: 2rem; font-size: 1.125rem; font-weight: 600;
+        color: var(--color-accent); background: rgba(16, 185, 129, 0.1); padding: 0 1rem; border-radius: var(--radius-full);
+        border: 1px solid rgba(16, 185, 129, 0.2); margin-top: 0.5rem; margin-bottom: 1rem;
       }
       .cursor { animation: blink 1s step-end infinite; color: var(--color-text-primary); margin-left: 2px;}
 
       /* Header Actions */
       .action-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.6rem 1.25rem;
-        background: var(--glass-bg);
-        border: 1px solid var(--glass-border);
-        border-radius: var(--radius-full);
-        font-weight: 600;
-        font-size: 0.9rem;
-        color: var(--color-text-primary);
-        cursor: pointer;
-        transition: all 0.3s var(--ease-spring);
+        display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.25rem; background: var(--glass-bg);
+        border: 1px solid var(--glass-border); border-radius: var(--radius-full); font-weight: 600; font-size: 0.9rem;
+        color: var(--color-text-primary); transition: all 0.3s var(--ease-spring);
       }
       .action-pill:hover {
-        background: var(--color-accent);
-        color: white;
-        border-color: var(--color-accent);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        background: var(--color-accent); color: white; border-color: var(--color-accent);
+        transform: translateY(-2px); box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
       }
       .action-pill svg { transition: transform 0.3s ease; }
       .action-pill:hover svg { transform: scale(1.1); }
 
       /* Primary Button */
       .btn-primary {
-        background: linear-gradient(135deg, var(--color-accent), var(--color-secondary));
-        color: white;
-        border: none;
-        padding: 0.75rem 2rem;
-        border-radius: var(--radius-full);
-        font-weight: 700;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
-        transition: all 0.4s var(--ease-spring);
-        cursor: pointer;
+        background: linear-gradient(135deg, var(--color-accent), var(--color-secondary)); color: white; border: none;
+        padding: 0.75rem 2rem; border-radius: var(--radius-full); font-weight: 700; display: inline-flex; align-items: center;
+        gap: 0.5rem; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); transition: all 0.4s var(--ease-spring);
       }
-      .btn-primary:hover {
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 12px 30px rgba(14, 165, 233, 0.5);
-      }
+      .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 30px rgba(14, 165, 233, 0.5); }
 
       /* --- FLOATING COMMAND CENTER (Search + Nav) --- */
       .command-center {
-        position: sticky;
-        top: 1rem;
-        z-index: 50;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 0 1rem;
+        position: sticky; top: 1rem; z-index: 50; display: flex; flex-direction: column; gap: 1rem;
+        width: 100%; max-width: 1000px; margin: 0 auto; padding: 0 1rem;
       }
       @media (min-width: 1024px) {
         .command-center { flex-direction: row; align-items: center; background: var(--glass-bg); backdrop-filter: blur(24px) saturate(180%); border: 1px solid var(--glass-border); border-radius: var(--radius-full); padding: 0.5rem; box-shadow: var(--glass-shadow); }
@@ -272,130 +306,68 @@
 
       /* Search Bar */
       .search-wrapper {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        background: var(--glass-bg);
-        border: 1px solid var(--glass-border);
-        border-radius: var(--radius-full);
-        padding: 0.6rem 1.25rem;
-        transition: all 0.3s ease;
+        flex: 1; display: flex; align-items: center; background: var(--glass-bg); border: 1px solid var(--glass-border);
+        border-radius: var(--radius-full); padding: 0.6rem 1.25rem; transition: all 0.3s ease; position: relative; overflow: hidden;
       }
       @media (min-width: 1024px) {
         .search-wrapper { background: transparent; border: none; box-shadow: none; border-right: 1px solid var(--color-border); border-radius: 0; padding: 0 1.5rem; }
       }
-      .search-wrapper:focus-within {
-        background: var(--glass-hover-bg);
-        border-color: var(--color-accent);
-      }
-      .search-input {
-        background: transparent; border: none; outline: none; width: 100%; color: var(--color-text-primary); font-size: 1rem; font-family: inherit; margin-left: 0.75rem;
-      }
+      .search-wrapper:focus-within { background: var(--glass-hover-bg); border-color: var(--color-accent); }
+      .search-input { background: transparent; border: none; outline: none; width: 100%; color: var(--color-text-primary); font-size: 1rem; font-family: inherit; margin-left: 0.75rem; }
 
       /* Navigation Tabs */
       .nav-tabs {
-        display: flex;
-        overflow-x: auto;
-        scrollbar-width: none; /* Firefox */
-        gap: 0.25rem;
-        padding-bottom: 0.5rem; /* mobile scroll space */
+        display: flex; overflow-x: auto; scrollbar-width: none; gap: 0.25rem; padding-bottom: 0.5rem; 
       }
       @media (min-width: 1024px) { .nav-tabs { padding-bottom: 0; overflow: visible; } }
       .nav-tabs::-webkit-scrollbar { display: none; }
       
       .tab-btn {
-        white-space: nowrap;
-        padding: 0.6rem 1.25rem;
-        border-radius: var(--radius-full);
-        color: var(--color-text-secondary);
-        font-weight: 600;
-        font-size: 0.95rem;
-        transition: all 0.3s var(--ease-soft);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        border: 1px solid transparent;
+        white-space: nowrap; padding: 0.6rem 1.25rem; border-radius: var(--radius-full); color: var(--color-text-secondary);
+        font-weight: 600; font-size: 0.95rem; transition: all 0.3s var(--ease-soft); display: flex; align-items: center; gap: 0.5rem; border: 1px solid transparent;
       }
-      .tab-btn:hover {
-        color: var(--color-text-primary);
-        background: var(--glass-hover-bg);
-      }
-      .tab-btn.active {
-        background: var(--color-text-primary);
-        color: var(--color-bg);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      }
-      body.dark-mode .tab-btn.active {
-        background: var(--color-text-primary);
-        color: #0f172a;
-      }
+      .tab-btn:hover { color: var(--color-text-primary); background: var(--glass-hover-bg); }
+      .tab-btn.active { background: var(--color-text-primary); color: var(--color-bg); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+      body.dark-mode .tab-btn.active { background: var(--color-text-primary); color: #0f172a; }
 
       /* --- BENTO BOX CONTENT CARDS --- */
-      .bento-grid {
-        display: grid;
-        gap: 1.5rem;
-        grid-template-columns: 1fr;
-      }
+      .bento-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
       @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
       @media (min-width: 1024px) { .bento-grid { grid-template-columns: repeat(3, 1fr); } }
       @media (min-width: 1280px) { .bento-grid { grid-template-columns: repeat(4, 1fr); } }
 
       .bento-card {
-        background: var(--glass-bg);
-        border: 1px solid var(--glass-border);
-        border-radius: var(--radius-md);
-        padding: 1.5rem;
-        backdrop-filter: blur(16px) saturate(180%);
-        transition: all 0.4s var(--ease-out-expo);
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        overflow: hidden;
+        background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+        padding: 1.5rem; backdrop-filter: blur(16px) saturate(180%); transition: all 0.4s var(--ease-out-expo);
+        display: flex; flex-direction: column; position: relative; overflow: hidden;
       }
       .bento-card:hover {
-        transform: translateY(-4px);
-        border-color: var(--color-accent);
-        box-shadow: 0 15px 35px -5px rgba(16, 185, 129, 0.15);
-        background: var(--glass-hover-bg);
+        transform: translateY(-4px); border-color: var(--color-accent); box-shadow: 0 15px 35px -5px rgba(16, 185, 129, 0.15); background: var(--glass-hover-bg);
       }
       
-      /* Card Span Helpers */
       .col-span-full { grid-column: 1 / -1; }
       @media (min-width: 768px) { .md-col-span-2 { grid-column: span 2 / span 2; } }
       @media (min-width: 1024px) { .lg-col-span-2 { grid-column: span 2 / span 2; } .lg-col-span-3 { grid-column: span 3 / span 3; } }
 
-      /* Section Headers */
-      .section-title {
-        font-size: 1.25rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 1.5rem;
-        display: flex; align-items: center; gap: 0.5rem;
-      }
-      .section-title::after {
-          content: ''; flex: 1; height: 1px; background: var(--color-border); margin-left: 1rem;
-      }
+      .section-title { font-size: 1.25rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+      .section-title::after { content: ''; flex: 1; height: 1px; background: var(--color-border); margin-left: 1rem; }
 
-      /* Tags & Badges */
       .badge {
-        display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.35rem 0.75rem;
-        border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600;
-        background: rgba(16, 185, 129, 0.1); color: var(--color-accent); border: 1px solid rgba(16, 185, 129, 0.2);
-        transition: all 0.3s ease;
+        display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.35rem 0.75rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600;
+        background: rgba(16, 185, 129, 0.1); color: var(--color-accent); border: 1px solid rgba(16, 185, 129, 0.2); transition: all 0.3s ease;
       }
       .badge:hover { transform: scale(1.05); background: var(--color-accent); color: white; }
-      
-      .badge-secondary { background: rgba(14, 165, 233, 0.1); color: var(--color-secondary); border-color: rgba(14, 165, 233, 0.2); }
-      .badge-secondary:hover { background: var(--color-secondary); color: white; }
 
       /* --- TAB TRANSITIONS --- */
       #tab-content { position: relative; min-height: 50vh; transition: height 0.4s var(--ease-out-expo); }
       .tab-pane {
-        opacity: 0; transform: translateY(20px); filter: blur(5px);
-        transition: all 0.4s var(--ease-out-expo);
+        opacity: 0; transform: translateY(20px); filter: blur(5px); transition: all 0.4s var(--ease-out-expo);
         position: absolute; width: 100%; top: 0; left: 0; visibility: hidden;
       }
       .tab-pane.active { opacity: 1; transform: translateY(0); filter: blur(0); position: relative; visibility: visible; z-index: 10; }
       .tab-pane.hiding { position: absolute; visibility: visible; z-index: 0; }
 
-      /* Staggered items inside active pane */
+      /* Staggered items */
       .tab-pane.active .bento-card { animation: slideUpStagger 0.6s var(--ease-out-expo) backwards; }
       .tab-pane.active .bento-card:nth-child(1) { animation-delay: 0.05s; }
       .tab-pane.active .bento-card:nth-child(2) { animation-delay: 0.1s; }
@@ -404,43 +376,30 @@
       .tab-pane.active .bento-card:nth-child(5) { animation-delay: 0.25s; }
 
       /* --- SPECIFIC COMPONENT STYLES --- */
-      
-      /* Metrics / Stats */
       .stat-val { font-size: 2.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; background: linear-gradient(135deg, var(--color-text-primary), var(--color-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
       .stat-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-secondary); font-weight: 600; }
 
-      /* Timelines */
       .timeline { border-left: 2px solid var(--color-timeline-line); margin-left: 1rem; padding-left: 2rem; display: flex; flex-direction: column; gap: 2rem; }
       .timeline-item { position: relative; }
       .timeline-item::before {
           content: ''; position: absolute; left: -2.4rem; top: 0.25rem; width: 1rem; height: 1rem;
-          background: var(--color-bg); border: 3px solid var(--color-accent); border-radius: 50%;
-          transition: all 0.3s var(--ease-spring); z-index: 2;
+          background: var(--color-bg); border: 3px solid var(--color-accent); border-radius: 50%; transition: all 0.3s var(--ease-spring); z-index: 2;
       }
       .timeline-item:hover::before { transform: scale(1.5); background: var(--color-accent); box-shadow: 0 0 15px var(--color-accent); }
       .timeline-date { font-size: 0.8rem; font-weight: 700; color: var(--color-accent); margin-bottom: 0.5rem; display: block; letter-spacing: 0.05em;}
 
-      /* Skill Bars */
       .skill-row { margin-bottom: 1.25rem; }
       .skill-info { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
       .skill-track { height: 8px; background: var(--color-border); border-radius: var(--radius-full); overflow: hidden; }
       .skill-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--color-accent), var(--color-secondary)); border-radius: var(--radius-full); transition: width 1.5s var(--ease-out-expo); box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
 
-      /* Activity Chart */
-      .chart-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; height: 80px; align-items: flex-end; padding-top: 1rem; }
-      .chart-bar { background: rgba(16, 185, 129, 0.2); border-radius: 4px 4px 0 0; transition: all 0.3s ease; cursor: help; min-height: 10%; position: relative;}
-      .chart-bar:hover { background: var(--color-accent); transform: scaleY(1.1) scaleX(1.1); transform-origin: bottom; }
-      .chart-bar[data-val="high"] { background: rgba(16, 185, 129, 0.9); }
-      .chart-bar[data-val="med"] { background: rgba(16, 185, 129, 0.6); }
-
-      /* Project & Cert Cards Images */
       .card-icon-wrap { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; transition: transform 0.3s var(--ease-spring);}
       .bento-card:hover .card-icon-wrap { transform: scale(1.1) rotate(5deg); }
       .icon-blue { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
       .icon-green { background: rgba(16, 185, 129, 0.1); color: #10b981; }
       .icon-purple { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
       .icon-amber { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
-      .icon-pink { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
+      .icon-teal { background: rgba(20, 184, 166, 0.1); color: #14b8a6; }
 
       /* --- MODALS --- */
       .modal-backdrop {
@@ -475,19 +434,32 @@
       .fab.visible { opacity: 1; transform: translateY(0) scale(1); }
       .fab:hover { transform: translateY(-5px) scale(1.1); background: var(--color-accent); color: white;}
 
-      /* Utilities */
       .highlight { background: rgba(245, 158, 11, 0.3); border-radius: 4px; padding: 0 4px; border-bottom: 2px solid var(--color-warning); color: var(--color-text-primary); font-weight: 700;}
       
       /* Print */
       @media print {
           body { background: white; color: black; }
-          .ambient-bg, .command-center, .fab, .modal-backdrop, header button { display: none !important; }
+          .ambient-bg, .command-center, .fab, .modal-backdrop, header button, #preloader, #custom-cursor, #cursor-follower { display: none !important; }
           .dashboard-wrapper, .bento-card { box-shadow: none; border: 1px solid #ccc; backdrop-filter: none; background: white;}
           .tab-pane { opacity: 1 !important; visibility: visible !important; position: relative !important; transform: none !important; display: block !important; margin-bottom: 2rem;}
       }
     </style>
   </head>
   <body>
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+      <div class="loader-rings">
+        <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-[var(--color-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="mt-6 text-sm font-bold tracking-widest text-[var(--color-accent)] uppercase animate-pulse">Securing Connection...</div>
+    </div>
+
+    <!-- CUSTOM CURSOR -->
+    <div id="custom-cursor"></div>
+    <div id="cursor-follower"></div>
+
     <!-- Dynamic Ambient Background -->
     <div class="ambient-bg">
         <div class="blob blob-1"></div>
@@ -503,14 +475,14 @@
         <p class="text-lg text-[var(--color-text-secondary)] mb-8 leading-relaxed">
           I'm <strong class="text-[var(--color-text-primary)]">Shaik Saida Vali</strong>. Dive into my journey across <span class="text-[var(--color-accent)] font-bold">Cybersecurity</span>, <span class="text-blue-500 font-bold">Cloud Infra</span>, and <span class="text-purple-500 font-bold">Data</span>.
         </p>
-        <button id="close-welcome-btn" class="btn-primary w-full justify-center text-lg py-4">Explore Portfolio</button>
+        <button id="close-welcome-btn" class="btn-primary w-full justify-center text-lg py-4 cursor-pointer">Explore Portfolio</button>
       </div>
     </div>
 
     <!-- Project Details Modal -->
     <div id="project-modal" class="modal-backdrop" aria-hidden="true" role="dialog">
         <div class="modal-content">
-            <button id="close-project-modal" class="btn-close" aria-label="Close modal">
+            <button id="close-project-modal" class="btn-close cursor-pointer" aria-label="Close modal">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
             <div id="pm-icon" class="card-icon-wrap icon-blue w-16 h-16 text-2xl mb-6"></div>
@@ -526,7 +498,7 @@
             
             <div class="flex items-center justify-between border-t border-[var(--color-border)] pt-6 mt-auto">
                 <span id="pm-duration" class="text-sm font-bold text-[var(--color-text-secondary)] flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Duration</span>
-                <a id="pm-repo-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary py-2 px-6 text-sm">
+                <a id="pm-repo-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary py-2 px-6 text-sm cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/></svg> Github
                 </a>
             </div>
@@ -534,16 +506,16 @@
     </div>
 
     <!-- Scroll To Top -->
-    <button id="scrollTopBtn" class="fab" aria-label="Scroll to top">
+    <button id="scrollTopBtn" class="fab cursor-pointer" aria-label="Scroll to top">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
     </button>
 
-    <div class="dashboard-wrapper">
+    <div class="dashboard-wrapper" id="main-content">
       
       <!-- HERO HEADER -->
       <header class="glass-panel hero-card">
         <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 w-full text-center md:text-left">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS05MbssENUfC5BDSWkElWp3XKfu8DwT-GKdg&s" loading="lazy" alt="Shaik Saida Vali" class="profile-avatar"/>
+          <img src="https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/website%20pic.jpeg?raw=true" loading="lazy" alt="Shaik Saida Vali" class="profile-avatar"/>
           <div class="flex-1">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--color-border)] bg-[var(--glass-bg)] text-xs font-bold uppercase tracking-wider mb-4 shadow-sm">
                 <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"></span> Open for Opportunities
@@ -581,41 +553,34 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[var(--color-text-secondary)] group-focus-within:text-[var(--color-accent)] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <input type="text" id="global-search" placeholder="Search skills, projects, or certifications..." class="search-input pr-10" aria-label="Search content" autocomplete="off"/>
             
-            <!-- Clear Button -->
-            <button id="clear-search" class="hidden absolute right-[4.5rem] sm:right-24 p-1.5 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-danger)] hover:bg-[var(--glass-hover-bg)] transition-all" aria-label="Clear search" type="button">
+            <button id="clear-search" class="hidden absolute right-[4.5rem] lg:right-[1.5rem] p-1.5 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-danger)] hover:bg-[var(--glass-hover-bg)] transition-all cursor-pointer" aria-label="Clear search" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-
-            <!-- Shortcut Indicator -->
-            <div id="search-shortcut" class="text-[10px] font-bold text-[var(--color-text-secondary)] bg-[var(--color-border)] px-2 py-1 rounded-md ml-2 hidden sm:flex items-center gap-1 cursor-pointer transition-colors hover:text-[var(--color-text-primary)] hover:border-[var(--color-text-primary)]" title="Focus Search">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path></svg> <span>K</span>
-            </div>
         </div>
         
         <nav class="nav-tabs" role="tablist">
-          <button class="tab-btn active" data-tab="personal-info" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Overview</button>
-          <button class="tab-btn" data-tab="education" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Education</button>
-          <button class="tab-btn" data-tab="career-links" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Skills & Links</button>
-          <button class="tab-btn" data-tab="projects" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Projects</button>
-          <button class="tab-btn" data-tab="roadmap" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg> Roadmap</button>
+          <button class="tab-btn active cursor-pointer" data-tab="personal-info" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Overview</button>
+          <button class="tab-btn cursor-pointer" data-tab="education" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Education</button>
+          <button class="tab-btn cursor-pointer" data-tab="career-links" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Skills & Links</button>
+          <button class="tab-btn cursor-pointer" data-tab="projects" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Projects</button>
+          <button class="tab-btn cursor-pointer" data-tab="roadmap" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg> Roadmap</button>
         </nav>
       </div>
 
       <!-- MAIN CONTENT -->
       <main id="tab-content">
         
-        <!-- NEW: No Results Found State -->
+        <!-- No Results Found State -->
         <div id="no-results" class="hidden flex-col items-center justify-center py-20 text-center w-full z-20">
             <div class="text-6xl mb-4 animate-bounce">🔍</div>
             <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-2">No Results Found</h3>
             <p class="text-[var(--color-text-secondary)] mb-6">We couldn't find anything matching your search criteria.</p>
-            <button id="no-results-clear-btn" class="btn-primary" type="button">Clear Search</button>
+            <button id="no-results-clear-btn" class="btn-primary cursor-pointer" type="button">Clear Search</button>
         </div>
 
         <!-- ================= OVERVIEW TAB ================= -->
         <section id="personal-info" class="tab-pane active bento-grid" role="tabpanel">
             
-            <!-- About Me (Spans 2 columns on desktop) -->
             <div class="bento-card md-col-span-2 lg-col-span-2">
                 <h2 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> Executive Summary</h2>
                 <p class="text-lg leading-relaxed mb-4">
@@ -626,39 +591,36 @@
                 </p>
             </div>
 
-            <!-- Quick Stats (Bento small cards) -->
-            <div class="bento-card justify-center items-center text-center group">
+            <div class="bento-card justify-center items-center text-center group cursor-default">
                 <div class="stat-val group-hover:scale-110 transition-transform">4+</div>
                 <div class="stat-label">Major Projects</div>
             </div>
-            <div class="bento-card justify-center items-center text-center group">
+            <div class="bento-card justify-center items-center text-center group cursor-default">
                 <div class="stat-val group-hover:scale-110 transition-transform">6</div>
                 <div class="stat-label">Certifications</div>
             </div>
 
-            <!-- Contact Bento -->
             <div class="bento-card md-col-span-2 lg-col-span-2">
                 <h3 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Contact Details</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <a href="mailto:urstrulysaida@gmail.com" class="flex items-center gap-4 p-3 rounded-xl hover:bg-[var(--glass-hover-bg)] transition-colors group border border-transparent hover:border-[var(--color-border)]">
+                    <a href="mailto:urstrulysaida@gmail.com" class="flex items-center gap-4 p-3 rounded-xl hover:bg-[var(--glass-hover-bg)] transition-colors group border border-transparent hover:border-[var(--color-border)] cursor-pointer">
                         <div class="card-icon-wrap icon-blue !mb-0 !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
                         <div><p class="text-xs text-[var(--color-text-secondary)] font-bold uppercase">Email</p><p class="font-semibold text-sm truncate">urstrulysaida@gmail.com</p></div>
                     </a>
-                    <a href="tel:+917674012184" class="flex items-center gap-4 p-3 rounded-xl hover:bg-[var(--glass-hover-bg)] transition-colors group border border-transparent hover:border-[var(--color-border)]">
+                    <a href="tel:+917674012184" class="flex items-center gap-4 p-3 rounded-xl hover:bg-[var(--glass-hover-bg)] transition-colors group border border-transparent hover:border-[var(--color-border)] cursor-pointer">
                         <div class="card-icon-wrap icon-green !mb-0 !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
                         <div><p class="text-xs text-[var(--color-text-secondary)] font-bold uppercase">Phone</p><p class="font-semibold text-sm">+91 7674012184</p></div>
                     </a>
-                    <div class="flex items-center gap-4 p-3 sm:col-span-2 rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)]">
+                    <div class="flex items-center gap-4 p-3 sm:col-span-2 rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)] cursor-default">
                         <div class="card-icon-wrap icon-amber !mb-0 !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
                         <div><p class="text-xs text-[var(--color-text-secondary)] font-bold uppercase">Location</p><p class="font-semibold text-sm">10-11, Avulavaripalem, Guntur, Andhra Pradesh - 522411</p></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Info Bento -->
             <div class="bento-card md-col-span-2 lg-col-span-2">
                 <h3 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Personal Data</h3>
-                <div class="grid grid-cols-2 gap-y-6 gap-x-4">
+                <div class="grid grid-cols-2 gap-y-6 gap-x-4 cursor-default">
                     <div><p class="text-xs text-[var(--color-text-secondary)] font-bold uppercase mb-1">Date of Birth</p><p class="font-semibold">Jan 11, 2001</p></div>
                     <div><p class="text-xs text-[var(--color-text-secondary)] font-bold uppercase mb-1">Gender</p><p class="font-semibold">Male</p></div>
                     <div><p class="text-xs text-[var(--color-text-secondary)] font-bold uppercase mb-1">Category</p><span class="badge">General</span></div>
@@ -666,10 +628,9 @@
                 </div>
             </div>
 
-            <!-- Awards Bento -->
             <div class="bento-card col-span-full">
                 <h3 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg> Awards & Leadership</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 cursor-default">
                     <div class="flex gap-4">
                         <div class="card-icon-wrap icon-amber"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
                         <div>
@@ -693,7 +654,27 @@
                     </div>
                 </div>
             </div>
-
+            
+            <div class="bento-card col-span-full xl:col-span-2 xl:col-start-2">
+                <h3 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Direct Message</h3>
+                <form id="contact-form" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <input type="text" placeholder="Your Name" required class="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors cursor-text">
+                    </div>
+                    <div>
+                        <input type="email" placeholder="Your Email" required class="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors cursor-text">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <textarea rows="3" placeholder="How can we collaborate?" required class="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors resize-none cursor-text"></textarea>
+                    </div>
+                    <div class="sm:col-span-2 flex items-center justify-between mt-2">
+                        <span id="form-status" class="text-sm font-bold opacity-0 transition-opacity"></span>
+                        <button type="submit" id="submit-btn" class="btn-primary py-2 px-6 cursor-pointer">
+                            <span id="btn-text">Send Flight</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </section>
 
         <!-- ================= EDUCATION TAB ================= -->
@@ -702,8 +683,7 @@
                 <h2 class="section-title mb-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Academic Journey</h2>
                 
                 <div class="timeline">
-                    <!-- Btech -->
-                    <div class="timeline-item">
+                    <div class="timeline-item cursor-default">
                         <span class="timeline-date">2022 - 2026 (Pursuing)</span>
                         <div class="p-6 rounded-2xl bg-gradient-to-br from-[var(--glass-bg)] to-transparent border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all">
                             <div class="flex justify-between items-start mb-4">
@@ -721,7 +701,6 @@
                         </div>
                     </div>
                     
-                    <!-- Inter -->
                     <div class="timeline-item">
                         <span class="timeline-date">Completed 2022</span>
                         <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-secondary)] transition-all bg-[var(--glass-bg)] flex justify-between items-center flex-wrap gap-4">
@@ -730,13 +709,12 @@
                                 <p class="text-sm text-[var(--color-text-secondary)] font-medium">Board of Intermediate Education</p>
                             </div>
                             <div class="flex items-center gap-4">
-                                <div class="text-center"><p class="text-2xl font-black text-[var(--color-secondary)]">6.0</p><p class="text-[10px] uppercase font-bold text-[var(--color-text-secondary)]">CGPA</p></div>
-                                <a href="#" class="action-pill !px-3 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></a>
+                                <div class="text-center cursor-default"><p class="text-2xl font-black text-[var(--color-secondary)]">6.0</p><p class="text-[10px] uppercase font-bold text-[var(--color-text-secondary)]">CGPA</p></div>
+                                <a href="https://drive.google.com/file/d/15LNA5es18GqDRMX1Fg7wYfzcYBWXo5Vk/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-pill !px-3 !py-2 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 10th -->
                     <div class="timeline-item">
                         <span class="timeline-date">Completed 2020</span>
                         <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-purple)] transition-all bg-[var(--glass-bg)] flex justify-between items-center flex-wrap gap-4">
@@ -745,137 +723,41 @@
                                 <p class="text-sm text-[var(--color-text-secondary)] font-medium">ZPHS SCHOOL</p>
                             </div>
                             <div class="flex items-center gap-4">
-                                <div class="text-center"><p class="text-2xl font-black text-[var(--color-purple)]">7.0</p><p class="text-[10px] uppercase font-bold text-[var(--color-text-secondary)]">CGPA</p></div>
-                                <a href="#" class="action-pill !px-3 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></a>
+                                <div class="text-center cursor-default"><p class="text-2xl font-black text-[var(--color-purple)]">7.0</p><p class="text-[10px] uppercase font-bold text-[var(--color-text-secondary)]">CGPA</p></div>
+                                <a href="https://drive.google.com/file/d/15OPbt8X_FkjVENA-_ByxJ-6acZrH4yVG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-pill !px-3 !py-2 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-          <!-- Core Internships & Experience -->
-          <div class="bento-card col-span-full">
-              <h2 class="section-title mb-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-danger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Core Internships & Experience</h2>
-              
-              <div class="timeline">
-                  <!-- Item 1 -->
-                  <div class="timeline-item">
-                      <span class="timeline-date">Feb 2024 - Apr 2024 (10 Weeks)</span>
-                      <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-blue-500 transition-all bg-[var(--glass-bg)]">
-                          <h4 class="text-xl font-bold mb-1 text-blue-500">Cloud Computing Internship (GCP)</h4>
-                          <p class="text-xs font-bold uppercase text-[var(--color-text-secondary)] mb-3">Infrastructure & Security</p>
-                          <p class="text-sm text-[var(--color-text-primary)] mb-4 leading-relaxed">
-                              Focused on GCP Services (Compute, Storage, VPC) and IaC principles. Deployed secure cloud architectures and managed Cloud Security Posture (CSPM).
-                          </p>
-                          <a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate</a>
-                      </div>
-                  </div>
-
-                  <!-- Item 2 -->
-                  <div class="timeline-item">
-                      <span class="timeline-date">Aug 2023 - Nov 2023 (16 Weeks)</span>
-                      <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-pink-500 transition-all bg-[var(--glass-bg)]">
-                          <h4 class="text-xl font-bold mb-1 text-pink-500">IoT Internship</h4>
-                          <p class="text-xs font-bold uppercase text-[var(--color-text-secondary)] mb-3">Embedded Systems & Data</p>
-                          <p class="text-sm text-[var(--color-text-primary)] mb-4 leading-relaxed">
-                              Engineered full-stack IoT solutions using Arduino/ESP32 and MQTT protocols. Built telemetry pipelines for real-time sensor data monitoring.
-                          </p>
-                          <a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate</a>
-                      </div>
-                  </div>
-
-                   <!-- Item 3 -->
-                  <div class="timeline-item">
-                      <span class="timeline-date">Jan 2023 - Mar 2023 (10 Weeks)</span>
-                      <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-indigo-500 transition-all bg-[var(--glass-bg)]">
-                          <h4 class="text-xl font-bold mb-1 text-indigo-500">Ethical Hacking Internship</h4>
-                          <p class="text-xs font-bold uppercase text-[var(--color-text-secondary)] mb-3">Vulnerability Assessment</p>
-                          <p class="text-sm text-[var(--color-text-primary)] mb-4 leading-relaxed">
-                              Conducted Vulnerability Assessments (VA) and Penetration Testing (PT). Focused on OWASP Top 10, network defense strategies, and countermeasure implementation.
-                          </p>
-                          <a href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate</a>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <!-- Virtual Experience & Programs -->
-          <div class="bento-card col-span-full">
-              <h2 class="section-title mb-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Virtual Experience & Programs</h2>
-              
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  <!-- Zscaler -->
-                  <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-indigo-500 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
-                      <h4 class="text-lg font-bold text-indigo-500 mb-2">Zscaler Cloud Networking</h4>
-                      <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
-                          Mastered Zero Trust Architecture (ZTA) and SASE principles. Learned modern perimeter definition and access management.
-                      </p>
-                      <a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
-                  </div>
-                   <!-- Fortinet -->
-                  <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-red-500 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
-                      <h4 class="text-lg font-bold text-red-500 mb-2">Fortinet Network Security (NSE)</h4>
-                      <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
-                          Focused on Next-Gen Firewalls (NGFW), Security Fabric concepts, and Defense-in-Depth for enterprise networks.
-                      </p>
-                      <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
-                  </div>
-                   <!-- Ethical Hacking Virtual -->
-                  <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-teal-500 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
-                      <h4 class="text-lg font-bold text-teal-500 mb-2">Ethical Hacking Virtual Experience</h4>
-                      <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
-                          Hands-on virtual labs for network defense, threat analysis, and incident response scenarios.
-                      </p>
-                      <a href="https://drive.google.com/file/d/1gXGAQ-W92tTVBiNBNISdAlXM3tYSF6Z_/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
-                  </div>
-                   <!-- Automation -->
-                  <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-orange-500 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
-                      <h4 class="text-lg font-bold text-orange-500 mb-2">Automation Virtual Experience</h4>
-                      <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
-                          Process automation, task scheduling, and scripting for operational efficiency using RPA concepts.
-                      </p>
-                      <a href="https://drive.google.com/file/d/1iTvnbJdyDNZzmsNNKVRAK5gixOXWtnzk/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
-                  </div>
-                  <!-- Google Dev -->
-                  <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-blue-600 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
-                      <h4 class="text-lg font-bold text-blue-600 mb-2">Google for Developers</h4>
-                      <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
-                          Modern app development, cloud integration with Google APIs, and developer workflow tools.
-                      </p>
-                      <a href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
-                  </div>
-              </div>
-          </div>
         </section>
 
         <!-- ================= SKILLS & LINKS TAB ================= -->
         <section id="career-links" class="tab-pane bento-grid" role="tabpanel">
             
-            <!-- Social Links Panel -->
             <div class="bento-card md-col-span-2 lg-col-span-2 bg-gradient-to-br from-[var(--glass-bg)] to-transparent">
                 <h2 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Digital Presence</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 h-full">
-                    <a href="https://www.linkedin.com/in/shaiksaidavali/" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#0a66c2] hover:shadow-[0_0_20px_rgba(10,102,194,0.2)] transition-all group">
+                    <a href="https://www.linkedin.com/in/shaiksaidavali/" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#0a66c2] hover:shadow-[0_0_20px_rgba(10,102,194,0.2)] transition-all group cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 text-[#0a66c2] group-hover:scale-110 transition-transform"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                         <span class="text-sm font-bold">LinkedIn</span>
                     </a>
-                    <a href="https://github.com/urstrulysaida" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-text-primary)] hover:shadow-[0_0_20px_rgba(0,0,0,0.1)] transition-all group">
+                    <a href="https://github.com/urstrulysaida" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-text-primary)] hover:shadow-[0_0_20px_rgba(0,0,0,0.1)] transition-all group cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 group-hover:scale-110 transition-transform"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/><path d="M12 2v3"/></svg>
                         <span class="text-sm font-bold">GitHub</span>
                     </a>
-                    <a href="https://codepen.io/Mr_-Prince_Ssv" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#fcd34d] hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all group">
+                    <a href="https://codepen.io/Mr_-Prince_Ssv" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#fcd34d] hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all group cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 text-[#f59e0b] group-hover:scale-110 transition-transform"><polygon points="12 2 22 13 15.46 22 12 18 8.54 22 2 13 12 2"/><line x1="2" x2="15.46" y1="13" y2="13"/><line x1="8.54" x2="12" y1="22" y2="18"/><line x1="12" x2="15.46" y1="18" y2="22"/><line x1="12" x2="12" y1="2" y2="18"/></svg>
                         <span class="text-sm font-bold">CodePen</span>
                     </a>
-                    <a href="#" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-red-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.2)] transition-all group">
+                    <a href="#" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-red-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.2)] transition-all group cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 text-red-500 group-hover:scale-110 transition-transform"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"/><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"/></svg>
                         <span class="text-sm font-bold">Blog</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Activity Chart -->
-            <div class="bento-card lg-col-span-1 lg:col-start-3">
+            <div class="bento-card lg-col-span-1 lg:col-start-3 cursor-default">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="font-bold text-sm uppercase text-[var(--color-text-secondary)] tracking-wider">Commit Activity</h3>
                     <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse shadow-[0_0_10px_var(--color-accent)]"></span>
@@ -892,8 +774,7 @@
                 <p class="text-right text-[10px] uppercase font-bold text-[var(--color-text-secondary)] mt-2">Past 7 Days</p>
             </div>
 
-            <!-- Skill Matrix -->
-            <div class="bento-card col-span-full xl:col-span-2">
+            <div class="bento-card col-span-full xl:col-span-2 cursor-default">
                 <h3 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Technical Arsenal</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-4">
                     <div class="skill-row">
@@ -923,37 +804,30 @@
                 </div>
             </div>
 
-            <!-- Certifications Grid -->
             <div class="bento-card col-span-full">
                 <h3 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15v5s3-2 5-5a5 5 0 1 0-10 0c2 3 5 5 5 5z"/><circle cx="12" cy="9" r="2"/></svg> Core Certifications</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- Google Cyber -->
-                    <a href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--glass-hover-bg)] transition-all group">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+                    <a href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
                         <div class="card-icon-wrap icon-green !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
                         <h5 class="font-bold text-sm mb-1 leading-tight group-hover:text-[var(--color-accent)] transition-colors">Google<br>Cybersecurity</h5>
                     </a>
-                    <!-- AWS -->
-                    <a href="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-warning)] hover:bg-[var(--glass-hover-bg)] transition-all group">
+                    <a href="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-warning)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
                         <div class="card-icon-wrap icon-amber !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19c0-1.7-1.3-3-3-3h-5c-1.7 0-3 1.3-3 3"/><path d="M22 10.5V9a2 2 0 0 0-2-2h-3.3a5 5 0 0 0-9.4 0H4a2 2 0 0 0-2 2v1.5"/><path d="M8 10a2 2 0 1 0 4 0 2 2 0 1 0-4 0"/></svg></div>
                         <h5 class="font-bold text-sm mb-1 leading-tight group-hover:text-[var(--color-warning)] transition-colors">AWS<br>Cloud Tech</h5>
                     </a>
-                    <!-- Google Advanced Data -->
-                    <a href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-purple)] hover:bg-[var(--glass-hover-bg)] transition-all group">
+                    <a href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-purple)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
                         <div class="card-icon-wrap icon-purple !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
                         <h5 class="font-bold text-sm mb-1 leading-tight group-hover:text-[var(--color-purple)] transition-colors">Google Adv<br>Data Analytics</h5>
                     </a>
-                    <!-- Google Data -->
-                    <a href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=sharing" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-secondary)] hover:bg-[var(--glass-hover-bg)] transition-all group">
+                    <a href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=sharing" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-secondary)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
                         <div class="card-icon-wrap icon-blue !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
                         <h5 class="font-bold text-sm mb-1 leading-tight group-hover:text-[var(--color-secondary)] transition-colors">Google<br>Data Analytics</h5>
                     </a>
-                    <!-- MS Power BI -->
-                    <a href="https://drive.google.com/drive/folders/1VZU27_VVrs6u3sHe6CFU7ho4OKTGsHtL?usp=sharing" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[#f59e0b] hover:bg-[var(--glass-hover-bg)] transition-all group">
+                    <a href="https://drive.google.com/drive/folders/1VZU27_VVrs6u3sHe6CFU7ho4OKTGsHtL?usp=sharing" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[#f59e0b] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
                         <div class="card-icon-wrap icon-amber !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
                         <h5 class="font-bold text-sm mb-1 leading-tight group-hover:text-[#f59e0b] transition-colors">Microsoft<br>Power BI</h5>
                     </a>
-                    <!-- Google AI -->
-                    <a href="https://drive.google.com/drive/folders/114g5rflkxgKwQzMhpV8YQek_3SF1uCcG?usp=sharing" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--glass-hover-bg)] transition-all group">
+                    <a href="https://drive.google.com/drive/folders/114g5rflkxgKwQzMhpV8YQek_3SF1uCcG?usp=sharing" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
                         <div class="card-icon-wrap icon-green !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
                         <h5 class="font-bold text-sm mb-1 leading-tight group-hover:text-[var(--color-accent)] transition-colors">Google<br>AI</h5>
                     </a>
@@ -978,36 +852,69 @@
 
                 <div id="project-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative transition-all duration-500">
                     <!-- Project 1 -->
-                    <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)] hover:border-[var(--color-secondary)] hover:shadow-xl transition-all group flex flex-col h-full project-card" data-tags="cloud security python">
+                    <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)] hover:border-[var(--color-secondary)] hover:shadow-xl transition-all group flex flex-col h-full project-card cursor-pointer" data-tags="cloud security python" onclick="openProjectModal('gcp-automation')">
                         <div class="flex justify-between items-start mb-4">
                             <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center transition-transform group-hover:rotate-6"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
                             <span class="text-xs font-mono px-2 py-1 rounded bg-[var(--color-border)]">2024</span>
                         </div>
                         <h4 class="text-lg font-bold mb-2 group-hover:text-[var(--color-secondary)] transition-colors">Cloud Security Automation (GCP)</h4>
+                        <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3 tracking-wider">Cybersecurity / Cloud</p>
+                        
+                        <!-- Premium Tech Icons -->
+                        <div class="flex gap-2 mb-4">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python" class="w-5 h-5 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="GCP" class="w-5 h-5 opacity-80 group-hover:opacity-100 transition-opacity">
+                        </div>
+
                         <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow">Python-based SOAR playbook in GCP. Ingested VPC flow logs into a custom SIEM mockup for real-time threat isolation.</p>
-                        <button onclick="openProjectModal('gcp-automation')" class="mt-auto w-full py-2 bg-[var(--glass-hover-bg)] rounded-lg font-bold text-[var(--color-text-primary)] hover:bg-[var(--color-secondary)] hover:text-white transition-colors border border-[var(--color-border)] hover:border-transparent text-sm">View Details</button>
+                        <div class="mt-auto flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
+                            <span class="text-xs font-bold text-[var(--color-text-secondary)]">10 Weeks</span>
+                            <span class="flex items-center text-sm font-bold text-[var(--color-secondary)] group-hover:underline group-hover:translate-x-1 transition-transform">View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                        </div>
                     </div>
 
                     <!-- Project 2 -->
-                    <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)] hover:border-[var(--color-accent)] hover:shadow-xl transition-all group flex flex-col h-full project-card" data-tags="iot python">
+                    <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)] hover:border-[var(--color-accent)] hover:shadow-xl transition-all group flex flex-col h-full project-card cursor-pointer" data-tags="iot python" onclick="openProjectModal('iot-dashboard')">
                         <div class="flex justify-between items-start mb-4">
                             <div class="w-12 h-12 rounded-xl bg-green-500/10 text-[var(--color-accent)] flex items-center justify-center transition-transform group-hover:-rotate-6"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div>
                             <span class="text-xs font-mono px-2 py-1 rounded bg-[var(--color-border)]">2023</span>
                         </div>
                         <h4 class="text-lg font-bold mb-2 group-hover:text-[var(--color-accent)] transition-colors">Real-time IoT Monitor</h4>
+                        <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3 tracking-wider">IoT / Data Engineering</p>
+                        
+                        <!-- Premium Tech Icons -->
+                        <div class="flex gap-2 mb-4">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node" class="w-5 h-5 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Arduino_Logo.svg" alt="Arduino" class="w-5 h-5 opacity-80 group-hover:opacity-100 transition-opacity">
+                        </div>
+
                         <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow">Scalable full-stack IoT telemetry using MQTT and ESP32. Persists data to NoSQL and serves a responsive dashboard.</p>
-                        <button onclick="openProjectModal('iot-dashboard')" class="mt-auto w-full py-2 bg-[var(--glass-hover-bg)] rounded-lg font-bold text-[var(--color-text-primary)] hover:bg-[var(--color-accent)] hover:text-white transition-colors border border-[var(--color-border)] hover:border-transparent text-sm">View Details</button>
+                        <div class="mt-auto flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
+                            <span class="text-xs font-bold text-[var(--color-text-secondary)]">16 Weeks</span>
+                            <span class="flex items-center text-sm font-bold text-[var(--color-accent)] group-hover:underline group-hover:translate-x-1 transition-transform">View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                        </div>
                     </div>
 
                     <!-- Project 3 -->
-                    <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)] hover:border-[var(--color-purple)] hover:shadow-xl transition-all group flex flex-col h-full project-card" data-tags="security python">
+                    <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)] hover:border-[var(--color-purple)] hover:shadow-xl transition-all group flex flex-col h-full project-card cursor-pointer" data-tags="security python" onclick="openProjectModal('recon-tool')">
                         <div class="flex justify-between items-start mb-4">
                             <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center transition-transform group-hover:scale-110"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
                             <span class="text-xs font-mono px-2 py-1 rounded bg-[var(--color-border)]">2024</span>
                         </div>
                         <h4 class="text-lg font-bold mb-2 group-hover:text-[var(--color-purple)] transition-colors">Automated Recon Tool</h4>
+                        <p class="text-xs font-semibold uppercase text-[var(--color-text-secondary)] mb-3 tracking-wider">Ethical Hacking / Python</p>
+                        
+                        <!-- Premium Tech Icons -->
+                        <div class="flex gap-2 mb-4">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python" class="w-5 h-5 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 group-hover:opacity-100 text-red-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+
                         <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow">Python/Scapy CLI utility for network footprinting. Performs active host enumeration and port scanning to identify vulnerabilities.</p>
-                        <button onclick="openProjectModal('recon-tool')" class="mt-auto w-full py-2 bg-[var(--glass-hover-bg)] rounded-lg font-bold text-[var(--color-text-primary)] hover:bg-[var(--color-purple)] hover:text-white transition-colors border border-[var(--color-border)] hover:border-transparent text-sm">View Details</button>
+                        <div class="mt-auto flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
+                            <span class="text-xs font-bold text-[var(--color-text-secondary)]">8 Weeks</span>
+                            <span class="flex items-center text-sm font-bold text-[var(--color-purple)] group-hover:underline group-hover:translate-x-1 transition-transform">View Details <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1026,7 +933,7 @@
                  </div>
             </div>
 
-            <div class="bento-card col-span-full lg:col-span-1 xl:col-span-2 flex flex-col">
+            <div class="bento-card col-span-full lg:col-span-1 xl:col-span-2 flex flex-col cursor-default">
                  <h3 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Active Quests (Q4 2024)</h3>
                  
                  <div class="space-y-4 flex-grow flex flex-col justify-center">
@@ -1056,8 +963,34 @@
                  </div>
             </div>
 
+            <div class="content-card col-span-full mt-4 cursor-default">
+               <h4 class="text-xl font-bold mb-6 text-[var(--color-text-primary)] flex items-center border-b border-[var(--color-border)] pb-2">
+                  <span class="mr-2 text-purple-500">🚀</span> Future Horizons (2025+)
+               </h4>
+               <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6">
+                  <div class="p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:bg-[var(--color-card-hover-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-300 group">
+                     <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">☁️</div>
+                     <h5 class="font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent)]">CSPM Mastery</h5>
+                     <p class="text-sm text-[var(--color-text-secondary)]">Deep dive into Cloud Security Posture Management tools and compliance frameworks.</p>
+                  </div>
+                  <div class="p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:bg-[var(--color-card-hover-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-300 group">
+                     <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🕵️‍♂️</div>
+                     <h5 class="font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent)]">Threat Hunting</h5>
+                     <p class="text-sm text-[var(--color-text-secondary)]">Developing custom YARA & Sigma rules for advanced proactive threat detection.</p>
+                  </div>
+                  <div class="p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:bg-[var(--color-card-hover-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-300 group">
+                     <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🐳</div>
+                     <h5 class="font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent)]">DevSecOps</h5>
+                     <p class="text-sm text-[var(--color-text-secondary)]">Building end-to-end secure pipelines with Docker, Kubernetes, and automated scanning.</p>
+                  </div>
+                  <div class="p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card-bg)] hover:bg-[var(--color-card-hover-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-300 group hidden xl:block">
+                     <div class="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">🤖</div>
+                     <h5 class="font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent)]">AI Security</h5>
+                     <p class="text-sm text-[var(--color-text-secondary)]">Exploring adversarial ML and securing LLM deployments against prompt injection.</p>
+                  </div>
+               </div>
+            </div>
         </section>
-
       </main>
 
       <!-- FOOTER -->
@@ -1066,9 +999,9 @@
             &copy; <span id="year"></span> Shaik Saida Vali.
         </p>
         <div class="flex items-center gap-4">
-            <a href="mailto:urstrulysaida@gmail.com" class="p-2 rounded-full border border-[var(--color-border)] hover:bg-[var(--color-accent)] hover:border-transparent hover:text-white transition-all" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
-            <a href="https://linkedin.com/in/shaiksaidavali" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full border border-[var(--color-border)] hover:bg-[#0a66c2] hover:border-transparent hover:text-white transition-all" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
-            <a href="https://github.com/urstrulysaida" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full border border-[var(--color-border)] hover:bg-[var(--color-text-primary)] hover:border-transparent hover:text-[var(--color-bg)] transition-all" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"></path></svg></a>
+            <a href="mailto:urstrulysaida@gmail.com" class="p-2 rounded-full border border-[var(--color-border)] hover:bg-[var(--color-accent)] hover:border-transparent hover:text-white transition-all cursor-pointer" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
+            <a href="https://linkedin.com/in/shaiksaidavali" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full border border-[var(--color-border)] hover:bg-[#0a66c2] hover:border-transparent hover:text-white transition-all cursor-pointer" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+            <a href="https://github.com/urstrulysaida" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full border border-[var(--color-border)] hover:bg-[var(--color-text-primary)] hover:border-transparent hover:text-[var(--color-bg)] transition-all cursor-pointer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"></path></svg></a>
         </div>
       </footer>
     </div>
@@ -1100,6 +1033,45 @@
       };
 
       document.addEventListener("DOMContentLoaded", () => {
+        // --- Custom Cursor Logic ---
+        const cursor = document.getElementById('custom-cursor');
+        const follower = document.getElementById('cursor-follower');
+        
+        if (window.matchMedia("(pointer: fine)").matches) {
+            let mouseX = 0, mouseY = 0, followerX = 0, followerY = 0;
+            
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX; mouseY = e.clientY;
+                cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+            });
+
+            const loop = () => {
+                followerX += (mouseX - followerX) * 0.15; // smoothness
+                followerY += (mouseY - followerY) * 0.15;
+                follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0) translate(-50%, -50%)`;
+                requestAnimationFrame(loop);
+            };
+            loop();
+
+            const hoverElements = document.querySelectorAll('a, button, .project-card, .tab-btn, .cert-card, .social-btn, input, textarea');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+        }
+
+        // --- Preloader Logic ---
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            const dashboard = document.getElementById('main-content');
+            setTimeout(() => {
+                preloader.classList.add('hide');
+                dashboard.classList.add('loaded');
+                setTimeout(() => preloader.style.display = 'none', 600);
+            }, 800); // Minimum view time for effect
+        });
+
+
         const yearSpan = document.getElementById('year');
         if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
@@ -1127,7 +1099,7 @@
             else if (isDeleting && charIndex === 0) { isDeleting = false; roleIndex = (roleIndex + 1) % roles.length; typeSpeed = 500; }
             setTimeout(typeWriter, typeSpeed);
         }
-        setTimeout(typeWriter, 1000);
+        setTimeout(typeWriter, 1500);
 
         // Theme
         const applyTheme = (isDark) => {
@@ -1151,9 +1123,35 @@
 
         // Welcome Modal
         const welcomeModal = document.getElementById('welcome-modal');
-        if (!sessionStorage.getItem('portfolio_welcome_seen')) setTimeout(() => welcomeModal?.classList.add('show'), 600);
+        if (!sessionStorage.getItem('portfolio_welcome_seen')) setTimeout(() => welcomeModal?.classList.add('show'), 2000);
         document.getElementById('close-welcome-btn')?.addEventListener('click', () => {
           welcomeModal?.classList.remove('show'); sessionStorage.setItem('portfolio_welcome_seen', 'true');
+        });
+
+        // Form Submit
+        document.body.addEventListener('submit', (e) => {
+            if (e.target && e.target.id === 'contact-form') {
+                e.preventDefault(); 
+                const btn = document.getElementById('submit-btn');
+                const span = document.getElementById('btn-text');
+                const status = document.getElementById('form-status');
+                
+                if(!btn) return;
+                const origText = span.textContent;
+                span.textContent = "Sending...";
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    span.textContent = origText;
+                    btn.disabled = false;
+                    if(status) {
+                        status.textContent = "Message Sent Successfully!";
+                        status.className = "text-sm font-bold text-[var(--color-accent)]";
+                        setTimeout(() => status.className = "text-sm font-bold opacity-0 transition-opacity", 3000);
+                    }
+                    e.target.reset();
+                }, 1500);
+            }
         });
 
         // Project Modal
@@ -1258,18 +1256,13 @@
         const noResultsState = document.getElementById("no-results");
         const noResultsClearBtn = document.getElementById("no-results-clear-btn");
 
-        // Input listener to handle clear button visibility
         searchInput?.addEventListener('input', (e) => {
             const val = e.target.value;
-            if (val.length > 0) {
-                clearSearchBtn?.classList.remove('hidden');
-            } else {
-                clearSearchBtn?.classList.add('hidden');
-            }
+            if (val.length > 0) clearSearchBtn?.classList.remove('hidden');
+            else clearSearchBtn?.classList.add('hidden');
             window.debouncedHandleSearch(val);
         });
 
-        // Clear search utility
         const clearSearch = () => {
             if(searchInput) searchInput.value = '';
             clearSearchBtn?.classList.add('hidden');
@@ -1280,42 +1273,60 @@
         clearSearchBtn?.addEventListener('click', clearSearch);
         noResultsClearBtn?.addEventListener('click', clearSearch);
 
-        // Keyboard Shortcuts (CMD+K / CTRL+K)
         document.addEventListener('keydown', (e) => {
-            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-                e.preventDefault();
-                searchInput?.focus();
-            }
-            if (e.key === 'Escape' && document.activeElement === searchInput) {
-                clearSearch();
-                searchInput?.blur();
-            }
+            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); searchInput?.focus(); }
+            if (e.key === 'Escape' && document.activeElement === searchInput) { clearSearch(); searchInput?.blur(); }
         });
+        searchShortcut?.addEventListener('click', () => searchInput?.focus());
 
-        searchShortcut?.addEventListener('click', () => {
-            searchInput?.focus();
-        });
+        window.filterProjects = (filter) => {
+            const searchBar = document.getElementById("global-search");
+            if (searchBar && searchBar.value !== "") {
+                searchBar.value = "";
+                const projectPane = document.getElementById("projects");
+                if (projectPane && originalContent["projects"]) projectPane.innerHTML = originalContent["projects"];
+            }
 
-        window.filterProjects = (f) => {
-            const list = document.getElementById("project-list");
-            if(!list) return;
-            document.querySelectorAll('.btn-filter').forEach(b => {
-                b.classList.remove('active', 'border-[var(--color-accent)]');
-                if(b.dataset.filter === f) b.classList.add('active', 'border-[var(--color-accent)]');
+            document.querySelectorAll('.btn-filter').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.filter === filter);
             });
-            list.style.height = list.offsetHeight + 'px';
-            list.querySelectorAll('.project-card').forEach(c => {
-                if(f === 'all' || c.dataset.tags.includes(f)) {
-                    c.style.display = 'flex'; requestAnimationFrame(() => { c.style.opacity = '1'; c.style.transform = 'scale(1)'; });
+
+            const projectList = document.getElementById("project-list");
+            if (!projectList) return;
+
+            projectList.style.height = projectList.offsetHeight + 'px';
+            const cards = projectList.querySelectorAll('.project-card');
+
+            cards.forEach(card => {
+                const isMatch = filter === 'all' || (card.dataset.tags || "").includes(filter);
+                if (isMatch) {
+                    card.style.display = 'flex'; 
+                    requestAnimationFrame(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; });
                 } else {
-                    c.style.opacity = '0'; c.style.transform = 'scale(0.9)'; setTimeout(() => c.style.display = 'none', 300);
+                    card.style.opacity = '0'; card.style.transform = 'translateY(20px)';
+                    setTimeout(() => card.style.display = 'none', 300);
                 }
             });
-            setTimeout(() => list.style.height = 'auto', 350);
+            setTimeout(() => projectList.style.height = 'auto', 350);
         };
 
-        window.handleSearch = (q) => {
-            const term = q.trim().toLowerCase();
+        const highlightText = (html, term) => {
+             const div = document.createElement('div'); div.innerHTML = html;
+             const walker = document.createTreeWalker(div, NodeFilter.SHOW_TEXT, null, false);
+             const nodes = []; while(walker.nextNode()) nodes.push(walker.currentNode);
+             const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+             
+             nodes.forEach(node => {
+                 if(node.parentNode.nodeName!=='SCRIPT' && node.parentNode.nodeName!=='STYLE' && node.nodeValue.match(regex)) {
+                     const span = document.createElement('span'); span.innerHTML = node.nodeValue.replace(regex, '<span class="highlight">$1</span>');
+                     node.parentNode.replaceChild(span, node);
+                 }
+             });
+             return div.innerHTML;
+        };
+
+        window.handleSearch = (query) => {
+            const term = query.trim().toLowerCase();
             let found = false;
 
             document.querySelectorAll(".tab-pane").forEach(p => {
@@ -1323,65 +1334,29 @@
                 if(p.id === 'projects') p.querySelector('.btn-filter[data-filter="all"]')?.classList.add('active');
             });
 
-            if(noResultsState) {
-                noResultsState.classList.add("hidden");
-                noResultsState.classList.remove("flex");
-            }
+            if(noResultsState) { noResultsState.classList.add("hidden"); noResultsState.classList.remove("flex"); }
 
-            if (!term) {
-                activateTab(document.querySelector(".tab-pane.active")?.id || "personal-info", false);
-                return;
-            }
+            if (!term) { activateTab(document.querySelector(".tab-pane.active")?.id || "personal-info", false); return; }
 
             document.querySelectorAll(".tab-pane").forEach(p => {
-                const div = document.createElement('div'); div.innerHTML = originalContent[p.id];
-                const walker = document.createTreeWalker(div, NodeFilter.SHOW_TEXT, null, false);
-                let node; const rx = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-                while(node = walker.nextNode()) {
-                    if(node.parentNode.nodeName!=='SCRIPT' && node.parentNode.nodeName!=='STYLE' && node.nodeValue.match(rx)) {
-                        const span = document.createElement('span'); span.innerHTML = node.nodeValue.replace(rx, '<span class="highlight">$1</span>');
-                        node.parentNode.replaceChild(span, node);
-                    }
-                }
-                p.innerHTML = div.innerHTML;
-                
+                const newHTML = highlightText(originalContent[p.id], term); p.innerHTML = newHTML;
                 let tabHasResults = false;
+                
                 if (p.id === 'projects') {
                    p.querySelectorAll('.project-card').forEach(c => {
-                       if (c.innerHTML.toLowerCase().includes('highlight')) {
-                           c.style.display = 'flex'; c.style.opacity = '1';
-                           tabHasResults = true;
-                       } else {
-                           c.style.display = 'none';
-                       }
+                       if (c.innerHTML.toLowerCase().includes('highlight')) { c.style.display = 'flex'; c.style.opacity = '1'; tabHasResults = true; } 
+                       else { c.style.display = 'none'; }
                    });
-                   const pList = pane.querySelector('#project-list');
-                   if(pList) pList.style.height = 'auto';
-                } else if (p.innerHTML.includes('class="highlight"')) {
-                    tabHasResults = true;
-                }
+                   const pList = p.querySelector('#project-list'); if(pList) pList.style.height = 'auto';
+                } else if (p.innerHTML.includes('class="highlight"')) { tabHasResults = true; }
 
-                if (tabHasResults && !found) {
-                    activateTab(p.id, false);
-                    found = true;
-                }
+                if (tabHasResults && !found) { activateTab(p.id, false); found = true; }
             });
 
-            // Handle "No Results" globally
             if (!found) {
-                tabs.forEach(t => {
-                    t.classList.remove("active");
-                    t.setAttribute("aria-selected", "false");
-                });
-                document.querySelectorAll(".tab-pane").forEach(p => {
-                    p.classList.remove("active");
-                    p.classList.add("hidden");
-                    p.setAttribute("aria-hidden", "true");
-                });
-                if(noResultsState) {
-                    noResultsState.classList.remove("hidden");
-                    noResultsState.classList.add("flex");
-                }
+                tabs.forEach(t => { t.classList.remove("active"); t.setAttribute("aria-selected", "false"); });
+                document.querySelectorAll(".tab-pane").forEach(p => { p.classList.remove("active"); p.classList.add("hidden"); p.setAttribute("aria-hidden", "true"); });
+                if(noResultsState) { noResultsState.classList.remove("hidden"); noResultsState.classList.add("flex"); }
             }
         };
         window.debouncedHandleSearch = debounce(window.handleSearch, 300);
@@ -1393,22 +1368,23 @@
              let s = false;
              try { await navigator.clipboard.writeText(email); s = true; } 
              catch(e) {
-                 const t = document.createElement("textarea"); t.value = email; t.style.position="fixed"; t.style.opacity="0"; document.body.appendChild(t); t.select();
+                 const t = document.createElement("textarea"); t.value = email; t.style.position="fixed"; t.style.left="-9999px"; document.body.appendChild(t); t.focus(); t.select();
                  try{ s = document.execCommand('copy'); } catch(err){} document.body.removeChild(t);
              }
              if(msg) {
-                 msg.innerText = s ? 'Copied!' : 'Failed'; msg.style.background = s ? 'var(--color-accent)' : 'red';
-                 msg.classList.remove("opacity-0"); setTimeout(() => msg.classList.add("opacity-0"), 2000);
+                 msg.innerText = s ? 'Copied!' : 'Failed'; msg.style.background = s ? 'var(--color-accent)' : '#ef4444';
+                 msg.classList.remove("opacity-0", "pointer-events-none"); setTimeout(() => msg.classList.add("opacity-0", "pointer-events-none"), 2000);
              }
         };
 
         // --- Init ---
         activateTab(window.location.hash.substring(1) || "personal-info", false);
         window.addEventListener("popstate", () => {
-            document.getElementById("global-search").value = "";
-            document.querySelectorAll(".tab-pane").forEach(p => p.innerHTML = originalContent[p.id]);
+            const searchBar = document.getElementById("global-search"); if(searchBar) searchBar.value = ""; 
+            document.querySelectorAll(".tab-pane").forEach(p => { if(originalContent[p.id]) p.innerHTML = originalContent[p.id]; });
             activateTab(window.location.hash.substring(1) || "personal-info", false);
         });
+
       });
     </script>
   </body>

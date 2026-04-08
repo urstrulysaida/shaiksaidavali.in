@@ -23,6 +23,21 @@
     <!-- Favicon (Cybersecurity Shield) -->
     <link rel="icon" type="image/png" href="https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-security-cyber-security-flaticons-flat-flat-icons-2.png" />
 
+    <!-- JSON-LD SEO Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Person",
+      "name": "Shaik Saida Vali",
+      "jobTitle": "Cybersecurity Analyst & Cloud Architect",
+      "url": "https://urstrulysaida.github.io/",
+      "sameAs": [
+        "https://www.linkedin.com/in/shaiksaidavali/",
+        "https://github.com/urstrulysaida"
+      ]
+    }
+    </script>
+
     <!-- Preconnect for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -147,16 +162,6 @@
         100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
       }
 
-      @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-6px); }
-      }
-
-      @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-      }
-
       @keyframes blink {
         0%, 100% { opacity: 1; }
         50% { opacity: 0; }
@@ -215,9 +220,41 @@
       @media (pointer: fine) {
           #custom-cursor, #cursor-follower { display: block; }
       }
-      /* Cursor Hover States */
       body.cursor-hover #custom-cursor { width: 4px; height: 4px; background-color: var(--color-bg); }
       body.cursor-hover #cursor-follower { width: 48px; height: 48px; background-color: rgba(16, 185, 129, 0.1); border-color: var(--color-accent); }
+
+      /* --- TOAST NOTIFICATIONS --- */
+      #toast-container {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 999999;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        pointer-events: none;
+      }
+      .toast {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--color-accent);
+        color: var(--color-text-primary);
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--radius-md);
+        font-weight: 600;
+        font-size: 0.9rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.4s var(--ease-spring);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .toast.show { opacity: 1; transform: translateX(0); }
+      .toast-error { border-color: var(--color-danger); }
+      .toast-error svg { color: var(--color-danger); }
+      .toast-success svg { color: var(--color-accent); }
 
       /* --- MAIN LAYOUT --- */
       .dashboard-wrapper {
@@ -227,7 +264,7 @@
         display: flex;
         flex-direction: column;
         gap: 2rem;
-        opacity: 0; /* Hidden until preloader finishes */
+        opacity: 0; 
       }
       .dashboard-wrapper.loaded {
         animation: slideUpFade 1s var(--ease-out-expo) forwards;
@@ -295,7 +332,7 @@
       }
       .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 30px rgba(14, 165, 233, 0.5); }
 
-      /* --- FLOATING COMMAND CENTER (Search + Nav) --- */
+      /* --- FLOATING COMMAND CENTER --- */
       .command-center {
         position: sticky; top: 1rem; z-index: 50; display: flex; flex-direction: column; gap: 1rem;
         width: 100%; max-width: 1000px; margin: 0 auto; padding: 0 1rem;
@@ -439,7 +476,7 @@
       /* Print */
       @media print {
           body { background: white; color: black; }
-          .ambient-bg, .command-center, .fab, .modal-backdrop, header button, #preloader, #custom-cursor, #cursor-follower { display: none !important; }
+          .ambient-bg, .command-center, .fab, .modal-backdrop, header button, #preloader, #custom-cursor, #cursor-follower, #toast-container { display: none !important; }
           .dashboard-wrapper, .bento-card { box-shadow: none; border: 1px solid #ccc; backdrop-filter: none; background: white;}
           .tab-pane { opacity: 1 !important; visibility: visible !important; position: relative !important; transform: none !important; display: block !important; margin-bottom: 2rem;}
       }
@@ -455,6 +492,9 @@
       </div>
       <div class="mt-6 text-sm font-bold tracking-widest text-[var(--color-accent)] uppercase animate-pulse">Securing Connection...</div>
     </div>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div id="toast-container"></div>
 
     <!-- CUSTOM CURSOR -->
     <div id="custom-cursor"></div>
@@ -667,10 +707,10 @@
                     <div class="sm:col-span-2">
                         <textarea rows="3" placeholder="How can we collaborate?" required class="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors resize-none cursor-text"></textarea>
                     </div>
-                    <div class="sm:col-span-2 flex items-center justify-between mt-2">
-                        <span id="form-status" class="text-sm font-bold opacity-0 transition-opacity"></span>
-                        <button type="submit" id="submit-btn" class="btn-primary py-2 px-6 cursor-pointer">
+                    <div class="sm:col-span-2 flex justify-end">
+                        <button type="submit" id="submit-btn" class="btn-primary py-2 px-6 cursor-pointer relative overflow-hidden">
                             <span id="btn-text">Send Flight</span>
+                            <svg id="btn-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 transition-all"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                         </button>
                     </div>
                 </form>
@@ -1032,6 +1072,28 @@
         };
       };
 
+      // Toast Notification System
+      window.showToast = (message, type = 'success') => {
+          const container = document.getElementById('toast-container');
+          if(!container) return;
+          const toast = document.createElement('div');
+          toast.className = `toast toast-${type}`;
+          
+          const icon = type === 'success' 
+            ? '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>'
+            : '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+            
+          toast.innerHTML = `${icon} <span>${message}</span>`;
+          container.appendChild(toast);
+          
+          requestAnimationFrame(() => toast.classList.add('show'));
+          
+          setTimeout(() => {
+              toast.classList.remove('show');
+              setTimeout(() => toast.remove(), 400);
+          }, 3000);
+      };
+
       document.addEventListener("DOMContentLoaded", () => {
         // --- Custom Cursor Logic ---
         const cursor = document.getElementById('custom-cursor');
@@ -1046,7 +1108,7 @@
             });
 
             const loop = () => {
-                followerX += (mouseX - followerX) * 0.15; // smoothness
+                followerX += (mouseX - followerX) * 0.15; 
                 followerY += (mouseY - followerY) * 0.15;
                 follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0) translate(-50%, -50%)`;
                 requestAnimationFrame(loop);
@@ -1068,9 +1130,8 @@
                 preloader.classList.add('hide');
                 dashboard.classList.add('loaded');
                 setTimeout(() => preloader.style.display = 'none', 600);
-            }, 800); // Minimum view time for effect
+            }, 800); 
         });
-
 
         const yearSpan = document.getElementById('year');
         if (yearSpan) yearSpan.textContent = new Date().getFullYear();
@@ -1134,7 +1195,6 @@
                 e.preventDefault(); 
                 const btn = document.getElementById('submit-btn');
                 const span = document.getElementById('btn-text');
-                const status = document.getElementById('form-status');
                 
                 if(!btn) return;
                 const origText = span.textContent;
@@ -1144,11 +1204,7 @@
                 setTimeout(() => {
                     span.textContent = origText;
                     btn.disabled = false;
-                    if(status) {
-                        status.textContent = "Message Sent Successfully!";
-                        status.className = "text-sm font-bold text-[var(--color-accent)]";
-                        setTimeout(() => status.className = "text-sm font-bold opacity-0 transition-opacity", 3000);
-                    }
+                    window.showToast("Message Sent Successfully!", "success");
                     e.target.reset();
                 }, 1500);
             }
@@ -1198,6 +1254,24 @@
         projectModal?.addEventListener('click', e => { if (e.target === projectModal) closePM(); });
         document.addEventListener('keydown', e => { if (e.key === 'Escape' && projectModal.classList.contains('show')) closePM(); });
 
+        // --- Intersection Observer for Skill Bars ---
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bar = entry.target;
+                    bar.style.width = bar.getAttribute('data-level') + '%';
+                    skillObserver.unobserve(bar);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const animateSkillBars = () => {
+            document.querySelectorAll('.skill-fill').forEach(bar => {
+                bar.style.width = '0%';
+                skillObserver.observe(bar);
+            });
+        };
+
         // --- Tabs ---
         let isAnim = false;
         const activateTab = (id, push = true) => {
@@ -1205,9 +1279,7 @@
             const cur = document.querySelector(".tab-pane.active");
             const nxt = document.getElementById(id);
             if(!nxt || cur === nxt) {
-                if(id==='career-links') {
-                    requestAnimationFrame(() => nxt.querySelectorAll('.skill-bar').forEach(b => { b.style.width='0'; void b.offsetWidth; b.style.width=b.dataset.level+'%'; }));
-                }
+                if(id==='career-links') animateSkillBars();
                 return;
             }
             isAnim = true;
@@ -1224,12 +1296,13 @@
                     if(id === 'projects' && document.getElementById("global-search").value === "") window.filterProjects('all');
                     requestAnimationFrame(() => {
                         nxt.classList.add("active");
-                        if(id==='career-links') nxt.querySelectorAll('.skill-bar').forEach(b => { b.style.width='0'; void b.offsetWidth; b.style.width=b.dataset.level+'%'; });
+                        if(id==='career-links') animateSkillBars();
                     });
                     setTimeout(() => { tabContent.style.height = 'auto'; isAnim = false; }, 500);
                 }, 400);
             } else {
                 nxt.classList.remove("hidden"); nxt.classList.add("active"); tabContent.style.height = "auto"; isAnim = false;
+                if(id==='career-links') animateSkillBars();
             }
         };
 
@@ -1364,17 +1437,14 @@
         // --- Copy Email ---
         window.copyEmail = async () => {
              const el = document.getElementById("email-text"); if(!el) return;
-             const email = el.innerText.trim(); const msg = document.getElementById("copy-message");
+             const email = el.innerText.trim();
              let s = false;
              try { await navigator.clipboard.writeText(email); s = true; } 
              catch(e) {
                  const t = document.createElement("textarea"); t.value = email; t.style.position="fixed"; t.style.left="-9999px"; document.body.appendChild(t); t.focus(); t.select();
                  try{ s = document.execCommand('copy'); } catch(err){} document.body.removeChild(t);
              }
-             if(msg) {
-                 msg.innerText = s ? 'Copied!' : 'Failed'; msg.style.background = s ? 'var(--color-accent)' : '#ef4444';
-                 msg.classList.remove("opacity-0", "pointer-events-none"); setTimeout(() => msg.classList.add("opacity-0", "pointer-events-none"), 2000);
-             }
+             window.showToast(s ? "Email copied to clipboard!" : "Failed to copy email", s ? "success" : "error");
         };
 
         // --- Init ---

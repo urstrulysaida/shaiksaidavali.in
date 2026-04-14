@@ -315,7 +315,7 @@
       .action-pill {
         display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.25rem; background: var(--glass-bg);
         border: 1px solid var(--glass-border); border-radius: var(--radius-full); font-weight: 600; font-size: 0.9rem;
-        color: var(--color-text-primary); transition: all 0.3s var(--ease-spring);
+        color: var(--color-text-primary); transition: all 0.3s var(--ease-spring); cursor: pointer;
       }
       .action-pill:hover {
         background: var(--color-accent); color: white; border-color: var(--color-accent);
@@ -361,7 +361,7 @@
       
       .tab-btn {
         white-space: nowrap; padding: 0.6rem 1.25rem; border-radius: var(--radius-full); color: var(--color-text-secondary);
-        font-weight: 600; font-size: 0.95rem; transition: all 0.3s var(--ease-soft); display: flex; align-items: center; gap: 0.5rem; border: 1px solid transparent;
+        font-weight: 600; font-size: 0.95rem; transition: all 0.3s var(--ease-soft); display: flex; align-items: center; gap: 0.5rem; border: 1px solid transparent; cursor: pointer;
       }
       .tab-btn:hover { color: var(--color-text-primary); background: var(--glass-hover-bg); }
       .tab-btn.active { background: var(--color-text-primary); color: var(--color-bg); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -539,9 +539,15 @@
             <button id="close-project-modal" class="btn-close cursor-pointer" aria-label="Close modal">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-            <div id="pm-icon" class="card-icon-wrap icon-blue w-16 h-16 text-2xl mb-6"></div>
-            <h2 id="pm-title" class="text-3xl font-extrabold mb-2">Project Title</h2>
-            <p id="pm-category" class="text-sm font-bold uppercase tracking-wider text-[var(--color-accent)] mb-6">Category</p>
+            <div class="flex items-center gap-4 mb-6">
+                <div id="pm-icon" class="card-icon-wrap icon-blue w-16 h-16 text-2xl !mb-0 flex-shrink-0"></div>
+                <div>
+                    <h2 id="pm-title" class="text-2xl sm:text-3xl font-extrabold mb-1 leading-tight">Project Title</h2>
+                    <p id="pm-category" class="text-xs font-bold uppercase tracking-wider text-[var(--color-accent)]">Category</p>
+                </div>
+            </div>
+            
+            <img id="pm-image" src="" alt="Project Preview" class="w-full h-48 sm:h-64 object-cover rounded-xl border border-[var(--color-border)] mb-6 hidden shadow-lg" loading="lazy">
             
             <div class="space-y-4 text-[var(--color-text-secondary)] leading-relaxed mb-8">
                 <p id="pm-desc-1"></p>
@@ -593,9 +599,10 @@
           </div>
           
           <div class="absolute top-6 right-6">
-            <button id="theme-toggle" class="action-pill !p-3 !rounded-full" aria-label="Toggle Theme">
-                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></svg>
-                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <button id="theme-toggle" class="action-pill" aria-label="Toggle Theme">
+                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></svg>
+                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <span id="theme-text" class="text-xs sm:text-sm font-bold">Theme</span>
             </button>
           </div>
         </div>
@@ -864,7 +871,7 @@
             
             <div class="bento-card md-col-span-2 lg-col-span-2 bg-gradient-to-br from-[var(--glass-bg)] to-transparent">
                 <h2 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Digital Presence</h2>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 h-full">
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 h-full">
                     <a href="https://www.linkedin.com/in/shaiksaidavali/" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#0a66c2] hover:shadow-[0_0_20px_rgba(10,102,194,0.2)] transition-all group cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 text-[#0a66c2] group-hover:scale-110 transition-transform"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                         <span class="text-sm font-bold">LinkedIn</span>
@@ -876,10 +883,6 @@
                     <a href="https://codepen.io/Mr_-Prince_Ssv" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#fcd34d] hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all group cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 text-[#f59e0b] group-hover:scale-110 transition-transform"><polygon points="12 2 22 13 15.46 22 12 18 8.54 22 2 13 12 2"/><line x1="2" x2="15.46" y1="13" y2="13"/><line x1="8.54" x2="12" y1="22" y2="18"/><line x1="12" x2="15.46" y1="18" y2="22"/><line x1="12" x2="12" y1="2" y2="18"/></svg>
                         <span class="text-sm font-bold">CodePen</span>
-                    </a>
-                    <a href="#" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-red-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.2)] transition-all group cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 text-red-500 group-hover:scale-110 transition-transform"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"/><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"/></svg>
-                        <span class="text-sm font-bold">Blog</span>
                     </a>
                 </div>
             </div>
@@ -1255,6 +1258,9 @@
           localStorage.setItem("theme", isDark ? "dark" : "light");
           document.getElementById("sun-icon")?.classList.toggle("hidden", isDark);
           document.getElementById("moon-icon")?.classList.toggle("hidden", !isDark);
+          
+          const themeText = document.getElementById("theme-text");
+          if(themeText) themeText.textContent = isDark ? "Light Mode" : "Dark Mode";
         };
         const savedTheme = localStorage.getItem("theme");
         const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -1282,6 +1288,7 @@
             'gcp-automation': {
                 icon: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
                 color: 'icon-blue', title: 'Cloud Security Automation', cat: 'GCP / Python / SOAR',
+                image: 'https://images.unsplash.com/photo-1555949963-aa79dcee57d5?auto=format&fit=crop&w=800&q=80', // Example placeholder image
                 d1: 'Developed a Security Orchestration, Automation, and Response (SOAR) playbook utilizing Python within Google Cloud Platform.',
                 d2: 'Ingested VPC flow logs into a mock SIEM to detect anomalies, automating the isolation of compromised VMs via API.',
                 tags: ['GCP', 'Python', 'Security'], repo: 'https://github.com/urstrulysaida'
@@ -1289,6 +1296,7 @@
             'iot-dashboard': {
                 icon: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>',
                 color: 'icon-green', title: 'IoT Telemetry Dashboard', cat: 'Hardware / Node.js',
+                image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80', // Example placeholder image
                 d1: 'Built a full-stack dashboard for monitoring real-time ambient data from ESP32 sensors.',
                 d2: 'Implemented lightweight MQTT protocols for low-latency transmission, storing telemetry in a NoSQL database for scalable analysis.',
                 tags: ['IoT', 'MQTT', 'Node.js'], repo: 'https://github.com/urstrulysaida'
@@ -1296,6 +1304,7 @@
             'recon-tool': {
                 icon: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
                 color: 'icon-purple', title: 'Automated Recon Tool', cat: 'Ethical Hacking / Scapy',
+                image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80', // Example placeholder image
                 d1: 'Engineered a command-line tool using Python and Scapy to automate network footprinting.',
                 d2: 'Features include active host enumeration and stealth TCP/UDP port scanning to identify potential attack vectors during penetration tests.',
                 tags: ['Python', 'Scapy', 'Red Team'], repo: 'https://github.com/urstrulysaida'
@@ -1305,9 +1314,19 @@
         window.openProjectModal = (id) => {
             const d = db[id]; if(!d) return;
             document.getElementById('pm-icon').innerHTML = d.icon;
-            document.getElementById('pm-icon').className = `card-icon-wrap w-16 h-16 text-2xl mb-6 ${d.color}`;
+            document.getElementById('pm-icon').className = `card-icon-wrap w-16 h-16 text-2xl !mb-0 flex-shrink-0 ${d.color}`;
             document.getElementById('pm-title').textContent = d.title;
             document.getElementById('pm-category').textContent = d.cat;
+            
+            // Handle Project Image
+            const imgEl = document.getElementById('pm-image');
+            if (d.image) {
+                imgEl.src = d.image;
+                imgEl.classList.remove('hidden');
+            } else {
+                imgEl.classList.add('hidden');
+            }
+
             document.getElementById('pm-desc-1').textContent = d.d1;
             document.getElementById('pm-desc-2').textContent = d.d2;
             document.getElementById('pm-repo-link').href = d.repo;

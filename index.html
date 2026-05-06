@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="Portfolio of Shaik Saida Vali - Cybersecurity Analyst & Cloud Architect specializing in GCP, SIEM, and Network Security." />
     <meta name="author" content="Shaik Saida Vali" />
-    <meta name="theme-color" content="#10b981" />
+    <meta name=`   "theme-color" content="#10b981" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -151,6 +151,11 @@
         100% { opacity: 1; transform: scale(1); filter: blur(0); }
       }
 
+      @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-30px); filter: blur(5px); }
+        to { opacity: 1; transform: translateX(0); filter: blur(0); }
+      }
+
       @keyframes pulseGlow {
         0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
         70% { box-shadow: 0 0 0 20px rgba(16, 185, 129, 0); }
@@ -272,6 +277,34 @@
       #terminal-input {
         background: transparent; border: none; color: var(--color-accent); flex: 1;
         font-family: 'Courier New', Courier, monospace; font-size: 1rem; outline: none;
+      }
+
+      /* --- INFINITE MARQUEE (NEW) --- */
+      .marquee-wrapper {
+        display: flex;
+        overflow: hidden;
+        user-select: none;
+        gap: 2rem;
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        padding: 1rem 0;
+        width: 100%;
+      }
+      .marquee-content {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 2rem;
+        min-width: 100%;
+        animation: scrollX 25s linear infinite;
+      }
+      .marquee-wrapper:hover .marquee-content {
+        animation-play-state: paused;
+      }
+      @keyframes scrollX {
+        from { transform: translateX(0); }
+        to { transform: translateX(calc(-100% - 2rem)); }
       }
 
       /* --- MAIN LAYOUT --- */
@@ -503,6 +536,19 @@
       .fab.visible { opacity: 1; transform: translateY(0) scale(1); }
       .fab:hover { transform: translateY(-5px) scale(1.1); background: var(--color-accent); color: white;}
 
+      /* NEW: Scroll Progress Bar */
+      #scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--color-accent), var(--color-secondary));
+        z-index: 9999999;
+        width: 0%;
+        transition: width 0.1s ease-out;
+        box-shadow: 0 0 10px var(--color-accent);
+      }
+
       .highlight { background: rgba(245, 158, 11, 0.3); border-radius: 4px; padding: 0 4px; border-bottom: 2px solid var(--color-warning); color: var(--color-text-primary); font-weight: 700;}
       
       /* Print */
@@ -515,6 +561,9 @@
     </style>
   </head>
   <body>
+
+    <!-- NEW: Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
 
     <!-- PRELOADER -->
     <div id="preloader">
@@ -607,9 +656,16 @@
         <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 w-full text-center md:text-left">
           <img src="https://github.com/urstrulysaida/shaiksaidavali.in/blob/main/website%20pic.jpeg?raw=true" loading="lazy" alt="Shaik Saida Vali" class="profile-avatar"/>
           <div class="flex-1">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--color-border)] bg-[var(--glass-bg)] text-xs font-bold uppercase tracking-wider mb-4 shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"></span> Open for Opportunities
+            
+            <!-- NEW: Live Status Widget -->
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--color-border)] bg-[var(--glass-bg)] text-xs font-bold uppercase tracking-wider mb-4 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"></span> 
+                <span class="text-[var(--color-text-primary)]">Open for Opportunities</span>
+                <span class="mx-1 text-[var(--color-text-secondary)] opacity-50">|</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--color-text-secondary)]"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span id="live-time" class="text-[var(--color-text-secondary)]">--:-- --</span>
             </div>
+
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-2 tracking-tight">Shaik Saida Vali</h1>
             
             <div class="typewriter-container">
@@ -632,9 +688,10 @@
             <button id="terminal-toggle" class="action-pill !p-3 !rounded-full" aria-label="Open Terminal" title="Terminal Mode">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
             </button>
-            <button id="theme-toggle" class="action-pill !p-3 !rounded-full" aria-label="Toggle Theme">
+            <button id="theme-toggle" class="action-pill !px-4 !py-2 !rounded-full" aria-label="Toggle Theme">
                 <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></svg>
                 <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <span id="theme-text" class="text-xs sm:text-sm font-bold ml-1">Theme</span>
             </button>
           </div>
         </div>
@@ -902,6 +959,33 @@
         <!-- ================= SKILLS & LINKS TAB ================= -->
         <section id="career-links" class="tab-pane bento-grid" role="tabpanel">
             
+            <!-- NEW: INFINITE MARQUEE -->
+            <div class="bento-card col-span-full py-4 !px-0 bg-gradient-to-r from-transparent via-[var(--glass-bg)] to-transparent border-x-0 rounded-none shadow-none backdrop-blur-sm relative cursor-default">
+                <div class="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[var(--color-bg)] to-transparent z-10 pointer-events-none"></div>
+                <div class="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[var(--color-bg)] to-transparent z-10 pointer-events-none"></div>
+                
+                <div class="marquee-wrapper">
+                    <!-- First Set -->
+                    <div class="marquee-content">
+                        <span class="badge badge-secondary"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" class="w-4 h-4 mr-1"> Google Cloud</span>
+                        <span class="badge"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" class="w-4 h-4 mr-1"> Python</span>
+                        <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 text-yellow-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Cybersecurity</span>
+                        <span class="badge badge-secondary"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" class="w-4 h-4 mr-1"> AWS</span>
+                        <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg> SIEM</span>
+                        <span class="badge badge-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg> Network Arch</span>
+                    </div>
+                    <!-- Duplicate Set for infinite scroll -->
+                    <div class="marquee-content" aria-hidden="true">
+                        <span class="badge badge-secondary"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" class="w-4 h-4 mr-1"> Google Cloud</span>
+                        <span class="badge"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" class="w-4 h-4 mr-1"> Python</span>
+                        <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 text-yellow-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Cybersecurity</span>
+                        <span class="badge badge-secondary"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" class="w-4 h-4 mr-1"> AWS</span>
+                        <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg> SIEM</span>
+                        <span class="badge badge-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg> Network Arch</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="bento-card md-col-span-2 lg-col-span-2 bg-gradient-to-br from-[var(--glass-bg)] to-transparent">
                 <h2 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Digital Presence</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 h-full">
@@ -927,18 +1011,19 @@
             <div class="bento-card lg-col-span-1 lg:col-start-3 cursor-default">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="font-bold text-sm uppercase text-[var(--color-text-secondary)] tracking-wider">Commit Activity</h3>
-                    <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse shadow-[0_0_10px_var(--color-accent)]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse shadow-[0_0_10px_var(--color-accent)]" title="Live Data Sync"></span>
                 </div>
-                <div class="chart-grid flex-grow">
-                  <div class="chart-bar" data-val="med" data-height="30%"></div>
-                  <div class="chart-bar" data-val="high" data-height="100%"></div>
-                  <div class="chart-bar" data-val="med" data-height="60%"></div>
-                  <div class="chart-bar" data-height="15%"></div>
-                  <div class="chart-bar" data-val="high" data-height="90%"></div>
-                  <div class="chart-bar" data-val="med" data-height="40%"></div>
-                  <div class="chart-bar" data-height="20%"></div>
+                <div class="chart-grid flex-grow" id="github-chart">
+                  <!-- These will be dynamically updated by GitHub API -->
+                  <div class="chart-bar" data-val="low" data-height="15%" title="Loading..."></div>
+                  <div class="chart-bar" data-val="low" data-height="15%" title="Loading..."></div>
+                  <div class="chart-bar" data-val="low" data-height="15%" title="Loading..."></div>
+                  <div class="chart-bar" data-val="low" data-height="15%" title="Loading..."></div>
+                  <div class="chart-bar" data-val="low" data-height="15%" title="Loading..."></div>
+                  <div class="chart-bar" data-val="low" data-height="15%" title="Loading..."></div>
+                  <div class="chart-bar" data-val="low" data-height="15%" title="Loading..."></div>
                 </div>
-                <p class="text-right text-[10px] uppercase font-bold text-[var(--color-text-secondary)] mt-2">Past 7 Days</p>
+                <p class="text-right text-[10px] uppercase font-bold text-[var(--color-text-secondary)] mt-2">Past 7 Days (Live)</p>
             </div>
 
             <div class="bento-card col-span-full xl:col-span-2 cursor-default">
@@ -1284,6 +1369,89 @@
       };
 
       document.addEventListener("DOMContentLoaded", () => {
+        // --- Live Clock Logic ---
+        const updateTime = () => {
+            const timeEl = document.getElementById('live-time');
+            if(timeEl) {
+                const formatter = new Intl.DateTimeFormat('en-US', {
+                    timeZone: 'Asia/Kolkata',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                });
+                timeEl.textContent = formatter.format(new Date()) + ' IST';
+            }
+        };
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // --- NEW: Live GitHub Activity Fetcher ---
+        const fetchGitHubActivity = async () => {
+            try {
+                const username = 'urstrulysaida'; // Your GitHub Username
+                const res = await fetch(`https://api.github.com/users/${username}/events/public`);
+                if (!res.ok) throw new Error('API Rate Limit');
+                const data = await res.json();
+                
+                const activityCount = new Array(7).fill(0);
+                const today = new Date();
+                today.setHours(0,0,0,0);
+
+                data.forEach(event => {
+                    if(event.type === 'PushEvent' || event.type === 'CreateEvent') {
+                        const eventDate = new Date(event.created_at);
+                        const diffTime = Math.abs(today - eventDate);
+                        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+                        if(diffDays < 7 && diffDays >= 0) {
+                            activityCount[6 - diffDays]++; // 6 is today, 0 is 6 days ago
+                        }
+                    }
+                });
+
+                const maxActivity = Math.max(...activityCount, 1); 
+                const chartBars = document.querySelectorAll('#github-chart .chart-bar');
+                
+                const dayNames = ['6 Days Ago', '5 Days Ago', '4 Days Ago', '3 Days Ago', '2 Days Ago', 'Yesterday', 'Today'];
+
+                chartBars.forEach((bar, index) => {
+                    const count = activityCount[index];
+                    const percentage = Math.max((count / maxActivity) * 100, 10); // Minimum 10% height to be visible
+                    
+                    bar.setAttribute('data-height', `${percentage}%`);
+                    bar.title = `${dayNames[index]}: ${count} Contribution(s)`;
+                    
+                    if(count > 3) bar.setAttribute('data-val', 'high');
+                    else if (count > 0) bar.setAttribute('data-val', 'med');
+                    else bar.setAttribute('data-val', 'low');
+                });
+
+                // If tab is already active, animate them immediately
+                if (document.getElementById('career-links').classList.contains('active')) {
+                    window.animateChartBars();
+                }
+
+            } catch (error) {
+                console.log('GitHub API fallback active. Generating mock data.');
+                // Fallback to random realistic data if API limit is hit
+                const chartBars = document.querySelectorAll('#github-chart .chart-bar');
+                chartBars.forEach(bar => {
+                    const rand = Math.floor(Math.random() * 100) + 15;
+                    bar.setAttribute('data-height', `${rand}%`);
+                    bar.setAttribute('data-val', rand > 70 ? 'high' : (rand > 30 ? 'med' : 'low'));
+                });
+            }
+        };
+        fetchGitHubActivity();
+
+        // --- NEW: Scroll Progress Indicator Logic ---
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const progressBar = document.getElementById('scroll-progress');
+            if (progressBar) progressBar.style.width = scrolled + "%";
+        });
+
         // --- Terminal Easter Egg ---
         const terminalOverlay = document.getElementById('terminal-overlay');
         const terminalInput = document.getElementById('terminal-input');
@@ -1433,6 +1601,27 @@
           welcomeModal?.classList.remove('show'); sessionStorage.setItem('portfolio_welcome_seen', 'true');
         });
 
+        // Form Submit
+        document.body.addEventListener('submit', (e) => {
+            if (e.target && e.target.id === 'contact-form') {
+                e.preventDefault(); 
+                const btn = document.getElementById('submit-btn');
+                const span = document.getElementById('btn-text');
+                
+                if(!btn) return;
+                const origText = span.textContent;
+                span.textContent = "Sending...";
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    span.textContent = origText;
+                    btn.disabled = false;
+                    window.showToast("Message Sent Successfully!", "success");
+                    e.target.reset();
+                }, 1500);
+            }
+        });
+
         // Project Modal
         const projectModal = document.getElementById('project-modal');
         const db = {
@@ -1526,6 +1715,8 @@
                 chartObserver.observe(bar);
             });
         };
+        // Expose to global scope for GitHub fetcher to trigger
+        window.animateChartBars = animateChartBars; 
 
         // --- Tabs ---
         let isAnim = false;

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="Portfolio of Shaik Saida Vali - Cybersecurity Analyst & Cloud Architect specializing in GCP, SIEM, and Network Security." />
     <meta name="author" content="Shaik Saida Vali" />
-    <meta name=`   "theme-color" content="#10b981" />
+    <meta name="theme-color" content="#10b981" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -279,33 +279,19 @@
         font-family: 'Courier New', Courier, monospace; font-size: 1rem; outline: none;
       }
 
-      /* --- INFINITE MARQUEE (NEW) --- */
+      /* --- INFINITE MARQUEE --- */
       .marquee-wrapper {
-        display: flex;
-        overflow: hidden;
-        user-select: none;
-        gap: 2rem;
+        display: flex; overflow: hidden; user-select: none; gap: 2rem;
         mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-        padding: 1rem 0;
-        width: 100%;
+        padding: 1rem 0; width: 100%;
       }
       .marquee-content {
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        gap: 2rem;
-        min-width: 100%;
-        animation: scrollX 25s linear infinite;
+        flex-shrink: 0; display: flex; align-items: center; justify-content: space-around; gap: 2rem;
+        min-width: 100%; animation: scrollX 25s linear infinite;
       }
-      .marquee-wrapper:hover .marquee-content {
-        animation-play-state: paused;
-      }
-      @keyframes scrollX {
-        from { transform: translateX(0); }
-        to { transform: translateX(calc(-100% - 2rem)); }
-      }
+      .marquee-wrapper:hover .marquee-content { animation-play-state: paused; }
+      @keyframes scrollX { from { transform: translateX(0); } to { transform: translateX(calc(-100% - 2rem)); } }
 
       /* --- MAIN LAYOUT --- */
       .dashboard-wrapper {
@@ -383,40 +369,55 @@
       }
       .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 30px rgba(14, 165, 233, 0.5); }
 
-      /* --- FLOATING COMMAND CENTER --- */
+      /* --- REDESIGNED COMMAND CENTER --- */
       .command-center {
-        position: sticky; top: 1rem; z-index: 50; display: flex; flex-direction: column; gap: 1rem;
-        width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1rem;
-      }
-      @media (min-width: 1024px) {
-        .command-center { flex-direction: row; align-items: center; background: var(--glass-bg); backdrop-filter: blur(24px) saturate(180%); border: 1px solid var(--glass-border); border-radius: var(--radius-full); padding: 0.5rem; box-shadow: var(--glass-shadow); }
+        display: flex; flex-direction: column; align-items: center;
+        width: 100%; max-width: 1100px; margin: 1rem auto; padding: 0 1rem;
+        z-index: 50;
       }
 
-      /* Search Bar */
-      .search-wrapper {
-        flex: 1; display: flex; align-items: center; background: var(--glass-bg); border: 1px solid var(--glass-border);
-        border-radius: var(--radius-full); padding: 0.6rem 1.25rem; transition: all 0.3s ease; position: relative; overflow: hidden;
+      /* Tabs Pill Container */
+      .nav-container {
+        background: var(--color-bg); border: 1px solid var(--glass-border);
+        border-radius: var(--radius-full); padding: 0.4rem; box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        display: inline-flex; max-width: 100%; overflow-x: auto; scrollbar-width: none; margin-bottom: 2.5rem;
       }
-      @media (min-width: 1024px) {
-        .search-wrapper { background: transparent; border: none; box-shadow: none; border-right: 1px solid var(--color-border); border-radius: 0; padding: 0 1.5rem; }
+      body.dark-mode .nav-container {
+        background: rgba(15, 23, 42, 0.8); box-shadow: 0 8px 30px rgba(0,0,0,0.5);
       }
-      .search-wrapper:focus-within { background: var(--glass-hover-bg); border-color: var(--color-accent); }
-      .search-input { background: transparent; border: none; outline: none; width: 100%; color: var(--color-text-primary); font-size: 1rem; font-family: inherit; margin-left: 0.75rem; }
+      .nav-container::-webkit-scrollbar { display: none; }
 
       /* Navigation Tabs */
-      .nav-tabs {
-        display: flex; overflow-x: auto; scrollbar-width: none; gap: 0.25rem; padding-bottom: 0.5rem; 
-      }
-      @media (min-width: 1024px) { .nav-tabs { padding-bottom: 0; overflow: visible; } }
-      .nav-tabs::-webkit-scrollbar { display: none; }
+      .nav-tabs { display: flex; gap: 0.25rem; }
       
       .tab-btn {
-        white-space: nowrap; padding: 0.6rem 1rem; border-radius: var(--radius-full); color: var(--color-text-secondary);
-        font-weight: 600; font-size: 0.9rem; transition: all 0.3s var(--ease-soft); display: flex; align-items: center; gap: 0.4rem; border: 1px solid transparent; cursor: pointer;
+        white-space: nowrap; padding: 0.6rem 1.25rem; border-radius: var(--radius-full); color: var(--color-text-secondary);
+        font-weight: 600; font-size: 0.95rem; transition: all 0.3s var(--ease-soft); display: flex; align-items: center; gap: 0.5rem; border: none; cursor: pointer; background: transparent;
       }
-      .tab-btn:hover { color: var(--color-text-primary); background: var(--glass-hover-bg); }
-      .tab-btn.active { background: var(--color-text-primary); color: var(--color-bg); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-      body.dark-mode .tab-btn.active { background: var(--color-text-primary); color: #0f172a; }
+      .tab-btn:hover { color: var(--color-text-primary); }
+      .tab-btn.active { background: rgba(14, 165, 233, 0.15); color: #0284c7; box-shadow: none; }
+      body.dark-mode .tab-btn.active { background: rgba(14, 165, 233, 0.25); color: #38bdf8; }
+
+      /* Dynamic Header Area */
+      .dynamic-header {
+        text-align: center; margin-bottom: 2rem; width: 100%;
+      }
+      .dynamic-title {
+        font-size: 2rem; font-weight: 500; color: var(--color-text-primary); margin-bottom: 0.5rem; transition: opacity 0.2s ease;
+      }
+      .dynamic-subtitle {
+        font-size: 1rem; color: var(--color-text-secondary); transition: opacity 0.2s ease;
+      }
+
+      /* Wide Search Bar */
+      .search-wrapper {
+        width: 100%; display: flex; align-items: center; background: var(--color-bg); border: 1px solid var(--glass-border);
+        border-radius: var(--radius-full); padding: 0.9rem 1.5rem; transition: all 0.3s ease; position: relative; overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      }
+      body.dark-mode .search-wrapper { background: rgba(15, 23, 42, 0.6); box-shadow: 0 4px 20px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.05); }
+      .search-wrapper:focus-within { border-color: var(--color-secondary); box-shadow: 0 4px 25px rgba(14, 165, 233, 0.15); }
+      .search-input { background: transparent; border: none; outline: none; width: 100%; color: var(--color-text-primary); font-size: 1.05rem; font-family: inherit; margin-left: 0.75rem; }
 
       /* --- BENTO BOX CONTENT CARDS --- */
       .bento-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
@@ -697,25 +698,34 @@
         </div>
       </header>
 
-      <!-- COMMAND CENTER (Search & Nav) -->
+      <!-- REDESIGNED COMMAND CENTER -->
       <div class="command-center">
+        <!-- 1. Pills Container -->
+        <div class="nav-container">
+          <nav class="nav-tabs" role="tablist">
+            <button class="tab-btn active" data-tab="personal-info" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Overview</button>
+            <button class="tab-btn" data-tab="education" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Education</button>
+            <button class="tab-btn" data-tab="career-links" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Skills & Links</button>
+            <button class="tab-btn" data-tab="projects" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Projects</button>
+            <button class="tab-btn" data-tab="roadmap" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg> Roadmap</button>
+            <button class="tab-btn" data-tab="currently-learning" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg> Learning</button>
+          </nav>
+        </div>
+
+        <!-- 2. Dynamic Title Area -->
+        <div class="dynamic-header">
+            <h2 id="dynamic-title" class="dynamic-title">Overview</h2>
+            <p id="dynamic-subtitle" class="dynamic-subtitle">A quick glance at my professional journey and executive summary.</p>
+        </div>
+
+        <!-- 3. Wide Search Bar -->
         <div class="search-wrapper group relative">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[var(--color-text-secondary)] group-focus-within:text-[var(--color-accent)] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="text" id="global-search" placeholder="Search skills, projects, or certifications..." class="search-input pr-10" aria-label="Search content" autocomplete="off"/>
-            
-            <button id="clear-search" class="hidden absolute right-[4.5rem] lg:right-[1.5rem] p-1.5 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-danger)] hover:bg-[var(--glass-hover-bg)] transition-all cursor-pointer" aria-label="Clear search" type="button">
+            <input type="text" id="global-search" placeholder="Search overview..." class="search-input pr-10" aria-label="Search content" autocomplete="off"/>
+            <button id="clear-search" class="hidden absolute right-[1.5rem] p-1.5 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-danger)] hover:bg-[var(--glass-hover-bg)] transition-all cursor-pointer" aria-label="Clear search" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
         </div>
-        
-        <nav class="nav-tabs" role="tablist">
-          <button class="tab-btn active cursor-pointer" data-tab="personal-info" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Overview</button>
-          <button class="tab-btn cursor-pointer" data-tab="education" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Education</button>
-          <button class="tab-btn cursor-pointer" data-tab="career-links" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Skills & Links</button>
-          <button class="tab-btn cursor-pointer" data-tab="projects" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Projects</button>
-          <button class="tab-btn cursor-pointer" data-tab="roadmap" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg> Roadmap</button>
-          <button class="tab-btn cursor-pointer" data-tab="currently-learning" role="tab"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg> Learning</button>
-        </nav>
       </div>
 
       <!-- MAIN CONTENT -->
@@ -1735,6 +1745,29 @@
             isAnim = true;
             tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === id));
             if(push) history.pushState(null, "", `#${id}`);
+
+            // Dynamic Header Update Logic
+            const headers = {
+                'personal-info': { title: 'Overview', sub: 'A quick glance at my professional journey and executive summary.', placeholder: 'Search overview...' },
+                'education': { title: 'Academic Journey', sub: 'My formal education and foundational background.', placeholder: 'Search education...' },
+                'career-links': { title: 'Skills & Presence', sub: 'My technical arsenal and digital footprint.', placeholder: 'Search skills & links...' },
+                'projects': { title: 'Portfolio Archive', sub: 'A curated feed of projects, articles, and useful resources.', placeholder: 'Search all projects...' },
+                'roadmap': { title: 'Career Roadmap', sub: 'Active quests and future horizons.', placeholder: 'Search roadmap...' },
+                'currently-learning': { title: 'Currently Learning', sub: 'Continuous upskilling and active certifications.', placeholder: 'Search learning...' }
+            };
+            if (headers[id]) {
+                const titleEl = document.getElementById('dynamic-title');
+                const subEl = document.getElementById('dynamic-subtitle');
+                const searchEl = document.getElementById('global-search');
+                
+                titleEl.style.opacity = 0; subEl.style.opacity = 0;
+                setTimeout(() => {
+                    titleEl.textContent = headers[id].title;
+                    subEl.textContent = headers[id].sub;
+                    if(searchEl) searchEl.placeholder = headers[id].placeholder;
+                    titleEl.style.opacity = 1; subEl.style.opacity = 1;
+                }, 200);
+            }
 
             if(cur) {
                 tabContent.style.height = tabContent.offsetHeight + "px";

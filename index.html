@@ -689,7 +689,7 @@
             <!-- Redesigned Native Portfolio Views Counter -->
             <div class="hidden sm:flex action-pill !px-3 !py-2 !rounded-full cursor-default group" title="Total Portfolio Views">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--color-accent)]"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                <span id="view-count" class="text-xs sm:text-sm font-bold ml-1.5">...</span>
+                <span id="view-count" class="text-xs sm:text-sm font-bold ml-1.5">... Views</span>
             </div>
 
             <button id="terminal-toggle" class="action-pill !p-3 !rounded-full" aria-label="Open Terminal" title="Terminal Mode">
@@ -1631,10 +1631,10 @@
                 const res = await fetch('https://api.counterapi.dev/v1/urstrulysaida/portfolio_views/up');
                 if (!res.ok) throw new Error('API Error');
                 const data = await res.json();
-                viewCountEl.textContent = data.count.toLocaleString();
+                viewCountEl.textContent = data.count.toLocaleString() + ' Views';
             } catch (error) {
                 console.error('View counter API fallback:', error);
-                viewCountEl.textContent = '1,000+'; // Aesthetic fallback if API fails
+                viewCountEl.textContent = '1,000+ Views'; // Aesthetic fallback if API fails
             }
         };
         fetchViews();

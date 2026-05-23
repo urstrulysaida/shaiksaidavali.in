@@ -645,6 +645,37 @@
         </div>
     </div>
 
+    <!-- Certificate Details Modal -->
+    <div id="cert-modal" class="modal-backdrop" aria-hidden="true" role="dialog">
+        <div class="modal-content !max-w-3xl">
+            <button id="close-cert-modal" class="btn-close cursor-pointer" aria-label="Close modal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div class="flex items-center gap-4 mb-6">
+                <div id="cm-icon" class="card-icon-wrap w-16 h-16 text-2xl !mb-0 flex-shrink-0"></div>
+                <div>
+                    <h2 id="cm-title" class="text-2xl sm:text-3xl font-extrabold mb-1 leading-tight">Certificate Title</h2>
+                    <p id="cm-issuer" class="text-xs font-bold uppercase tracking-wider text-[var(--color-accent)]">Issuer</p>
+                </div>
+            </div>
+            
+            <div class="w-full bg-[var(--color-bg)] rounded-xl border border-[var(--color-border)] p-2 mb-8 shadow-inner flex justify-center items-center overflow-hidden min-h-[250px] sm:min-h-[400px] relative group">
+                <!-- Helper Overlay (Shows on Hover) -->
+                <div class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 backdrop-blur-sm rounded-lg">
+                    <p class="text-white font-bold mb-2">Update Image URL in HTML</p>
+                    <code class="text-xs text-green-300 bg-black/50 px-3 py-1.5 rounded-md border border-green-500/30">data-image="your-image.png"</code>
+                </div>
+                <img id="cm-image" src="" alt="Certificate Preview" class="max-w-full max-h-[60vh] object-contain rounded-lg transition-transform duration-500 group-hover:scale-[1.02]" loading="lazy">
+            </div>
+            
+            <div class="flex justify-end pt-4 border-t border-[var(--color-border)]">
+                <a id="cm-verify-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary py-2 px-6 text-sm cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Verify Authenticity
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Scroll To Top -->
     <button id="scrollTopBtn" class="fab cursor-pointer" aria-label="Scroll to top">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
@@ -864,7 +895,7 @@
                           <p class="text-sm text-[var(--color-text-primary)] mb-4 leading-relaxed">
                               Focused on GCP Services (Compute, Storage, VPC) and IaC principles. Deployed secure cloud architectures and managed Cloud Security Posture (CSPM).
                           </p>
-                          <a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate</a>
+                          <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="Cloud Computing Internship (GCP)" data-issuer="Google Cloud Skills" data-color="icon-blue" data-link="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" class="action-pill !text-xs !px-4 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate</a>
                       </div>
                   </div>
 
@@ -877,7 +908,7 @@
                           <p class="text-sm text-[var(--color-text-primary)] mb-4 leading-relaxed">
                               Engineered full-stack IoT solutions using Arduino/ESP32 and MQTT protocols. Built telemetry pipelines for real-time sensor data monitoring.
                           </p>
-                          <a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate</a>
+                          <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="IoT Internship" data-issuer="Hardware & Systems" data-color="icon-purple" data-link="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" class="action-pill !text-xs !px-4 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate</a>
                       </div>
                   </div>
 
@@ -890,7 +921,7 @@
                           <p class="text-sm text-[var(--color-text-primary)] mb-4 leading-relaxed">
                               Conducted Vulnerability Assessments (VA) and Penetration Testing (PT). Focused on OWASP Top 10, network defense strategies, and countermeasure implementation.
                           </p>
-                          <a href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate</a>
+                          <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="Ethical Hacking Internship" data-issuer="Security Assessment" data-color="icon-teal" data-link="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" class="action-pill !text-xs !px-4 !py-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate</a>
                       </div>
                   </div>
               </div>
@@ -907,7 +938,7 @@
                       <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
                           Mastered Zero Trust Architecture (ZTA) and SASE principles. Learned modern perimeter definition and access management.
                       </p>
-                      <a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
+                      <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="Zscaler Cloud Networking" data-issuer="Virtual Experience" data-color="icon-blue" data-link="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Proof</a>
                   </div>
                    <!-- Fortinet -->
                   <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-red-500 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
@@ -915,7 +946,7 @@
                       <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
                           Focused on Next-Gen Firewalls (NGFW), Security Fabric concepts, and Defense-in-Depth for enterprise networks.
                       </p>
-                      <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
+                      <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="Fortinet Network Security (NSE)" data-issuer="Virtual Experience" data-color="icon-amber" data-link="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Proof</a>
                   </div>
                    <!-- Ethical Hacking Virtual -->
                   <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-teal-500 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
@@ -923,7 +954,7 @@
                       <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
                           Hands-on virtual labs for network defense, threat analysis, and incident response scenarios.
                       </p>
-                      <a href="https://drive.google.com/file/d/1gXGAQ-W92tTVBiNBNISdAlXM3tYSF6Z_/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
+                      <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="Ethical Hacking Virtual Experience" data-issuer="Virtual Lab" data-color="icon-teal" data-link="https://drive.google.com/file/d/1gXGAQ-W92tTVBiNBNISdAlXM3tYSF6Z_/view?usp=sharing" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Proof</a>
                   </div>
                    <!-- Automation -->
                   <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-orange-500 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
@@ -931,7 +962,7 @@
                       <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
                           Process automation, task scheduling, and scripting for operational efficiency using RPA concepts.
                       </p>
-                      <a href="https://drive.google.com/file/d/1iTvnbJdyDNZzmsNNKVRAK5gixOXWtnzk/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
+                      <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="Automation Virtual Experience" data-issuer="Virtual Lab" data-color="icon-amber" data-link="https://drive.google.com/file/d/1iTvnbJdyDNZzmsNNKVRAK5gixOXWtnzk/view?usp=sharing" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Proof</a>
                   </div>
                   <!-- Google Dev -->
                   <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-blue-600 transition-all bg-[var(--glass-bg)] flex flex-col h-full">
@@ -939,7 +970,7 @@
                       <p class="text-sm text-[var(--color-text-primary)] mb-4 flex-grow">
                           Modern app development, cloud integration with Google APIs, and developer workflow tools.
                       </p>
-                      <a href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto">View Proof</a>
+                      <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="Google for Developers" data-issuer="Virtual Experience" data-color="icon-blue" data-link="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=sharing" class="action-pill !text-xs !px-4 !py-2 w-max mt-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Proof</a>
                   </div>
               </div>
           </div>
@@ -1048,27 +1079,27 @@
             <div class="bento-card col-span-full">
                 <h3 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15v5s3-2 5-5a5 5 0 1 0-10 0c2 3 5 5 5 5z"/><circle cx="12" cy="9" r="2"/></svg> Core Certifications</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-                    <a href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
+                    <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="Google Cybersecurity" data-issuer="Professional Certificate" data-color="icon-green" data-link="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
                         <div class="card-icon-wrap icon-green !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
                         <h5 class="font-bold text-sm mb-1 leading-tight group-hover:text-[var(--color-accent)] transition-colors">Google<br>Cybersecurity</h5>
                     </a>
-                    <a href="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-warning)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
+                    <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="AWS Cloud Tech" data-issuer="Training Badge" data-color="icon-amber" data-link="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-warning)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
                         <div class="card-icon-wrap icon-amber !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19c0-1.7-1.3-3-3-3h-5c-1.7 0-3 1.3-3 3"/><path d="M22 10.5V9a2 2 0 0 0-2-2h-3.3a5 5 0 0 0-9.4 0H4a2 2 0 0 0-2 2v1.5"/><path d="M8 10a2 2 0 1 0 4 0 2 2 0 1 0-4 0"/></svg></div>
                         <h5 class="font-bold text-sm mb-1 leading-tight group-hover:text-[var(--color-warning)] transition-colors">AWS<br>Cloud Tech</h5>
                     </a>
-                    <a href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-purple)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
+                    <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="Google Adv Data Analytics" data-issuer="Professional Certificate" data-color="icon-purple" data-link="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-purple)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
                         <div class="card-icon-wrap icon-purple !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
                         <h5 class="font-bold text-sm mb-1 leading-tight group-hover:text-[var(--color-purple)] transition-colors">Google Adv<br>Data Analytics</h5>
                     </a>
-                    <a href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=sharing" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-secondary)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
+                    <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="Google Data Analytics" data-issuer="Professional Certificate" data-color="icon-blue" data-link="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=sharing" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-secondary)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
                         <div class="card-icon-wrap icon-blue !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
                         <h5 class="font-bold text-sm mb-1 leading-tight group-hover:text-[var(--color-secondary)] transition-colors">Google<br>Data Analytics</h5>
                     </a>
-                    <a href="https://drive.google.com/drive/folders/1VZU27_VVrs6u3sHe6CFU7ho4OKTGsHtL?usp=sharing" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[#f59e0b] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
+                    <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="Microsoft Power BI" data-issuer="Technical Certification" data-color="icon-amber" data-link="https://drive.google.com/drive/folders/1VZU27_VVrs6u3sHe6CFU7ho4OKTGsHtL?usp=sharing" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[#f59e0b] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
                         <div class="card-icon-wrap icon-amber !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
                         <h5 class="font-bold text-sm mb-1 leading-tight group-hover:text-[#f59e0b] transition-colors">Microsoft<br>Power BI</h5>
                     </a>
-                    <a href="https://drive.google.com/drive/folders/114g5rflkxgKwQzMhpV8YQek_3SF1uCcG?usp=sharing" target="_blank" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
+                    <a href="javascript:void(0)" onclick="openCertModal(this)" data-title="Google AI" data-issuer="Technical Certification" data-color="icon-green" data-link="https://drive.google.com/drive/folders/114g5rflkxgKwQzMhpV8YQek_3SF1uCcG?usp=sharing" class="flex flex-col items-center text-center p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--glass-hover-bg)] transition-all group cursor-pointer">
                         <div class="card-icon-wrap icon-green !w-12 !h-12"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
                         <h5 class="font-bold text-sm mb-1 leading-tight group-hover:text-[var(--color-accent)] transition-colors">Google<br>AI</h5>
                     </a>
@@ -1854,6 +1885,44 @@
         projectModal?.addEventListener('click', e => { if (e.target === projectModal) closePM(); });
         document.addEventListener('keydown', e => { if (e.key === 'Escape' && projectModal.classList.contains('show')) closePM(); });
 
+        // --- NEW: Certificate Modal Logic ---
+        const certModal = document.getElementById('cert-modal');
+        window.openCertModal = (el) => {
+            const title = el.dataset.title;
+            const issuer = el.dataset.issuer;
+            const link = el.dataset.link;
+            const color = el.dataset.color || 'icon-blue';
+            // Clean document placeholder
+            const defaultImage = 'https://images.unsplash.com/photo-1589330694653-ded6df03f754?auto=format&fit=crop&q=80&w=1000';
+            const image = el.dataset.image || defaultImage; 
+            
+            const iconWrap = el.querySelector('.card-icon-wrap') || el.querySelector('svg');
+            let iconHtml = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
+            
+            if(iconWrap && iconWrap.tagName.toLowerCase() === 'svg') {
+                const clone = iconWrap.cloneNode(true);
+                clone.classList.remove('mr-1', 'mr-2', 'opacity-80', 'group-hover:opacity-100');
+                iconHtml = clone.outerHTML;
+            } else if(iconWrap && iconWrap.querySelector('svg')) {
+                iconHtml = iconWrap.querySelector('svg').outerHTML;
+            }
+
+            document.getElementById('cm-icon').innerHTML = iconHtml;
+            document.getElementById('cm-icon').className = `card-icon-wrap w-16 h-16 text-2xl !mb-0 flex-shrink-0 ${color}`;
+            document.getElementById('cm-title').textContent = title;
+            document.getElementById('cm-issuer').textContent = issuer;
+            document.getElementById('cm-image').src = image;
+            document.getElementById('cm-verify-link').href = link;
+            
+            certModal.classList.add('show'); 
+            document.body.style.overflow = 'hidden';
+        };
+
+        const closeCM = () => { certModal.classList.remove('show'); document.body.style.overflow = ''; };
+        document.getElementById('close-cert-modal')?.addEventListener('click', closeCM);
+        certModal?.addEventListener('click', e => { if (e.target === certModal) closeCM(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape' && certModal.classList.contains('show')) closeCM(); });
+
         // --- Intersection Observers for Animations ---
         // Skill Bars Observer
         const skillObserver = new IntersectionObserver((entries) => {
@@ -2090,6 +2159,14 @@
              }
              window.showToast(s ? "Email copied to clipboard!" : "Failed to copy email", s ? "success" : "error");
         };
+
+        // --- NEW: Graceful Placeholder Link Handler ---
+        document.querySelectorAll('a[href="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevents the page from jumping to the top
+                window.showToast('Link will be updated soon!', 'success');
+            });
+        });
 
         // --- Init ---
         activateTab(window.location.hash.substring(1) || "personal-info", false);

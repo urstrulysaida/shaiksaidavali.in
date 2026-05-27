@@ -451,15 +451,41 @@
       }
 
       /* --- GOOGLE STYLE SEARCH BAR --- */
+      .sticky-search-wrapper {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 5.5rem; /* Docks right underneath the floating nav bar */
+        z-index: 95; /* Sits beneath the nav bar's z-index 100 */
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 0 1rem;
+        margin-bottom: 2rem;
+        pointer-events: none; /* Allows user to click page content through the invisible wrapper gaps */
+        transition: transform 0.3s ease;
+      }
+      
+      .sticky-search-wrapper.is-floating .search-wrapper,
+      .sticky-search-wrapper.is-floating .mic-btn {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15), 0 1px 8px rgba(0,0,0,0.05);
+      }
+      
+      body.dark-mode .sticky-search-wrapper.is-floating .search-wrapper,
+      body.dark-mode .sticky-search-wrapper.is-floating .mic-btn {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      }
+
       .search-container {
-        width: 100%; max-width: 700px; margin: 0 auto; display: flex; align-items: center; gap: 0.75rem;
+        width: 100%; max-width: 700px; display: flex; align-items: center; gap: 0.75rem;
+        pointer-events: auto; /* Restores clicks specifically on the search bar */
       }
+      
       .search-wrapper {
-        flex: 1; display: flex; align-items: stretch; background: var(--color-bg); border: 1px solid var(--glass-border);
+        flex: 1; display: flex; align-items: stretch; background: var(--glass-bg); border: 1px solid var(--glass-border);
         border-radius: var(--radius-full); transition: all 0.3s ease; position: relative; overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.04); height: 52px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.04); height: 52px; backdrop-filter: blur(20px);
       }
-      body.dark-mode .search-wrapper { background: rgba(15, 23, 42, 0.6); box-shadow: 0 4px 20px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.05); }
+      body.dark-mode .search-wrapper { background: rgba(15, 23, 42, 0.8); box-shadow: 0 4px 20px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.08); }
       .search-wrapper:focus-within { border-color: var(--color-secondary); box-shadow: 0 4px 25px rgba(14, 165, 233, 0.15); }
 
       .search-input-group {
@@ -487,19 +513,19 @@
 
       .search-action-btn {
         display: flex; align-items: center; justify-content: center; padding: 0 1.25rem;
-        color: var(--color-text-secondary); background: #f8f9fa; transition: all 0.2s; cursor: pointer; border: none;
+        color: var(--color-text-secondary); background: transparent; transition: all 0.2s; cursor: pointer; border: none;
       }
-      .search-action-btn:hover { color: var(--color-accent); background: #f1f3f4; }
-      body.dark-mode .search-action-btn { background: rgba(255,255,255,0.02); color: #9aa0a6; }
+      .search-action-btn:hover { color: var(--color-accent); background: var(--glass-hover-bg); }
+      body.dark-mode .search-action-btn { background: transparent; color: #9aa0a6; }
       body.dark-mode .search-action-btn:hover { background: rgba(255,255,255,0.05); color: var(--color-accent); }
 
       .mic-btn {
         display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 50%;
-        background: #f1f3f4; border: none; color: #5f6368;
+        background: var(--glass-bg); border: 1px solid var(--glass-border); color: #5f6368; backdrop-filter: blur(20px);
         box-shadow: 0 2px 10px rgba(0,0,0,0.03); transition: all 0.3s var(--ease-spring); flex-shrink: 0; cursor: pointer;
       }
-      .mic-btn:hover { transform: translateY(-2px); color: var(--color-accent); box-shadow: 0 8px 20px rgba(16, 185, 129, 0.15); background: white; }
-      body.dark-mode .mic-btn { background: #3c4043; color: #9aa0a6; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+      .mic-btn:hover { transform: translateY(-2px); color: var(--color-accent); box-shadow: 0 8px 20px rgba(16, 185, 129, 0.15); background: var(--color-bg); }
+      body.dark-mode .mic-btn { background: rgba(15, 23, 42, 0.8); color: #9aa0a6; box-shadow: 0 4px 20px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.08);}
       body.dark-mode .mic-btn:hover { color: var(--color-accent); background: #4a4d51;}
 
       /* --- BENTO BOX CONTENT CARDS --- */
@@ -594,7 +620,31 @@
         opacity: 0; pointer-events: none; transition: opacity 0.4s ease; padding: 1rem;
       }
       .modal-backdrop.show { opacity: 1; pointer-events: auto; }
+      
       .modal-content {
+        width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto;
+        background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg);
+        padding: 2.5rem; transform: scale(0.95) translateY(20px); transition: all 0.5s var(--ease-spring);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); position: relative;
+      }
+      body.dark-mode .modal-content { background: rgba(15, 23, 42, 0.85); }
+      .modal-backdrop.show .modal-content { transform: scale(1) translateY(0); }
+      
+      .btn-close {
+          position: absolute; top: 1.5rem; right: 1.5rem; width: 36px; height: 36px; border-radius: 50%;
+          background: rgba(255,255,255,0.1); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center;
+          cursor: pointer; transition: all 0.3s ease; color: var(--color-text-primary); z-index: 50;
+      }
+      .btn-close:hover { background: var(--color-danger); color: white; transform: rotate(90deg); border-color: transparent;}
+
+      /* Scroll To Top */
+      .fab {
+        position: fixed; bottom: 2rem; right: 2rem; width: 3.5rem; height: 3.5rem; border-radius: 50%;
+        background: var(--color-text-primary); color: var(--color-bg); display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2); cursor: pointer; z-index: 90;
+        opacity: 0; transform: translateY(20px) scale(0.8); transition: all 0.4s var(--ease-spring); border: none;
+      }
+      .fab.visible { opacity: 1; transform: translateY(0) scale(1); }
       .fab:hover { transform: translateY(-5px) scale(1.1); background: var(--color-accent); color: white;}
 
       /* NEW: Scroll Progress Bar */
@@ -661,15 +711,60 @@
         </div>
     </div>
 
-    <!-- Welcome Modal -->
+    <!-- Redesigned Tech Welcome Modal -->
     <div id="welcome-modal" class="modal-backdrop" aria-hidden="true" role="dialog">
-      <div class="modal-content text-center">
-        <div class="text-6xl mb-6 inline-block animate-bounce">👋</div>
-        <h2 class="text-3xl font-extrabold mb-4">Welcome to My World!</h2>
-        <p class="text-lg text-[var(--color-text-secondary)] mb-8 leading-relaxed">
-          I'm <strong class="text-[var(--color-text-primary)]">Shaik Saida Vali</strong>. Dive into my journey across <span class="text-[var(--color-accent)] font-bold">Cybersecurity</span>, <span class="text-blue-500 font-bold">Cloud Infra</span>, and <span class="text-purple-500 font-bold">Data</span>.
-        </p>
-        <button id="close-welcome-btn" class="btn-primary w-full justify-center text-lg py-4 cursor-pointer">Explore Portfolio</button>
+      <div class="modal-content text-center relative overflow-hidden !p-0 !border-0 bg-transparent shadow-2xl">
+        <!-- Tech-inspired Card Wrapper -->
+        <div class="relative bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl overflow-hidden shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)]">
+            
+            <!-- Modal Header / Terminal Bar -->
+            <div class="bg-[var(--glass-bg)] border-b border-[var(--color-border)] px-4 py-3 flex items-center justify-between">
+                <div class="flex gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div class="text-xs font-mono text-[var(--color-text-secondary)] opacity-70 flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    ENCRYPTED_SESSION
+                </div>
+            </div>
+
+            <div class="p-8 sm:p-10 relative">
+                <!-- Decorative background glow -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)] rounded-full blur-[100px] opacity-10 pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-[var(--color-secondary)] rounded-full blur-[100px] opacity-10 pointer-events-none"></div>
+                
+                <div class="relative z-10">
+                    <!-- High-tech Profile/Icon Avatar -->
+                    <div class="relative inline-flex items-center justify-center w-24 h-24 mb-6">
+                        <div class="absolute inset-0 rounded-full border border-dashed border-[var(--color-accent)] animate-[spin_10s_linear_infinite]"></div>
+                        <div class="absolute inset-1 rounded-full border border-[var(--color-secondary)] opacity-50 animate-[spin_15s_linear_infinite_reverse]"></div>
+                        <div class="w-16 h-16 rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)] flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-2 tracking-tight text-[var(--color-text-primary)]">Access Granted.</h2>
+                    
+                    <div class="inline-block px-3 py-1 mb-5 rounded-md bg-[var(--glass-hover-bg)] border border-[var(--color-border)] text-[var(--color-accent)] font-mono text-xs font-bold uppercase tracking-widest">
+                        Status: Authenticated
+                    </div>
+
+                    <p class="text-[var(--color-text-secondary)] mb-8 leading-relaxed max-w-md mx-auto text-sm sm:text-base">
+                      Welcome to the digital command center of <strong class="text-[var(--color-text-primary)]">Shaik Saida Vali</strong>. 
+                      Explore my work engineering secure <span class="text-[var(--color-secondary)] font-bold">Cloud Architectures</span> and building robust <span class="text-[var(--color-accent)] font-bold">Cybersecurity</span> defenses.
+                    </p>
+                    
+                    <button id="close-welcome-btn" class="btn-primary w-full sm:w-auto px-8 justify-center text-base font-bold py-3.5 cursor-pointer shadow-[0_8px_25px_rgba(16,185,129,0.3)] hover:shadow-[0_12px_30px_rgba(16,185,129,0.4)] group overflow-hidden relative">
+                        <span class="relative z-10 flex items-center">
+                            Launch Dashboard
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-x-1 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
       </div>
     </div>
 
@@ -784,14 +879,17 @@
       </div>
 
       <!-- REDESIGNED COMMAND CENTER -->
-      <div class="command-center pt-8">
+      <div class="command-center pt-8 !pb-0">
 
         <!-- Dynamic Title Area -->
-        <div class="dynamic-header">
+        <div class="dynamic-header !mb-4">
             <h2 id="dynamic-title" class="dynamic-title">Overview</h2>
             <p id="dynamic-subtitle" class="dynamic-subtitle">A quick glance at my professional journey and executive summary.</p>
         </div>
-
+      </div>
+        
+      <!-- SMART FLOATING SEARCH BAR -->
+      <div class="sticky-search-wrapper" id="floating-search">
         <!-- Google Style Search Bar -->
         <div class="search-container">
             <div class="search-wrapper">
@@ -1530,16 +1628,19 @@
             if (progressBar) progressBar.style.width = scrolled + "%";
         });
         
-        // --- NEW: Persistent Floating Nav Logic ---
+        // --- NEW: Persistent Floating Nav & Search Logic ---
         const floatingNav = document.getElementById('floating-nav');
+        const floatingSearch = document.getElementById('floating-search');
         
         window.addEventListener('scroll', () => {
             const currentScrollY = window.scrollY;
             // Add a dynamic shadow when scrolled past the top
             if (currentScrollY > 50) {
                 floatingNav?.classList.add('is-floating');
+                floatingSearch?.classList.add('is-floating');
             } else {
                 floatingNav?.classList.remove('is-floating');
+                floatingSearch?.classList.remove('is-floating');
             }
         });
 

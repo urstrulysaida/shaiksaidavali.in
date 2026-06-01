@@ -365,7 +365,7 @@
       .btn-primary {
         background: linear-gradient(135deg, var(--color-accent), var(--color-secondary)); color: white; border: none;
         padding: 0.75rem 2rem; border-radius: var(--radius-full); font-weight: 700; display: inline-flex; align-items: center;
-        gap: 0.5rem; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); transition: all 0.4s var(--ease-spring);
+        gap: 0.5rem; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); transition: all 0.4s var(--ease-spring); cursor: pointer;
       }
       .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 30px rgba(14, 165, 233, 0.5); }
 
@@ -555,6 +555,7 @@
         background: rgba(16, 185, 129, 0.1); color: var(--color-accent); border: 1px solid rgba(16, 185, 129, 0.2); transition: all 0.3s ease;
       }
       .badge:hover { transform: scale(1.05); background: var(--color-accent); color: white; }
+      .badge.active { background: var(--color-accent); color: white; }
 
       /* --- TAB TRANSITIONS --- */
       #tab-content { position: relative; min-height: 50vh; transition: height 0.4s var(--ease-out-expo); }
@@ -829,6 +830,12 @@
             </div>
             
             <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 mt-2">
+                <!-- DOWNLOAD RESUME FIX -->
+                <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/export?format=pdf" target="_blank" class="btn-primary !py-2 !px-5 !text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    Download Resume
+                </a>
+                
                 <div class="action-pill" onclick="copyEmail()" title="Copy Email">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                     <span id="email-text">urstrulysaida@gmail.com</span>
@@ -1152,29 +1159,7 @@
                 </div>
             </div>
 
-            <div class="bento-card md-col-span-2 lg-col-span-2 bg-gradient-to-br from-[var(--glass-bg)] to-transparent">
-                <h2 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Digital Presence</h2>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 h-full">
-                    <a href="https://www.linkedin.com/in/shaiksaidavali/" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#0a66c2] hover:shadow-[0_0_20px_rgba(10,102,194,0.2)] transition-all group cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 text-[#0a66c2] group-hover:scale-110 transition-transform"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                        <span class="text-sm font-bold">LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/urstrulysaida" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-text-primary)] hover:shadow-[0_0_20px_rgba(0,0,0,0.1)] transition-all group cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 group-hover:scale-110 transition-transform"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/><path d="M12 2v3"/></svg>
-                        <span class="text-sm font-bold">GitHub</span>
-                    </a>
-                    <a href="https://codepen.io/Mr_-Prince_Ssv" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#fcd34d] hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all group cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 text-[#f59e0b] group-hover:scale-110 transition-transform"><polygon points="12 2 22 13 15.46 22 12 18 8.54 22 2 13 12 2"/><line x1="2" x2="15.46" y1="13" y2="13"/><line x1="8.54" x2="12" y1="22" y2="18"/><line x1="12" x2="15.46" y1="18" y2="22"/><line x1="12" x2="12" y1="2" y2="18"/></svg>
-                        <span class="text-sm font-bold">CodePen</span>
-                    </a>
-                    <a href="#" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#38bdf8] hover:shadow-[0_0_20px_rgba(56,189,248,0.2)] transition-all group cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 text-[#38bdf8] group-hover:scale-110 transition-transform"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
-                        <span class="text-sm font-bold">Twitter</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="bento-card lg-col-span-1 lg:col-start-3 cursor-default">
+            <div class="bento-card col-span-full cursor-default">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="font-bold text-sm uppercase text-[var(--color-text-secondary)] tracking-wider">Commit Activity</h3>
                     <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse shadow-[0_0_10px_var(--color-accent)]" title="Live Data Sync"></span>
@@ -1192,9 +1177,9 @@
                 <p class="text-right text-[10px] uppercase font-bold text-[var(--color-text-secondary)] mt-2">Past 7 Days (Live)</p>
             </div>
 
-            <div class="bento-card col-span-full xl:col-span-2 cursor-default">
+            <div class="bento-card col-span-full cursor-default">
                 <h3 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Technical Arsenal</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
                     <div class="skill-row">
                         <div class="skill-info"><span>Cybersecurity & SIEM</span><span class="text-[var(--color-accent)]">90%</span></div>
                         <div class="skill-track"><div class="skill-fill" data-level="90"></div></div>
@@ -1323,6 +1308,196 @@
                         </div>
                     </a>
 
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PROJECTS TAB ================= -->
+        <section id="projects" class="tab-pane bento-grid" role="tabpanel">
+            <div class="bento-card col-span-full">
+                <div class="flex flex-wrap gap-2 mb-6 border-b border-[var(--color-border)] pb-4">
+                    <button class="btn-filter badge cursor-pointer active" data-filter="all" onclick="filterProjects('all')">All Projects</button>
+                    <button class="btn-filter badge cursor-pointer" data-filter="GCP" onclick="filterProjects('GCP')">GCP Cloud</button>
+                    <button class="btn-filter badge cursor-pointer" data-filter="Python" onclick="filterProjects('Python')">Python</button>
+                    <button class="btn-filter badge cursor-pointer" data-filter="Security" onclick="filterProjects('Security')">Security</button>
+                    <button class="btn-filter badge cursor-pointer" data-filter="IoT" onclick="filterProjects('IoT')">IoT</button>
+                </div>
+                
+                <div id="project-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-300">
+                    <!-- Project 1 -->
+                    <div class="project-card flex flex-col p-5 rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-300 cursor-pointer" data-tags="GCP Python Security" onclick="openProjectModal('gcp-automation')">
+                        <div class="w-12 h-12 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Cloud Security Automation</h4>
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-4 flex-grow line-clamp-2">Developed a Security Orchestration, Automation, and Response (SOAR) playbook utilizing Python within Google Cloud Platform.</p>
+                        <div class="flex flex-wrap gap-1 mt-auto">
+                            <span class="text-[10px] px-2 py-1 bg-[var(--color-border)] rounded text-[var(--color-text-primary)]">GCP</span>
+                            <span class="text-[10px] px-2 py-1 bg-[var(--color-border)] rounded text-[var(--color-text-primary)]">Python</span>
+                            <span class="text-[10px] px-2 py-1 bg-[var(--color-border)] rounded text-[var(--color-text-primary)]">Security</span>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project-card flex flex-col p-5 rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-300 cursor-pointer" data-tags="IoT Node.js" onclick="openProjectModal('iot-dashboard')">
+                        <div class="w-12 h-12 rounded-lg bg-green-500/10 text-green-500 flex items-center justify-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">IoT Telemetry Dashboard</h4>
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-4 flex-grow line-clamp-2">Built a full-stack dashboard for monitoring real-time ambient data from ESP32 sensors via lightweight MQTT protocols.</p>
+                        <div class="flex flex-wrap gap-1 mt-auto">
+                            <span class="text-[10px] px-2 py-1 bg-[var(--color-border)] rounded text-[var(--color-text-primary)]">IoT</span>
+                            <span class="text-[10px] px-2 py-1 bg-[var(--color-border)] rounded text-[var(--color-text-primary)]">MQTT</span>
+                            <span class="text-[10px] px-2 py-1 bg-[var(--color-border)] rounded text-[var(--color-text-primary)]">Node.js</span>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="project-card flex flex-col p-5 rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-300 cursor-pointer" data-tags="Python Security" onclick="openProjectModal('recon-tool')">
+                        <div class="w-12 h-12 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Automated Recon Tool</h4>
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-4 flex-grow line-clamp-2">Engineered a command-line tool using Python and Scapy to automate network footprinting and potential vulnerability scanning.</p>
+                        <div class="flex flex-wrap gap-1 mt-auto">
+                            <span class="text-[10px] px-2 py-1 bg-[var(--color-border)] rounded text-[var(--color-text-primary)]">Python</span>
+                            <span class="text-[10px] px-2 py-1 bg-[var(--color-border)] rounded text-[var(--color-text-primary)]">Scapy</span>
+                            <span class="text-[10px] px-2 py-1 bg-[var(--color-border)] rounded text-[var(--color-text-primary)]">Security</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= ROADMAP TAB ================= -->
+        <section id="roadmap" class="tab-pane bento-grid" role="tabpanel">
+            <div class="bento-card col-span-full">
+                <h2 class="section-title mb-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg> Career & Certification Roadmap</h2>
+                <div class="timeline">
+                    <!-- 2024 Items -->
+                    <div class="timeline-item">
+                        <span class="timeline-date">Q3 2024</span>
+                        <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:border-[var(--color-warning)] transition-all">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold mb-1">AWS Certified Solutions Architect – Associate</h4>
+                                <span class="badge bg-green-500/10 text-green-600 border-none">Achieved</span>
+                            </div>
+                            <p class="text-sm text-[var(--color-text-secondary)]">Focusing on designing highly available, cost-efficient, fault-tolerant, and scalable distributed systems on AWS.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Q4 2024</span>
+                        <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:border-[var(--color-warning)] transition-all">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold mb-1">CompTIA Security+</h4>
+                                <span class="badge bg-green-500/10 text-green-600 border-none">Achieved</span>
+                            </div>
+                            <p class="text-sm text-[var(--color-text-secondary)]">Validating baseline skills to perform core security functions and pursue an IT security career.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2025 Items -->
+                    <div class="timeline-item">
+                        <span class="timeline-date">Q2 2025</span>
+                        <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:border-[var(--color-purple)] transition-all">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold mb-1">Certified Ethical Hacker (CEH)</h4>
+                                <span class="badge bg-purple-500/10 text-purple-500 border-none">In Progress</span>
+                            </div>
+                            <p class="text-sm text-[var(--color-text-secondary)]">Mastering advanced ethical hacking methodologies, techniques, and tools to identify vulnerabilities and defend systems proactively.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Q4 2025</span>
+                        <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:border-[#4285F4] transition-all opacity-80 hover:opacity-100">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold mb-1 text-[#4285F4]">Google Cloud Professional Security Engineer</h4>
+                                <span class="badge bg-[var(--color-border)] text-[var(--color-text-secondary)] border-none">Upcoming</span>
+                            </div>
+                            <p class="text-sm text-[var(--color-text-secondary)]">Deepening cloud expertise by mastering IAM, network security, defining organizational policies, and utilizing native Google technologies for enterprise data protection.</p>
+                        </div>
+                    </div>
+
+                    <!-- 2026 Items -->
+                    <div class="timeline-item">
+                        <span class="timeline-date">2026 (Graduation Year)</span>
+                        <div class="p-6 rounded-2xl border border-[var(--color-accent)] bg-[var(--glass-bg)] shadow-[0_0_20px_rgba(16,185,129,0.1)] transition-all">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold mb-1 text-[var(--color-accent)]">Full-Time Cloud Security Architect</h4>
+                                <span class="badge bg-[var(--color-accent)] text-white border-none shadow-md">Career Goal</span>
+                            </div>
+                            <p class="text-sm text-[var(--color-text-primary)] font-medium">Transitioning from academia to industry upon completing B.Tech in Cyber Security. Focusing on DevSecOps, advanced SIEM implementation, and scalable, resilient cloud defense strategies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= CURRENTLY LEARNING TAB ================= -->
+        <section id="currently-learning" class="tab-pane bento-grid" role="tabpanel">
+            <div class="bento-card col-span-full">
+                <h2 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg> Active Skill Acquisition</h2>
+                <p class="text-sm text-[var(--color-text-secondary)] mb-6">Technologies and concepts I am currently exploring to expand my expertise in cloud security and modern architecture.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- 1. Terraform -->
+                    <div class="p-5 border border-[var(--color-border)] rounded-xl bg-[var(--glass-bg)] hover:border-blue-500 transition-all hover:-translate-y-1 shadow-sm">
+                        <div class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-1">Terraform</h4>
+                        <p class="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-bold mb-3">Infrastructure as Code</p>
+                        <p class="text-sm text-[var(--color-text-secondary)]">Learning to automate infrastructure deployment across multi-cloud environments (GCP/AWS) reliably and safely.</p>
+                    </div>
+                    
+                    <!-- 2. Kubernetes -->
+                    <div class="p-5 border border-[var(--color-border)] rounded-xl bg-[var(--glass-bg)] hover:border-indigo-500 transition-all hover:-translate-y-1 shadow-sm">
+                        <div class="w-12 h-12 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-1">Kubernetes</h4>
+                        <p class="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-bold mb-3">Container Orchestration</p>
+                        <p class="text-sm text-[var(--color-text-secondary)]">Exploring K8s clusters, pods, and deployments, focusing specifically on container security, policies, and RBAC.</p>
+                    </div>
+
+                    <!-- 3. Advanced SIEM -->
+                    <div class="p-5 border border-[var(--color-border)] rounded-xl bg-[var(--glass-bg)] hover:border-red-500 transition-all hover:-translate-y-1 shadow-sm">
+                        <div class="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center text-red-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-1">Advanced SIEM</h4>
+                        <p class="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-bold mb-3">Threat Hunting</p>
+                        <p class="text-sm text-[var(--color-text-secondary)]">Writing custom correlation rules, parsing logs efficiently, and building monitoring dashboards in Splunk and Elastic.</p>
+                    </div>
+
+                    <!-- 4. DevSecOps -->
+                    <div class="p-5 border border-[var(--color-border)] rounded-xl bg-[var(--glass-bg)] hover:border-orange-500 transition-all hover:-translate-y-1 shadow-sm">
+                        <div class="w-12 h-12 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-1">DevSecOps</h4>
+                        <p class="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-bold mb-3">CI/CD Security</p>
+                        <p class="text-sm text-[var(--color-text-secondary)]">Integrating security testing, Software Composition Analysis (SCA), and SAST directly into CI/CD pipelines.</p>
+                    </div>
+
+                    <!-- 5. Zero Trust Architecture -->
+                    <div class="p-5 border border-[var(--color-border)] rounded-xl bg-[var(--glass-bg)] hover:border-pink-500 transition-all hover:-translate-y-1 shadow-sm">
+                        <div class="w-12 h-12 rounded-lg bg-pink-500/10 flex items-center justify-center text-pink-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-1">Zero Trust</h4>
+                        <p class="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-bold mb-3">Network Security</p>
+                        <p class="text-sm text-[var(--color-text-secondary)]">Deep diving into identity-aware proxies, micro-segmentation, and continuous authentication models (ZTA).</p>
+                    </div>
+
+                    <!-- 6. CSPM -->
+                    <div class="p-5 border border-[var(--color-border)] rounded-xl bg-[var(--glass-bg)] hover:border-teal-500 transition-all hover:-translate-y-1 shadow-sm">
+                        <div class="w-12 h-12 rounded-lg bg-teal-500/10 flex items-center justify-center text-teal-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-1">CSPM</h4>
+                        <p class="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-bold mb-3">Cloud Posture</p>
+                        <p class="text-sm text-[var(--color-text-secondary)]">Automating compliance checks and configuration monitoring across multi-cloud environments (AWS/GCP).</p>
+                    </div>
                 </div>
             </div>
 
@@ -1463,6 +1638,7 @@
                 </div>
             </div>
         </section>
+
       </main>
 
       <!-- FOOTER -->
@@ -1742,7 +1918,10 @@
         const scrollTopBtn = document.getElementById('scrollTopBtn');
         const themeToggle = document.getElementById("theme-toggle");
 
-        document.querySelectorAll(".tab-pane").forEach(pane => originalContent[pane.id] = pane.innerHTML);
+        // Save original contents for search reset
+        document.querySelectorAll(".tab-pane").forEach(pane => {
+            originalContent[pane.id] = pane.innerHTML;
+        });
 
         // Typing
         const roles = ["Cybersecurity Enthusiast", "Cloud Architect", "Python Developer"];
@@ -1911,6 +2090,7 @@
             if(isAnim) return;
             const cur = document.querySelector(".tab-pane.active");
             const nxt = document.getElementById(id);
+            
             if(!nxt || cur === nxt) {
                 if(id==='career-links') { animateSkillBars(); animateChartBars(); }
                 return;
@@ -2039,16 +2219,32 @@
             setTimeout(() => projectList.style.height = 'auto', 350);
         };
 
+        // Deep review fix: Safe text highlighting without breaking DOM HTML tags
         const highlightText = (html, term) => {
              const div = document.createElement('div'); div.innerHTML = html;
              const walker = document.createTreeWalker(div, NodeFilter.SHOW_TEXT, null, false);
              const nodes = []; while(walker.nextNode()) nodes.push(walker.currentNode);
-             const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+             
+             // Escape Regex special characters
+             const escapedTermForRegex = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+             const regex = new RegExp(`(${escapedTermForRegex})`, 'gi');
              
              nodes.forEach(node => {
                  if(node.parentNode.nodeName!=='SCRIPT' && node.parentNode.nodeName!=='STYLE' && node.nodeValue.match(regex)) {
-                     const span = document.createElement('span'); span.innerHTML = node.nodeValue.replace(regex, '<span class="highlight">$1</span>');
-                     node.parentNode.replaceChild(span, node);
+                     const parts = node.nodeValue.split(regex);
+                     const frag = document.createDocumentFragment();
+                     
+                     parts.forEach(part => {
+                         if(part.toLowerCase() === term.toLowerCase()) {
+                             const span = document.createElement('span');
+                             span.className = 'highlight';
+                             span.textContent = part;
+                             frag.appendChild(span);
+                         } else if (part) {
+                             frag.appendChild(document.createTextNode(part));
+                         }
+                     });
+                     node.parentNode.replaceChild(frag, node);
                  }
              });
              return div.innerHTML;
@@ -2118,6 +2314,13 @@
             document.querySelectorAll(".tab-pane").forEach(p => { if(originalContent[p.id]) p.innerHTML = originalContent[p.id]; });
             activateTab(window.location.hash.substring(1) || "personal-info", false);
         });
+        
+        // Re-store original contents after initial load to make sure everything including dynamic generated HTML gets caught
+        setTimeout(() => {
+            document.querySelectorAll(".tab-pane").forEach(pane => {
+                originalContent[pane.id] = pane.innerHTML;
+            });
+        }, 500);
 
       });
     </script>

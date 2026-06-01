@@ -167,6 +167,10 @@
         50% { opacity: 0; }
       }
 
+      @keyframes shimmer { 
+        100% { transform: translateX(100%); } 
+      }
+
       /* --- PRELOADER --- */
       #preloader {
         position: fixed;
@@ -365,7 +369,7 @@
       .btn-primary {
         background: linear-gradient(135deg, var(--color-accent), var(--color-secondary)); color: white; border: none;
         padding: 0.75rem 2rem; border-radius: var(--radius-full); font-weight: 700; display: inline-flex; align-items: center;
-        gap: 0.5rem; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); transition: all 0.4s var(--ease-spring); cursor: pointer;
+        gap: 0.5rem; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); transition: all 0.4s var(--ease-spring);
       }
       .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 30px rgba(14, 165, 233, 0.5); }
 
@@ -376,7 +380,7 @@
         z-index: 50;
       }
 
-      /* --- NEW: GOOGLE STYLE NAV BAR --- */
+      /* --- GOOGLE STYLE NAV BAR --- */
       .google-nav-wrapper {
           position: -webkit-sticky;
           position: sticky;
@@ -578,15 +582,6 @@
       .stat-val { font-size: 2.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; background: linear-gradient(135deg, var(--color-text-primary), var(--color-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
       .stat-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-secondary); font-weight: 600; }
 
-      .timeline { border-left: 2px solid var(--color-timeline-line); margin-left: 1rem; padding-left: 2rem; display: flex; flex-direction: column; gap: 2rem; }
-      .timeline-item { position: relative; }
-      .timeline-item::before {
-          content: ''; position: absolute; left: -2.4rem; top: 0.25rem; width: 1rem; height: 1rem;
-          background: var(--color-bg); border: 3px solid var(--color-accent); border-radius: 50%; transition: all 0.3s var(--ease-spring); z-index: 2;
-      }
-      .timeline-item:hover::before { transform: scale(1.5); background: var(--color-accent); box-shadow: 0 0 15px var(--color-accent); }
-      .timeline-date { font-size: 0.8rem; font-weight: 700; color: var(--color-accent); margin-bottom: 0.5rem; display: block; letter-spacing: 0.05em;}
-
       .skill-row { margin-bottom: 1.25rem; }
       .skill-info { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
       .skill-track { height: 8px; background: var(--color-border); border-radius: var(--radius-full); overflow: hidden; }
@@ -648,7 +643,7 @@
       .fab.visible { opacity: 1; transform: translateY(0) scale(1); }
       .fab:hover { transform: translateY(-5px) scale(1.1); background: var(--color-accent); color: white;}
 
-      /* Scroll Progress Bar */
+      /* NEW: Scroll Progress Bar */
       #scroll-progress {
         position: fixed;
         top: 0;
@@ -674,7 +669,7 @@
   </head>
   <body>
 
-    <!-- Scroll Progress Indicator -->
+    <!-- NEW: Scroll Progress Indicator -->
     <div id="scroll-progress"></div>
 
     <!-- PRELOADER -->
@@ -834,15 +829,15 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                     <span id="email-text">urstrulysaida@gmail.com</span>
                 </div>
-                <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/export?format=pdf" target="_blank" class="btn-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                    Resume
+                <a href="https://docs.google.com/document/d/1UBfhBcEI_hzWj1KOlvlD4vjbkhmVV1ZNFayQrkroXZA/export?format=pdf" target="_blank" class="btn-primary !px-5 !py-2 !text-sm cursor-pointer whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    Download Resume
                 </a>
             </div>
           </div>
           
           <div class="absolute top-6 right-6 flex items-center gap-2 sm:gap-3">
-            <!-- Native Portfolio Views Counter -->
+            <!-- Redesigned Native Portfolio Views Counter -->
             <div class="hidden sm:flex action-pill !px-3 !py-2 !rounded-full cursor-default group" title="Total Portfolio Views">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--color-accent)]"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                 <span id="view-count" class="text-xs sm:text-sm font-bold ml-1.5">... Views</span>
@@ -876,8 +871,10 @@
           </div>
       </div>
 
-      <!-- COMMAND CENTER -->
+      <!-- REDESIGNED COMMAND CENTER -->
       <div class="command-center pt-8 !pb-0">
+
+        <!-- Dynamic Title Area -->
         <div class="dynamic-header !mb-4">
             <h2 id="dynamic-title" class="dynamic-title">Overview</h2>
             <p id="dynamic-subtitle" class="dynamic-subtitle">A quick glance at my professional journey and executive summary.</p>
@@ -886,6 +883,7 @@
         
       <!-- SMART FLOATING SEARCH BAR -->
       <div class="sticky-search-wrapper" id="floating-search">
+        <!-- Google Style Search Bar -->
         <div class="search-container">
             <div class="search-wrapper">
                 <div class="search-input-group">
@@ -970,232 +968,250 @@
 
         <!-- ================= EDUCATION TAB ================= -->
         <section id="education" class="tab-pane bento-grid" role="tabpanel">
-            <div class="bento-card col-span-full">
+            
+            <!-- Redesigned Academic Journey Section -->
+            <div class="bento-card col-span-full pb-8">
                 <h2 class="section-title mb-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Academic Journey</h2>
                 
-                <div class="timeline">
-                    <div class="timeline-item cursor-default">
-                        <span class="timeline-date">2022 - 2026 (Pursuing)</span>
-                        <div class="p-6 rounded-2xl bg-gradient-to-br from-[var(--glass-bg)] to-transparent border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h4 class="text-2xl font-extrabold mb-1">Bachelor of Technology</h4>
-                                    <p class="text-[var(--color-text-secondary)] font-semibold flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Cyber Security</p>
-                                </div>
-                                <span class="badge bg-green-500 text-white border-none shadow-lg">Current</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+                    <!-- B.Tech (Full width on top) -->
+                    <div class="col-span-full group">
+                       <div class="p-6 md:p-8 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] relative overflow-hidden flex flex-col md:flex-row gap-6 md:gap-8 items-center hover:border-[var(--color-accent)] hover:shadow-lg transition-all duration-300">
+                           <div class="absolute -right-10 -top-10 w-40 h-40 bg-[var(--color-accent)] rounded-full blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                           
+                           <!-- Icon/Logo -->
+                           <div class="w-20 h-20 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center shadow-md shrink-0 text-3xl z-10 group-hover:scale-110 transition-transform">
+                               🎓
+                           </div>
+                           
+                           <!-- Info -->
+                           <div class="flex-1 w-full text-center md:text-left z-10">
+                               <div class="flex flex-col md:flex-row justify-between items-center mb-2 gap-3">
+                                   <h4 class="text-2xl md:text-3xl font-extrabold text-[var(--color-text-primary)]">Bachelor of Technology</h4>
+                                   <span class="px-3 py-1 bg-green-500/10 text-green-600 border border-green-500/20 rounded-full text-[10px] font-extrabold tracking-widest uppercase flex items-center gap-2 shadow-sm"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Pursuing</span>
+                               </div>
+                               <p class="text-[var(--color-accent)] font-bold text-lg mb-2">Cyber Security</p>
+                               <p class="text-sm text-[var(--color-text-secondary)] font-medium mb-6">Kakinada Institute of Engineering & Technology (KIET) • 2022 - 2026</p>
+                               
+                               <!-- Progress -->
+                               <div class="w-full max-w-2xl mx-auto md:mx-0">
+                                   <div class="flex justify-between text-[11px] font-bold text-[var(--color-text-secondary)] mb-2 uppercase tracking-wider">
+                                       <span>Degree Progress</span>
+                                       <span class="text-[var(--color-text-primary)]">~65%</span>
+                                   </div>
+                                   <div class="h-2.5 w-full bg-[var(--color-border)] rounded-full overflow-hidden shadow-inner">
+                                       <div class="h-full bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-secondary)] rounded-full w-[65%] shadow-[0_0_15px_var(--color-accent)] relative">
+                                           <div class="absolute top-0 right-0 bottom-0 left-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent)] animate-[shimmer_2s_infinite] -translate-x-full"></div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                    </div>
+              
+                    <!-- 12th Grade -->
+                    <div class="group p-6 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:border-[var(--color-secondary)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col">
+                        <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-[var(--color-secondary)] rounded-full blur-[60px] opacity-10 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="flex justify-between items-start mb-4 z-10">
+                            <div class="w-12 h-12 rounded-xl bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] flex items-center justify-center text-xl border border-transparent group-hover:border-[var(--color-secondary)]/20 transition-all">
+                                🏫
                             </div>
-                            <p class="text-sm font-medium mb-4">Kakinada Institute of Engineering & Technology (KIET)</p>
-                            <div class="w-full max-w-md bg-[var(--color-border)] rounded-full h-2 mb-1 overflow-hidden">
-                                <div class="bg-[var(--color-accent)] h-2 rounded-full" style="width: 65%"></div>
+                            <span class="text-xs font-bold text-[var(--color-text-secondary)] uppercase tracking-widest bg-[var(--color-border)] px-3 py-1 rounded-md">2022</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-1 z-10 text-[var(--color-text-primary)] group-hover:text-[var(--color-secondary)] transition-colors">Intermediate (12th)</h4>
+                        <p class="text-sm text-[var(--color-text-secondary)] font-medium mb-8 z-10">Board of Intermediate Education</p>
+                        
+                        <div class="mt-auto flex items-end justify-between z-10 border-t border-[var(--color-border)] pt-4">
+                            <div>
+                                <p class="text-3xl font-black text-[var(--color-secondary)] leading-none mb-1">6.0</p>
+                                <p class="text-[10px] uppercase font-bold text-[var(--color-text-secondary)] tracking-widest">CGPA</p>
                             </div>
-                            <p class="text-xs text-[var(--color-text-secondary)] font-bold">Degree Progress: ~65%</p>
+                            <a href="https://drive.google.com/file/d/15LNA5es18GqDRMX1Fg7wYfzcYBWXo5Vk/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-text-primary)] hover:bg-[var(--color-secondary)] hover:text-white hover:border-transparent transition-all shadow-sm" title="View Certificate">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                            </a>
                         </div>
                     </div>
-                    
-                    <div class="timeline-item">
-                        <span class="timeline-date">Completed 2022</span>
-                        <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-secondary)] transition-all bg-[var(--glass-bg)] flex justify-between items-center flex-wrap gap-4">
-                            <div>
-                                <h4 class="text-xl font-bold mb-1">Intermediate (12th)</h4>
-                                <p class="text-sm text-[var(--color-text-secondary)] font-medium">Board of Intermediate Education</p>
+              
+                    <!-- 10th Grade -->
+                    <div class="group p-6 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:border-[var(--color-purple)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col">
+                        <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-[var(--color-purple)] rounded-full blur-[60px] opacity-10 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="flex justify-between items-start mb-4 z-10">
+                            <div class="w-12 h-12 rounded-xl bg-[var(--color-purple)]/10 text-[var(--color-purple)] flex items-center justify-center text-xl border border-transparent group-hover:border-[var(--color-purple)]/20 transition-all">
+                                🎒
                             </div>
-                            <div class="flex items-center gap-4">
-                                <div class="text-center cursor-default"><p class="text-2xl font-black text-[var(--color-secondary)]">6.0</p><p class="text-[10px] uppercase font-bold text-[var(--color-text-secondary)]">CGPA</p></div>
-                                <a href="https://drive.google.com/file/d/15LNA5es18GqDRMX1Fg7wYfzcYBWXo5Vk/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-pill !px-3 !py-2 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></a>
-                            </div>
+                            <span class="text-xs font-bold text-[var(--color-text-secondary)] uppercase tracking-widest bg-[var(--color-border)] px-3 py-1 rounded-md">2020</span>
                         </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <span class="timeline-date">Completed 2020</span>
-                        <div class="p-6 rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-purple)] transition-all bg-[var(--glass-bg)] flex justify-between items-center flex-wrap gap-4">
+                        <h4 class="text-xl font-bold mb-1 z-10 text-[var(--color-text-primary)] group-hover:text-[var(--color-purple)] transition-colors">Secondary School (10th)</h4>
+                        <p class="text-sm text-[var(--color-text-secondary)] font-medium mb-8 z-10">ZPHS SCHOOL</p>
+                        
+                        <div class="mt-auto flex items-end justify-between z-10 border-t border-[var(--color-border)] pt-4">
                             <div>
-                                <h4 class="text-xl font-bold mb-1">Secondary School (10th)</h4>
-                                <p class="text-sm text-[var(--color-text-secondary)] font-medium">ZPHS SCHOOL</p>
+                                <p class="text-3xl font-black text-[var(--color-purple)] leading-none mb-1">7.0</p>
+                                <p class="text-[10px] uppercase font-bold text-[var(--color-text-secondary)] tracking-widest">CGPA</p>
                             </div>
-                            <div class="flex items-center gap-4">
-                                <div class="text-center cursor-default"><p class="text-2xl font-black text-[var(--color-purple)]">7.0</p><p class="text-[10px] uppercase font-bold text-[var(--color-text-secondary)]">CGPA</p></div>
-                                <a href="https://drive.google.com/file/d/15OPbt8X_FkjVENA-_ByxJ-6acZrH4yVG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-pill !px-3 !py-2 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></a>
-                            </div>
+                            <a href="https://drive.google.com/file/d/15OPbt8X_FkjVENA-_ByxJ-6acZrH4yVG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-text-primary)] hover:bg-[var(--color-purple)] hover:text-white hover:border-transparent transition-all shadow-sm" title="View Certificate">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- REDESIGNED: Core Internships & Experience -->
+            <!-- Redesigned Core Internships & Experience -->
             <div class="bento-card col-span-full mt-4">
               <h2 class="section-title mb-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-danger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Core Internships & Experience</h2>
               
               <div class="space-y-6">
                   <!-- Item 1 -->
-                  <div class="relative flex flex-col md:flex-row gap-6 p-6 md:p-8 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-blue-500 transition-all duration-300 group shadow-sm hover:shadow-[0_8px_30px_rgba(59,130,246,0.1)]">
-                      <div class="md:w-1/4 flex-shrink-0 md:border-r border-[var(--color-border)] md:pr-6">
-                          <div class="text-blue-500 font-bold text-sm tracking-wider uppercase mb-1">Feb 2024 - Apr 2024</div>
-                          <div class="text-[var(--color-text-secondary)] text-xs font-semibold flex items-center gap-1.5">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                              10 Weeks
-                          </div>
+                  <div class="group relative flex flex-col md:flex-row gap-6 p-6 md:p-8 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-blue-500 hover:shadow-[0_10px_30px_rgba(59,130,246,0.1)] transition-all duration-500 overflow-hidden">
+                      <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none -translate-y-1/2 translate-x-1/4"></div>
+                      <div class="md:w-1/4 shrink-0 border-b md:border-b-0 md:border-r border-[var(--color-border)] pb-4 md:pb-0 md:pr-6 flex flex-col justify-center text-center md:text-left z-10">
+                          <span class="text-sm font-extrabold text-blue-500 tracking-widest uppercase mb-1">10 Weeks</span>
+                          <span class="text-xs font-bold text-[var(--color-text-secondary)] bg-[var(--color-border)] px-3 py-1.5 rounded-md w-max mx-auto md:mx-0">Feb '24 - Apr '24</span>
                       </div>
-                      <div class="md:w-3/4 flex flex-col">
-                          <h4 class="text-xl md:text-2xl font-extrabold mb-1 text-[var(--color-text-primary)] group-hover:text-blue-500 transition-colors">Cloud Computing Internship (GCP)</h4>
-                          <p class="text-xs font-bold uppercase text-[var(--color-text-secondary)] mb-4">Infrastructure & Security</p>
-                          <p class="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">
+                      <div class="flex-1 z-10">
+                          <h4 class="text-2xl font-extrabold mb-2 text-[var(--color-text-primary)] group-hover:text-blue-500 transition-colors">Cloud Computing Internship</h4>
+                          <div class="flex flex-wrap gap-2 mb-4">
+                              <span class="text-[10px] font-bold uppercase tracking-wider bg-blue-500/10 text-blue-600 px-2.5 py-1 rounded">GCP</span>
+                              <span class="text-[10px] font-bold uppercase tracking-wider bg-[var(--color-border)] text-[var(--color-text-secondary)] px-2.5 py-1 rounded">Infrastructure & Security</span>
+                          </div>
+                          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-6 group-hover:text-[var(--color-text-primary)] transition-colors">
                               Focused on GCP Services (Compute, Storage, VPC) and IaC principles. Deployed secure cloud architectures and managed Cloud Security Posture (CSPM).
                           </p>
-                          <div class="flex flex-wrap items-center justify-between gap-4 mt-auto border-t border-[var(--color-border)] pt-4">
-                              <div class="flex gap-2">
-                                  <span class="px-2.5 py-1 rounded-md bg-[var(--glass-bg)] border border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)]">GCP</span>
-                                  <span class="px-2.5 py-1 rounded-md bg-[var(--glass-bg)] border border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)]">IaC</span>
-                                  <span class="px-2.5 py-1 rounded-md bg-[var(--glass-bg)] border border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)]">CSPM</span>
-                              </div>
-                              <a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" class="action-pill !text-xs !px-4 !py-2 !bg-blue-500/10 !text-blue-600 !border-blue-500/20 hover:!bg-blue-500 hover:!text-white hover:!border-blue-500">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate
-                              </a>
-                          </div>
+                          <a href="https://drive.google.com/file/d/1xbeF-RusGvEKylOF6wELgnYVunS5x8RO/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--color-bg)] border border-[var(--color-border)] text-xs font-bold text-[var(--color-text-primary)] group-hover:bg-blue-500 group-hover:text-white group-hover:border-transparent transition-all shadow-sm w-max mx-auto md:mx-0">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate
+                          </a>
                       </div>
                   </div>
 
                   <!-- Item 2 -->
-                  <div class="relative flex flex-col md:flex-row gap-6 p-6 md:p-8 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-pink-500 transition-all duration-300 group shadow-sm hover:shadow-[0_8px_30px_rgba(236,72,153,0.1)]">
-                      <div class="md:w-1/4 flex-shrink-0 md:border-r border-[var(--color-border)] md:pr-6">
-                          <div class="text-pink-500 font-bold text-sm tracking-wider uppercase mb-1">Aug 2023 - Nov 2023</div>
-                          <div class="text-[var(--color-text-secondary)] text-xs font-semibold flex items-center gap-1.5">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                              16 Weeks
-                          </div>
+                  <div class="group relative flex flex-col md:flex-row gap-6 p-6 md:p-8 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-pink-500 hover:shadow-[0_10px_30px_rgba(236,72,153,0.1)] transition-all duration-500 overflow-hidden">
+                      <div class="absolute top-0 right-0 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none -translate-y-1/2 translate-x-1/4"></div>
+                      <div class="md:w-1/4 shrink-0 border-b md:border-b-0 md:border-r border-[var(--color-border)] pb-4 md:pb-0 md:pr-6 flex flex-col justify-center text-center md:text-left z-10">
+                          <span class="text-sm font-extrabold text-pink-500 tracking-widest uppercase mb-1">16 Weeks</span>
+                          <span class="text-xs font-bold text-[var(--color-text-secondary)] bg-[var(--color-border)] px-3 py-1.5 rounded-md w-max mx-auto md:mx-0">Aug '23 - Nov '23</span>
                       </div>
-                      <div class="md:w-3/4 flex flex-col">
-                          <h4 class="text-xl md:text-2xl font-extrabold mb-1 text-[var(--color-text-primary)] group-hover:text-pink-500 transition-colors">IoT Internship</h4>
-                          <p class="text-xs font-bold uppercase text-[var(--color-text-secondary)] mb-4">Embedded Systems & Data</p>
-                          <p class="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">
+                      <div class="flex-1 z-10">
+                          <h4 class="text-2xl font-extrabold mb-2 text-[var(--color-text-primary)] group-hover:text-pink-500 transition-colors">IoT Internship</h4>
+                          <div class="flex flex-wrap gap-2 mb-4">
+                              <span class="text-[10px] font-bold uppercase tracking-wider bg-pink-500/10 text-pink-600 px-2.5 py-1 rounded">Embedded Systems</span>
+                              <span class="text-[10px] font-bold uppercase tracking-wider bg-[var(--color-border)] text-[var(--color-text-secondary)] px-2.5 py-1 rounded">Data</span>
+                          </div>
+                          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-6 group-hover:text-[var(--color-text-primary)] transition-colors">
                               Engineered full-stack IoT solutions using Arduino/ESP32 and MQTT protocols. Built telemetry pipelines for real-time sensor data monitoring.
                           </p>
-                          <div class="flex flex-wrap items-center justify-between gap-4 mt-auto border-t border-[var(--color-border)] pt-4">
-                              <div class="flex gap-2">
-                                  <span class="px-2.5 py-1 rounded-md bg-[var(--glass-bg)] border border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)]">ESP32</span>
-                                  <span class="px-2.5 py-1 rounded-md bg-[var(--glass-bg)] border border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)]">MQTT</span>
-                                  <span class="px-2.5 py-1 rounded-md bg-[var(--glass-bg)] border border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)]">Telemetry</span>
-                              </div>
-                              <a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" class="action-pill !text-xs !px-4 !py-2 !bg-pink-500/10 !text-pink-600 !border-pink-500/20 hover:!bg-pink-500 hover:!text-white hover:!border-pink-500">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate
-                              </a>
-                          </div>
+                          <a href="https://drive.google.com/file/d/1d1Rgjnw9mvVhVQJCXOZSz5bQRpthl33-/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--color-bg)] border border-[var(--color-border)] text-xs font-bold text-[var(--color-text-primary)] group-hover:bg-pink-500 group-hover:text-white group-hover:border-transparent transition-all shadow-sm w-max mx-auto md:mx-0">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate
+                          </a>
                       </div>
                   </div>
 
-                  <!-- Item 3 -->
-                  <div class="relative flex flex-col md:flex-row gap-6 p-6 md:p-8 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-indigo-500 transition-all duration-300 group shadow-sm hover:shadow-[0_8px_30px_rgba(99,102,241,0.1)]">
-                      <div class="md:w-1/4 flex-shrink-0 md:border-r border-[var(--color-border)] md:pr-6">
-                          <div class="text-indigo-500 font-bold text-sm tracking-wider uppercase mb-1">Jan 2023 - Mar 2023</div>
-                          <div class="text-[var(--color-text-secondary)] text-xs font-semibold flex items-center gap-1.5">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                              10 Weeks
-                          </div>
+                   <!-- Item 3 -->
+                   <div class="group relative flex flex-col md:flex-row gap-6 p-6 md:p-8 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-indigo-500 hover:shadow-[0_10px_30px_rgba(99,102,241,0.1)] transition-all duration-500 overflow-hidden">
+                      <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none -translate-y-1/2 translate-x-1/4"></div>
+                      <div class="md:w-1/4 shrink-0 border-b md:border-b-0 md:border-r border-[var(--color-border)] pb-4 md:pb-0 md:pr-6 flex flex-col justify-center text-center md:text-left z-10">
+                          <span class="text-sm font-extrabold text-indigo-500 tracking-widest uppercase mb-1">10 Weeks</span>
+                          <span class="text-xs font-bold text-[var(--color-text-secondary)] bg-[var(--color-border)] px-3 py-1.5 rounded-md w-max mx-auto md:mx-0">Jan '23 - Mar '23</span>
                       </div>
-                      <div class="md:w-3/4 flex flex-col">
-                          <h4 class="text-xl md:text-2xl font-extrabold mb-1 text-[var(--color-text-primary)] group-hover:text-indigo-500 transition-colors">Ethical Hacking Internship</h4>
-                          <p class="text-xs font-bold uppercase text-[var(--color-text-secondary)] mb-4">Vulnerability Assessment</p>
-                          <p class="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">
+                      <div class="flex-1 z-10">
+                          <h4 class="text-2xl font-extrabold mb-2 text-[var(--color-text-primary)] group-hover:text-indigo-500 transition-colors">Ethical Hacking Internship</h4>
+                          <div class="flex flex-wrap gap-2 mb-4">
+                              <span class="text-[10px] font-bold uppercase tracking-wider bg-indigo-500/10 text-indigo-600 px-2.5 py-1 rounded">Vulnerability Assessment</span>
+                              <span class="text-[10px] font-bold uppercase tracking-wider bg-[var(--color-border)] text-[var(--color-text-secondary)] px-2.5 py-1 rounded">PT</span>
+                          </div>
+                          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-6 group-hover:text-[var(--color-text-primary)] transition-colors">
                               Conducted Vulnerability Assessments (VA) and Penetration Testing (PT). Focused on OWASP Top 10, network defense strategies, and countermeasure implementation.
                           </p>
-                          <div class="flex flex-wrap items-center justify-between gap-4 mt-auto border-t border-[var(--color-border)] pt-4">
-                              <div class="flex gap-2">
-                                  <span class="px-2.5 py-1 rounded-md bg-[var(--glass-bg)] border border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)]">VAPT</span>
-                                  <span class="px-2.5 py-1 rounded-md bg-[var(--glass-bg)] border border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)]">OWASP</span>
-                                  <span class="px-2.5 py-1 rounded-md bg-[var(--glass-bg)] border border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)]">Red Teaming</span>
-                              </div>
-                              <a href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" target="_blank" class="action-pill !text-xs !px-4 !py-2 !bg-indigo-500/10 !text-indigo-600 !border-indigo-500/20 hover:!bg-indigo-500 hover:!text-white hover:!border-indigo-500">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate
-                              </a>
-                          </div>
+                          <a href="https://drive.google.com/file/d/1LkavkbMS0g6BfP-QAjf9C9QE_IsrGSVv/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--color-bg)] border border-[var(--color-border)] text-xs font-bold text-[var(--color-text-primary)] group-hover:bg-indigo-500 group-hover:text-white group-hover:border-transparent transition-all shadow-sm w-max mx-auto md:mx-0">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Certificate
+                          </a>
                       </div>
                   </div>
               </div>
           </div>
 
-          <!-- REDESIGNED: Virtual Experience & Programs -->
+          <!-- Redesigned Virtual Experience & Programs -->
           <div class="bento-card col-span-full mt-4">
               <h2 class="section-title mb-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Virtual Experience & Programs</h2>
               
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <!-- Zscaler -->
-                  <a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank" class="group relative flex flex-col p-6 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-indigo-500 hover:shadow-[0_8px_30px_rgba(99,102,241,0.1)] transition-all duration-300 overflow-hidden hover:-translate-y-1">
-                      <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
-                      <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center mb-5 relative z-10 border border-indigo-500/20">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <a href="https://drive.google.com/file/d/1AmbBgEeqkv45qOzodPugsVUiaunObl2U/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="group relative p-6 md:p-8 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-indigo-500 overflow-hidden flex flex-col h-full hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer">
+                      <div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-[50px] group-hover:bg-indigo-500/20 transition-all duration-500 pointer-events-none"></div>
+                      <div class="w-14 h-14 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-indigo-500 mb-6 group-hover:scale-110 group-hover:border-indigo-500/30 transition-all z-10 shadow-sm">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                       </div>
-                      <h4 class="text-lg font-bold text-[var(--color-text-primary)] group-hover:text-indigo-500 transition-colors mb-3 relative z-10">Zscaler Cloud Networking</h4>
-                      <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow relative z-10">
+                      <h4 class="text-xl font-extrabold text-[var(--color-text-primary)] group-hover:text-indigo-500 transition-colors mb-3 z-10">Zscaler Cloud Networking</h4>
+                      <p class="text-sm text-[var(--color-text-secondary)] mb-8 flex-grow z-10">
                           Mastered Zero Trust Architecture (ZTA) and SASE principles. Learned modern perimeter definition and access management.
                       </p>
-                      <div class="flex items-center gap-2 text-xs font-bold text-indigo-500 mt-auto relative z-10 pt-4 border-t border-[var(--color-border)]">
-                          <span class="group-hover:translate-x-1 transition-transform">Verify Credential</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                      <div class="mt-auto pt-4 border-t border-[var(--color-border)] flex items-center justify-between z-10">
+                          <span class="text-xs font-bold uppercase tracking-widest text-indigo-500">Virtual Exp</span>
+                          <span class="text-[var(--color-text-primary)] group-hover:text-indigo-500 group-hover:translate-x-1 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
                       </div>
                   </a>
 
                   <!-- Fortinet -->
-                  <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank" class="group relative flex flex-col p-6 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-red-500 hover:shadow-[0_8px_30px_rgba(239,68,68,0.1)] transition-all duration-300 overflow-hidden hover:-translate-y-1">
-                      <div class="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
-                      <div class="w-12 h-12 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center mb-5 relative z-10 border border-red-500/20">
+                  <a href="https://drive.google.com/file/d/1bGLpt7pwHiEaG9pvlNZnMlv7S35I3q5I/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="group relative p-6 md:p-8 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-red-500 overflow-hidden flex flex-col h-full hover:-translate-y-1 hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300 cursor-pointer">
+                      <div class="absolute -right-10 -top-10 w-40 h-40 bg-red-500/10 rounded-full blur-[50px] group-hover:bg-red-500/20 transition-all duration-500 pointer-events-none"></div>
+                      <div class="w-14 h-14 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-red-500 mb-6 group-hover:scale-110 group-hover:border-red-500/30 transition-all z-10 shadow-sm">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                       </div>
-                      <h4 class="text-lg font-bold text-[var(--color-text-primary)] group-hover:text-red-500 transition-colors mb-3 relative z-10">Fortinet Network Security (NSE)</h4>
-                      <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow relative z-10">
+                      <h4 class="text-xl font-extrabold text-[var(--color-text-primary)] group-hover:text-red-500 transition-colors mb-3 z-10">Fortinet Network Security (NSE)</h4>
+                      <p class="text-sm text-[var(--color-text-secondary)] mb-8 flex-grow z-10">
                           Focused on Next-Gen Firewalls (NGFW), Security Fabric concepts, and Defense-in-Depth for enterprise networks.
                       </p>
-                      <div class="flex items-center gap-2 text-xs font-bold text-red-500 mt-auto relative z-10 pt-4 border-t border-[var(--color-border)]">
-                          <span class="group-hover:translate-x-1 transition-transform">Verify Credential</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                      <div class="mt-auto pt-4 border-t border-[var(--color-border)] flex items-center justify-between z-10">
+                          <span class="text-xs font-bold uppercase tracking-widest text-red-500">Virtual Exp</span>
+                          <span class="text-[var(--color-text-primary)] group-hover:text-red-500 group-hover:translate-x-1 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
                       </div>
                   </a>
 
                   <!-- Ethical Hacking Virtual -->
-                  <a href="https://drive.google.com/file/d/1gXGAQ-W92tTVBiNBNISdAlXM3tYSF6Z_/view?usp=sharing" target="_blank" class="group relative flex flex-col p-6 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-teal-500 hover:shadow-[0_8px_30px_rgba(20,184,166,0.1)] transition-all duration-300 overflow-hidden hover:-translate-y-1">
-                      <div class="absolute top-0 right-0 w-32 h-32 bg-teal-500/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
-                      <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-500 flex items-center justify-center mb-5 relative z-10 border border-teal-500/20">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <a href="https://drive.google.com/file/d/1gXGAQ-W92tTVBiNBNISdAlXM3tYSF6Z_/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="group relative p-6 md:p-8 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-teal-500 overflow-hidden flex flex-col h-full hover:-translate-y-1 hover:shadow-xl hover:shadow-teal-500/10 transition-all duration-300 cursor-pointer">
+                      <div class="absolute -right-10 -top-10 w-40 h-40 bg-teal-500/10 rounded-full blur-[50px] group-hover:bg-teal-500/20 transition-all duration-500 pointer-events-none"></div>
+                      <div class="w-14 h-14 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-teal-500 mb-6 group-hover:scale-110 group-hover:border-teal-500/30 transition-all z-10 shadow-sm">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                       </div>
-                      <h4 class="text-lg font-bold text-[var(--color-text-primary)] group-hover:text-teal-500 transition-colors mb-3 relative z-10">Ethical Hacking Experience</h4>
-                      <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow relative z-10">
+                      <h4 class="text-xl font-extrabold text-[var(--color-text-primary)] group-hover:text-teal-500 transition-colors mb-3 z-10">Ethical Hacking Experience</h4>
+                      <p class="text-sm text-[var(--color-text-secondary)] mb-8 flex-grow z-10">
                           Hands-on virtual labs for network defense, threat analysis, and incident response scenarios.
                       </p>
-                      <div class="flex items-center gap-2 text-xs font-bold text-teal-500 mt-auto relative z-10 pt-4 border-t border-[var(--color-border)]">
-                          <span class="group-hover:translate-x-1 transition-transform">Verify Credential</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                      <div class="mt-auto pt-4 border-t border-[var(--color-border)] flex items-center justify-between z-10">
+                          <span class="text-xs font-bold uppercase tracking-widest text-teal-500">Virtual Exp</span>
+                          <span class="text-[var(--color-text-primary)] group-hover:text-teal-500 group-hover:translate-x-1 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
                       </div>
                   </a>
 
                   <!-- Automation -->
-                  <a href="https://drive.google.com/file/d/1iTvnbJdyDNZzmsNNKVRAK5gixOXWtnzk/view?usp=sharing" target="_blank" class="group relative flex flex-col p-6 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-orange-500 hover:shadow-[0_8px_30px_rgba(249,115,22,0.1)] transition-all duration-300 overflow-hidden hover:-translate-y-1">
-                      <div class="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
-                      <div class="w-12 h-12 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-5 relative z-10 border border-orange-500/20">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <a href="https://drive.google.com/file/d/1iTvnbJdyDNZzmsNNKVRAK5gixOXWtnzk/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="group relative p-6 md:p-8 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-orange-500 overflow-hidden flex flex-col h-full hover:-translate-y-1 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300 cursor-pointer">
+                      <div class="absolute -right-10 -top-10 w-40 h-40 bg-orange-500/10 rounded-full blur-[50px] group-hover:bg-orange-500/20 transition-all duration-500 pointer-events-none"></div>
+                      <div class="w-14 h-14 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-orange-500 mb-6 group-hover:scale-110 group-hover:border-orange-500/30 transition-all z-10 shadow-sm">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                       </div>
-                      <h4 class="text-lg font-bold text-[var(--color-text-primary)] group-hover:text-orange-500 transition-colors mb-3 relative z-10">Automation Experience</h4>
-                      <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow relative z-10">
+                      <h4 class="text-xl font-extrabold text-[var(--color-text-primary)] group-hover:text-orange-500 transition-colors mb-3 z-10">Automation Virtual Experience</h4>
+                      <p class="text-sm text-[var(--color-text-secondary)] mb-8 flex-grow z-10">
                           Process automation, task scheduling, and scripting for operational efficiency using RPA concepts.
                       </p>
-                      <div class="flex items-center gap-2 text-xs font-bold text-orange-500 mt-auto relative z-10 pt-4 border-t border-[var(--color-border)]">
-                          <span class="group-hover:translate-x-1 transition-transform">Verify Credential</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                      <div class="mt-auto pt-4 border-t border-[var(--color-border)] flex items-center justify-between z-10">
+                          <span class="text-xs font-bold uppercase tracking-widest text-orange-500">Virtual Exp</span>
+                          <span class="text-[var(--color-text-primary)] group-hover:text-orange-500 group-hover:translate-x-1 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
                       </div>
                   </a>
-
+                  
                   <!-- Google Dev -->
-                  <a href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=sharing" target="_blank" class="group relative flex flex-col p-6 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-blue-600 hover:shadow-[0_8px_30px_rgba(37,99,235,0.1)] transition-all duration-300 overflow-hidden hover:-translate-y-1">
-                      <div class="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
-                      <div class="w-12 h-12 rounded-xl bg-blue-600/10 text-blue-600 flex items-center justify-center mb-5 relative z-10 border border-blue-600/20">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <a href="https://drive.google.com/file/d/1O4RZUHQNE9HKNfz8TmnvIsOb81f5jDwp/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="group relative p-6 md:p-8 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-[#4285F4] overflow-hidden flex flex-col h-full hover:-translate-y-1 hover:shadow-xl hover:shadow-[#4285F4]/10 transition-all duration-300 cursor-pointer lg:col-span-2">
+                      <div class="absolute -right-10 -top-10 w-40 h-40 bg-[#4285F4]/10 rounded-full blur-[50px] group-hover:bg-[#4285F4]/20 transition-all duration-500 pointer-events-none"></div>
+                      <div class="w-14 h-14 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-[#4285F4] mb-6 group-hover:scale-110 group-hover:border-[#4285F4]/30 transition-all z-10 shadow-sm">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                       </div>
-                      <h4 class="text-lg font-bold text-[var(--color-text-primary)] group-hover:text-blue-600 transition-colors mb-3 relative z-10">Google for Developers</h4>
-                      <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow relative z-10">
+                      <h4 class="text-xl font-extrabold text-[var(--color-text-primary)] group-hover:text-[#4285F4] transition-colors mb-3 z-10">Google for Developers</h4>
+                      <p class="text-sm text-[var(--color-text-secondary)] mb-8 flex-grow z-10 md:max-w-md">
                           Modern app development, cloud integration with Google APIs, and developer workflow tools.
                       </p>
-                      <div class="flex items-center gap-2 text-xs font-bold text-blue-600 mt-auto relative z-10 pt-4 border-t border-[var(--color-border)]">
-                          <span class="group-hover:translate-x-1 transition-transform">Verify Credential</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                      <div class="mt-auto pt-4 border-t border-[var(--color-border)] flex items-center justify-between z-10">
+                          <span class="text-xs font-bold uppercase tracking-widest text-[#4285F4]">Virtual Exp</span>
+                          <span class="text-[var(--color-text-primary)] group-hover:text-[#4285F4] group-hover:translate-x-1 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
                       </div>
                   </a>
               </div>
@@ -1213,19 +1229,19 @@
                 <div class="marquee-wrapper">
                     <!-- First Set -->
                     <div class="marquee-content">
-                        <span class="badge badge-secondary"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" class="w-4 h-4 mr-1" alt="Google Cloud"> Google Cloud</span>
-                        <span class="badge"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" class="w-4 h-4 mr-1" alt="Python"> Python</span>
+                        <span class="badge badge-secondary"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" class="w-4 h-4 mr-1"> Google Cloud</span>
+                        <span class="badge"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" class="w-4 h-4 mr-1"> Python</span>
                         <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 text-yellow-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Cybersecurity</span>
-                        <span class="badge badge-secondary"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" class="w-4 h-4 mr-1" alt="AWS"> AWS</span>
+                        <span class="badge badge-secondary"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" class="w-4 h-4 mr-1"> AWS</span>
                         <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg> SIEM</span>
                         <span class="badge badge-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg> Network Arch</span>
                     </div>
                     <!-- Duplicate Set for infinite scroll -->
                     <div class="marquee-content" aria-hidden="true">
-                        <span class="badge badge-secondary"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" class="w-4 h-4 mr-1" alt="Google Cloud"> Google Cloud</span>
-                        <span class="badge"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" class="w-4 h-4 mr-1" alt="Python"> Python</span>
+                        <span class="badge badge-secondary"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" class="w-4 h-4 mr-1"> Google Cloud</span>
+                        <span class="badge"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" class="w-4 h-4 mr-1"> Python</span>
                         <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 text-yellow-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Cybersecurity</span>
-                        <span class="badge badge-secondary"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" class="w-4 h-4 mr-1" alt="AWS"> AWS</span>
+                        <span class="badge badge-secondary"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" class="w-4 h-4 mr-1"> AWS</span>
                         <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg> SIEM</span>
                         <span class="badge badge-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg> Network Arch</span>
                     </div>
@@ -1235,19 +1251,19 @@
             <div class="bento-card md-col-span-2 lg-col-span-2 bg-gradient-to-br from-[var(--glass-bg)] to-transparent">
                 <h2 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Digital Presence</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 h-full">
-                    <a href="https://www.linkedin.com/in/shaiksaidavali/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#0a66c2] hover:shadow-[0_0_20px_rgba(10,102,194,0.2)] transition-all group cursor-pointer">
+                    <a href="https://www.linkedin.com/in/shaiksaidavali/" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#0a66c2] hover:shadow-[0_0_20px_rgba(10,102,194,0.2)] transition-all group cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 text-[#0a66c2] group-hover:scale-110 transition-transform"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                         <span class="text-sm font-bold">LinkedIn</span>
                     </a>
-                    <a href="https://github.com/urstrulysaida" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-text-primary)] hover:shadow-[0_0_20px_rgba(0,0,0,0.1)] transition-all group cursor-pointer">
+                    <a href="https://github.com/urstrulysaida" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-text-primary)] hover:shadow-[0_0_20px_rgba(0,0,0,0.1)] transition-all group cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 group-hover:scale-110 transition-transform"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/><path d="M12 2v3"/></svg>
                         <span class="text-sm font-bold">GitHub</span>
                     </a>
-                    <a href="https://codepen.io/Mr_-Prince_Ssv" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#fcd34d] hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all group cursor-pointer">
+                    <a href="https://codepen.io/Mr_-Prince_Ssv" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#fcd34d] hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all group cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 text-[#f59e0b] group-hover:scale-110 transition-transform"><polygon points="12 2 22 13 15.46 22 12 18 8.54 22 2 13 12 2"/><line x1="2" x2="15.46" y1="13" y2="13"/><line x1="8.54" x2="12" y1="22" y2="18"/><line x1="12" x2="15.46" y1="18" y2="22"/><line x1="12" x2="12" y1="2" y2="18"/></svg>
                         <span class="text-sm font-bold">CodePen</span>
                     </a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#38bdf8] hover:shadow-[0_0_20px_rgba(56,189,248,0.2)] transition-all group cursor-pointer">
+                    <a href="#" target="_blank" class="flex flex-col items-center justify-center p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#38bdf8] hover:shadow-[0_0_20px_rgba(56,189,248,0.2)] transition-all group cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3 text-[#38bdf8] group-hover:scale-110 transition-transform"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
                         <span class="text-sm font-bold">Twitter</span>
                     </a>
@@ -1608,7 +1624,7 @@
                             <p class="text-sm text-[var(--color-text-secondary)]">Explore my verified Google Cloud and AI skill badges, demonstrating hands-on expertise in the Google Cloud ecosystem.</p>
                         </div>
                     </div>
-                    <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary !bg-[#4285F4] !shadow-[0_8px_25px_rgba(66,133,244,0.3)] hover:!bg-[#3367d6] flex-shrink-0 whitespace-nowrap mt-4 md:mt-0">
+                    <a href="https://g.dev/urstrulysaida" target="_blank" rel="noopener noreferrer" class="btn-primary !bg-[#4285F4] !shadow-[0_8px_25px_rgba(66,133,244,0.3)] hover:!bg-[#3367d6] flex-shrink-0 whitespace-nowrap mt-4 md:mt-0">
                         View Official Profile
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </a>
@@ -2315,26 +2331,15 @@
         };
 
         const highlightText = (html, term) => {
-             if (!term) return html;
-             const div = document.createElement('div');
-             div.innerHTML = html;
-             
-             // Escape term for regex safety
-             const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-             const regex = new RegExp(`(${escapedTerm})`, 'gi');
-             
-             const walk = document.createTreeWalker(div, NodeFilter.SHOW_TEXT, null, false);
-             const nodes = [];
-             while(walk.nextNode()) nodes.push(walk.currentNode);
+             const div = document.createElement('div'); div.innerHTML = html;
+             const walker = document.createTreeWalker(div, NodeFilter.SHOW_TEXT, null, false);
+             const nodes = []; while(walker.nextNode()) nodes.push(walker.currentNode);
+             const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
              
              nodes.forEach(node => {
-                 if(node.parentNode && node.parentNode.nodeName !== 'SCRIPT' && node.parentNode.nodeName !== 'STYLE') {
-                     const match = node.nodeValue.match(regex);
-                     if (match) {
-                         const span = document.createElement('span');
-                         span.innerHTML = node.nodeValue.replace(regex, '<span class="highlight">$1</span>');
-                         node.parentNode.replaceChild(span, node);
-                     }
+                 if(node.parentNode.nodeName!=='SCRIPT' && node.parentNode.nodeName!=='STYLE' && node.nodeValue.match(regex)) {
+                     const span = document.createElement('span'); span.innerHTML = node.nodeValue.replace(regex, '<span class="highlight">$1</span>');
+                     node.parentNode.replaceChild(span, node);
                  }
              });
              return div.innerHTML;

@@ -582,6 +582,15 @@
       .stat-val { font-size: 2.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; background: linear-gradient(135deg, var(--color-text-primary), var(--color-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
       .stat-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-secondary); font-weight: 600; }
 
+      .timeline { border-left: 2px solid var(--color-timeline-line); margin-left: 1rem; padding-left: 2rem; display: flex; flex-direction: column; gap: 2rem; }
+      .timeline-item { position: relative; }
+      .timeline-item::before {
+          content: ''; position: absolute; left: -2.4rem; top: 0.25rem; width: 1rem; height: 1rem;
+          background: var(--color-bg); border: 3px solid var(--color-accent); border-radius: 50%; transition: all 0.3s var(--ease-spring); z-index: 2;
+      }
+      .timeline-item:hover::before { transform: scale(1.5); background: var(--color-accent); box-shadow: 0 0 15px var(--color-accent); }
+      .timeline-date { font-size: 0.8rem; font-weight: 700; color: var(--color-accent); margin-bottom: 0.5rem; display: block; letter-spacing: 0.05em;}
+
       .skill-row { margin-bottom: 1.25rem; }
       .skill-info { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
       .skill-track { height: 8px; background: var(--color-border); border-radius: var(--radius-full); overflow: hidden; }
@@ -790,7 +799,7 @@
             <div class="flex items-center justify-between border-t border-[var(--color-border)] pt-6 mt-auto">
                 <span id="pm-duration" class="text-sm font-bold text-[var(--color-text-secondary)] flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Duration</span>
                 <a id="pm-repo-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary py-2 px-6 text-sm cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.8-1-2-1.2-2.3.8-.7 1.2-1.4 1.2-3.4 0-1.2-.5-2-1.6-2.6.4-1.2.4-2.5-.1-3.7 0 0-1.2-.4-3.5 1.4A12 12 0 0 0 12 5.5c-1.5 0-3 .2-4.4.5-2.3-1.8-3.5-1.4-3.5-1.4-.4 1.1-.4 2.6-.1 3.6a4 4 0 0 0-1 3.6c0 2.7 1.6 4.2 4.8 4.2a4.8 4.8 0 0 0-1 3.6v4"/></svg> Github
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Github
                 </a>
             </div>
         </div>
@@ -968,8 +977,6 @@
 
         <!-- ================= EDUCATION TAB ================= -->
         <section id="education" class="tab-pane bento-grid" role="tabpanel">
-            
-            <!-- Redesigned Academic Journey Section -->
             <div class="bento-card col-span-full pb-8">
                 <h2 class="section-title mb-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Academic Journey</h2>
                 
@@ -1292,132 +1299,154 @@
                 <h3 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Technical Arsenal</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-4">
                     <div class="skill-row">
-                        <div class="skill-info"><span>Cybersecurity & SIEM</span><span class="text-[var(--color-accent)]">90%</span></div>
-                        <div class="skill-track"><div class="skill-fill" data-level="90"></div></div>
+                        <div class="skill-info"><span>Linux</span><span class="text-[var(--color-accent)]">45%</span></div>
+                        <div class="skill-track"><div class="skill-fill" data-level="45"></div></div>
                     </div>
                     <div class="skill-row">
-                        <div class="skill-info"><span>GCP Cloud Arch</span><span class="text-[var(--color-accent)]">85%</span></div>
-                        <div class="skill-track"><div class="skill-fill" data-level="85"></div></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-info"><span>Python & C++</span><span class="text-[var(--color-accent)]">80%</span></div>
-                        <div class="skill-track"><div class="skill-fill" data-level="80"></div></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-info"><span>Zscaler SASE & Net</span><span class="text-[var(--color-accent)]">75%</span></div>
-                        <div class="skill-track"><div class="skill-fill" data-level="75"></div></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-info"><span>AWS Core</span><span class="text-[var(--color-accent)]">70%</span></div>
-                        <div class="skill-track"><div class="skill-fill" data-level="70"></div></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-info"><span>SQL & Databases</span><span class="text-[var(--color-accent)]">65%</span></div>
+                        <div class="skill-info"><span>Networking</span><span class="text-[var(--color-accent)]">65%</span></div>
                         <div class="skill-track"><div class="skill-fill" data-level="65"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-info"><span>Docker</span><span class="text-[var(--color-accent)]">15%</span></div>
+                        <div class="skill-track"><div class="skill-fill" data-level="15"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-info"><span>Kubernetes</span><span class="text-[var(--color-accent)]">15%</span></div>
+                        <div class="skill-track"><div class="skill-fill" data-level="15"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-info"><span>Terraform</span><span class="text-[var(--color-accent)]">15%</span></div>
+                        <div class="skill-track"><div class="skill-fill" data-level="15"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-info"><span>CI/CD</span><span class="text-[var(--color-accent)]">Planning</span></div>
+                        <div class="skill-track"><div class="skill-fill" data-level="5"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-info"><span>Git + GitHub + Pages</span><span class="text-[var(--color-accent)]">45%</span></div>
+                        <div class="skill-track"><div class="skill-fill" data-level="45"></div></div>
                     </div>
                 </div>
             </div>
 
             <!-- REDESIGNED: CORE CERTIFICATIONS -->
             <div class="bento-card col-span-full">
-                <h3 class="section-title mb-6"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15v5s3-2 5-5a5 5 0 1 0-10 0c2 3 5 5 5 5z"/><circle cx="12" cy="9" r="2"/></svg> Core Certifications</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                <h3 class="section-title mb-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15v5s3-2 5-5a5 5 0 1 0-10 0c2 3 5 5 5 5z"/><circle cx="12" cy="9" r="2"/></svg> Core Certifications</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
                     <!-- Cert 1: Google Cybersecurity -->
-                    <a href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center p-4 rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-[var(--color-accent)] hover:shadow-md transition-all duration-300 group overflow-hidden relative">
-                        <div class="absolute right-0 top-0 bottom-0 w-1 bg-[var(--color-accent)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="w-12 h-12 rounded-lg bg-green-500/10 text-[var(--color-accent)] flex items-center justify-center mr-4 group-hover:scale-110 transition-transform border border-transparent group-hover:border-[var(--color-accent)]/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <div class="group relative p-6 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 hover:shadow-[0_15px_30px_rgba(16,185,129,0.15)] transition-all duration-400 flex flex-col h-full overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 rounded-full blur-[50px] opacity-0 group-hover:opacity-30 bg-[var(--color-accent)] transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="flex items-start gap-4 mb-4 z-10">
+                            <div class="w-14 h-14 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent)] shadow-sm shrink-0 group-hover:scale-110 group-hover:border-[var(--color-accent)]/30 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-extrabold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors leading-tight mb-1">Google Cybersecurity</h4>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-secondary)]">Professional Cert</p>
+                            </div>
                         </div>
-                        <div class="flex-1">
-                            <h5 class="font-bold text-sm text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors line-clamp-1">Google Cybersecurity</h5>
-                            <p class="text-[11px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mt-0.5">Professional Cert</p>
-                        </div>
-                        <div class="flex items-center gap-1.5 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-xs font-bold text-[var(--color-accent)]">
-                            <span>View</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                        </div>
-                    </a>
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow z-10">Demonstrates proficiency in threat detection, Python, SIEM tools, and foundational security practices.</p>
+                        <a href="https://drive.google.com/drive/folders/1GQHLGxvDy1Q0kK9evMfOjfEfOn2-fI5A?usp=sharing" target="_blank" rel="noopener noreferrer" class="mt-auto w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] text-sm font-bold text-[var(--color-text-primary)] group-hover:bg-[var(--color-accent)] group-hover:text-white group-hover:border-transparent transition-all shadow-sm z-10 cursor-pointer">
+                            View Certification
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                    </div>
 
                     <!-- Cert 2: AWS Cloud Tech -->
-                    <a href="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="flex items-center p-4 rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-[var(--color-warning)] hover:shadow-md transition-all duration-300 group overflow-hidden relative">
-                        <div class="absolute right-0 top-0 bottom-0 w-1 bg-[var(--color-warning)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="w-12 h-12 rounded-lg bg-yellow-500/10 text-[var(--color-warning)] flex items-center justify-center mr-4 group-hover:scale-110 transition-transform border border-transparent group-hover:border-[var(--color-warning)]/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19c0-1.7-1.3-3-3-3h-5c-1.7 0-3 1.3-3 3"/><path d="M22 10.5V9a2 2 0 0 0-2-2h-3.3a5 5 0 0 0-9.4 0H4a2 2 0 0 0-2 2v1.5"/><path d="M8 10a2 2 0 1 0 4 0 2 2 0 1 0-4 0"/></svg>
+                    <div class="group relative p-6 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-[var(--color-warning)] hover:-translate-y-1 hover:shadow-[0_15px_30px_rgba(245,158,11,0.15)] transition-all duration-400 flex flex-col h-full overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 rounded-full blur-[50px] opacity-0 group-hover:opacity-30 bg-[var(--color-warning)] transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="flex items-start gap-4 mb-4 z-10">
+                            <div class="w-14 h-14 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-warning)] shadow-sm shrink-0 group-hover:scale-110 group-hover:border-[var(--color-warning)]/30 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19c0-1.7-1.3-3-3-3h-5c-1.7 0-3 1.3-3 3"/><path d="M22 10.5V9a2 2 0 0 0-2-2h-3.3a5 5 0 0 0-9.4 0H4a2 2 0 0 0-2 2v1.5"/><path d="M8 10a2 2 0 1 0 4 0 2 2 0 1 0-4 0"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-extrabold text-[var(--color-text-primary)] group-hover:text-[var(--color-warning)] transition-colors leading-tight mb-1">AWS Cloud Tech</h4>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-secondary)]">Training Badge</p>
+                            </div>
                         </div>
-                        <div class="flex-1">
-                            <h5 class="font-bold text-sm text-[var(--color-text-primary)] group-hover:text-[var(--color-warning)] transition-colors line-clamp-1">AWS Cloud Tech</h5>
-                            <p class="text-[11px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mt-0.5">Training Badge</p>
-                        </div>
-                        <div class="flex items-center gap-1.5 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-xs font-bold text-[var(--color-warning)]">
-                            <span>View</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                        </div>
-                    </a>
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow z-10">Validated understanding of foundational AWS cloud concepts, core services, and basic security.</p>
+                        <a href="https://drive.google.com/file/d/1QVr7fmnA-DpbHwySLg4d1lC8sA1RaURP/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="mt-auto w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] text-sm font-bold text-[var(--color-text-primary)] group-hover:bg-[var(--color-warning)] group-hover:text-white group-hover:border-transparent transition-all shadow-sm z-10 cursor-pointer">
+                            View Certification
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                    </div>
 
                     <!-- Cert 3: Google Adv Data Analytics -->
-                    <a href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank" rel="noopener noreferrer" class="flex items-center p-4 rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-[var(--color-purple)] hover:shadow-md transition-all duration-300 group overflow-hidden relative">
-                        <div class="absolute right-0 top-0 bottom-0 w-1 bg-[var(--color-purple)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="w-12 h-12 rounded-lg bg-purple-500/10 text-[var(--color-purple)] flex items-center justify-center mr-4 group-hover:scale-110 transition-transform border border-transparent group-hover:border-[var(--color-purple)]/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    <div class="group relative p-6 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-[var(--color-purple)] hover:-translate-y-1 hover:shadow-[0_15px_30px_rgba(139,92,246,0.15)] transition-all duration-400 flex flex-col h-full overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 rounded-full blur-[50px] opacity-0 group-hover:opacity-30 bg-[var(--color-purple)] transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="flex items-start gap-4 mb-4 z-10">
+                            <div class="w-14 h-14 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-purple)] shadow-sm shrink-0 group-hover:scale-110 group-hover:border-[var(--color-purple)]/30 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-extrabold text-[var(--color-text-primary)] group-hover:text-[var(--color-purple)] transition-colors leading-tight mb-1">Adv Data Analytics</h4>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-secondary)]">Professional Cert</p>
+                            </div>
                         </div>
-                        <div class="flex-1">
-                            <h5 class="font-bold text-sm text-[var(--color-text-primary)] group-hover:text-[var(--color-purple)] transition-colors line-clamp-1">Adv Data Analytics</h5>
-                            <p class="text-[11px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mt-0.5">Professional Cert</p>
-                        </div>
-                        <div class="flex items-center gap-1.5 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-xs font-bold text-[var(--color-purple)]">
-                            <span>View</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                        </div>
-                    </a>
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow z-10">Mastery in Python, advanced statistical analysis, machine learning models, and complex data visualization.</p>
+                        <a href="https://drive.google.com/drive/folders/19PpE3C9AG5eBUGssrH_IAGa7RQlTHzUp?usp=drive_link" target="_blank" rel="noopener noreferrer" class="mt-auto w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] text-sm font-bold text-[var(--color-text-primary)] group-hover:bg-[var(--color-purple)] group-hover:text-white group-hover:border-transparent transition-all shadow-sm z-10 cursor-pointer">
+                            View Certification
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                    </div>
 
                     <!-- Cert 4: Google Data Analytics -->
-                    <a href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center p-4 rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-[var(--color-secondary)] hover:shadow-md transition-all duration-300 group overflow-hidden relative">
-                        <div class="absolute right-0 top-0 bottom-0 w-1 bg-[var(--color-secondary)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="w-12 h-12 rounded-lg bg-blue-500/10 text-[var(--color-secondary)] flex items-center justify-center mr-4 group-hover:scale-110 transition-transform border border-transparent group-hover:border-[var(--color-secondary)]/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <div class="group relative p-6 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-[var(--color-secondary)] hover:-translate-y-1 hover:shadow-[0_15px_30px_rgba(14,165,233,0.15)] transition-all duration-400 flex flex-col h-full overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 rounded-full blur-[50px] opacity-0 group-hover:opacity-30 bg-[var(--color-secondary)] transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="flex items-start gap-4 mb-4 z-10">
+                            <div class="w-14 h-14 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-secondary)] shadow-sm shrink-0 group-hover:scale-110 group-hover:border-[var(--color-secondary)]/30 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-extrabold text-[var(--color-text-primary)] group-hover:text-[var(--color-secondary)] transition-colors leading-tight mb-1">Data Analytics</h4>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-secondary)]">Professional Cert</p>
+                            </div>
                         </div>
-                        <div class="flex-1">
-                            <h5 class="font-bold text-sm text-[var(--color-text-primary)] group-hover:text-[var(--color-secondary)] transition-colors line-clamp-1">Data Analytics</h5>
-                            <p class="text-[11px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mt-0.5">Professional Cert</p>
-                        </div>
-                        <div class="flex items-center gap-1.5 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-xs font-bold text-[var(--color-secondary)]">
-                            <span>View</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                        </div>
-                    </a>
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow z-10">Proficiency in tools like SQL, R, and Tableau for data processing, analysis, and effective business presentation.</p>
+                        <a href="https://drive.google.com/drive/folders/1TzByATBWXBvBsjV-bK1dtFmvAgxE2E5c?usp=sharing" target="_blank" rel="noopener noreferrer" class="mt-auto w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] text-sm font-bold text-[var(--color-text-primary)] group-hover:bg-[var(--color-secondary)] group-hover:text-white group-hover:border-transparent transition-all shadow-sm z-10 cursor-pointer">
+                            View Certification
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                    </div>
 
                     <!-- Cert 5: Microsoft Power BI -->
-                    <a href="https://drive.google.com/drive/folders/1VZU27_VVrs6u3sHe6CFU7ho4OKTGsHtL?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center p-4 rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-[#f59e0b] hover:shadow-md transition-all duration-300 group overflow-hidden relative">
-                        <div class="absolute right-0 top-0 bottom-0 w-1 bg-[#f59e0b] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="w-12 h-12 rounded-lg bg-orange-500/10 text-[#f59e0b] flex items-center justify-center mr-4 group-hover:scale-110 transition-transform border border-transparent group-hover:border-[#f59e0b]/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                    <div class="group relative p-6 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-[#f59e0b] hover:-translate-y-1 hover:shadow-[0_15px_30px_rgba(245,158,11,0.15)] transition-all duration-400 flex flex-col h-full overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 rounded-full blur-[50px] opacity-0 group-hover:opacity-30 bg-[#f59e0b] transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="flex items-start gap-4 mb-4 z-10">
+                            <div class="w-14 h-14 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-[#f59e0b] shadow-sm shrink-0 group-hover:scale-110 group-hover:border-[#f59e0b]/30 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-extrabold text-[var(--color-text-primary)] group-hover:text-[#f59e0b] transition-colors leading-tight mb-1">Microsoft Power BI</h4>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-secondary)]">Technical Cert</p>
+                            </div>
                         </div>
-                        <div class="flex-1">
-                            <h5 class="font-bold text-sm text-[var(--color-text-primary)] group-hover:text-[#f59e0b] transition-colors line-clamp-1">Microsoft Power BI</h5>
-                            <p class="text-[11px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mt-0.5">Technical Cert</p>
-                        </div>
-                        <div class="flex items-center gap-1.5 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-xs font-bold text-[#f59e0b]">
-                            <span>View</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                        </div>
-                    </a>
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow z-10">Capable of transforming complex raw data into interactive, actionable dashboards and business intelligence reports.</p>
+                        <a href="https://drive.google.com/drive/folders/1VZU27_VVrs6u3sHe6CFU7ho4OKTGsHtL?usp=sharing" target="_blank" rel="noopener noreferrer" class="mt-auto w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] text-sm font-bold text-[var(--color-text-primary)] group-hover:bg-[#f59e0b] group-hover:text-white group-hover:border-transparent transition-all shadow-sm z-10 cursor-pointer">
+                            View Certification
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                    </div>
 
                     <!-- Cert 6: Google AI -->
-                    <a href="https://drive.google.com/drive/folders/114g5rflkxgKwQzMhpV8YQek_3SF1uCcG?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center p-4 rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-[var(--color-accent)] hover:shadow-md transition-all duration-300 group overflow-hidden relative">
-                        <div class="absolute right-0 top-0 bottom-0 w-1 bg-[var(--color-accent)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="w-12 h-12 rounded-lg bg-green-500/10 text-[var(--color-accent)] flex items-center justify-center mr-4 group-hover:scale-110 transition-transform border border-transparent group-hover:border-[var(--color-accent)]/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    <div class="group relative p-6 rounded-3xl border border-[var(--color-border)] bg-[var(--glass-bg)] hover:bg-[var(--glass-hover-bg)] hover:border-[var(--color-accent)] hover:-translate-y-1 hover:shadow-[0_15px_30px_rgba(16,185,129,0.15)] transition-all duration-400 flex flex-col h-full overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 rounded-full blur-[50px] opacity-0 group-hover:opacity-30 bg-[var(--color-accent)] transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="flex items-start gap-4 mb-4 z-10">
+                            <div class="w-14 h-14 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent)] shadow-sm shrink-0 group-hover:scale-110 group-hover:border-[var(--color-accent)]/30 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-extrabold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors leading-tight mb-1">Google AI Essentials</h4>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-secondary)]">Technical Cert</p>
+                            </div>
                         </div>
-                        <div class="flex-1">
-                            <h5 class="font-bold text-sm text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors line-clamp-1">Google AI</h5>
-                            <p class="text-[11px] text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mt-0.5">Technical Cert</p>
-                        </div>
-                        <div class="flex items-center gap-1.5 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-xs font-bold text-[var(--color-accent)]">
-                            <span>View</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                        </div>
-                    </a>
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-6 flex-grow z-10">Demonstrated knowledge of core artificial intelligence concepts, prompt engineering, and modern AI tool integration.</p>
+                        <a href="https://drive.google.com/drive/folders/114g5rflkxgKwQzMhpV8YQek_3SF1uCcG?usp=sharing" target="_blank" rel="noopener noreferrer" class="mt-auto w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] text-sm font-bold text-[var(--color-text-primary)] group-hover:bg-[var(--color-accent)] group-hover:text-white group-hover:border-transparent transition-all shadow-sm z-10 cursor-pointer">
+                            View Certification
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                    </div>
 
                 </div>
             </div>
@@ -1603,7 +1632,7 @@
                     <!-- 6. CSPM -->
                     <div class="p-5 border border-[var(--color-border)] rounded-xl bg-[var(--glass-bg)] hover:border-teal-500 transition-all hover:-translate-y-1 shadow-sm">
                         <div class="w-12 h-12 rounded-lg bg-teal-500/10 flex items-center justify-center text-teal-500 mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 17 22 12"/></svg>
                         </div>
                         <h4 class="font-bold text-lg mb-1">CSPM</h4>
                         <p class="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-bold mb-3">Cloud Posture</p>
@@ -1624,7 +1653,7 @@
                             <p class="text-sm text-[var(--color-text-secondary)]">Explore my verified Google Cloud and AI skill badges, demonstrating hands-on expertise in the Google Cloud ecosystem.</p>
                         </div>
                     </div>
-                    <a href="https://g.dev/urstrulysaida" target="_blank" rel="noopener noreferrer" class="btn-primary !bg-[#4285F4] !shadow-[0_8px_25px_rgba(66,133,244,0.3)] hover:!bg-[#3367d6] flex-shrink-0 whitespace-nowrap mt-4 md:mt-0">
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary !bg-[#4285F4] !shadow-[0_8px_25px_rgba(66,133,244,0.3)] hover:!bg-[#3367d6] flex-shrink-0 whitespace-nowrap mt-4 md:mt-0">
                         View Official Profile
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </a>
@@ -1965,7 +1994,7 @@
                 switch(cmd) {
                     case 'help': response = 'Available commands:\n  whoami    - Display user info\n  skills    - List technical skills\n  clear     - Clear terminal\n  download  - Download Resume\n  exit      - Close terminal'; break;
                     case 'whoami': response = 'Shaik Saida Vali\nCybersecurity Analyst & Cloud Architect'; break;
-                    case 'skills': response = 'GCP, AWS, Python, C++, SIEM, Zscaler SASE, Fortinet NSE, IoT (MQTT)'; break;
+                    case 'skills': response = 'Linux, Networking, Docker, Kubernetes, Terraform, CI/CD, Git'; break;
                     case 'clear': terminalOutput.innerHTML = ''; return;
                     case 'exit': terminalOverlay.classList.remove('active'); return;
                     case 'download': 
